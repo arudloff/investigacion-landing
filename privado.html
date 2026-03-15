@@ -11,7 +11,6 @@
 </head>
 <body>
 
-  <!-- LOGIN -->
   <div id="login-view" class="login-overlay">
     <div class="login-card">
       <h1>Zona Privada</h1>
@@ -29,7 +28,6 @@
     </div>
   </div>
 
-  <!-- PITCH -->
   <div id="pitch-view" style="display:none">
 
     <header class="topbar" id="topbar">
@@ -42,7 +40,7 @@
         <a href="#chile" data-section="chile">Chile</a>
         <a href="#problema" data-section="problema">Problema</a>
         <a href="#modelo" data-section="modelo">Modelo</a>
-        <a href="#impacto" data-section="impacto">Impacto</a>
+        <a href="#impacto" data-section="impacto">Resultados</a>
       </nav>
       <div class="topbar__right">
         <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Descargar Informe</a>
@@ -51,7 +49,6 @@
     </header>
 
     <div class="progress-dots" id="progress-dots"></div>
-
     <button class="fab" id="fab" onclick="document.getElementById('quicknav').classList.toggle('qn--open')" title="Navegación rápida">&#9776;</button>
     <div class="qn" id="quicknav">
       <div class="qn__head">Navegación rápida</div>
@@ -62,201 +59,158 @@
       <a class="qn__link" href="#chile" onclick="closeQN()">&#x1F1E8;&#x1F1F1; Chile</a>
       <a class="qn__link" href="#problema" onclick="closeQN()">&#x26A0; El problema</a>
       <a class="qn__link" href="#modelo" onclick="closeQN()">&#x2699; Modelo de intervención</a>
-      <a class="qn__link" href="#impacto" onclick="closeQN()">&#x1F4A5; Efecto dominó</a>
+      <a class="qn__link" href="#impacto" onclick="closeQN()">&#x1F4C8; Resultados proyectados</a>
       <a class="qn__link" href="#accion" onclick="closeQN()">&#x1F4E5; Descargar informe</a>
     </div>
 
-    <!-- S1-S8: igual que antes -->
-    <section class="slide slide--hero" id="tesis" data-dot="Tesis">
-      <div class="slide__inner">
-        <p class="slide__label anim">Colegio Camilo Henríquez · Talca, Chile</p>
-        <h1 class="slide__bigtitle anim">El Colegio Camilo Henríquez<br>ya prepara para el siglo XXI.</h1>
-        <h2 class="slide__accent anim">Las familias necesitan saberlo,<br>valorarlo y exigirlo.</h2>
-        <p class="slide__sub anim">Evidencia de 10 marcos internacionales · Datos de Chile · Un modelo de intervención desde el Trabajo Social</p>
-        <a href="#contexto" class="slide__cta anim">Descubre por qué &darr;</a>
+    <section class="slide slide--hero" id="tesis" data-dot="Tesis"><div class="slide__inner">
+      <p class="slide__label anim">Colegio Camilo Henríquez · Talca, Chile</p>
+      <h1 class="slide__bigtitle anim">El Colegio Camilo Henríquez<br>ya prepara para el siglo XXI.</h1>
+      <h2 class="slide__accent anim">Las familias necesitan saberlo,<br>valorarlo y exigirlo.</h2>
+      <p class="slide__sub anim">Evidencia de 10 marcos internacionales · Datos de Chile · Un modelo de intervención desde el Trabajo Social</p>
+      <a href="#contexto" class="slide__cta anim">Descubre por qué &darr;</a>
+    </div></section>
+
+    <section class="slide slide--dark" id="contexto" data-dot="Contexto"><div class="slide__inner">
+      <h2 class="slide__heading anim">El mundo ya cambió</h2>
+      <p class="slide__sub anim">Haz clic en cualquier cifra para conocer el contexto.</p>
+      <div class="kpi-grid">
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em><div class="kpi__detail">Goldman Sachs estima que la IA generativa podría exponer a automatización el equivalente a 300 millones de empleos a tiempo completo.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em><div class="kpi__detail">El WEF proyecta 92 millones desplazados y 170 millones creados. Los nuevos requieren destrezas del siglo XXI.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em><div class="kpi__detail">En economías avanzadas sube al 60%. Impacta abogados, contadores, analistas, traductores y diseñadores.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em><div class="kpi__detail">Fraudes de $25M, manipulación electoral, estafas personales. El pensamiento crítico es protección personal.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em><div class="kpi__detail">Contratación transfronteriza +38% interanual. Un joven chileno compite con talento global. La barrera del idioma desaparece.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em><div class="kpi__detail">La única preparación: desarrollar la capacidad de aprender, adaptarse, crear y colaborar.</div></div>
       </div>
-    </section>
+      <div class="cases anim"><h3>Ya está pasando</h3><div class="cases-grid"><div class="case"><strong>Klarna</strong><span>-50% staff</span></div><div class="case"><strong>IBM</strong><span>94% RRHH auto</span></div><div class="case"><strong>UPS</strong><span>-20.000</span></div><div class="case"><strong>Chegg</strong><span>-45%</span></div><div class="case"><strong>Duolingo</strong><span>-10%</span></div><div class="case"><strong>Dropbox</strong><span>-528</span></div></div></div>
+    </div></section>
 
-    <section class="slide slide--dark" id="contexto" data-dot="Contexto">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">El mundo ya cambió</h2>
-        <p class="slide__sub anim">Haz clic en cualquier cifra para conocer el contexto.</p>
-        <div class="kpi-grid">
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em><div class="kpi__detail">Goldman Sachs estima que la IA generativa podría exponer a automatización el equivalente a 300 millones de empleos a tiempo completo. No todos desaparecerán, pero las tareas que los componen cambiarán radicalmente.</div></div>
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em><div class="kpi__detail">El WEF proyecta 92 millones desplazados y 170 millones creados. La clave: los nuevos requieren destrezas del siglo XXI que la mayoría no tiene.</div></div>
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em><div class="kpi__detail">En economías avanzadas sube al 60%. Impacta abogados, contadores, analistas, traductores y diseñadores.</div></div>
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em><div class="kpi__detail">Fraudes de $25M con deepfakes, manipulación electoral, estafas personales. El pensamiento crítico es ahora protección personal.</div></div>
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em><div class="kpi__detail">Contratación transfronteriza +38% interanual. Un joven chileno compite con talento de India, Europa y EE.UU. La barrera del idioma desaparece con traducción en tiempo real.</div></div>
-          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em><div class="kpi__detail">La única preparación posible: desarrollar la capacidad de aprender, adaptarse, crear y colaborar.</div></div>
-        </div>
-        <div class="cases anim"><h3>Ya está pasando</h3><div class="cases-grid"><div class="case"><strong>Klarna</strong><span>-50% staff, duplicó ingresos</span></div><div class="case"><strong>IBM</strong><span>94% RRHH automatizado</span></div><div class="case"><strong>UPS</strong><span>-20.000 empleos</span></div><div class="case"><strong>Chegg</strong><span>-45% por ChatGPT</span></div><div class="case"><strong>Duolingo</strong><span>-10% contratistas</span></div><div class="case"><strong>Dropbox</strong><span>-528 empleados</span></div></div></div>
+    <section class="slide" id="ia" data-dot="IA"><div class="slide__inner">
+      <h2 class="slide__heading anim">Lo que define el futuro de tus hijos</h2>
+      <p class="slide__sub anim">No es lo que la IA <em>puede</em> hacer. Es lo que <strong>no puede</strong>.</p>
+      <div class="versus">
+        <div class="versus__col versus__col--red anim"><h3>La IA ya hace mejor</h3><ul><li>Tareas rutinarias y repetitivas</li><li>Procesamiento de datos masivos</li><li>Traducción, resumen, codificación</li><li>Contabilidad y compliance</li><li>Atención al cliente por script</li><li>Diseño basado en plantillas</li></ul><p class="versus__verdict">Estas destrezas <strong>pierden valor</strong> cada día</p></div>
+        <div class="versus__col versus__col--green anim"><h3>La IA NO puede hacer</h3><ul><li>Juicio ético en contextos complejos</li><li>Creatividad genuinamente original</li><li>Empatía y relaciones profundas</li><li>Liderazgo en incertidumbre</li><li>Motivación intrínseca y propósito</li><li>Negociación con dimensión emocional</li></ul><p class="versus__verdict">Estas destrezas <strong>ganan +56% prima salarial</strong></p></div>
       </div>
-    </section>
+      <p class="slide__punchline anim">Los estudiantes que solo memoricen competirán contra la IA &mdash; y perderán.<br><strong>Los que desarrollen estas destrezas tendrán una ventaja que ninguna tecnología replica.</strong></p>
+    </div></section>
 
-    <section class="slide" id="ia" data-dot="IA">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">Lo que define el futuro de tus hijos</h2>
-        <p class="slide__sub anim">No es lo que la IA <em>puede</em> hacer. Es lo que <strong>no puede</strong>.</p>
-        <div class="versus">
-          <div class="versus__col versus__col--red anim"><h3>La IA ya hace mejor</h3><ul><li>Tareas rutinarias y repetitivas</li><li>Procesamiento de datos masivos</li><li>Traducción, resumen, codificación</li><li>Contabilidad y compliance</li><li>Atención al cliente por script</li><li>Diseño basado en plantillas</li></ul><p class="versus__verdict">Estas destrezas <strong>pierden valor</strong> cada día</p></div>
-          <div class="versus__col versus__col--green anim"><h3>La IA NO puede hacer</h3><ul><li>Juicio ético en contextos complejos</li><li>Creatividad genuinamente original</li><li>Empatía y relaciones profundas</li><li>Liderazgo en incertidumbre</li><li>Motivación intrínseca y propósito</li><li>Negociación con dimensión emocional</li></ul><p class="versus__verdict">Estas destrezas <strong>ganan +56% prima salarial</strong></p></div>
-        </div>
-        <p class="slide__punchline anim">Los estudiantes que solo memoricen competirán contra la IA &mdash; y perderán.<br><strong>Los que desarrollen estas destrezas tendrán una ventaja que ninguna tecnología replica.</strong></p>
+    <section class="slide slide--dark" id="oportunidad" data-dot="Oportunidad"><div class="slide__inner">
+      <h2 class="slide__heading anim">La oportunidad es enorme</h2>
+      <div class="opp-grid">
+        <div class="opp-card anim"><div class="opp-card__num">+56%</div><h3>Prima salarial</h3><p>Quienes complementan a la IA ganan 56% más</p><em>PwC, 2025</em></div>
+        <div class="opp-card anim"><div class="opp-card__num">12,4x</div><h3>Startups con IA</h3><p>12,4x más ingresos por empleado que Fortune 500</p><em>MBO Partners</em></div>
+        <div class="opp-card anim"><div class="opp-card__num">$250K</div><h3>Nuevos roles</h3><p>Prompt Engineer, AI Ethics Officer. No existían hace 5 años</p><em>Lightcast</em></div>
+        <div class="opp-card anim"><div class="opp-card__num">$75K</div><h3>Trabajo remoto</h3><p>Salario mediano global para remotos, sin emigrar</p><em>Deel, 2026</em></div>
       </div>
-    </section>
+    </div></section>
 
-    <section class="slide slide--dark" id="oportunidad" data-dot="Oportunidad">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">La oportunidad es enorme</h2>
-        <div class="opp-grid">
-          <div class="opp-card anim"><div class="opp-card__num">+56%</div><h3>Prima salarial</h3><p>Quienes complementan a la IA ganan un 56% más</p><em>PwC, 2025</em></div>
-          <div class="opp-card anim"><div class="opp-card__num">12,4x</div><h3>Startups con IA</h3><p>12,4x más ingresos por empleado que Fortune 500</p><em>MBO Partners</em></div>
-          <div class="opp-card anim"><div class="opp-card__num">$250K</div><h3>Nuevos roles</h3><p>Prompt Engineer, AI Ethics Officer. No existían hace 5 años</p><em>Lightcast</em></div>
-          <div class="opp-card anim"><div class="opp-card__num">$75K</div><h3>Trabajo remoto global</h3><p>Salario mediano global para remotos, sin emigrar</p><em>Deel, 2026</em></div>
-        </div>
+    <section class="slide" id="competencias" data-dot="Competencias"><div class="slide__inner">
+      <h2 class="slide__heading anim">Las 5 competencias innegociables</h2>
+      <p class="slide__sub anim">Presentes en los 10 marcos internacionales. Son exactamente lo que el Colegio Camilo Henríquez desarrolla.</p>
+      <div class="comp-row">
+        <div class="comp anim"><span>&#x1F9E0;</span><h3>Pensamiento<br>crítico</h3></div>
+        <div class="comp anim"><span>&#x1F3AF;</span><h3>Iniciativa<br>propia</h3></div>
+        <div class="comp anim"><span>&#x1F91D;</span><h3>Colaboración</h3></div>
+        <div class="comp anim"><span>&#x1F504;</span><h3>Adaptabilidad</h3></div>
+        <div class="comp anim"><span>&#x1F4A1;</span><h3>Creatividad</h3></div>
       </div>
-    </section>
+      <p class="slide__sub anim" style="margin-top:1.5rem"><strong>OCDE · WEF · UNESCO · P21 · Harvard · Ken Robinson · MINEDUC · CASEL</strong></p>
+    </div></section>
 
-    <section class="slide" id="competencias" data-dot="Competencias">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">Las 5 competencias innegociables</h2>
-        <p class="slide__sub anim">Presentes en los 10 marcos internacionales. Son exactamente lo que el Colegio Camilo Henríquez desarrolla.</p>
-        <div class="comp-row">
-          <div class="comp anim"><span>&#x1F9E0;</span><h3>Pensamiento<br>crítico</h3></div>
-          <div class="comp anim"><span>&#x1F3AF;</span><h3>Iniciativa<br>propia</h3></div>
-          <div class="comp anim"><span>&#x1F91D;</span><h3>Colaboración</h3></div>
-          <div class="comp anim"><span>&#x1F504;</span><h3>Adaptabilidad</h3></div>
-          <div class="comp anim"><span>&#x1F4A1;</span><h3>Creatividad</h3></div>
-        </div>
-        <p class="slide__sub anim" style="margin-top:1.5rem"><strong>OCDE · WEF · UNESCO · P21 · Harvard · Ken Robinson · MINEDUC · CASEL</strong></p>
+    <section class="slide slide--chile" id="chile" data-dot="Chile"><div class="slide__inner">
+      <h2 class="slide__heading anim">En Chile la urgencia es aún mayor</h2>
+      <div class="chile-grid">
+        <div class="chile-stat anim"><strong>55%</strong><p>de empleos son tareas repetitivas<br><em>El mayor % de toda la OCDE</em></p></div>
+        <div class="chile-stat anim"><strong>4,7M</strong><p>trabajadores pueden acelerar +30% de tareas con IA</p></div>
+        <div class="chile-stat anim"><strong>21,4%</strong><p>desempleo juvenil<br><em>Uno de cada cinco jóvenes</em></p></div>
+        <div class="chile-stat anim"><strong>81%</strong><p>cree que la IA facilita fake news<br><em>3er país del mundo</em></p></div>
+        <div class="chile-stat anim"><strong>25,5%</strong><p>puede detectar contenido generado por IA</p></div>
+        <div class="chile-stat anim"><strong>52%</strong><p>recibe info falsa<br><em>todos o casi todos los días</em></p></div>
       </div>
-    </section>
+      <p class="slide__punchline anim">Las familias del Colegio Camilo Henríquez no solo enfrentan un escenario global.<br><strong>Enfrentan un contexto nacional donde la brecha es especialmente aguda.</strong></p>
+    </div></section>
 
-    <section class="slide slide--chile" id="chile" data-dot="Chile">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">En Chile la urgencia es aún mayor</h2>
-        <div class="chile-grid">
-          <div class="chile-stat anim"><strong>55%</strong><p>de empleos son tareas repetitivas<br><em>El mayor porcentaje de toda la OCDE</em></p></div>
-          <div class="chile-stat anim"><strong>4,7M</strong><p>trabajadores pueden acelerar +30% de sus tareas con IA</p></div>
-          <div class="chile-stat anim"><strong>21,4%</strong><p>desempleo juvenil<br><em>Uno de cada cinco jóvenes</em></p></div>
-          <div class="chile-stat anim"><strong>81%</strong><p>cree que la IA facilita fake news<br><em>3er país del mundo</em></p></div>
-          <div class="chile-stat anim"><strong>25,5%</strong><p>puede detectar contenido generado por IA</p></div>
-          <div class="chile-stat anim"><strong>52%</strong><p>recibe información falsa<br><em>todos o casi todos los días</em></p></div>
-        </div>
-        <p class="slide__punchline anim">Las familias del Colegio Camilo Henríquez no solo enfrentan un escenario global.<br><strong>Enfrentan un contexto nacional donde la brecha es especialmente aguda.</strong></p>
+    <section class="slide slide--dark" id="problema" data-dot="Problema"><div class="slide__inner">
+      <h2 class="slide__heading anim">El problema no está en el colegio</h2>
+      <p class="slide__accent anim" style="text-align:center;margin-bottom:2rem">Está en lo que viene después.</p>
+      <div class="flow anim">
+        <div class="flow__step flow__step--ok"><h3>Camilo Henríquez</h3><p>Ya forma personas competentes para el siglo XXI</p></div>
+        <div class="flow__arrow">&rarr;</div>
+        <div class="flow__step flow__step--warn"><h3>Egreso</h3><p>¿Las familias saben exigir este estándar?</p></div>
+        <div class="flow__arrow">&rarr;</div>
+        <div class="flow__step flow__step--danger"><h3>Colegio de continuidad</h3><p>Sin familias empoderadas, se pierde lo ganado</p></div>
       </div>
-    </section>
-
-    <section class="slide slide--dark" id="problema" data-dot="Problema">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">El problema no está en el colegio</h2>
-        <p class="slide__accent anim" style="text-align:center;margin-bottom:2rem">Está en lo que viene después.</p>
-        <div class="flow anim">
-          <div class="flow__step flow__step--ok"><h3>Camilo Henríquez</h3><p>Ya forma personas competentes para el siglo XXI</p></div>
-          <div class="flow__arrow">&rarr;</div>
-          <div class="flow__step flow__step--warn"><h3>Egreso</h3><p>¿Las familias saben exigir este estándar?</p></div>
-          <div class="flow__arrow">&rarr;</div>
-          <div class="flow__step flow__step--danger"><h3>Colegio de continuidad</h3><p>Sin familias empoderadas, se pierde lo ganado</p></div>
-        </div>
-        <div class="problem-box anim">
-          <p>Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo en los colegios de continuidad.</p>
-          <p class="problem-box__action">Este proyecto les da las herramientas para hacerlo.</p>
-        </div>
+      <div class="problem-box anim">
+        <p>Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo en los colegios de continuidad.</p>
+        <p class="problem-box__action">Este proyecto les da las herramientas para hacerlo.</p>
       </div>
-    </section>
+    </div></section>
 
-    <section class="slide" id="modelo" data-dot="Modelo">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">El modelo de intervención</h2>
-        <p class="slide__sub anim">Tres fases articuladas desde el Trabajo Social. Explora cada una.</p>
-        <div class="tabs anim">
-          <button class="tab tab--active" onclick="switchTab(0,this)">1. Definir</button>
-          <button class="tab" onclick="switchTab(1,this)">2. Difundir + Activar</button>
-          <button class="tab" onclick="switchTab(2,this)">3. Sostener</button>
-        </div>
-        <div class="tab-panels">
-          <div class="tab-panel tab-panel--active" id="tabp-0"><div class="tp-grid"><div class="tp-main"><h3>Observatorio Escolar de Inclusión y Bienestar</h3><p>Diagnóstico social riguroso que produce la base informacional para toda la intervención.</p><div class="tp-tags"><span>Encuesta 46 preguntas</span><span>Entrevistas</span><span>Grupos focales</span><span>Índice ICAF</span></div></div><div class="tp-detail"><h4>5 dimensiones de observación</h4><ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes y recursos</li><li>Condiciones sociales</li></ul><h4>Protocolo ético</h4><p>6 principios: beneficencia, no maleficencia, autonomía, justicia, transparencia, proporcionalidad. 3 consentimientos informados diferenciados.</p></div></div></div>
-          <div class="tab-panel" id="tabp-1"><div class="tp-grid"><div class="tp-main"><h3>Programa de Fortalecimiento Familiar</h3><p>Empoderar a las familias para que conozcan, valoren y exijan la educación del siglo XXI.</p><div class="tp-tags"><span>4 talleres</span><span>3 niveles</span><span>Rúbrica</span><span>Cuadernillo</span></div></div><div class="tp-detail"><h4>Los 4 talleres (90 min c/u)</h4><ul><li><strong>Taller 1:</strong> Nuestro colegio — conocer el modelo</li><li><strong>Taller 2:</strong> Competencias sXXI — comprender por qué importan</li><li><strong>Taller 3:</strong> Evaluar y exigir — rúbrica con 16 criterios</li><li><strong>Taller 4:</strong> De la información a la convicción — pasar a la acción</li></ul><h4>3 niveles de intervención</h4><p><strong>Universal:</strong> todas las familias. <strong>Selectivo:</strong> familias con dificultades. <strong>Indicado:</strong> familias en crisis.</p></div></div></div>
-          <div class="tab-panel" id="tabp-2"><div class="tp-grid"><div class="tp-main"><h3>Red de Agentes Comunitarios Escolares</h3><p>Instalar capacidad comunitaria que trascienda la presencia del profesional.</p><div class="tp-tags"><span>12 horas</span><span>Certificación</span><span>Red activa</span><span>4 perfiles</span></div></div><div class="tp-detail"><h4>4 perfiles de agentes</h4><ul><li>Líderes parentales</li><li>Egresados del colegio</li><li>Líderes territoriales</li><li>Profesionales locales vinculados</li></ul><h4>7 módulos de formación</h4><p>Modelo educativo, escucha activa, empoderamiento, detección de señales, derivación, rol y límites, autocuidado. Reuniones mensuales de red.</p></div></div></div>
-        </div>
+    <section class="slide" id="modelo" data-dot="Modelo"><div class="slide__inner">
+      <h2 class="slide__heading anim">El modelo de intervención</h2>
+      <p class="slide__sub anim">Tres fases articuladas desde el Trabajo Social. Explora cada una.</p>
+      <div class="tabs anim">
+        <button class="tab tab--active" onclick="switchTab(0,this)">1. Definir</button>
+        <button class="tab" onclick="switchTab(1,this)">2. Difundir + Activar</button>
+        <button class="tab" onclick="switchTab(2,this)">3. Sostener</button>
       </div>
-    </section>
+      <div class="tab-panels">
+        <div class="tab-panel tab-panel--active" id="tabp-0"><div class="tp-grid"><div class="tp-main"><h3>Observatorio Escolar de Inclusión y Bienestar</h3><p>Diagnóstico social riguroso que produce la base informacional para toda la intervención.</p><div class="tp-tags"><span>Encuesta 46 preguntas</span><span>Entrevistas</span><span>Grupos focales</span><span>Índice ICAF</span></div></div><div class="tp-detail"><h4>5 dimensiones de observación</h4><ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes y recursos</li><li>Condiciones sociales</li></ul><h4>Protocolo ético</h4><p>6 principios: beneficencia, no maleficencia, autonomía, justicia, transparencia, proporcionalidad.</p></div></div></div>
+        <div class="tab-panel" id="tabp-1"><div class="tp-grid"><div class="tp-main"><h3>Programa de Fortalecimiento Familiar</h3><p>Empoderar a las familias para que conozcan, valoren y exijan la educación del siglo XXI.</p><div class="tp-tags"><span>4 talleres</span><span>3 niveles</span><span>Rúbrica</span><span>Cuadernillo</span></div></div><div class="tp-detail"><h4>Los 4 talleres (90 min c/u)</h4><ul><li><strong>T1:</strong> Nuestro colegio</li><li><strong>T2:</strong> Competencias sXXI</li><li><strong>T3:</strong> Evaluar y exigir</li><li><strong>T4:</strong> De información a convicción</li></ul><h4>3 niveles</h4><p><strong>Universal</strong> · <strong>Selectivo</strong> · <strong>Indicado</strong></p></div></div></div>
+        <div class="tab-panel" id="tabp-2"><div class="tp-grid"><div class="tp-main"><h3>Red de Agentes Comunitarios Escolares</h3><p>Instalar capacidad comunitaria que trascienda la presencia del profesional.</p><div class="tp-tags"><span>12 horas</span><span>Certificación</span><span>Red activa</span><span>4 perfiles</span></div></div><div class="tp-detail"><h4>4 perfiles de agentes</h4><ul><li>Líderes parentales</li><li>Egresados del colegio</li><li>Líderes territoriales</li><li>Profesionales locales</li></ul><h4>7 módulos de formación</h4><p>Modelo educativo, escucha activa, empoderamiento, detección, derivación, rol y límites, autocuidado.</p></div></div></div>
+      </div>
+    </div></section>
 
-    <!-- S9: EFECTO DOMINÓ (antes "Entregables") -->
-    <section class="slide slide--dark" id="impacto" data-dot="Impacto">
+    <!-- S9: RESULTADOS PROYECTADOS -->
+    <section class="slide slide--dark" id="impacto" data-dot="Resultados">
       <div class="slide__inner">
-        <h2 class="slide__heading anim">El efecto dominó que desata este proyecto</h2>
-        <p class="slide__sub anim">No es una lista de documentos. Es una cadena de transformaciones.</p>
-
-        <div class="domino-chain">
-          <div class="domino anim">
-            <div class="domino__num">1</div>
-            <div class="domino__body">
-              <h3>Visibiliza lo invisible</h3>
-              <p>Las familias descubren que la educación que reciben sus hijos <strong>no es obvia ni común</strong>. El diagnóstico revela la brecha entre lo que el colegio ofrece y lo que las familias perciben.</p>
-            </div>
+        <h2 class="slide__heading anim">Resultados proyectados de la intervención</h2>
+        <p class="slide__sub anim">Cada fase genera un resultado concreto que habilita el siguiente.</p>
+        <div class="impact-grid">
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F50D;</div>
+            <h3>Visibilizar la brecha</h3>
+            <p>Las familias descubren que la educación que reciben sus hijos <strong>no es obvia ni común</strong> en el sistema escolar chileno.</p>
           </div>
-          <div class="domino__connector anim">&darr;</div>
-
-          <div class="domino anim">
-            <div class="domino__num">2</div>
-            <div class="domino__body">
-              <h3>Transforma la percepción en convicción</h3>
-              <p>Las familias pasan de <em>"el colegio hace cosas raras"</em> a <strong>"mi hijo recibe una formación que el mercado global premia con +56%"</strong>. Comprenden con datos lo que antes solo intuían.</p>
-            </div>
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F4A1;</div>
+            <h3>Convertir percepción en convicción</h3>
+            <p>De <em>"hacen cosas diferentes"</em> a <strong>"mi hijo recibe una formación que el mercado global premia con +56%"</strong>.</p>
           </div>
-          <div class="domino__connector anim">&darr;</div>
-
-          <div class="domino anim">
-            <div class="domino__num">3</div>
-            <div class="domino__body">
-              <h3>Convierte a las familias en garantes</h3>
-              <p>Familias con criterio informado y una rúbrica de 16 puntos en la mano. Ya no confían a ciegas: <strong>saben evaluar si un colegio prepara para el futuro o para el pasado</strong>.</p>
-            </div>
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F6E1;</div>
+            <h3>Familias como garantes</h3>
+            <p>Con criterio informado y una rúbrica de 16 puntos, las familias <strong>saben evaluar si un colegio prepara para el futuro</strong>.</p>
           </div>
-          <div class="domino__connector anim">&darr;</div>
-
-          <div class="domino anim">
-            <div class="domino__num">4</div>
-            <div class="domino__body">
-              <h3>Protege la trayectoria más allá del egreso</h3>
-              <p>Cuando los estudiantes pasen a un colegio de continuidad, sus familias <strong>exigirán el estándar</strong> que conocieron aquí. La formación del siglo XXI deja de depender de un solo colegio.</p>
-            </div>
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F393;</div>
+            <h3>Proteger la trayectoria</h3>
+            <p>Al egresar, las familias <strong>exigen el estándar</strong> en los colegios de continuidad. La formación deja de depender de un solo colegio.</p>
           </div>
-          <div class="domino__connector anim">&darr;</div>
-
-          <div class="domino anim">
-            <div class="domino__num">5</div>
-            <div class="domino__body">
-              <h3>Instala capacidad comunitaria permanente</h3>
-              <p>Líderes formados, una red activa y herramientas transferibles. <strong>El empoderamiento no desaparece cuando el profesional se va</strong>. La comunidad se sostiene sola.</p>
-            </div>
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F91D;</div>
+            <h3>Capacidad comunitaria instalada</h3>
+            <p>Líderes formados, red activa y herramientas transferibles. <strong>El empoderamiento persiste sin el profesional</strong>.</p>
           </div>
-          <div class="domino__connector anim">&darr;</div>
-
-          <div class="domino domino--final anim">
-            <div class="domino__num">6</div>
-            <div class="domino__body">
-              <h3>Presiona al sistema educativo desde abajo</h3>
-              <p>Cada familia empoderada es una voz que exige calidad. Multiplicadas, <strong>transforman la demanda educativa de toda una comunidad</strong>. El cambio ya no depende solo de políticas públicas: nace desde las familias.</p>
-            </div>
+          <div class="impact-card anim">
+            <div class="impact-card__icon">&#x1F4C8;</div>
+            <h3>Transformar la demanda educativa</h3>
+            <p>Cada familia empoderada exige calidad. Multiplicadas, <strong>presionan al sistema educativo desde la base</strong>.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- S10: CTA -->
-    <section class="slide slide--cta" id="accion" data-dot="Acción">
-      <div class="slide__inner">
-        <h2 class="anim">La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
-        <p class="anim">Este proyecto le da a las familias las herramientas para comprenderlo, valorarlo y exigirlo.</p>
-        <div class="cta-buttons anim">
-          <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
-          <a href="index.html" class="cta-btn cta-btn--secondary">Ver landing pública</a>
-        </div>
-        <p class="cta-note">Colegio Camilo Henríquez · Talca, Chile · 2026<br>Contenido confidencial · Uso académico/profesional</p>
+    <section class="slide slide--cta" id="accion" data-dot="Acción"><div class="slide__inner">
+      <h2 class="anim">La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
+      <p class="anim">Este proyecto le da a las familias las herramientas para comprenderlo, valorarlo y exigirlo.</p>
+      <div class="cta-buttons anim">
+        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
+        <a href="index.html" class="cta-btn cta-btn--secondary">Ver landing pública</a>
       </div>
-    </section>
+      <p class="cta-note">Colegio Camilo Henríquez · Talca, Chile · 2026<br>Contenido confidencial · Uso académico/profesional</p>
+    </div></section>
 
   </div>
 
@@ -264,38 +218,14 @@
   <script src="config.js"></script>
   <script>
     var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    async function doLogin(){
-      var e=document.getElementById('login-error');e.textContent='';
-      var r=await sb.auth.signInWithPassword({email:document.getElementById('login-email').value.trim(),password:document.getElementById('login-pass').value});
-      if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;} show();
-    }
-    function show(){
-      document.getElementById('login-view').style.display='none';
-      document.getElementById('pitch-view').style.display='block';
-      initAnimations(); initProgressDots(); initActiveNav();
-    }
+    async function doLogin(){var e=document.getElementById('login-error');e.textContent='';var r=await sb.auth.signInWithPassword({email:document.getElementById('login-email').value.trim(),password:document.getElementById('login-pass').value});if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;}show();}
+    function show(){document.getElementById('login-view').style.display='none';document.getElementById('pitch-view').style.display='block';initAnimations();initProgressDots();initActiveNav();}
     async function doLogout(){await sb.auth.signOut();location.reload();}
     function closeQN(){document.getElementById('quicknav').classList.remove('qn--open');}
-    function switchTab(idx,btn){
-      document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('tab--active');});
-      btn.classList.add('tab--active');
-      document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('tab-panel--active',i===idx);});
-    }
-    function initAnimations(){
-      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('anim--visible');});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
-      document.querySelectorAll('.anim').forEach(function(el){obs.observe(el);});
-    }
-    function initProgressDots(){
-      var slides=document.querySelectorAll('.slide[data-dot]');var c=document.getElementById('progress-dots');c.innerHTML='';
-      slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});
-      var dots=c.querySelectorAll('.pdot');
-      slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});
-    }
-    function initActiveNav(){
-      var links=document.querySelectorAll('#topnav a[data-section]');var secs=[];
-      links.forEach(function(a){var el=document.getElementById(a.dataset.section);if(el)secs.push({el:el,link:a});});
-      secs.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('topnav--active');});s.link.classList.add('topnav--active');}});},{threshold:0.3,rootMargin:'-48px 0px -50% 0px'}).observe(s.el);});
-    }
+    function switchTab(idx,btn){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('tab--active');});btn.classList.add('tab--active');document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('tab-panel--active',i===idx);});}
+    function initAnimations(){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('anim--visible');});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.anim').forEach(function(el){obs.observe(el);});}
+    function initProgressDots(){var slides=document.querySelectorAll('.slide[data-dot]');var c=document.getElementById('progress-dots');c.innerHTML='';slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});var dots=c.querySelectorAll('.pdot');slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});}
+    function initActiveNav(){var links=document.querySelectorAll('#topnav a[data-section]');var secs=[];links.forEach(function(a){var el=document.getElementById(a.dataset.section);if(el)secs.push({el:el,link:a});});secs.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('topnav--active');});s.link.classList.add('topnav--active');}});},{threshold:0.3,rootMargin:'-48px 0px -50% 0px'}).observe(s.el);});}
     (async function(){var r=await sb.auth.getSession();if(r.data&&r.data.session)show();})();
   </script>
 </body>
