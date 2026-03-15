@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrumentos y Materiales — CCH Investigación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pitch.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="loading" class="loading">Verificando acceso...</div>
+  <div id="app" style="display:none">
+
+    <header class="topbar">
+      <a href="privado.html" class="topbar__title">CCH · Investigación</a>
+      <nav class="sitenav">
+        <a href="privado.html">Inicio</a>
+        <a href="investigacion.html">Evidencia</a>
+        <a href="modelo.html">Modelo</a>
+        <a href="instrumentos.html">Instrumentos</a>
+        <a href="para-familias.html">Familias</a>
+      </nav>
+      <div class="topbar__right">
+        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Informe completo</a>
+        <button class="topbar__logout" onclick="doLogout()">Salir</button>
+      </div>
+    </header>
+
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <h1 class="anim">Instrumentos y Materiales</h1>
+        <p class="anim">Herramientas diseñadas, validadas y listas para aplicar. Todo el detalle técnico está en el informe descargable.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">8 instrumentos listos para usar</h2>
+        <div class="inst-grid">
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F4CB;</div>
+            <h3>Encuesta diagnóstica</h3>
+            <p>46 preguntas en 6 secciones: sociodemográfica, conocimiento del modelo, valoración, disposición, condiciones/barreras, contexto digital.</p>
+            <div class="inst__meta">Fase: Definir · Aplicación: masiva</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F399;</div>
+            <h3>Guía de entrevista</h3>
+            <p>Entrevista semiestructurada con 5 bloques temáticos para profundizar en percepciones familiares.</p>
+            <div class="inst__meta">Fase: Definir · Aplicación: selectiva</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F465;</div>
+            <h3>Guía de grupo focal</h3>
+            <p>3 bloques de discusión grupal para triangular datos cualitativos con familias.</p>
+            <div class="inst__meta">Fase: Definir · Aplicación: grupal</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F4DC;</div>
+            <h3>Protocolo ético</h3>
+            <p>6 principios, 3 consentimientos informados diferenciados, protocolo de manejo de datos y devolución.</p>
+            <div class="inst__meta">Fase: Transversal · Aplicación: obligatoria</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F4D6;</div>
+            <h3>Cuadernillo para familias</h3>
+            <p>5 páginas en lenguaje accesible: qué hace diferente al colegio, las 6 habilidades, por qué importa hoy.</p>
+            <div class="inst__meta">Fase: Difundir · Entregable a familias</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x2705;</div>
+            <h3>Rúbrica de evaluación</h3>
+            <p>16 criterios en 4 dimensiones + 10 preguntas poderosas para que las familias evalúen colegios de continuidad.</p>
+            <div class="inst__meta">Fase: Activar · Herramienta de empoderamiento</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F4CB;</div>
+            <h3>Estrategia de convocatoria</h3>
+            <p>5 perfiles familiares con estrategias diferenciadas, 8 canales de comunicación, 6 principios de equidad.</p>
+            <div class="inst__meta">Fase: Difundir · Aplicación: planificación</div>
+          </div>
+          <div class="inst anim">
+            <div class="inst__icon">&#x1F3C5;</div>
+            <h3>Programa de formación de agentes</h3>
+            <p>7 módulos, 12 horas, certificación. Desde el modelo educativo hasta autocuidado del agente.</p>
+            <div class="inst__meta">Fase: Sostener · Aplicación: formación</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--cta">
+      <div class="slide__inner">
+        <h2 class="anim">Todo el detalle técnico está en el informe.</h2>
+        <p class="anim">Cada instrumento incluye su guía de aplicación, matrices de análisis y criterios de evaluación.</p>
+        <div class="cta-buttons anim">
+          <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
+          <a href="para-familias.html" class="cta-btn cta-btn--secondary">Ver versión para familias &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="auth-guard.js"></script>
+  <script>(async function(){if(await checkAuth()){document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';initAnimations();initActivePageNav();}})();</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo de Intervención — CCH Investigación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pitch.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="loading" class="loading">Verificando acceso...</div>
+  <div id="app" style="display:none">
+
+    <header class="topbar">
+      <a href="privado.html" class="topbar__title">CCH · Investigación</a>
+      <nav class="sitenav">
+        <a href="privado.html">Inicio</a>
+        <a href="investigacion.html">Evidencia</a>
+        <a href="modelo.html">Modelo</a>
+        <a href="instrumentos.html">Instrumentos</a>
+        <a href="para-familias.html">Familias</a>
+      </nav>
+      <div class="topbar__right">
+        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Informe completo</a>
+        <button class="topbar__logout" onclick="doLogout()">Salir</button>
+      </div>
+    </header>
+
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <h1 class="anim">El Modelo de Intervención</h1>
+        <p class="anim">Tres fases articuladas desde el Trabajo Social: Definir → Difundir + Activar → Sostener</p>
+      </div>
+    </section>
+
+    <!-- FASE 1 -->
+    <section class="slide" id="fase1">
+      <div class="slide__inner">
+        <div class="fase-header anim">
+          <span class="fase-num">Fase 1</span>
+          <h2>Definir: Observatorio Escolar</h2>
+        </div>
+        <p class="slide__sub anim">Producir conocimiento social sobre las familias, los estudiantes y su relación con el modelo educativo.</p>
+        <div class="fase-grid">
+          <div class="fase-card anim">
+            <h3>4 fases operativas</h3>
+            <ul><li>Diseño de instrumentos</li><li>Recolección de datos</li><li>Análisis</li><li>Devolución de resultados</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>5 dimensiones</h3>
+            <ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes y recursos</li><li>Condiciones sociales</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>Instrumentos</h3>
+            <ul><li>Encuesta diagnóstica (46 preguntas)</li><li>Entrevista semiestructurada</li><li>Grupo focal</li><li>Índice ICAF compuesto</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>Protocolo ético</h3>
+            <ul><li>6 principios rectores</li><li>3 consentimientos informados</li><li>Protocolo de manejo de datos</li><li>Compromiso de confidencialidad</li></ul>
+          </div>
+        </div>
+        <div class="icaf-box anim">
+          <h3>Índice ICAF</h3>
+          <p class="icaf-formula">ICAF = (C×0.25 + V×0.25 + D×0.30 + H×0.20) × 100</p>
+          <div class="icaf-ranges">
+            <span class="icaf-r icaf-r--1">0-25: Desconexión</span>
+            <span class="icaf-r icaf-r--2">26-50: Conocimiento básico</span>
+            <span class="icaf-r icaf-r--3">51-75: Valoración activa</span>
+            <span class="icaf-r icaf-r--4">76-100: Agencia plena</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 2 -->
+    <section class="slide slide--dark" id="fase2">
+      <div class="slide__inner">
+        <div class="fase-header anim">
+          <span class="fase-num">Fase 2</span>
+          <h2>Difundir + Activar: Programa Familiar</h2>
+        </div>
+        <p class="slide__sub anim">Empoderar a las familias para que conozcan, valoren y exijan la educación del siglo XXI.</p>
+
+        <h3 class="slide__heading anim" style="font-size:1.2rem;margin-top:2rem">Los 4 talleres</h3>
+        <div class="taller-grid">
+          <div class="taller anim">
+            <span class="taller__num">T1</span>
+            <h4>Nuestro colegio</h4>
+            <p>Conocer el modelo educativo. Qué hace diferente al Colegio Camilo Henríquez.</p>
+          </div>
+          <div class="taller anim">
+            <span class="taller__num">T2</span>
+            <h4>Competencias del siglo XXI</h4>
+            <p>Comprender por qué estas habilidades importan con evidencia y datos del mundo real.</p>
+          </div>
+          <div class="taller anim">
+            <span class="taller__num">T3</span>
+            <h4>Evaluar y exigir</h4>
+            <p>Rúbrica de 16 criterios y 10 preguntas poderosas para evaluar colegios de continuidad.</p>
+          </div>
+          <div class="taller anim">
+            <span class="taller__num">T4</span>
+            <h4>De la información a la convicción</h4>
+            <p>Pasar del saber al actuar. Convertir familias informadas en familias garantes.</p>
+          </div>
+        </div>
+
+        <h3 class="slide__heading anim" style="font-size:1.2rem;margin-top:2rem;color:#ffd200">3 niveles de intervención</h3>
+        <div class="nivel-grid">
+          <div class="nivel anim">
+            <h4>Universal</h4>
+            <p>Todas las familias. Talleres grupales, materiales, cuadernillo.</p>
+          </div>
+          <div class="nivel anim">
+            <h4>Selectivo</h4>
+            <p>Familias con dificultades específicas. Grupos de apoyo diferenciados.</p>
+          </div>
+          <div class="nivel anim">
+            <h4>Indicado</h4>
+            <p>Familias en crisis o alta vulnerabilidad. Acompañamiento individual.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 3 -->
+    <section class="slide" id="fase3">
+      <div class="slide__inner">
+        <div class="fase-header anim">
+          <span class="fase-num">Fase 3</span>
+          <h2>Sostener: Red de Agentes Comunitarios</h2>
+        </div>
+        <p class="slide__sub anim">Instalar capacidad comunitaria que trascienda la presencia del profesional.</p>
+        <div class="fase-grid">
+          <div class="fase-card anim">
+            <h3>4 perfiles de agentes</h3>
+            <ul><li>Líderes parentales</li><li>Egresados del colegio</li><li>Líderes territoriales</li><li>Profesionales locales</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>Formación: 7 módulos</h3>
+            <ul><li>Modelo educativo</li><li>Escucha activa</li><li>Empoderamiento</li><li>Detección de señales</li><li>Derivación</li><li>Rol y límites</li><li>Autocuidado</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>Proceso</h3>
+            <ul><li>Identificación de candidatos</li><li>12 horas de formación</li><li>Certificación</li><li>Despliegue en terreno</li></ul>
+          </div>
+          <div class="fase-card anim">
+            <h3>Red activa</h3>
+            <ul><li>Reuniones mensuales</li><li>Supervisión continua</li><li>Herramientas transferibles</li><li>Autonomía progresiva</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--cta">
+      <div class="slide__inner">
+        <h2 class="anim">Tres fases. Un objetivo.</h2>
+        <p class="anim">Que las familias comprendan, valoren y exijan la educación del siglo XXI.</p>
+        <div class="cta-buttons anim">
+          <a href="instrumentos.html" class="cta-btn cta-btn--primary">Ver los instrumentos &rarr;</a>
+          <a href="privado.html" class="cta-btn cta-btn--secondary">Volver al inicio</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="auth-guard.js"></script>
+  <script>(async function(){if(await checkAuth()){document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';initAnimations();initActivePageNav();}})();</script>
+</body>
+</html>
