@@ -20,11 +20,13 @@
 
   <main class="section">
     <div class="container">
+
+      <!-- FORMULARIO -->
       <div class="form-card" id="form-section">
         <h1>Solicitud de Acceso</h1>
         <p class="form-card__desc">Complete el formulario para solicitar acceso al contenido completo de la investigación. Su solicitud será revisada por el equipo del Colegio Camilo Henríquez.</p>
 
-        <form id="access-form">
+        <form id="access-form" onsubmit="return false;">
           <div class="field">
             <label for="nombre">Nombre completo</label>
             <input type="text" id="nombre" required placeholder="Ej: María Pérez González">
@@ -39,12 +41,13 @@
           </div>
           <div class="field">
             <label for="motivo">Motivo de interés</label>
-            <textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder a esta investigación..."></textarea>
+            <textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea>
           </div>
 
-          <div class="acuerdo-section">
-            <button type="button" class="acuerdo-toggle" id="toggle-acuerdo">Leer Acuerdo de Confidencialidad y Uso Responsable &darr;</button>
-            <div class="acuerdo-texto" id="acuerdo-texto">
+          <!-- ACUERDO - siempre visible -->
+          <details class="acuerdo-details">
+            <summary class="acuerdo-toggle">Leer Acuerdo de Confidencialidad y Uso Responsable</summary>
+            <div class="acuerdo-contenido">
               <h3>Acuerdo de Confidencialidad y Uso Responsable</h3>
               <p>Al solicitar acceso al contenido completo de esta investigación, el solicitante declara y se compromete a lo siguiente:</p>
               <ol>
@@ -56,7 +59,7 @@
               </ol>
               <p><em>Este acuerdo rige desde el momento en que el solicitante marca la casilla de aceptación y envía su solicitud.</em></p>
             </div>
-          </div>
+          </details>
 
           <div class="field field--check">
             <label>
@@ -65,11 +68,12 @@
             </label>
           </div>
 
-          <button type="submit" class="btn btn--primary" id="submit-btn">Enviar solicitud</button>
+          <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()">Enviar solicitud</button>
           <p class="form-error" id="form-error"></p>
         </form>
       </div>
 
+      <!-- EXITO -->
       <div class="form-card form-card--success" id="success-section" style="display:none">
         <div class="success-icon">&#x2709;</div>
         <h2>Solicitud enviada</h2>
@@ -78,11 +82,11 @@
         <a href="index.html" class="btn btn--outline">Volver a la investigación</a>
       </div>
 
-      <div class="form-card form-card--login" id="login-section" style="display:none">
-        <h2>Ya tienes cuenta aprobada?</h2>
-        <p>Si tu solicitud fue aprobada, inicia sesión para acceder al contenido privado.</p>
-        <a href="privado.html" class="btn btn--primary">Iniciar sesión</a>
+      <!-- YA TIENES CUENTA -->
+      <div style="max-width:620px;margin:1.5rem auto 0;text-align:center">
+        <p class="text-muted">¿Ya tienes cuenta aprobada? <a href="privado.html">Iniciar sesión</a></p>
       </div>
+
     </div>
   </main>
 
@@ -96,56 +100,74 @@
   <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
   <script>
-    const { createClient } = supabase;
-    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var sb;
+    try {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch(e) {
+      console.error('Error inicializando Supabase:', e);
+    }
 
-    document.getElementById('toggle-acuerdo').addEventListener('click', function() {
-      const texto = document.getElementById('acuerdo-texto');
-      texto.classList.toggle('acuerdo-texto--visible');
-      this.textContent = texto.classList.contains('acuerdo-texto--visible')
-        ? 'Ocultar Acuerdo \u2191' : 'Leer Acuerdo de Confidencialidad y Uso Responsable \u2193';
-    });
-
-    document.getElementById('access-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const errEl = document.getElementById('form-error');
+    async function enviarSolicitud() {
+      var btn = document.getElementById('submit-btn');
+      var errEl = document.getElementById('form-error');
       errEl.textContent = '';
+
+      var nombre = document.getElementById('nombre').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var institucion = document.getElementById('institucion').value.trim();
+      var motivo = document.getElementById('motivo').value.trim();
+      var acuerdo = document.getElementById('acuerdo').checked;
+
+      if (!nombre || !email || !institucion || !motivo) {
+        errEl.textContent = 'Por favor completa todos los campos.';
+        return;
+      }
+      if (!acuerdo) {
+        errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.';
+        return;
+      }
+      if (!sb) {
+        errEl.textContent = 'Error de conexi\u00f3n. Recarga la p\u00e1gina e intenta de nuevo.';
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'Enviando...';
 
-      const nombre = document.getElementById('nombre').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const institucion = document.getElementById('institucion').value.trim();
-      const motivo = document.getElementById('motivo').value.trim();
-      const acuerdo = document.getElementById('acuerdo').checked;
+      try {
+        var result = await sb.from('access_requests').insert([{
+          nombre: nombre,
+          email: email,
+          institucion: institucion,
+          motivo: motivo,
+          acuerdo_aceptado: true,
+          estado: 'pendiente'
+        }]);
 
-      if (!acuerdo) {
-        errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.';
-        btn.disabled = false;
-        btn.textContent = 'Enviar solicitud';
-        return;
-      }
+        console.log('Supabase result:', result);
 
-      const { error } = await sb.from('access_requests').insert([{
-        nombre, email, institucion, motivo, acuerdo_aceptado: true, estado: 'pendiente'
-      }]);
-
-      if (error) {
-        if (error.code === '23505') {
-          errEl.textContent = 'Ya existe una solicitud con este correo electr\u00f3nico.';
-        } else {
-          errEl.textContent = 'Error al enviar: ' + error.message;
+        if (result.error) {
+          if (result.error.code === '23505') {
+            errEl.textContent = 'Ya existe una solicitud con este correo.';
+          } else {
+            errEl.textContent = 'Error: ' + result.error.message;
+          }
+          btn.disabled = false;
+          btn.textContent = 'Enviar solicitud';
+          return;
         }
+
+        document.getElementById('email-sent').textContent = email;
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('success-section').style.display = 'block';
+
+      } catch(e) {
+        console.error('Error enviando:', e);
+        errEl.textContent = 'Error inesperado: ' + e.message;
         btn.disabled = false;
         btn.textContent = 'Enviar solicitud';
-        return;
       }
-
-      document.getElementById('email-sent').textContent = email;
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('success-section').style.display = 'block';
-    });
+    }
   </script>
 </body>
 </html>

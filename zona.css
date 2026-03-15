@@ -19,18 +19,20 @@
 .field input:focus, .field textarea:focus { outline: none; border-color: #302b63; }
 .field--check { margin: 1.5rem 0; }
 .field--check label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; font-size: 0.9rem; cursor: pointer; }
-.field--check input[type=checkbox] { margin-top: 0.2rem; width: 18px; height: 18px; accent-color: #302b63; }
+.field--check input[type=checkbox] { margin-top: 0.2rem; width: 18px; height: 18px; accent-color: #302b63; flex-shrink: 0; }
 
-/* ========== ACUERDO ========== */
-.acuerdo-section { margin: 1.5rem 0; }
-.acuerdo-toggle { background: none; border: 2px solid #302b63; color: #302b63; padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.88rem; font-family: inherit; transition: all 0.2s; width: 100%; }
-.acuerdo-toggle:hover { background: #302b63; color: #fff; }
-.acuerdo-texto { display: none; background: #f8f8fc; border-radius: 10px; padding: 1.5rem 1.2rem; margin-top: 0.8rem; border: 1px solid #e0e0e0; }
-.acuerdo-texto.acuerdo-texto--visible { display: block; }
-.acuerdo-texto h3 { font-size: 1rem; margin-bottom: 0.8rem; color: #302b63; }
-.acuerdo-texto ol { padding-left: 1.2rem; margin: 0.8rem 0; }
-.acuerdo-texto li { margin-bottom: 0.8rem; font-size: 0.88rem; line-height: 1.6; color: #444; list-style: decimal; }
-.acuerdo-texto p { font-size: 0.88rem; color: #444; line-height: 1.6; }
+/* ========== ACUERDO con <details> ========== */
+.acuerdo-details { margin: 1.5rem 0; border: 2px solid #302b63; border-radius: 12px; overflow: hidden; }
+.acuerdo-details summary.acuerdo-toggle { display: block; padding: 0.8rem 1.2rem; background: #f8f8fc; color: #302b63; font-weight: 700; font-size: 0.9rem; cursor: pointer; list-style: none; }
+.acuerdo-details summary.acuerdo-toggle::-webkit-details-marker { display: none; }
+.acuerdo-details summary.acuerdo-toggle::before { content: '\25B6 '; font-size: 0.7rem; margin-right: 0.5rem; }
+.acuerdo-details[open] summary.acuerdo-toggle::before { content: '\25BC '; }
+.acuerdo-details[open] summary.acuerdo-toggle { background: #302b63; color: #ffd200; }
+.acuerdo-contenido { padding: 1.5rem 1.2rem; background: #fafaff; }
+.acuerdo-contenido h3 { font-size: 1rem; margin-bottom: 0.8rem; color: #302b63; }
+.acuerdo-contenido ol { padding-left: 1.2rem; margin: 0.8rem 0; }
+.acuerdo-contenido li { margin-bottom: 0.8rem; font-size: 0.88rem; line-height: 1.6; color: #444; list-style: decimal; }
+.acuerdo-contenido p { font-size: 0.88rem; color: #444; line-height: 1.6; }
 
 /* ========== BUTTONS ========== */
 .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; font-size: 0.95rem; font-family: inherit; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; text-align: center; }
