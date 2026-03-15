@@ -32,13 +32,18 @@
   <!-- PITCH -->
   <div id="pitch-view" style="display:none">
 
-    <header class="topbar">
+    <!-- TOPBAR -->
+    <header class="topbar" id="topbar">
       <span class="topbar__title">CCH · Investigación</span>
-      <nav class="topbar__nav">
-        <a href="#contexto">Contexto</a>
-        <a href="#ia">IA</a>
-        <a href="#modelo">Modelo</a>
-        <a href="#chile">Chile</a>
+      <nav class="topbar__nav" id="topnav">
+        <a href="#contexto" data-section="contexto">Contexto</a>
+        <a href="#ia" data-section="ia">IA</a>
+        <a href="#oportunidad" data-section="oportunidad">Oportunidad</a>
+        <a href="#competencias" data-section="competencias">Competencias</a>
+        <a href="#chile" data-section="chile">Chile</a>
+        <a href="#problema" data-section="problema">Problema</a>
+        <a href="#modelo" data-section="modelo">Modelo</a>
+        <a href="#entregables" data-section="entregables">Entregables</a>
       </nav>
       <div class="topbar__right">
         <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Descargar Informe</a>
@@ -46,10 +51,26 @@
       </div>
     </header>
 
+    <!-- PROGRESS DOTS -->
     <div class="progress-dots" id="progress-dots"></div>
 
+    <!-- FLOATING NAV -->
+    <button class="fab" id="fab" onclick="document.getElementById('quicknav').classList.toggle('qn--open')" title="Navegación rápida">&#9776;</button>
+    <div class="qn" id="quicknav">
+      <div class="qn__head">Navegación rápida</div>
+      <a class="qn__link" href="#contexto" onclick="closeQN()">&#x1F4CA; El mundo cambió</a>
+      <a class="qn__link" href="#ia" onclick="closeQN()">&#x1F916; IA: puede vs. no puede</a>
+      <a class="qn__link" href="#oportunidad" onclick="closeQN()">&#x1F680; La oportunidad</a>
+      <a class="qn__link" href="#competencias" onclick="closeQN()">&#x1F3AF; 5 competencias</a>
+      <a class="qn__link" href="#chile" onclick="closeQN()">&#x1F1E8;&#x1F1F1; Chile</a>
+      <a class="qn__link" href="#problema" onclick="closeQN()">&#x26A0; El problema</a>
+      <a class="qn__link" href="#modelo" onclick="closeQN()">&#x2699; Modelo de intervención</a>
+      <a class="qn__link" href="#entregables" onclick="closeQN()">&#x1F4E6; Entregables</a>
+      <a class="qn__link" href="#accion" onclick="closeQN()">&#x1F4E5; Descargar informe</a>
+    </div>
+
     <!-- S1: TESIS -->
-    <section class="slide slide--hero" data-dot="Tesis">
+    <section class="slide slide--hero" id="tesis" data-dot="Tesis">
       <div class="slide__inner">
         <p class="slide__label anim">Colegio Camilo Henríquez · Talca, Chile</p>
         <h1 class="slide__bigtitle anim">El Colegio Camilo Henríquez<br>ya prepara para el siglo XXI.</h1>
@@ -63,14 +84,32 @@
     <section class="slide slide--dark" id="contexto" data-dot="Contexto">
       <div class="slide__inner">
         <h2 class="slide__heading anim">El mundo ya cambió</h2>
-        <p class="slide__sub anim">Estas cifras no son proyecciones. Ya están ocurriendo.</p>
+        <p class="slide__sub anim">Haz clic en cualquier cifra para conocer el contexto.</p>
         <div class="kpi-grid">
-          <div class="kpi anim"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em></div>
-          <div class="kpi anim"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em></div>
-          <div class="kpi anim"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em></div>
-          <div class="kpi anim"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em></div>
-          <div class="kpi anim"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em></div>
-          <div class="kpi anim"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em>
+            <div class="kpi__detail">Goldman Sachs estima que la IA generativa podría exponer a automatización el equivalente a 300 millones de empleos a tiempo completo en el mundo. No todos desaparecerán, pero las tareas que los componen cambiarán radicalmente.</div>
+          </div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em>
+            <div class="kpi__detail">El Foro Económico Mundial proyecta 92 millones de empleos desplazados, pero también 170 millones de nuevos empleos creados. La clave: los nuevos requieren destrezas del siglo XXI que la mayoría de la fuerza laboral actual no tiene.</div>
+          </div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em>
+            <div class="kpi__detail">El FMI advierte que en economías avanzadas la exposición sube al 60%. La IA no solo afecta trabajos manuales: impacta abogados, contadores, analistas, traductores y diseñadores.</div>
+          </div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em>
+            <div class="kpi__detail">Los deepfakes crecen un 900% anual. Se han usado para fraudes de $25 millones (Arup, Hong Kong), manipulación electoral (Eslovaquia, India, EE.UU.) y estafas personales. El pensamiento crítico es ahora una destreza de protección personal.</div>
+          </div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em>
+            <div class="kpi__detail">La contratación remota transfronteriza creció +38% interanual. Un joven chileno ya compite directamente con talento de India, Europa y EE.UU. por los mismos puestos. La barrera del idioma desaparece con traducción en tiempo real.</div>
+          </div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')">
+            <strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em>
+            <div class="kpi__detail">Dos de cada tres niños que entran hoy a la escuela tendrán empleos que aún no se han inventado. La única preparación posible: desarrollar la capacidad de aprender, adaptarse, crear y colaborar.</div>
+          </div>
         </div>
         <div class="cases anim">
           <h3>Ya está pasando</h3>
@@ -86,7 +125,7 @@
       </div>
     </section>
 
-    <!-- S3: IA CAN VS CAN'T -->
+    <!-- S3: IA -->
     <section class="slide" id="ia" data-dot="IA">
       <div class="slide__inner">
         <h2 class="slide__heading anim">Lo que define el futuro de tus hijos</h2>
@@ -122,40 +161,20 @@
     </section>
 
     <!-- S4: OPORTUNIDAD -->
-    <section class="slide slide--dark" data-dot="Oportunidad">
+    <section class="slide slide--dark" id="oportunidad" data-dot="Oportunidad">
       <div class="slide__inner">
         <h2 class="slide__heading anim">La oportunidad es enorme</h2>
         <div class="opp-grid">
-          <div class="opp-card anim">
-            <div class="opp-card__num">+56%</div>
-            <h3>Prima salarial</h3>
-            <p>Quienes complementan a la IA ganan un 56% más en promedio</p>
-            <em>PwC, 2025</em>
-          </div>
-          <div class="opp-card anim">
-            <div class="opp-card__num">12,4x</div>
-            <h3>Startups con IA</h3>
-            <p>Producen 12,4x más ingresos por empleado que Fortune 500</p>
-            <em>MBO Partners</em>
-          </div>
-          <div class="opp-card anim">
-            <div class="opp-card__num">$250K</div>
-            <h3>Nuevos roles</h3>
-            <p>Prompt Engineer, AI Ethics Officer. No existían hace 5 años</p>
-            <em>Lightcast</em>
-          </div>
-          <div class="opp-card anim">
-            <div class="opp-card__num">$75K</div>
-            <h3>Trabajo remoto global</h3>
-            <p>Salario mediano global para trabajadores remotos, sin emigrar</p>
-            <em>Deel, 2026</em>
-          </div>
+          <div class="opp-card anim"><div class="opp-card__num">+56%</div><h3>Prima salarial</h3><p>Quienes complementan a la IA ganan un 56% más en promedio</p><em>PwC, 2025</em></div>
+          <div class="opp-card anim"><div class="opp-card__num">12,4x</div><h3>Startups con IA</h3><p>Producen 12,4x más ingresos por empleado que Fortune 500</p><em>MBO Partners</em></div>
+          <div class="opp-card anim"><div class="opp-card__num">$250K</div><h3>Nuevos roles</h3><p>Prompt Engineer, AI Ethics Officer. No existían hace 5 años</p><em>Lightcast</em></div>
+          <div class="opp-card anim"><div class="opp-card__num">$75K</div><h3>Trabajo remoto global</h3><p>Salario mediano global para trabajadores remotos, sin emigrar</p><em>Deel, 2026</em></div>
         </div>
       </div>
     </section>
 
-    <!-- S5: 5 COMPETENCIAS -->
-    <section class="slide" data-dot="Competencias">
+    <!-- S5: COMPETENCIAS -->
+    <section class="slide" id="competencias" data-dot="Competencias">
       <div class="slide__inner">
         <h2 class="slide__heading anim">Las 5 competencias innegociables</h2>
         <p class="slide__sub anim">Presentes en los 10 marcos internacionales. Son exactamente lo que el Colegio Camilo Henríquez desarrolla.</p>
@@ -186,7 +205,7 @@
       </div>
     </section>
 
-    <!-- S7: EL PROBLEMA -->
+    <!-- S7: PROBLEMA -->
     <section class="slide slide--dark" id="problema" data-dot="Problema">
       <div class="slide__inner">
         <h2 class="slide__heading anim">El problema no está en el colegio</h2>
@@ -205,39 +224,68 @@
       </div>
     </section>
 
-    <!-- S8: MODELO -->
+    <!-- S8: MODELO CON TABS -->
     <section class="slide" id="modelo" data-dot="Modelo">
       <div class="slide__inner">
         <h2 class="slide__heading anim">El modelo de intervención</h2>
-        <p class="slide__sub anim">Tres fases articuladas desde el Trabajo Social</p>
-        <div class="model-grid">
-          <div class="model-card anim">
-            <div class="model-card__num">1</div>
-            <div class="model-card__phase">Definir</div>
-            <h3>Observatorio Escolar</h3>
-            <p>Diagnóstico con encuesta de 46 preguntas, entrevistas, grupos focales e Índice ICAF</p>
-            <details class="pd"><summary>Profundizar</summary><div class="pd__body">5 dimensiones de observación: inclusión, bienestar, convivencia, redes/recursos, condiciones sociales. Protocolo ético con 6 principios y 3 consentimientos informados.</div></details>
+        <p class="slide__sub anim">Tres fases articuladas desde el Trabajo Social. Explora cada una.</p>
+        <div class="tabs anim">
+          <button class="tab tab--active" onclick="switchTab(0,this)">1. Definir</button>
+          <button class="tab" onclick="switchTab(1,this)">2. Difundir + Activar</button>
+          <button class="tab" onclick="switchTab(2,this)">3. Sostener</button>
+        </div>
+        <div class="tab-panels">
+          <div class="tab-panel tab-panel--active" id="tabp-0">
+            <div class="tp-grid">
+              <div class="tp-main">
+                <h3>Observatorio Escolar de Inclusión y Bienestar</h3>
+                <p>Diagnóstico social riguroso que produce la base informacional para toda la intervención.</p>
+                <div class="tp-tags"><span>Encuesta 46 preguntas</span><span>Entrevistas</span><span>Grupos focales</span><span>Índice ICAF</span></div>
+              </div>
+              <div class="tp-detail">
+                <h4>5 dimensiones de observación</h4>
+                <ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes y recursos</li><li>Condiciones sociales</li></ul>
+                <h4>Protocolo ético</h4>
+                <p>6 principios: beneficencia, no maleficencia, autonomía, justicia, transparencia, proporcionalidad. 3 consentimientos informados diferenciados.</p>
+              </div>
+            </div>
           </div>
-          <div class="model-card anim">
-            <div class="model-card__num">2</div>
-            <div class="model-card__phase">Difundir + Activar</div>
-            <h3>Programa Familiar</h3>
-            <p>4 talleres de 90 min en 3 niveles + rúbrica de evaluación de colegios + cuadernillo para familias</p>
-            <details class="pd"><summary>Profundizar</summary><div class="pd__body">Taller 1: Nuestro colegio. Taller 2: Competencias sXXI. Taller 3: Evaluar y exigir. Taller 4: De la información a la convicción. Rúbrica con 16 criterios y 10 preguntas poderosas.</div></details>
+          <div class="tab-panel" id="tabp-1">
+            <div class="tp-grid">
+              <div class="tp-main">
+                <h3>Programa de Fortalecimiento Familiar</h3>
+                <p>Empoderar a las familias para que conozcan, valoren y exijan la educación del siglo XXI.</p>
+                <div class="tp-tags"><span>4 talleres</span><span>3 niveles</span><span>Rúbrica</span><span>Cuadernillo</span></div>
+              </div>
+              <div class="tp-detail">
+                <h4>Los 4 talleres (90 min c/u)</h4>
+                <ul><li><strong>Taller 1:</strong> Nuestro colegio — conocer el modelo</li><li><strong>Taller 2:</strong> Competencias del siglo XXI — comprender por qué importan</li><li><strong>Taller 3:</strong> Evaluar y exigir — rúbrica con 16 criterios</li><li><strong>Taller 4:</strong> De la información a la convicción — pasar a la acción</li></ul>
+                <h4>3 niveles de intervención</h4>
+                <p><strong>Universal:</strong> todas las familias. <strong>Selectivo:</strong> familias con dificultades. <strong>Indicado:</strong> familias en crisis.</p>
+              </div>
+            </div>
           </div>
-          <div class="model-card anim">
-            <div class="model-card__num">3</div>
-            <div class="model-card__phase">Sostener</div>
-            <h3>Red de Agentes</h3>
-            <p>Formación de 12 horas, certificación y red activa de líderes parentales y comunitarios</p>
-            <details class="pd"><summary>Profundizar</summary><div class="pd__body">4 perfiles: líderes parentales, egresados, líderes territoriales, profesionales locales. 7 módulos de formación. Reuniones mensuales de red.</div></details>
+          <div class="tab-panel" id="tabp-2">
+            <div class="tp-grid">
+              <div class="tp-main">
+                <h3>Red de Agentes Comunitarios Escolares</h3>
+                <p>Instalar capacidad comunitaria que trascienda la presencia del profesional.</p>
+                <div class="tp-tags"><span>12 horas</span><span>Certificación</span><span>Red activa</span><span>4 perfiles</span></div>
+              </div>
+              <div class="tp-detail">
+                <h4>4 perfiles de agentes</h4>
+                <ul><li>Líderes parentales</li><li>Egresados del colegio</li><li>Líderes territoriales</li><li>Profesionales locales vinculados</li></ul>
+                <h4>7 módulos de formación</h4>
+                <p>Modelo educativo, escucha activa, empoderamiento, detección de señales, derivación, rol y límites, autocuidado. Reuniones mensuales de red.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- S9: ENTREGABLES -->
-    <section class="slide slide--dark" data-dot="Entregables">
+    <section class="slide slide--dark" id="entregables" data-dot="Entregables">
       <div class="slide__inner">
         <h2 class="slide__heading anim">Qué entrega este proyecto</h2>
         <div class="del-grid">
@@ -253,8 +301,8 @@
       </div>
     </section>
 
-    <!-- S10: CTA FINAL -->
-    <section class="slide slide--cta" data-dot="Acción">
+    <!-- S10: CTA -->
+    <section class="slide slide--cta" id="accion" data-dot="Acción">
       <div class="slide__inner">
         <h2 class="anim">La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
         <p class="anim">Este proyecto le da a las familias las herramientas para comprenderlo, valorarlo y exigirlo.</p>
@@ -275,48 +323,47 @@
     async function doLogin(){
       var e=document.getElementById('login-error');e.textContent='';
       var r=await sb.auth.signInWithPassword({email:document.getElementById('login-email').value.trim(),password:document.getElementById('login-pass').value});
-      if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;}
-      show();
+      if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;} show();
     }
     function show(){
       document.getElementById('login-view').style.display='none';
       document.getElementById('pitch-view').style.display='block';
-      initAnimations();
-      initProgressDots();
+      initAnimations(); initProgressDots(); initActiveNav();
     }
     async function doLogout(){await sb.auth.signOut();location.reload();}
+    function closeQN(){document.getElementById('quicknav').classList.remove('qn--open');}
 
-    function initAnimations(){
-      var els=document.querySelectorAll('.anim');
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){e.target.classList.add('anim--visible');}
-        });
-      },{threshold:0.15, rootMargin:'0px 0px -40px 0px'});
-      els.forEach(function(el){obs.observe(el);});
+    /* Tabs */
+    function switchTab(idx, btn){
+      document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('tab--active');});
+      btn.classList.add('tab--active');
+      document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('tab-panel--active',i===idx);});
     }
 
+    /* Scroll animations */
+    function initAnimations(){
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('anim--visible');});
+      },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+      document.querySelectorAll('.anim').forEach(function(el){obs.observe(el);});
+    }
+
+    /* Progress dots */
     function initProgressDots(){
       var slides=document.querySelectorAll('.slide[data-dot]');
-      var container=document.getElementById('progress-dots');
-      container.innerHTML='';
-      slides.forEach(function(s,i){
-        var dot=document.createElement('button');
-        dot.className='pdot';
-        dot.title=s.dataset.dot;
-        dot.onclick=function(){s.scrollIntoView({behavior:'smooth'});};
-        container.appendChild(dot);
-      });
-      var dots=container.querySelectorAll('.pdot');
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            var idx=Array.from(slides).indexOf(e.target);
-            dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===idx);});
-          }
-        });
-      },{threshold:0.4});
-      slides.forEach(function(s){obs.observe(s);});
+      var c=document.getElementById('progress-dots');c.innerHTML='';
+      slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});
+      var dots=c.querySelectorAll('.pdot');
+      new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe && slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});
+    }
+
+    /* Active topbar nav */
+    function initActiveNav(){
+      var links=document.querySelectorAll('#topnav a[data-section]');
+      var sections=[];
+      links.forEach(function(a){var el=document.getElementById(a.dataset.section);if(el)sections.push({el:el,link:a});});
+      new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('topnav--active');});
+        var match=sections.find(function(s){return s.el===e.target;});if(match)match.link.classList.add('topnav--active');}});},{threshold:0.3,rootMargin:'-48px 0px -50% 0px'}).observe && sections.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('topnav--active');});s.link.classList.add('topnav--active');}});},{threshold:0.3,rootMargin:'-48px 0px -50% 0px'}).observe(s.el);});
     }
 
     (async function(){var r=await sb.auth.getSession();if(r.data&&r.data.session)show();})();
