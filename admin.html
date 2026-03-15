@@ -48,7 +48,6 @@
     </div>
   </header>
 
-  <!-- LOGIN ADMIN -->
   <main class="section" id="login-view">
     <div class="container">
       <div class="form-card">
@@ -59,9 +58,10 @@
             <label for="admin-email">Correo</label>
             <input type="email" id="admin-email" required value="alejandro@colegiocamilohenriquez.cl">
           </div>
-          <div class="field">
+          <div class="field field--password">
             <label for="admin-pass">Contraseña</label>
             <input type="password" id="admin-pass" required>
+            <button type="button" class="toggle-pass" onclick="togglePassword('admin-pass', this)" title="Mostrar contraseña">&#x1F441;</button>
           </div>
           <button type="button" class="btn btn--primary" onclick="loginAdmin()">Ingresar</button>
           <p class="form-error" id="admin-error"></p>
@@ -70,23 +70,17 @@
     </div>
   </main>
 
-  <!-- PANEL ADMIN -->
   <main class="section" id="admin-view" style="display:none">
     <div class="container">
       <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:1.5rem">Solicitudes de Acceso</h1>
-
       <div class="stats-bar" id="stats-bar"></div>
-
       <div class="tab-bar">
         <button class="tab active" onclick="filtrar('todas',this)">Todas</button>
         <button class="tab" onclick="filtrar('pendiente',this)">Pendientes</button>
         <button class="tab" onclick="filtrar('aprobado',this)">Aprobadas</button>
         <button class="tab" onclick="filtrar('rechazado',this)">Rechazadas</button>
       </div>
-
-      <div class="admin-grid" id="requests-grid">
-        <p>Cargando...</p>
-      </div>
+      <div class="admin-grid" id="requests-grid"><p>Cargando...</p></div>
     </div>
   </main>
 
@@ -105,6 +99,19 @@
     var currentFilter = 'todas';
     var sessionToken = '';
 
+    function togglePassword(inputId, btn) {
+      var input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '\u{1F648}';
+        btn.title = 'Ocultar contrase\u00f1a';
+      } else {
+        input.type = 'password';
+        btn.textContent = '\u{1F441}';
+        btn.title = 'Mostrar contrase\u00f1a';
+      }
+    }
+
     async function loginAdmin() {
       var errEl = document.getElementById('admin-error');
       errEl.textContent = '';
@@ -112,18 +119,10 @@
       var password = document.getElementById('admin-pass').value;
 
       var resp = await sb.auth.signInWithPassword({ email: email, password: password });
-      if (resp.error) {
-        errEl.textContent = 'Credenciales inv\u00e1lidas.';
-        return;
-      }
+      if (resp.error) { errEl.textContent = 'Credenciales inv\u00e1lidas.'; return; }
 
-      // Verificar que es admin
       var adminCheck = await sb.from('admins').select('email').eq('email', email).single();
-      if (!adminCheck.data) {
-        errEl.textContent = 'No tienes permisos de administrador.';
-        await sb.auth.signOut();
-        return;
-      }
+      if (!adminCheck.data) { errEl.textContent = 'No tienes permisos de administrador.'; await sb.auth.signOut(); return; }
 
       sessionToken = resp.data.session.access_token;
       document.getElementById('login-view').style.display = 'none';
@@ -134,143 +133,88 @@
 
     async function loadRequests() {
       var resp = await sb.from('access_requests').select('*').order('fecha_solicitud', { ascending: false });
-      if (resp.error) {
-        document.getElementById('requests-grid').innerHTML = '<p>Error cargando: ' + resp.error.message + '</p>';
-        return;
-      }
+      if (resp.error) { document.getElementById('requests-grid').innerHTML = '<p>Error: ' + resp.error.message + '</p>'; return; }
       allRequests = resp.data || [];
       updateStats();
       renderRequests();
-
-      // Cargar notificaciones no leídas
       var notifResp = await sb.from('notifications').select('id', { count: 'exact' }).eq('leida', false);
       if (notifResp.count > 0) {
         document.getElementById('notif-count').innerHTML = '<span class="notif-badge">' + notifResp.count + '</span>';
-        // Marcar como leídas
         await sb.from('notifications').update({ leida: true }).eq('leida', false);
       }
     }
 
     function updateStats() {
-      var pendientes = allRequests.filter(function(r) { return r.estado === 'pendiente'; }).length;
-      var aprobados = allRequests.filter(function(r) { return r.estado === 'aprobado'; }).length;
-      var rechazados = allRequests.filter(function(r) { return r.estado === 'rechazado'; }).length;
+      var p = allRequests.filter(function(r){return r.estado==='pendiente'}).length;
+      var a = allRequests.filter(function(r){return r.estado==='aprobado'}).length;
+      var re = allRequests.filter(function(r){return r.estado==='rechazado'}).length;
       document.getElementById('stats-bar').innerHTML =
-        '<div class="stat-mini"><strong>' + allRequests.length + '</strong><span>Total</span></div>' +
-        '<div class="stat-mini"><strong style="color:#f59f00">' + pendientes + '</strong><span>Pendientes</span></div>' +
-        '<div class="stat-mini"><strong style="color:#51cf66">' + aprobados + '</strong><span>Aprobadas</span></div>' +
-        '<div class="stat-mini"><strong style="color:#ff6b6b">' + rechazados + '</strong><span>Rechazadas</span></div>';
+        '<div class="stat-mini"><strong>'+allRequests.length+'</strong><span>Total</span></div>'+
+        '<div class="stat-mini"><strong style="color:#f59f00">'+p+'</strong><span>Pendientes</span></div>'+
+        '<div class="stat-mini"><strong style="color:#51cf66">'+a+'</strong><span>Aprobadas</span></div>'+
+        '<div class="stat-mini"><strong style="color:#ff6b6b">'+re+'</strong><span>Rechazadas</span></div>';
     }
 
     function filtrar(estado, btn) {
       currentFilter = estado;
-      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
       btn.classList.add('active');
       renderRequests();
     }
 
     function renderRequests() {
-      var filtered = currentFilter === 'todas' ? allRequests : allRequests.filter(function(r) { return r.estado === currentFilter; });
+      var filtered = currentFilter==='todas' ? allRequests : allRequests.filter(function(r){return r.estado===currentFilter});
       var grid = document.getElementById('requests-grid');
-
-      if (filtered.length === 0) {
-        grid.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">No hay solicitudes en esta categor\u00eda.</p>';
-        return;
-      }
-
+      if (filtered.length===0) { grid.innerHTML='<p style="color:#888;text-align:center;padding:2rem">No hay solicitudes.</p>'; return; }
       grid.innerHTML = filtered.map(function(r) {
-        var fecha = new Date(r.fecha_solicitud).toLocaleDateString('es-CL', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+        var fecha = new Date(r.fecha_solicitud).toLocaleDateString('es-CL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
         var actions = '';
-        if (r.estado === 'pendiente') {
-          actions = '<button class="btn btn--approve" onclick="aprobar(\'' + r.id + '\',\'' + r.email + '\',\'' + (r.nombre || '').replace(/'/g, '') + '\')">Aprobar</button>' +
-                    '<button class="btn btn--reject" onclick="rechazar(\'' + r.id + '\')">Rechazar</button>';
-        } else {
-          actions = '<span class="badge badge--' + r.estado + '">' + r.estado.toUpperCase() + '</span>';
-        }
-        return '<div class="req-card req-card--' + r.estado + '">' +
-          '<h3>' + (r.nombre || 'Sin nombre') + '</h3>' +
-          '<div class="meta">' + (r.email || '') + ' &middot; ' + (r.institucion || '') + ' &middot; ' + fecha + '</div>' +
-          '<div class="motivo">' + (r.motivo || 'Sin motivo') + '</div>' +
-          '<div class="req-actions" id="actions-' + r.id + '">' + actions + '</div>' +
-          '</div>';
+        if (r.estado==='pendiente') {
+          actions='<button class="btn btn--approve" onclick="aprobar(\''+r.id+'\',\''+r.email+'\',\''+(r.nombre||'').replace(/'/g,'')+'\')">Aprobar</button>'+
+                  '<button class="btn btn--reject" onclick="rechazar(\''+r.id+'\')">Rechazar</button>';
+        } else { actions='<span class="badge badge--'+r.estado+'">'+r.estado.toUpperCase()+'</span>'; }
+        return '<div class="req-card req-card--'+r.estado+'">'+
+          '<h3>'+(r.nombre||'Sin nombre')+'</h3>'+
+          '<div class="meta">'+(r.email||'')+' &middot; '+(r.institucion||'')+' &middot; '+fecha+'</div>'+
+          '<div class="motivo">'+(r.motivo||'Sin motivo')+'</div>'+
+          '<div class="req-actions" id="actions-'+r.id+'">'+actions+'</div></div>';
       }).join('');
     }
 
-    async function aprobar(id, email, nombre) {
-      var actionsEl = document.getElementById('actions-' + id);
-      actionsEl.innerHTML = '<span style="color:#888">Procesando...</span>';
-
+    async function aprobar(id,email,nombre) {
+      var el=document.getElementById('actions-'+id);
+      el.innerHTML='<span style="color:#888">Procesando...</span>';
       try {
-        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionToken
-          },
-          body: JSON.stringify({ action: 'approve', request_id: id, email: email, nombre: nombre })
-        });
-        var data = await resp.json();
-
-        if (data.success) {
-          actionsEl.innerHTML = '<span class="badge badge--aprobado">APROBADO</span>' +
-            '<div class="password-result">Contrase\u00f1a temporal: <code>' + data.temp_password + '</code><br><small>Env\u00eda esta contrase\u00f1a a ' + email + '</small></div>';
-          // Actualizar datos locales
-          allRequests = allRequests.map(function(r) { return r.id === id ? Object.assign({}, r, { estado: 'aprobado' }) : r; });
-          updateStats();
-        } else {
-          actionsEl.innerHTML = '<span style="color:red">Error: ' + (data.error || 'desconocido') + '</span>';
-        }
-      } catch(e) {
-        actionsEl.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
-      }
+        var resp=await fetch(SUPABASE_URL+'/functions/v1/admin-approve',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionToken},body:JSON.stringify({action:'approve',request_id:id,email:email,nombre:nombre})});
+        var data=await resp.json();
+        if(data.success){el.innerHTML='<span class="badge badge--aprobado">APROBADO</span><div class="password-result">Contrase\u00f1a temporal: <code>'+data.temp_password+'</code><br><small>Env\u00eda esta contrase\u00f1a a '+email+'</small></div>';allRequests=allRequests.map(function(r){return r.id===id?Object.assign({},r,{estado:'aprobado'}):r});updateStats();}
+        else{el.innerHTML='<span style="color:red">Error: '+(data.error||'desconocido')+'</span>';}
+      }catch(e){el.innerHTML='<span style="color:red">Error: '+e.message+'</span>';}
     }
 
     async function rechazar(id) {
-      var actionsEl = document.getElementById('actions-' + id);
-      actionsEl.innerHTML = '<span style="color:#888">Procesando...</span>';
-
+      var el=document.getElementById('actions-'+id);
+      el.innerHTML='<span style="color:#888">Procesando...</span>';
       try {
-        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionToken
-          },
-          body: JSON.stringify({ action: 'reject', request_id: id })
-        });
-        var data = await resp.json();
-
-        if (data.success) {
-          actionsEl.innerHTML = '<span class="badge badge--rechazado">RECHAZADO</span>';
-          allRequests = allRequests.map(function(r) { return r.id === id ? Object.assign({}, r, { estado: 'rechazado' }) : r; });
-          updateStats();
-        } else {
-          actionsEl.innerHTML = '<span style="color:red">Error: ' + (data.error || 'desconocido') + '</span>';
-        }
-      } catch(e) {
-        actionsEl.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
-      }
+        var resp=await fetch(SUPABASE_URL+'/functions/v1/admin-approve',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionToken},body:JSON.stringify({action:'reject',request_id:id})});
+        var data=await resp.json();
+        if(data.success){el.innerHTML='<span class="badge badge--rechazado">RECHAZADO</span>';allRequests=allRequests.map(function(r){return r.id===id?Object.assign({},r,{estado:'rechazado'}):r});updateStats();}
+        else{el.innerHTML='<span style="color:red">Error: '+(data.error||'desconocido')+'</span>';}
+      }catch(e){el.innerHTML='<span style="color:red">Error: '+e.message+'</span>';}
     }
 
     async function cerrarSesion() {
       await sb.auth.signOut();
-      document.getElementById('login-view').style.display = 'block';
-      document.getElementById('admin-view').style.display = 'none';
-      document.getElementById('logout-btn').style.display = 'none';
+      document.getElementById('login-view').style.display='block';
+      document.getElementById('admin-view').style.display='none';
+      document.getElementById('logout-btn').style.display='none';
     }
 
-    // Auto-check session
-    (async function() {
-      var resp = await sb.auth.getSession();
-      if (resp.data && resp.data.session) {
-        var check = await sb.from('admins').select('email').single();
-        if (check.data) {
-          sessionToken = resp.data.session.access_token;
-          document.getElementById('login-view').style.display = 'none';
-          document.getElementById('admin-view').style.display = 'block';
-          document.getElementById('logout-btn').style.display = 'inline-block';
-          await loadRequests();
-        }
+    (async function(){
+      var resp=await sb.auth.getSession();
+      if(resp.data&&resp.data.session){
+        var check=await sb.from('admins').select('email').single();
+        if(check.data){sessionToken=resp.data.session.access_token;document.getElementById('login-view').style.display='none';document.getElementById('admin-view').style.display='block';document.getElementById('logout-btn').style.display='inline-block';await loadRequests();}
       }
     })();
   </script>

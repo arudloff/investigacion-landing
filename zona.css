@@ -21,6 +21,12 @@
 .field--check label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; font-size: 0.9rem; cursor: pointer; }
 .field--check input[type=checkbox] { margin-top: 0.2rem; width: 18px; height: 18px; accent-color: #302b63; flex-shrink: 0; }
 
+/* ========== PASSWORD FIELD ========== */
+.field--password { position: relative; }
+.field--password input { padding-right: 3.2rem; }
+.toggle-pass { position: absolute; right: 0.7rem; top: 2.1rem; background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #888; padding: 0.2rem 0.4rem; line-height: 1; }
+.toggle-pass:hover { color: #302b63; }
+
 /* ========== ACUERDO con <details> ========== */
 .acuerdo-details { margin: 1.5rem 0; border: 2px solid #302b63; border-radius: 12px; overflow: hidden; }
 .acuerdo-details summary.acuerdo-toggle { display: block; padding: 0.8rem 1.2rem; background: #f8f8fc; color: #302b63; font-weight: 700; font-size: 0.9rem; cursor: pointer; list-style: none; }
