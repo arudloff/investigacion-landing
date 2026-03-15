@@ -133,6 +133,13 @@ a{color:inherit;text-decoration:none}
 .problem-box p{font-size:1rem;line-height:1.7;margin-bottom:.5rem}.problem-box strong{color:#ffd200}
 .problem-box__action{font-size:1.1rem;font-weight:800;color:#ffd200;margin-top:.5rem}
 
+/* Light background overrides for problem-box and flow */
+.slide:not(.slide--dark) .problem-box{background:#f0eef8;border-color:#e0ddf0}
+.slide:not(.slide--dark) .problem-box p{color:#333}
+.slide:not(.slide--dark) .problem-box strong{color:#302b63}
+.slide:not(.slide--dark) .problem-box__action{color:#302b63}
+.slide:not(.slide--dark) .flow__arrow{color:#ccc}
+
 /* TABS */
 .tabs{display:flex;gap:.4rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
 .tab{padding:.55rem 1.3rem;border:2px solid #e0e0e0;border-radius:50px;background:#fff;font-size:.85rem;font-weight:700;color:#555;cursor:pointer;font-family:inherit;transition:all .2s}
@@ -153,15 +160,25 @@ a{color:inherit;text-decoration:none}
 .tp-detail li{padding:.2rem 0 .2rem .8rem;font-size:.82rem;color:#444;position:relative}
 .tp-detail li::before{content:'';position:absolute;left:0;top:.55rem;width:5px;height:5px;border-radius:50%;background:#302b63}
 
-/* ===== IMPACT GRID (compact cards like model section) ===== */
+/* ===== IMPACT GRID ===== */
 .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.impact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.3rem;border-top:4px solid #ffd200;transition:all .2s}
-.impact-card:hover{transform:translateY(-3px);background:rgba(255,210,0,.06);border-color:rgba(255,210,0,.25)}
+
+/* Dark background (default) */
+.slide--dark .impact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.3rem;border-top:4px solid #ffd200;transition:all .2s}
+.slide--dark .impact-card:hover{transform:translateY(-3px);background:rgba(255,210,0,.06);border-color:rgba(255,210,0,.25)}
+.slide--dark .impact-card h3{font-size:.92rem;font-weight:800;color:#ffd200;margin-bottom:.4rem;line-height:1.3}
+.slide--dark .impact-card p{font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5}
+.slide--dark .impact-card p strong{color:#ffd200}
+.slide--dark .impact-card p em{color:rgba(255,255,255,.55);font-style:italic}
+
+/* Light background */
+.impact-card{background:#fff;border:1px solid #eee;border-radius:14px;padding:1.3rem;border-top:4px solid #302b63;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:all .2s}
+.impact-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
 .impact-card__icon{font-size:1.6rem;margin-bottom:.5rem}
-.impact-card h3{font-size:.92rem;font-weight:800;color:#ffd200;margin-bottom:.4rem;line-height:1.3}
-.impact-card p{font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5}
-.impact-card p strong{color:#ffd200}
-.impact-card p em{color:rgba(255,255,255,.55);font-style:italic}
+.impact-card h3{font-size:.92rem;font-weight:800;color:#302b63;margin-bottom:.4rem;line-height:1.3}
+.impact-card p{font-size:.82rem;color:#555;line-height:1.5}
+.impact-card p strong{color:#302b63}
+.impact-card p em{color:#888;font-style:italic}
 
 /* CTA */
 .slide--cta{background:linear-gradient(135deg,#0f0c29,#302b63);color:#fff;text-align:center;padding:6rem 2rem}
