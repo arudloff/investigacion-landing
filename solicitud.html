@@ -3,28 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zona Privada — Investigación</title>
+  <title>Zona Privada — Familias Guardianas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="zona.css">
   <style>
-    .choice-grid { max-width: 700px; margin: 0 auto 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .choice-card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: 2px solid transparent; }
-    .choice-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
-    .choice-card--active { border-color: #302b63; }
-    .choice-card__icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
-    .choice-card h2 { font-size: 1.15rem; font-weight: 800; color: #1a1a2e; margin-bottom: 0.4rem; }
-    .choice-card p { font-size: 0.88rem; color: #666; }
-    .choice-card .btn { margin-top: 1rem; }
-    @media (max-width: 560px) { .choice-grid { grid-template-columns: 1fr; } }
+    .choice-grid{max-width:700px;margin:0 auto 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .choice-card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,.08);text-align:center;transition:transform .2s,box-shadow .2s;cursor:pointer;border:2px solid transparent}
+    .choice-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+    .choice-card__icon{font-size:2.5rem;margin-bottom:.8rem}
+    .choice-card h2{font-size:1.15rem;font-weight:800;color:#1a1a2e;margin-bottom:.4rem}
+    .choice-card p{font-size:.88rem;color:#666}
+    .choice-card .btn{margin-top:1rem}
+    .cred-box{background:#302b63;border-radius:14px;padding:1.5rem;margin:1.5rem 0;text-align:left}
+    .cred-box p{color:#fff;font-size:.92rem;margin:.3rem 0}
+    .cred-box strong{color:#ffd200}
+    .cred-box code{background:rgba(255,255,255,.15);padding:.2rem .5rem;border-radius:4px;color:#ffd200;font-size:.95rem}
+    @media(max-width:560px){.choice-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar__inner">
-      <a href="index.html" class="topbar__back">&larr; Volver a la investigación</a>
+      <a href="index.html" class="topbar__back">&larr; Volver</a>
       <span class="topbar__title">Zona Privada</span>
     </div>
   </header>
@@ -32,22 +35,22 @@
   <main class="section">
     <div class="container">
 
-      <!-- ELECCIÓN INICIAL -->
+      <!-- ELECCIÓN -->
       <div id="choice-view">
-        <h1 style="text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:0.5rem">Zona Privada</h1>
-        <p style="text-align:center;color:#666;margin-bottom:2rem">Acceso al contenido completo de la investigación del Colegio Camilo Henríquez.</p>
+        <h1 style="text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:.5rem">Zona Privada</h1>
+        <p style="text-align:center;color:#666;margin-bottom:2rem">Acceso al contenido completo de la investigación.</p>
         <div class="choice-grid">
           <div class="choice-card" onclick="mostrarLogin()">
             <div class="choice-card__icon">&#x1F513;</div>
             <h2>Ya tengo cuenta</h2>
-            <p>Mi solicitud fue aprobada y tengo mis credenciales de acceso.</p>
-            <span class="btn btn--primary" style="font-size:0.85rem;padding:0.5rem 1.5rem">Iniciar sesión</span>
+            <p>Tengo mis credenciales de acceso.</p>
+            <span class="btn btn--primary" style="font-size:.85rem;padding:.5rem 1.5rem">Iniciar sesión</span>
           </div>
           <div class="choice-card" onclick="mostrarFormulario()">
             <div class="choice-card__icon">&#x1F4DD;</div>
             <h2>Solicitar acceso</h2>
-            <p>Quiero solicitar acceso por primera vez al contenido de la investigación.</p>
-            <span class="btn btn--outline" style="font-size:0.85rem;padding:0.5rem 1.5rem">Llenar solicitud</span>
+            <p>Quiero acceder por primera vez.</p>
+            <span class="btn btn--outline" style="font-size:.85rem;padding:.5rem 1.5rem">Solicitar</span>
           </div>
         </div>
       </div>
@@ -55,17 +58,10 @@
       <!-- LOGIN -->
       <div class="form-card" id="login-section" style="display:none">
         <h1>Iniciar sesión</h1>
-        <p class="form-card__desc">Ingresa con las credenciales que recibiste al ser aprobada tu solicitud.</p>
+        <p class="form-card__desc">Ingresa con tus credenciales.</p>
         <form onsubmit="return false;">
-          <div class="field">
-            <label for="login-email">Correo electrónico</label>
-            <input type="email" id="login-email" required>
-          </div>
-          <div class="field field--password">
-            <label for="login-pass">Contraseña</label>
-            <input type="password" id="login-pass" required>
-            <button type="button" class="toggle-pass" onclick="togglePassword('login-pass', this)" title="Mostrar contraseña">&#x1F441;</button>
-          </div>
+          <div class="field"><label for="login-email">Correo electrónico</label><input type="email" id="login-email" required></div>
+          <div class="field field--password"><label for="login-pass">Contraseña</label><input type="password" id="login-pass" required><button type="button" class="toggle-pass" onclick="togglePassword('login-pass',this)">&#x1F441;</button></div>
           <button type="button" class="btn btn--primary" onclick="iniciarSesion()">Ingresar</button>
           <p class="form-error" id="login-error"></p>
         </form>
@@ -73,66 +69,53 @@
         <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
       </div>
 
-      <!-- FORMULARIO DE SOLICITUD -->
+      <!-- FORMULARIO -->
       <div class="form-card" id="form-section" style="display:none">
         <h1>Solicitud de Acceso</h1>
-        <p class="form-card__desc">Complete el formulario para solicitar acceso al contenido completo de la investigación. Su solicitud será revisada por el equipo del Colegio Camilo Henríquez.</p>
-
-        <form id="access-form" onsubmit="return false;">
-          <div class="field">
-            <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" required placeholder="Ej: María Pérez González">
-          </div>
-          <div class="field">
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" required placeholder="correo@institucion.cl">
-          </div>
-          <div class="field">
-            <label for="institucion">Institución / Organización</label>
-            <input type="text" id="institucion" required placeholder="Ej: Universidad Autónoma de Chile">
-          </div>
-          <div class="field">
-            <label for="motivo">Motivo de interés</label>
-            <textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea>
-          </div>
+        <p class="form-card__desc">Completa el formulario y acepta el acuerdo. Tu acceso se activará de inmediato.</p>
+        <form onsubmit="return false;">
+          <div class="field"><label for="nombre">Nombre completo</label><input type="text" id="nombre" required placeholder="Ej: María Pérez González"></div>
+          <div class="field"><label for="email">Correo electrónico</label><input type="email" id="email" required placeholder="correo@institucion.cl"></div>
+          <div class="field"><label for="institucion">Institución / Organización</label><input type="text" id="institucion" required placeholder="Ej: Universidad Autónoma de Chile"></div>
+          <div class="field"><label for="motivo">Motivo de interés</label><textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea></div>
 
           <details class="acuerdo-details">
             <summary class="acuerdo-toggle">Leer Acuerdo de Confidencialidad y Uso Responsable</summary>
             <div class="acuerdo-contenido">
               <h3>Acuerdo de Confidencialidad y Uso Responsable</h3>
-              <p>Al solicitar acceso al contenido completo de esta investigación, el solicitante declara y se compromete a lo siguiente:</p>
+              <p>Al solicitar acceso, el solicitante declara y se compromete a:</p>
               <ol>
-                <li><strong>No redistribución:</strong> El contenido proporcionado es de carácter reservado. El solicitante se compromete a no copiar, reproducir, distribuir, publicar ni compartir total o parcialmente la información con terceros sin autorización escrita del Colegio Camilo Henríquez.</li>
-                <li><strong>Uso exclusivamente académico/profesional:</strong> El acceso se otorga únicamente para fines de investigación académica, formación profesional, evaluación institucional o colaboración directa con el proyecto. Queda prohibido el uso comercial, periodístico o de cualquier otra índole sin autorización previa.</li>
-                <li><strong>Integridad de la información:</strong> El solicitante se compromete a no modificar, descontextualizar, fragmentar ni tergiversar los datos, análisis o conclusiones contenidos en la investigación. Cualquier referencia debe respetar el contexto original y citar la fuente.</li>
-                <li><strong>Revocación de acceso:</strong> El Colegio Camilo Henríquez se reserva el derecho de revocar el acceso en cualquier momento y sin necesidad de expresión de causa, especialmente si se detecta un uso que contravenga los términos de este acuerdo.</li>
-                <li><strong>Responsabilidad:</strong> El solicitante asume plena responsabilidad por el uso que haga de la información a la que acceda, exonerando al Colegio Camilo Henríquez de cualquier consecuencia derivada de un uso indebido.</li>
+                <li><strong>No redistribución:</strong> No copiar, reproducir, distribuir ni compartir la información sin autorización escrita.</li>
+                <li><strong>Uso académico/profesional:</strong> Acceso exclusivamente para investigación, formación profesional o colaboración directa.</li>
+                <li><strong>Integridad:</strong> No modificar, descontextualizar ni tergiversar los datos o conclusiones.</li>
+                <li><strong>Revocación:</strong> El acceso puede ser revocado en cualquier momento sin expresión de causa.</li>
+                <li><strong>Responsabilidad:</strong> El solicitante asume plena responsabilidad por el uso de la información.</li>
               </ol>
-              <p><em>Este acuerdo rige desde el momento en que el solicitante marca la casilla de aceptación y envía su solicitud.</em></p>
             </div>
           </details>
 
-          <div class="field field--check">
-            <label>
-              <input type="checkbox" id="acuerdo" required>
-              He leído y acepto el <strong>Acuerdo de Confidencialidad y Uso Responsable</strong>
-            </label>
-          </div>
-
-          <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()">Enviar solicitud</button>
+          <div class="field field--check"><label><input type="checkbox" id="acuerdo" required> He leído y acepto el <strong>Acuerdo de Confidencialidad</strong></label></div>
+          <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()" style="width:100%">Solicitar acceso</button>
           <p class="form-error" id="form-error"></p>
         </form>
         <p class="text-muted" style="margin-top:1rem"><a href="#" onclick="mostrarLogin();return false">¿Ya tienes cuenta? Iniciar sesión</a></p>
         <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
       </div>
 
-      <!-- ÉXITO -->
-      <div class="form-card form-card--success" id="success-section" style="display:none">
-        <div class="success-icon">&#x2709;</div>
-        <h2>Solicitud enviada</h2>
-        <p>Tu solicitud ha sido registrada exitosamente. Recibirás un correo en <strong id="email-sent"></strong> cuando sea aprobada.</p>
-        <p class="text-muted">El equipo del Colegio Camilo Henríquez revisará tu solicitud a la brevedad.</p>
-        <a href="index.html" class="btn btn--outline">Volver a la investigación</a>
+      <!-- ACCESO LISTO -->
+      <div class="form-card" id="success-section" style="display:none">
+        <div style="text-align:center">
+          <div style="font-size:3rem;margin-bottom:.5rem">&#x2705;</div>
+          <h2 style="color:#1a1a2e;margin-bottom:.5rem">Tu acceso está listo</h2>
+          <p style="color:#555">Bienvenido/a, <strong id="s-nombre"></strong>. Ya puedes ingresar a la investigación completa.</p>
+        </div>
+        <div class="cred-box">
+          <p><strong>Correo:</strong> <span id="s-email"></span></p>
+          <p><strong>Contraseña:</strong> <code id="s-pass"></code></p>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin-top:.5rem">Guarda estas credenciales. Tu contraseña es permanente.</p>
+        </div>
+        <a href="#" class="btn btn--primary" style="width:100%;text-align:center;display:block" onclick="loginConCredenciales()">Ingresar ahora &rarr;</a>
+        <p id="s-email-note" style="text-align:center;font-size:.82rem;color:#888;margin-top:1rem;display:none">También recibirás estas credenciales por correo electrónico.</p>
       </div>
 
     </div>
@@ -141,7 +124,7 @@
   <footer class="footer">
     <div class="container">
       <p class="footer__colegio">Colegio Camilo Henríquez · Talca, Chile</p>
-      <p class="footer__year">2026</p>
+      <p class="footer__year">2026 · Proyecto en fase de prototipo</p>
     </div>
   </footer>
 
@@ -149,11 +132,12 @@
   <script src="config.js"></script>
   <script>
     var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var savedEmail = '', savedPass = '';
 
-    function togglePassword(inputId, btn) {
-      var input = document.getElementById(inputId);
-      if (input.type === 'password') { input.type = 'text'; btn.textContent = '\u{1F648}'; }
-      else { input.type = 'password'; btn.textContent = '\u{1F441}'; }
+    function togglePassword(id, btn) {
+      var el = document.getElementById(id);
+      if (el.type === 'password') { el.type = 'text'; btn.textContent = '\u{1F648}'; }
+      else { el.type = 'password'; btn.textContent = '\u{1F441}'; }
     }
 
     function mostrarLogin() {
@@ -161,13 +145,11 @@
       document.getElementById('form-section').style.display = 'none';
       document.getElementById('login-section').style.display = 'block';
     }
-
     function mostrarFormulario() {
       document.getElementById('choice-view').style.display = 'none';
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('form-section').style.display = 'block';
     }
-
     function volverEleccion() {
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('form-section').style.display = 'none';
@@ -175,55 +157,69 @@
     }
 
     async function iniciarSesion() {
-      var errEl = document.getElementById('login-error');
-      errEl.textContent = '';
+      var err = document.getElementById('login-error'); err.textContent = '';
       var email = document.getElementById('login-email').value.trim();
-      var password = document.getElementById('login-pass').value;
-      var resp = await sb.auth.signInWithPassword({ email: email, password: password });
-      if (resp.error) { errEl.textContent = 'Credenciales inv\u00e1lidas o cuenta no activada.'; return; }
-      // Redirigir a zona privada
+      var pass = document.getElementById('login-pass').value;
+      var r = await sb.auth.signInWithPassword({ email: email, password: pass });
+      if (r.error) { err.textContent = 'Credenciales inv\u00e1lidas.'; return; }
       window.location.href = 'privado.html';
     }
 
     async function enviarSolicitud() {
       var btn = document.getElementById('submit-btn');
-      var errEl = document.getElementById('form-error');
-      errEl.textContent = '';
-
+      var err = document.getElementById('form-error'); err.textContent = '';
       var nombre = document.getElementById('nombre').value.trim();
       var email = document.getElementById('email').value.trim();
       var institucion = document.getElementById('institucion').value.trim();
       var motivo = document.getElementById('motivo').value.trim();
       var acuerdo = document.getElementById('acuerdo').checked;
 
-      if (!nombre || !email || !institucion || !motivo) { errEl.textContent = 'Por favor completa todos los campos.'; return; }
-      if (!acuerdo) { errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.'; return; }
+      if (!nombre || !email || !institucion || !motivo) { err.textContent = 'Completa todos los campos.'; return; }
+      if (!acuerdo) { err.textContent = 'Debes aceptar el acuerdo de confidencialidad.'; return; }
 
-      btn.disabled = true; btn.textContent = 'Enviando...';
+      btn.disabled = true; btn.textContent = 'Creando tu acceso...';
 
       try {
-        var result = await sb.from('access_requests').insert([{
-          nombre: nombre, email: email, institucion: institucion,
-          motivo: motivo, acuerdo_aceptado: true, estado: 'pendiente'
-        }]);
-        if (result.error) {
-          if (result.error.code === '23505') { errEl.textContent = 'Ya existe una solicitud con este correo.'; }
-          else { errEl.textContent = 'Error: ' + result.error.message; }
-          btn.disabled = false; btn.textContent = 'Enviar solicitud'; return;
+        var resp = await fetch(SUPABASE_URL + '/functions/v1/auto-approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre: nombre, email: email, institucion: institucion, motivo: motivo })
+        });
+        var data = await resp.json();
+
+        if (data.error) {
+          err.textContent = data.error;
+          btn.disabled = false; btn.textContent = 'Solicitar acceso';
+          return;
         }
-        document.getElementById('email-sent').textContent = email;
+
+        // Show credentials
+        savedEmail = data.email;
+        savedPass = data.password;
+        document.getElementById('s-nombre').textContent = data.nombre;
+        document.getElementById('s-email').textContent = data.email;
+        document.getElementById('s-pass').textContent = data.password;
+        if (data.emailSent) document.getElementById('s-email-note').style.display = 'block';
+
         document.getElementById('form-section').style.display = 'none';
         document.getElementById('success-section').style.display = 'block';
+
       } catch(e) {
-        errEl.textContent = 'Error: ' + e.message;
-        btn.disabled = false; btn.textContent = 'Enviar solicitud';
+        err.textContent = 'Error: ' + e.message;
+        btn.disabled = false; btn.textContent = 'Solicitar acceso';
       }
     }
 
-    // Si ya tiene sesión activa, ir directo a privado.html
+    async function loginConCredenciales() {
+      var r = await sb.auth.signInWithPassword({ email: savedEmail, password: savedPass });
+      if (r.error) { alert('Error al ingresar. Intenta manualmente con tus credenciales.'); return; }
+      window.location.href = 'privado.html';
+    }
+
+    // Auto-redirect if session exists
     (async function() {
-      var resp = await sb.auth.getSession();
-      if (resp.data && resp.data.session) { window.location.href = 'privado.html'; }
+      var r = await sb.auth.getSession();
+      if (r.data && r.data.session) window.location.href = 'privado.html';
     })();
   </script>
 </body>
