@@ -3,131 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zona Privada — Investigación</title>
+  <title>Investigación — Zona Privada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="zona.css">
+  <link rel="stylesheet" href="docs.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <a href="index.html" class="topbar__back">&larr; Investigación</a>
-      <span class="topbar__title">Zona Privada</span>
-      <button class="btn btn--small btn--outline" id="logout-btn" style="display:none" onclick="cerrarSesion()">Cerrar sesión</button>
-    </div>
-  </header>
 
-  <main class="section" id="login-view">
-    <div class="container">
-      <div class="form-card">
-        <h1>Iniciar sesión</h1>
-        <p class="form-card__desc">Ingresa con las credenciales que recibiste al ser aprobada tu solicitud.</p>
-        <form onsubmit="return false;">
-          <div class="field">
-            <label for="login-email">Correo electrónico</label>
-            <input type="email" id="login-email" required>
-          </div>
-          <div class="field field--password">
-            <label for="login-pass">Contraseña</label>
-            <input type="password" id="login-pass" required>
-            <button type="button" class="toggle-pass" onclick="togglePassword('login-pass', this)" title="Mostrar contraseña">&#x1F441;</button>
-          </div>
-          <button type="button" class="btn btn--primary" onclick="iniciarSesion()">Ingresar</button>
-          <p class="form-error" id="login-error"></p>
-        </form>
-        <p class="text-muted" style="margin-top:1rem">¿Aún no tienes acceso? <a href="solicitud.html">Solicitar acceso</a></p>
-      </div>
+  <!-- LOGIN -->
+  <div id="login-view" class="login-overlay">
+    <div class="login-card">
+      <h1>Zona Privada</h1>
+      <p>Colegio Camilo Henríquez · Talca</p>
+      <form onsubmit="return false;">
+        <input type="email" id="login-email" placeholder="Correo electrónico" required>
+        <div class="pass-wrap">
+          <input type="password" id="login-pass" placeholder="Contraseña" required>
+          <button type="button" class="eye-btn" onclick="togglePass()">&#x1F441;</button>
+        </div>
+        <button type="button" class="login-btn" onclick="doLogin()">Ingresar</button>
+        <p class="login-error" id="login-error"></p>
+      </form>
+      <p class="login-link"><a href="solicitud.html">¿No tienes cuenta? Solicitar acceso</a></p>
     </div>
-  </main>
+  </div>
 
-  <main class="section" id="private-view" style="display:none">
-    <div class="container">
-      <div class="private-header">
-        <h1>Contenido de la Investigación</h1>
-        <p>Bienvenido/a, <strong id="user-name"></strong>. Acceso autorizado por el Colegio Camilo Henríquez.</p>
+  <!-- DOCS LAYOUT -->
+  <div id="docs-view" style="display:none">
+    <!-- TOP BAR -->
+    <header class="docs-topbar">
+      <button class="hamburger" onclick="toggleSidebar()" title="Menú">&#9776;</button>
+      <span class="docs-topbar__title">Investigación CCH</span>
+      <div class="docs-topbar__right">
+        <input type="text" id="search-input" placeholder="Buscar..." oninput="doSearch(this.value)">
+        <button class="logout-btn" onclick="doLogout()">Salir</button>
       </div>
-      <div id="content-grid" class="content-grid"></div>
-      <div id="access-denied" style="display:none" class="form-card form-card--error">
-        <h2>Acceso pendiente</h2>
-        <p>Tu solicitud aún no ha sido aprobada. Recibirás un correo cuando el equipo la revise.</p>
-        <a href="index.html" class="btn btn--outline">Volver</a>
-      </div>
-    </div>
-  </main>
+    </header>
 
-  <footer class="footer">
-    <div class="container">
-      <p class="footer__colegio">Colegio Camilo Henríquez · Talca, Chile</p>
-      <p class="footer__year">2026 · Contenido confidencial — Uso exclusivamente académico/profesional</p>
+    <div class="docs-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+          <p class="sidebar__colegio">Colegio Camilo Henríquez</p>
+          <p class="sidebar__sub">Talca, Chile · 2026</p>
+        </div>
+        <nav class="sidebar__nav" id="sidebar-nav"></nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="docs-main" id="docs-main">
+        <!-- Welcome screen -->
+        <div id="welcome-screen">
+          <h1>Contenido de la Investigación</h1>
+          <p class="welcome-desc">Selecciona una sección del menú lateral para comenzar a leer. Este sitio contiene el contenido completo de las 28 notas de investigación y el marco completo del proyecto.</p>
+          <div id="section-cards" class="section-cards"></div>
+        </div>
+        <!-- Article view -->
+        <article id="article-view" style="display:none">
+          <div class="article-breadcrumb" id="article-breadcrumb"></div>
+          <div class="article-content" id="article-content"></div>
+          <div class="article-nav" id="article-nav"></div>
+        </article>
+        <!-- Search results -->
+        <div id="search-results" style="display:none">
+          <h2>Resultados de búsqueda</h2>
+          <div id="search-list"></div>
+        </div>
+      </main>
     </div>
-  </footer>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
   <script>
     var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var sections = [];
+    var articles = {};
+    var articleList = [];
+    var currentArticleIdx = -1;
 
-    function togglePassword(inputId, btn) {
-      var input = document.getElementById(inputId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '\u{1F648}';
-        btn.title = 'Ocultar contrase\u00f1a';
-      } else {
-        input.type = 'password';
-        btn.textContent = '\u{1F441}';
-        btn.title = 'Mostrar contrase\u00f1a';
-      }
+    function togglePass() {
+      var p = document.getElementById('login-pass');
+      var b = event.target;
+      if (p.type === 'password') { p.type = 'text'; b.textContent = '\u{1F648}'; }
+      else { p.type = 'password'; b.textContent = '\u{1F441}'; }
     }
 
-    async function checkSession() {
-      var resp = await sb.auth.getSession();
-      if (resp.data && resp.data.session) {
-        await showPrivateContent(resp.data.session.user);
-      }
+    async function doLogin() {
+      var err = document.getElementById('login-error');
+      err.textContent = '';
+      var email = document.getElementById('login-email').value.trim();
+      var pass = document.getElementById('login-pass').value;
+      var r = await sb.auth.signInWithPassword({email:email, password:pass});
+      if (r.error) { err.textContent = 'Credenciales inv\u00e1lidas.'; return; }
+      await initDocs();
     }
 
-    async function showPrivateContent(user) {
+    async function doLogout() {
+      await sb.auth.signOut();
+      document.getElementById('docs-view').style.display = 'none';
+      document.getElementById('login-view').style.display = 'flex';
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('sidebar--open');
+    }
+
+    async function initDocs() {
       document.getElementById('login-view').style.display = 'none';
-      document.getElementById('private-view').style.display = 'block';
-      document.getElementById('logout-btn').style.display = 'inline-block';
-      document.getElementById('user-name').textContent = user.email;
+      document.getElementById('docs-view').style.display = 'block';
 
-      var resp = await sb.from('private_content').select('*').order('orden');
-      if (resp.error || !resp.data || resp.data.length === 0) {
-        document.getElementById('content-grid').style.display = 'none';
-        document.getElementById('access-denied').style.display = 'block';
+      // Load sections
+      var r1 = await sb.from('content_sections').select('*').order('orden');
+      if (r1.error || !r1.data || r1.data.length === 0) {
+        document.getElementById('docs-main').innerHTML = '<div style="padding:3rem;text-align:center"><h2>Acceso pendiente</h2><p>Tu solicitud a\u00fan no ha sido aprobada.</p></div>';
         return;
       }
-      document.getElementById('content-grid').innerHTML = resp.data.map(function(item) {
-        return '<article class="content-card"><h3>' + item.titulo + '</h3><span class="content-card__tag">' + item.seccion + '</span><p>' + item.contenido + '</p></article>';
+      sections = r1.data;
+
+      // Load all articles
+      var r2 = await sb.from('content_articles').select('key,section_key,title,orden').order('orden');
+      if (r2.data) {
+        articleList = [];
+        r2.data.forEach(function(a) {
+          if (!articles[a.section_key]) articles[a.section_key] = [];
+          articles[a.section_key].push(a);
+          articleList.push(a);
+        });
+      }
+
+      renderSidebar();
+      renderWelcome();
+    }
+
+    function renderSidebar() {
+      var nav = document.getElementById('sidebar-nav');
+      nav.innerHTML = '<a class="sidebar__link sidebar__link--home" href="#" onclick="showWelcome();return false">Inicio</a>' +
+        sections.map(function(s) {
+          var arts = articles[s.key] || [];
+          return '<div class="sidebar__section">' +
+            '<button class="sidebar__toggle" onclick="this.parentElement.classList.toggle(\'open\')">' +
+              '<span class="sidebar__icon">' + (s.icon||'') + '</span> ' + s.title +
+            '</button>' +
+            '<div class="sidebar__items">' +
+              arts.map(function(a) {
+                return '<a class="sidebar__link" href="#" data-key="'+a.key+'" onclick="loadArticle(\''+a.key+'\');return false">'+a.title+'</a>';
+              }).join('') +
+            '</div></div>';
+        }).join('');
+    }
+
+    function renderWelcome() {
+      var cards = document.getElementById('section-cards');
+      cards.innerHTML = sections.map(function(s) {
+        var count = (articles[s.key]||[]).length;
+        return '<div class="scard" onclick="openSection(\''+s.key+'\')">' +
+          '<span class="scard__icon">'+(s.icon||'')+'</span>' +
+          '<h3>'+s.title+'</h3>' +
+          '<p>'+s.description+'</p>' +
+          '<span class="scard__count">'+count+' art\u00edculo'+(count!==1?'s':'')+'</span></div>';
       }).join('');
     }
 
-    async function iniciarSesion() {
-      var errEl = document.getElementById('login-error');
-      errEl.textContent = '';
-      var email = document.getElementById('login-email').value.trim();
-      var password = document.getElementById('login-pass').value;
+    function showWelcome() {
+      document.getElementById('welcome-screen').style.display = 'block';
+      document.getElementById('article-view').style.display = 'none';
+      document.getElementById('search-results').style.display = 'none';
+      document.getElementById('sidebar').classList.remove('sidebar--open');
+      // Clear active states
+      document.querySelectorAll('.sidebar__link--active').forEach(function(el){el.classList.remove('sidebar__link--active')});
+    }
 
-      var resp = await sb.auth.signInWithPassword({ email: email, password: password });
-      if (resp.error) {
-        errEl.textContent = 'Credenciales inv\u00e1lidas o cuenta no activada.';
+    function openSection(sectionKey) {
+      var arts = articles[sectionKey];
+      if (arts && arts.length > 0) { loadArticle(arts[0].key); }
+      // Open sidebar section
+      document.querySelectorAll('.sidebar__section').forEach(function(el) {
+        var toggle = el.querySelector('.sidebar__toggle');
+        if (toggle && toggle.textContent.includes(sections.find(function(s){return s.key===sectionKey}).title)) {
+          el.classList.add('open');
+        }
+      });
+    }
+
+    async function loadArticle(key) {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('search-results').style.display = 'none';
+      document.getElementById('article-view').style.display = 'block';
+      document.getElementById('article-content').innerHTML = '<p style="color:#888">Cargando...</p>';
+      document.getElementById('sidebar').classList.remove('sidebar--open');
+
+      // Update active sidebar link
+      document.querySelectorAll('.sidebar__link--active').forEach(function(el){el.classList.remove('sidebar__link--active')});
+      var activeLink = document.querySelector('.sidebar__link[data-key="'+key+'"]');
+      if (activeLink) {
+        activeLink.classList.add('sidebar__link--active');
+        activeLink.closest('.sidebar__section').classList.add('open');
+      }
+
+      // Find article index in flat list
+      currentArticleIdx = articleList.findIndex(function(a){return a.key===key});
+
+      // Fetch full content
+      var r = await sb.from('content_articles').select('*').eq('key', key).single();
+      if (r.error || !r.data) {
+        document.getElementById('article-content').innerHTML = '<p style="color:red">Error cargando art\u00edculo.</p>';
         return;
       }
-      await showPrivateContent(resp.data.user);
+
+      var art = r.data;
+      var sec = sections.find(function(s){return s.key===art.section_key});
+
+      // Breadcrumb
+      document.getElementById('article-breadcrumb').innerHTML =
+        '<a href="#" onclick="showWelcome();return false">Inicio</a> &rsaquo; ' +
+        '<a href="#" onclick="openSection(\''+art.section_key+'\');return false">'+(sec?sec.icon+' '+sec.title:'')+'</a> &rsaquo; ' +
+        '<span>'+art.title+'</span>';
+
+      // Render markdown
+      document.getElementById('article-content').innerHTML = marked.parse(art.content);
+
+      // Prev/Next navigation
+      var navHtml = '<div class="article-nav__inner">';
+      if (currentArticleIdx > 0) {
+        var prev = articleList[currentArticleIdx - 1];
+        navHtml += '<a class="article-nav__link" href="#" onclick="loadArticle(\''+prev.key+'\');return false">&larr; '+prev.title+'</a>';
+      } else { navHtml += '<span></span>'; }
+      if (currentArticleIdx < articleList.length - 1) {
+        var next = articleList[currentArticleIdx + 1];
+        navHtml += '<a class="article-nav__link article-nav__link--next" href="#" onclick="loadArticle(\''+next.key+'\');return false">'+next.title+' &rarr;</a>';
+      } else { navHtml += '<span></span>'; }
+      navHtml += '</div>';
+      document.getElementById('article-nav').innerHTML = navHtml;
+
+      window.scrollTo(0, 0);
     }
 
-    async function cerrarSesion() {
-      await sb.auth.signOut();
-      document.getElementById('login-view').style.display = 'block';
-      document.getElementById('private-view').style.display = 'none';
-      document.getElementById('logout-btn').style.display = 'none';
+    function doSearch(query) {
+      if (!query || query.length < 2) {
+        document.getElementById('search-results').style.display = 'none';
+        if (currentArticleIdx >= 0) document.getElementById('article-view').style.display = 'block';
+        else document.getElementById('welcome-screen').style.display = 'block';
+        return;
+      }
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('article-view').style.display = 'none';
+      document.getElementById('search-results').style.display = 'block';
+
+      var q = query.toLowerCase();
+      var results = articleList.filter(function(a) {
+        return a.title.toLowerCase().includes(q) || a.key.toLowerCase().includes(q);
+      });
+
+      var list = document.getElementById('search-list');
+      if (results.length === 0) {
+        list.innerHTML = '<p style="color:#888;padding:1rem">No se encontraron resultados para "'+query+'"</p>';
+      } else {
+        list.innerHTML = results.map(function(a) {
+          var sec = sections.find(function(s){return s.key===a.section_key});
+          return '<a class="search-item" href="#" onclick="loadArticle(\''+a.key+'\');document.getElementById(\'search-input\').value=\'\';return false">' +
+            '<span class="search-item__section">'+(sec?sec.icon+' '+sec.title:'')+'</span>' +
+            '<span class="search-item__title">'+a.title+'</span></a>';
+        }).join('');
+      }
     }
 
-    checkSession();
+    // Auto-check session
+    (async function() {
+      var r = await sb.auth.getSession();
+      if (r.data && r.data.session) { await initDocs(); }
+    })();
   </script>
 </body>
 </html>
