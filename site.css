@@ -16,6 +16,14 @@
 .page-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin-bottom:.6rem;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .page-hero p{font-size:1rem;opacity:.8;max-width:600px;margin:0 auto}
 
+/* Explore grid (home → subpages) */
+.explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.explore-card{display:block;background:#fff;border-radius:14px;padding:1.5rem;border-top:4px solid #302b63;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:center;transition:all .2s;color:#1a1a2e}
+.explore-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12);border-top-color:#ffd200;text-decoration:none}
+.explore-card__icon{font-size:2rem;margin-bottom:.5rem;display:block}
+.explore-card h3{font-size:.95rem;font-weight:800;color:#302b63;margin-bottom:.3rem}
+.explore-card p{font-size:.78rem;color:#666;line-height:1.4}
+
 /* Marco grid (investigacion) */
 .marco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
 .marco{background:#fff;border-radius:14px;padding:1.3rem;border-top:4px solid #302b63;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .2s}
@@ -116,12 +124,14 @@
 .accion p{font-size:.85rem;color:#555;line-height:1.5}
 
 /* RESPONSIVE */
+@media(max-width:900px){.explore-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
   .sitenav{display:none}
   .marco-grid,.caso-grid{grid-template-columns:1fr}
   .taller-grid{grid-template-columns:repeat(2,1fr)}
   .nivel-grid,.accion-grid{grid-template-columns:1fr}
   .inst-grid,.fam-grid{grid-template-columns:1fr}
+  .explore-grid{grid-template-columns:1fr}
   .page-hero{padding:3rem 1.2rem 2rem}
   .icaf-ranges{flex-direction:column;align-items:center}
 }
