@@ -19,13 +19,12 @@
     </div>
   </header>
 
-  <!-- LOGIN -->
   <main class="section" id="login-view">
     <div class="container">
       <div class="form-card">
         <h1>Iniciar sesión</h1>
         <p class="form-card__desc">Ingresa con las credenciales que recibiste al ser aprobada tu solicitud.</p>
-        <form id="login-form">
+        <form id="login-form" onsubmit="return false;">
           <div class="field">
             <label for="login-email">Correo electrónico</label>
             <input type="email" id="login-email" required>
@@ -34,7 +33,7 @@
             <label for="login-pass">Contraseña</label>
             <input type="password" id="login-pass" required>
           </div>
-          <button type="submit" class="btn btn--primary" id="login-btn">Ingresar</button>
+          <button type="button" class="btn btn--primary" id="login-btn" onclick="iniciarSesion()">Ingresar</button>
           <p class="form-error" id="login-error"></p>
         </form>
         <p class="text-muted" style="margin-top:1rem">¿Aún no tienes acceso? <a href="solicitud.html">Solicitar acceso</a></p>
@@ -42,7 +41,6 @@
     </div>
   </main>
 
-  <!-- CONTENIDO PRIVADO -->
   <main class="section" id="private-view" style="display:none">
     <div class="container">
       <div class="private-header">
@@ -65,20 +63,19 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
   <script>
-    const { createClient } = supabase;
-    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const loginView = document.getElementById('login-view');
-    const privateView = document.getElementById('private-view');
-    const logoutBtn = document.getElementById('logout-btn');
+    var loginView = document.getElementById('login-view');
+    var privateView = document.getElementById('private-view');
+    var logoutBtn = document.getElementById('logout-btn');
 
     async function checkSession() {
-      const { data: { session } } = await sb.auth.getSession();
-      if (session) {
-        await showPrivateContent(session.user);
+      var resp = await sb.auth.getSession();
+      if (resp.data && resp.data.session) {
+        await showPrivateContent(resp.data.session.user);
       }
     }
 
@@ -88,46 +85,41 @@
       logoutBtn.style.display = 'inline-block';
       document.getElementById('user-name').textContent = user.email;
 
-      const { data: content, error } = await sb.from('private_content').select('*').order('orden');
+      var resp = await sb.from('private_content').select('*').order('orden');
 
-      if (error || !content || content.length === 0) {
+      if (resp.error || !resp.data || resp.data.length === 0) {
         document.getElementById('content-grid').style.display = 'none';
         document.getElementById('access-denied').style.display = 'block';
         return;
       }
 
-      const grid = document.getElementById('content-grid');
-      grid.innerHTML = content.map(item => `
-        <article class="content-card">
-          <h3>${item.titulo}</h3>
-          <span class="content-card__tag">${item.seccion}</span>
-          <p>${item.contenido}</p>
-        </article>
-      `).join('');
+      var grid = document.getElementById('content-grid');
+      grid.innerHTML = resp.data.map(function(item) {
+        return '<article class="content-card"><h3>' + item.titulo + '</h3><span class="content-card__tag">' + item.seccion + '</span><p>' + item.contenido + '</p></article>';
+      }).join('');
     }
 
-    document.getElementById('login-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('login-btn');
-      const errEl = document.getElementById('login-error');
+    async function iniciarSesion() {
+      var btn = document.getElementById('login-btn');
+      var errEl = document.getElementById('login-error');
       errEl.textContent = '';
       btn.disabled = true;
       btn.textContent = 'Ingresando...';
 
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-pass').value;
+      var email = document.getElementById('login-email').value.trim();
+      var password = document.getElementById('login-pass').value;
 
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      var resp = await sb.auth.signInWithPassword({ email: email, password: password });
 
-      if (error) {
+      if (resp.error) {
         errEl.textContent = 'Credenciales inv\u00e1lidas o cuenta no activada.';
         btn.disabled = false;
         btn.textContent = 'Ingresar';
         return;
       }
 
-      await showPrivateContent(data.user);
-    });
+      await showPrivateContent(resp.data.user);
+    }
 
     logoutBtn.addEventListener('click', async function() {
       await sb.auth.signOut();

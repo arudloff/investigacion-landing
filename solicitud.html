@@ -21,7 +21,6 @@
   <main class="section">
     <div class="container">
 
-      <!-- FORMULARIO -->
       <div class="form-card" id="form-section">
         <h1>Solicitud de Acceso</h1>
         <p class="form-card__desc">Complete el formulario para solicitar acceso al contenido completo de la investigación. Su solicitud será revisada por el equipo del Colegio Camilo Henríquez.</p>
@@ -44,7 +43,6 @@
             <textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea>
           </div>
 
-          <!-- ACUERDO - siempre visible -->
           <details class="acuerdo-details">
             <summary class="acuerdo-toggle">Leer Acuerdo de Confidencialidad y Uso Responsable</summary>
             <div class="acuerdo-contenido">
@@ -73,7 +71,6 @@
         </form>
       </div>
 
-      <!-- EXITO -->
       <div class="form-card form-card--success" id="success-section" style="display:none">
         <div class="success-icon">&#x2709;</div>
         <h2>Solicitud enviada</h2>
@@ -82,7 +79,6 @@
         <a href="index.html" class="btn btn--outline">Volver a la investigación</a>
       </div>
 
-      <!-- YA TIENES CUENTA -->
       <div style="max-width:620px;margin:1.5rem auto 0;text-align:center">
         <p class="text-muted">¿Ya tienes cuenta aprobada? <a href="privado.html">Iniciar sesión</a></p>
       </div>
@@ -97,15 +93,10 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
   <script>
-    var sb;
-    try {
-      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    } catch(e) {
-      console.error('Error inicializando Supabase:', e);
-    }
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function enviarSolicitud() {
       var btn = document.getElementById('submit-btn');
@@ -126,10 +117,6 @@
         errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.';
         return;
       }
-      if (!sb) {
-        errEl.textContent = 'Error de conexi\u00f3n. Recarga la p\u00e1gina e intenta de nuevo.';
-        return;
-      }
 
       btn.disabled = true;
       btn.textContent = 'Enviando...';
@@ -143,8 +130,6 @@
           acuerdo_aceptado: true,
           estado: 'pendiente'
         }]);
-
-        console.log('Supabase result:', result);
 
         if (result.error) {
           if (result.error.code === '23505') {
@@ -162,7 +147,6 @@
         document.getElementById('success-section').style.display = 'block';
 
       } catch(e) {
-        console.error('Error enviando:', e);
         errEl.textContent = 'Error inesperado: ' + e.message;
         btn.disabled = false;
         btn.textContent = 'Enviar solicitud';
