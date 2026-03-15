@@ -3,12 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solicitud de Acceso — Zona Privada</title>
+  <title>Zona Privada — Investigación</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="zona.css">
+  <style>
+    .choice-grid { max-width: 700px; margin: 0 auto 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .choice-card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: 2px solid transparent; }
+    .choice-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .choice-card--active { border-color: #302b63; }
+    .choice-card__icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .choice-card h2 { font-size: 1.15rem; font-weight: 800; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .choice-card p { font-size: 0.88rem; color: #666; }
+    .choice-card .btn { margin-top: 1rem; }
+    @media (max-width: 560px) { .choice-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -21,7 +32,49 @@
   <main class="section">
     <div class="container">
 
-      <div class="form-card" id="form-section">
+      <!-- ELECCIÓN INICIAL -->
+      <div id="choice-view">
+        <h1 style="text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:0.5rem">Zona Privada</h1>
+        <p style="text-align:center;color:#666;margin-bottom:2rem">Acceso al contenido completo de la investigación del Colegio Camilo Henríquez.</p>
+        <div class="choice-grid">
+          <div class="choice-card" onclick="mostrarLogin()">
+            <div class="choice-card__icon">&#x1F513;</div>
+            <h2>Ya tengo cuenta</h2>
+            <p>Mi solicitud fue aprobada y tengo mis credenciales de acceso.</p>
+            <span class="btn btn--primary" style="font-size:0.85rem;padding:0.5rem 1.5rem">Iniciar sesión</span>
+          </div>
+          <div class="choice-card" onclick="mostrarFormulario()">
+            <div class="choice-card__icon">&#x1F4DD;</div>
+            <h2>Solicitar acceso</h2>
+            <p>Quiero solicitar acceso por primera vez al contenido de la investigación.</p>
+            <span class="btn btn--outline" style="font-size:0.85rem;padding:0.5rem 1.5rem">Llenar solicitud</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="form-card" id="login-section" style="display:none">
+        <h1>Iniciar sesión</h1>
+        <p class="form-card__desc">Ingresa con las credenciales que recibiste al ser aprobada tu solicitud.</p>
+        <form onsubmit="return false;">
+          <div class="field">
+            <label for="login-email">Correo electrónico</label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="field field--password">
+            <label for="login-pass">Contraseña</label>
+            <input type="password" id="login-pass" required>
+            <button type="button" class="toggle-pass" onclick="togglePassword('login-pass', this)" title="Mostrar contraseña">&#x1F441;</button>
+          </div>
+          <button type="button" class="btn btn--primary" onclick="iniciarSesion()">Ingresar</button>
+          <p class="form-error" id="login-error"></p>
+        </form>
+        <p class="text-muted" style="margin-top:1rem"><a href="#" onclick="mostrarFormulario();return false">¿No tienes cuenta? Solicitar acceso</a></p>
+        <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
+      </div>
+
+      <!-- FORMULARIO DE SOLICITUD -->
+      <div class="form-card" id="form-section" style="display:none">
         <h1>Solicitud de Acceso</h1>
         <p class="form-card__desc">Complete el formulario para solicitar acceso al contenido completo de la investigación. Su solicitud será revisada por el equipo del Colegio Camilo Henríquez.</p>
 
@@ -69,18 +122,17 @@
           <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()">Enviar solicitud</button>
           <p class="form-error" id="form-error"></p>
         </form>
+        <p class="text-muted" style="margin-top:1rem"><a href="#" onclick="mostrarLogin();return false">¿Ya tienes cuenta? Iniciar sesión</a></p>
+        <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
       </div>
 
+      <!-- ÉXITO -->
       <div class="form-card form-card--success" id="success-section" style="display:none">
         <div class="success-icon">&#x2709;</div>
         <h2>Solicitud enviada</h2>
         <p>Tu solicitud ha sido registrada exitosamente. Recibirás un correo en <strong id="email-sent"></strong> cuando sea aprobada.</p>
         <p class="text-muted">El equipo del Colegio Camilo Henríquez revisará tu solicitud a la brevedad.</p>
         <a href="index.html" class="btn btn--outline">Volver a la investigación</a>
-      </div>
-
-      <div style="max-width:620px;margin:1.5rem auto 0;text-align:center">
-        <p class="text-muted">¿Ya tienes cuenta aprobada? <a href="privado.html">Iniciar sesión</a></p>
       </div>
 
     </div>
@@ -98,6 +150,41 @@
   <script>
     var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    function togglePassword(inputId, btn) {
+      var input = document.getElementById(inputId);
+      if (input.type === 'password') { input.type = 'text'; btn.textContent = '\u{1F648}'; }
+      else { input.type = 'password'; btn.textContent = '\u{1F441}'; }
+    }
+
+    function mostrarLogin() {
+      document.getElementById('choice-view').style.display = 'none';
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('login-section').style.display = 'block';
+    }
+
+    function mostrarFormulario() {
+      document.getElementById('choice-view').style.display = 'none';
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('form-section').style.display = 'block';
+    }
+
+    function volverEleccion() {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('choice-view').style.display = 'block';
+    }
+
+    async function iniciarSesion() {
+      var errEl = document.getElementById('login-error');
+      errEl.textContent = '';
+      var email = document.getElementById('login-email').value.trim();
+      var password = document.getElementById('login-pass').value;
+      var resp = await sb.auth.signInWithPassword({ email: email, password: password });
+      if (resp.error) { errEl.textContent = 'Credenciales inv\u00e1lidas o cuenta no activada.'; return; }
+      // Redirigir a zona privada
+      window.location.href = 'privado.html';
+    }
+
     async function enviarSolicitud() {
       var btn = document.getElementById('submit-btn');
       var errEl = document.getElementById('form-error');
@@ -109,49 +196,35 @@
       var motivo = document.getElementById('motivo').value.trim();
       var acuerdo = document.getElementById('acuerdo').checked;
 
-      if (!nombre || !email || !institucion || !motivo) {
-        errEl.textContent = 'Por favor completa todos los campos.';
-        return;
-      }
-      if (!acuerdo) {
-        errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.';
-        return;
-      }
+      if (!nombre || !email || !institucion || !motivo) { errEl.textContent = 'Por favor completa todos los campos.'; return; }
+      if (!acuerdo) { errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.'; return; }
 
-      btn.disabled = true;
-      btn.textContent = 'Enviando...';
+      btn.disabled = true; btn.textContent = 'Enviando...';
 
       try {
         var result = await sb.from('access_requests').insert([{
-          nombre: nombre,
-          email: email,
-          institucion: institucion,
-          motivo: motivo,
-          acuerdo_aceptado: true,
-          estado: 'pendiente'
+          nombre: nombre, email: email, institucion: institucion,
+          motivo: motivo, acuerdo_aceptado: true, estado: 'pendiente'
         }]);
-
         if (result.error) {
-          if (result.error.code === '23505') {
-            errEl.textContent = 'Ya existe una solicitud con este correo.';
-          } else {
-            errEl.textContent = 'Error: ' + result.error.message;
-          }
-          btn.disabled = false;
-          btn.textContent = 'Enviar solicitud';
-          return;
+          if (result.error.code === '23505') { errEl.textContent = 'Ya existe una solicitud con este correo.'; }
+          else { errEl.textContent = 'Error: ' + result.error.message; }
+          btn.disabled = false; btn.textContent = 'Enviar solicitud'; return;
         }
-
         document.getElementById('email-sent').textContent = email;
         document.getElementById('form-section').style.display = 'none';
         document.getElementById('success-section').style.display = 'block';
-
       } catch(e) {
-        errEl.textContent = 'Error inesperado: ' + e.message;
-        btn.disabled = false;
-        btn.textContent = 'Enviar solicitud';
+        errEl.textContent = 'Error: ' + e.message;
+        btn.disabled = false; btn.textContent = 'Enviar solicitud';
       }
     }
+
+    // Si ya tiene sesión activa, ir directo a privado.html
+    (async function() {
+      var resp = await sb.auth.getSession();
+      if (resp.data && resp.data.session) { window.location.href = 'privado.html'; }
+    })();
   </script>
 </body>
 </html>
