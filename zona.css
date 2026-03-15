@@ -1,0 +1,60 @@
+/* ========== TOPBAR ========== */
+.topbar { background: #0f0c29; padding: 1rem 0; }
+.topbar__inner { display: flex; align-items: center; gap: 1rem; }
+.topbar__back { color: #ffd200; font-size: 0.9rem; font-weight: 600; }
+.topbar__title { color: #fff; font-weight: 700; flex: 1; }
+
+/* ========== FORM CARD ========== */
+.form-card { max-width: 620px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.form-card h1, .form-card h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; color: #1a1a2e; }
+.form-card__desc { color: #555; margin-bottom: 2rem; }
+.form-card--success { text-align: center; }
+.form-card--error { text-align: center; border-top: 4px solid #ff6b6b; }
+.success-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+/* ========== FIELDS ========== */
+.field { margin-bottom: 1.2rem; }
+.field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; color: #1a1a2e; }
+.field input, .field textarea { width: 100%; padding: 0.7rem 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; }
+.field input:focus, .field textarea:focus { outline: none; border-color: #302b63; }
+.field--check { margin: 1.5rem 0; }
+.field--check label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; font-size: 0.9rem; cursor: pointer; }
+.field--check input[type=checkbox] { margin-top: 0.2rem; width: 18px; height: 18px; accent-color: #302b63; }
+
+/* ========== ACUERDO ========== */
+.acuerdo-section { margin: 1.5rem 0; }
+.acuerdo-toggle { background: none; border: 2px solid #302b63; color: #302b63; padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.88rem; font-family: inherit; transition: all 0.2s; width: 100%; }
+.acuerdo-toggle:hover { background: #302b63; color: #fff; }
+.acuerdo-texto { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background: #f8f8fc; border-radius: 10px; padding: 0 1.2rem; margin-top: 0.8rem; }
+.acuerdo-texto--visible { max-height: 600px; padding: 1.5rem 1.2rem; border: 1px solid #e0e0e0; }
+.acuerdo-texto h3 { font-size: 1rem; margin-bottom: 0.8rem; color: #302b63; }
+.acuerdo-texto ol { padding-left: 1.2rem; margin: 0.8rem 0; }
+.acuerdo-texto li { margin-bottom: 0.8rem; font-size: 0.88rem; line-height: 1.6; color: #444; list-style: decimal; }
+.acuerdo-texto p { font-size: 0.88rem; color: #444; line-height: 1.6; }
+
+/* ========== BUTTONS ========== */
+.btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; font-size: 0.95rem; font-family: inherit; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; text-align: center; }
+.btn--primary { background: linear-gradient(135deg, #302b63, #24243e); color: #ffd200; border-color: #302b63; }
+.btn--primary:hover { background: #ffd200; color: #302b63; }
+.btn--primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn--outline { background: transparent; color: #302b63; border-color: #302b63; }
+.btn--outline:hover { background: #302b63; color: #fff; }
+.btn--small { padding: 0.4rem 1rem; font-size: 0.82rem; }
+.form-error { color: #ff6b6b; font-size: 0.88rem; margin-top: 0.8rem; min-height: 1.2em; }
+.text-muted { color: #888; font-size: 0.85rem; }
+.text-muted a { color: #302b63; font-weight: 600; }
+
+/* ========== PRIVATE CONTENT ========== */
+.private-header { text-align: center; margin-bottom: 3rem; }
+.private-header h1 { font-size: 2rem; font-weight: 900; color: #1a1a2e; }
+.private-header p { color: #555; margin-top: 0.5rem; }
+.content-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+.content-card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #302b63; }
+.content-card h3 { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.5rem; }
+.content-card__tag { display: inline-block; background: #f0eef8; color: #302b63; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.7rem; border-radius: 20px; margin-bottom: 0.8rem; }
+.content-card p { font-size: 0.92rem; color: #444; line-height: 1.7; }
+
+@media (max-width: 640px) {
+  .form-card { padding: 1.5rem; }
+  .topbar__inner { flex-wrap: wrap; }
+}

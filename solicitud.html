@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitud de Acceso — Zona Privada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="zona.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a href="index.html" class="topbar__back">&larr; Volver a la investigación</a>
+      <span class="topbar__title">Zona Privada</span>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="form-card" id="form-section">
+        <h1>Solicitud de Acceso</h1>
+        <p class="form-card__desc">Complete el formulario para solicitar acceso al contenido completo de la investigación. Su solicitud será revisada por el equipo del Colegio Camilo Henríquez.</p>
+
+        <form id="access-form">
+          <div class="field">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" required placeholder="Ej: María Pérez González">
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" required placeholder="correo@institucion.cl">
+          </div>
+          <div class="field">
+            <label for="institucion">Institución / Organización</label>
+            <input type="text" id="institucion" required placeholder="Ej: Universidad Autónoma de Chile">
+          </div>
+          <div class="field">
+            <label for="motivo">Motivo de interés</label>
+            <textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder a esta investigación..."></textarea>
+          </div>
+
+          <div class="acuerdo-section">
+            <button type="button" class="acuerdo-toggle" id="toggle-acuerdo">Leer Acuerdo de Confidencialidad y Uso Responsable &darr;</button>
+            <div class="acuerdo-texto" id="acuerdo-texto">
+              <h3>Acuerdo de Confidencialidad y Uso Responsable</h3>
+              <p>Al solicitar acceso al contenido completo de esta investigación, el solicitante declara y se compromete a lo siguiente:</p>
+              <ol>
+                <li><strong>No redistribución:</strong> El contenido proporcionado es de carácter reservado. El solicitante se compromete a no copiar, reproducir, distribuir, publicar ni compartir total o parcialmente la información con terceros sin autorización escrita del Colegio Camilo Henríquez.</li>
+                <li><strong>Uso exclusivamente académico/profesional:</strong> El acceso se otorga únicamente para fines de investigación académica, formación profesional, evaluación institucional o colaboración directa con el proyecto. Queda prohibido el uso comercial, periodístico o de cualquier otra índole sin autorización previa.</li>
+                <li><strong>Integridad de la información:</strong> El solicitante se compromete a no modificar, descontextualizar, fragmentar ni tergiversar los datos, análisis o conclusiones contenidos en la investigación. Cualquier referencia debe respetar el contexto original y citar la fuente.</li>
+                <li><strong>Revocación de acceso:</strong> El Colegio Camilo Henríquez se reserva el derecho de revocar el acceso en cualquier momento y sin necesidad de expresión de causa, especialmente si se detecta un uso que contravenga los términos de este acuerdo.</li>
+                <li><strong>Responsabilidad:</strong> El solicitante asume plena responsabilidad por el uso que haga de la información a la que acceda, exonerando al Colegio Camilo Henríquez de cualquier consecuencia derivada de un uso indebido.</li>
+              </ol>
+              <p><em>Este acuerdo rige desde el momento en que el solicitante marca la casilla de aceptación y envía su solicitud.</em></p>
+            </div>
+          </div>
+
+          <div class="field field--check">
+            <label>
+              <input type="checkbox" id="acuerdo" required>
+              He leído y acepto el <strong>Acuerdo de Confidencialidad y Uso Responsable</strong>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn--primary" id="submit-btn">Enviar solicitud</button>
+          <p class="form-error" id="form-error"></p>
+        </form>
+      </div>
+
+      <div class="form-card form-card--success" id="success-section" style="display:none">
+        <div class="success-icon">&#x2709;</div>
+        <h2>Solicitud enviada</h2>
+        <p>Tu solicitud ha sido registrada exitosamente. Recibirás un correo en <strong id="email-sent"></strong> cuando sea aprobada.</p>
+        <p class="text-muted">El equipo del Colegio Camilo Henríquez revisará tu solicitud a la brevedad.</p>
+        <a href="index.html" class="btn btn--outline">Volver a la investigación</a>
+      </div>
+
+      <div class="form-card form-card--login" id="login-section" style="display:none">
+        <h2>Ya tienes cuenta aprobada?</h2>
+        <p>Si tu solicitud fue aprobada, inicia sesión para acceder al contenido privado.</p>
+        <a href="privado.html" class="btn btn--primary">Iniciar sesión</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__colegio">Colegio Camilo Henríquez · Talca, Chile</p>
+      <p class="footer__year">2026</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.getElementById('toggle-acuerdo').addEventListener('click', function() {
+      const texto = document.getElementById('acuerdo-texto');
+      texto.classList.toggle('acuerdo-texto--visible');
+      this.textContent = texto.classList.contains('acuerdo-texto--visible')
+        ? 'Ocultar Acuerdo \u2191' : 'Leer Acuerdo de Confidencialidad y Uso Responsable \u2193';
+    });
+
+    document.getElementById('access-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const errEl = document.getElementById('form-error');
+      errEl.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const institucion = document.getElementById('institucion').value.trim();
+      const motivo = document.getElementById('motivo').value.trim();
+      const acuerdo = document.getElementById('acuerdo').checked;
+
+      if (!acuerdo) {
+        errEl.textContent = 'Debes aceptar el acuerdo de confidencialidad.';
+        btn.disabled = false;
+        btn.textContent = 'Enviar solicitud';
+        return;
+      }
+
+      const { error } = await sb.from('access_requests').insert([{
+        nombre, email, institucion, motivo, acuerdo_aceptado: true, estado: 'pendiente'
+      }]);
+
+      if (error) {
+        if (error.code === '23505') {
+          errEl.textContent = 'Ya existe una solicitud con este correo electr\u00f3nico.';
+        } else {
+          errEl.textContent = 'Error al enviar: ' + error.message;
+        }
+        btn.disabled = false;
+        btn.textContent = 'Enviar solicitud';
+        return;
+      }
+
+      document.getElementById('email-sent').textContent = email;
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('success-section').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

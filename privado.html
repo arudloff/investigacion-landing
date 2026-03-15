@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zona Privada — Investigación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="zona.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a href="index.html" class="topbar__back">&larr; Investigación</a>
+      <span class="topbar__title">Zona Privada</span>
+      <button class="btn btn--small btn--outline" id="logout-btn" style="display:none">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <!-- LOGIN -->
+  <main class="section" id="login-view">
+    <div class="container">
+      <div class="form-card">
+        <h1>Iniciar sesión</h1>
+        <p class="form-card__desc">Ingresa con las credenciales que recibiste al ser aprobada tu solicitud.</p>
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Correo electrónico</label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="field">
+            <label for="login-pass">Contraseña</label>
+            <input type="password" id="login-pass" required>
+          </div>
+          <button type="submit" class="btn btn--primary" id="login-btn">Ingresar</button>
+          <p class="form-error" id="login-error"></p>
+        </form>
+        <p class="text-muted" style="margin-top:1rem">¿Aún no tienes acceso? <a href="solicitud.html">Solicitar acceso</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- CONTENIDO PRIVADO -->
+  <main class="section" id="private-view" style="display:none">
+    <div class="container">
+      <div class="private-header">
+        <h1>Contenido de la Investigación</h1>
+        <p>Bienvenido/a, <strong id="user-name"></strong>. Acceso autorizado por el Colegio Camilo Henríquez.</p>
+      </div>
+      <div id="content-grid" class="content-grid"></div>
+      <div id="access-denied" style="display:none" class="form-card form-card--error">
+        <h2>Acceso pendiente</h2>
+        <p>Tu solicitud aún no ha sido aprobada. Recibirás un correo cuando el equipo la revise.</p>
+        <a href="index.html" class="btn btn--outline">Volver</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__colegio">Colegio Camilo Henríquez · Talca, Chile</p>
+      <p class="footer__year">2026 · Contenido confidencial — Uso exclusivamente académico/profesional</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const loginView = document.getElementById('login-view');
+    const privateView = document.getElementById('private-view');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    async function checkSession() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        await showPrivateContent(session.user);
+      }
+    }
+
+    async function showPrivateContent(user) {
+      loginView.style.display = 'none';
+      privateView.style.display = 'block';
+      logoutBtn.style.display = 'inline-block';
+      document.getElementById('user-name').textContent = user.email;
+
+      const { data: content, error } = await sb.from('private_content').select('*').order('orden');
+
+      if (error || !content || content.length === 0) {
+        document.getElementById('content-grid').style.display = 'none';
+        document.getElementById('access-denied').style.display = 'block';
+        return;
+      }
+
+      const grid = document.getElementById('content-grid');
+      grid.innerHTML = content.map(item => `
+        <article class="content-card">
+          <h3>${item.titulo}</h3>
+          <span class="content-card__tag">${item.seccion}</span>
+          <p>${item.contenido}</p>
+        </article>
+      `).join('');
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      const errEl = document.getElementById('login-error');
+      errEl.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Ingresando...';
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-pass').value;
+
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errEl.textContent = 'Credenciales inv\u00e1lidas o cuenta no activada.';
+        btn.disabled = false;
+        btn.textContent = 'Ingresar';
+        return;
+      }
+
+      await showPrivateContent(data.user);
+    });
+
+    logoutBtn.addEventListener('click', async function() {
+      await sb.auth.signOut();
+      loginView.style.display = 'block';
+      privateView.style.display = 'none';
+      logoutBtn.style.display = 'none';
+    });
+
+    checkSession();
+  </script>
+</body>
+</html>

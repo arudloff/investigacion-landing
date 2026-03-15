@@ -11,8 +11,11 @@ ul { list-style: none; }
 .hero__title { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem; background: linear-gradient(90deg, #f7971e, #ffd200); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero__subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); max-width: 700px; margin: 0 auto 1.5rem; opacity: 0.85; line-height: 1.7; }
 .hero__badge { font-size: 0.88rem; opacity: 0.65; max-width: 600px; margin: 0 auto 2rem; font-style: italic; }
+.hero__actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 .hero__cta { display: inline-block; padding: 0.8rem 2rem; border: 2px solid #ffd200; border-radius: 50px; color: #ffd200; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; }
 .hero__cta:hover { background: #ffd200; color: #0f0c29; }
+.hero__cta--solid { background: #ffd200; color: #0f0c29; }
+.hero__cta--solid:hover { background: transparent; color: #ffd200; }
 .section { padding: 5rem 0; }
 .section--dark { background: #1a1a2e; color: #e8e8e8; }
 .section__title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; text-align: center; margin-bottom: 0.8rem; }
@@ -50,10 +53,6 @@ ul { list-style: none; }
 .section--quote blockquote { max-width: 800px; margin: 0 auto; text-align: center; color: #ffd200; font-size: clamp(1.05rem, 2.5vw, 1.3rem); line-height: 1.8; font-weight: 600; font-style: italic; }
 .footer { background: #0f0c29; color: #aaa; text-align: center; padding: 3rem 0; font-size: 0.85rem; }
 .footer__colegio { color: #ffd200; font-weight: 900; font-size: 1.15rem; margin-bottom: 0.4rem; }
-.footer__alianzas { max-width: 600px; margin: 0 auto 1.2rem; font-size: 0.85rem; opacity: 0.7; font-style: italic; }
-.footer__divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); max-width: 200px; margin: 1.2rem auto; }
-.footer__project { color: #fff; font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
-.footer__institution { color: #ccc; margin-bottom: 1rem; }
 .footer__sources { max-width: 600px; margin: 0 auto 0.8rem; font-size: 0.78rem; line-height: 1.6; }
 .footer__year { opacity: 0.5; }
 @media (max-width: 768px) { .hero { padding: 4rem 0 3.5rem; } .section { padding: 3.5rem 0; } .columns, .columns--2 { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .competencias-grid { grid-template-columns: repeat(2, 1fr); } .conclusion { flex-direction: column; align-items: center; text-align: center; } }
