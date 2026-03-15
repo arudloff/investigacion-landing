@@ -27,8 +27,6 @@
     .btn--approve:hover { background: #40c057; }
     .btn--reject { background: #ff6b6b; color: #fff; border-color: #ff6b6b; padding: 0.4rem 1.2rem; font-size: 0.85rem; }
     .btn--reject:hover { background: #fa5252; }
-    .password-result { margin-top: 0.8rem; padding: 0.8rem; background: #d4edda; border-radius: 8px; font-size: 0.88rem; }
-    .password-result code { background: #155724; color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
     .notif-badge { background: #ff6b6b; color: #fff; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; margin-left: 0.4rem; }
     .stats-bar { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
     .stat-mini { text-align: center; padding: 1rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); min-width: 120px; }
@@ -37,6 +35,18 @@
     .tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
     .tab { padding: 0.5rem 1.2rem; border-radius: 8px; border: 2px solid #e0e0e0; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.88rem; font-family: inherit; }
     .tab.active { background: #302b63; color: #ffd200; border-color: #302b63; }
+    /* Password input inline */
+    .pass-input-row { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; }
+    .pass-input-row input { padding: 0.4rem 0.7rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.88rem; font-family: inherit; width: 200px; }
+    .pass-input-row input:focus { outline: none; border-color: #302b63; }
+    .pass-label { font-size: 0.82rem; color: #666; }
+    /* Result box */
+    .approve-result { margin-top: 1rem; padding: 1rem; background: #d4edda; border-radius: 10px; border: 1px solid #c3e6cb; }
+    .approve-result h4 { font-size: 0.95rem; color: #155724; margin-bottom: 0.6rem; }
+    .msg-box { background: #fff; border: 1px solid #c3e6cb; border-radius: 8px; padding: 0.8rem; font-size: 0.85rem; line-height: 1.6; color: #333; white-space: pre-wrap; margin-bottom: 0.6rem; }
+    .btn--copy { background: #302b63; color: #ffd200; border-color: #302b63; padding: 0.4rem 1rem; font-size: 0.82rem; }
+    .btn--copy:hover { background: #ffd200; color: #302b63; }
+    .copy-ok { color: #155724; font-size: 0.82rem; margin-left: 0.5rem; display: none; }
   </style>
 </head>
 <body>
@@ -48,6 +58,7 @@
     </div>
   </header>
 
+  <!-- LOGIN ADMIN -->
   <main class="section" id="login-view">
     <div class="container">
       <div class="form-card">
@@ -70,6 +81,7 @@
     </div>
   </main>
 
+  <!-- PANEL ADMIN -->
   <main class="section" id="admin-view" style="display:none">
     <div class="container">
       <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:1.5rem">Solicitudes de Acceso</h1>
@@ -98,32 +110,26 @@
     var allRequests = [];
     var currentFilter = 'todas';
     var sessionToken = '';
+    var SITE_URL = 'https://investigacion-landing.vercel.app';
 
     function togglePassword(inputId, btn) {
       var input = document.getElementById(inputId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '\u{1F648}';
-        btn.title = 'Ocultar contrase\u00f1a';
-      } else {
-        input.type = 'password';
-        btn.textContent = '\u{1F441}';
-        btn.title = 'Mostrar contrase\u00f1a';
-      }
+      if (input.type === 'password') { input.type = 'text'; btn.textContent = '\u{1F648}'; btn.title = 'Ocultar'; }
+      else { input.type = 'password'; btn.textContent = '\u{1F441}'; btn.title = 'Mostrar'; }
+    }
+
+    function generarPassword() {
+      return 'CCH-' + Math.random().toString(36).slice(2,8).toUpperCase() + '-' + new Date().getFullYear();
     }
 
     async function loginAdmin() {
-      var errEl = document.getElementById('admin-error');
-      errEl.textContent = '';
+      var errEl = document.getElementById('admin-error'); errEl.textContent = '';
       var email = document.getElementById('admin-email').value.trim();
       var password = document.getElementById('admin-pass').value;
-
       var resp = await sb.auth.signInWithPassword({ email: email, password: password });
       if (resp.error) { errEl.textContent = 'Credenciales inv\u00e1lidas.'; return; }
-
       var adminCheck = await sb.from('admins').select('email').eq('email', email).single();
       if (!adminCheck.data) { errEl.textContent = 'No tienes permisos de administrador.'; await sb.auth.signOut(); return; }
-
       sessionToken = resp.data.session.access_token;
       document.getElementById('login-view').style.display = 'none';
       document.getElementById('admin-view').style.display = 'block';
@@ -135,8 +141,7 @@
       var resp = await sb.from('access_requests').select('*').order('fecha_solicitud', { ascending: false });
       if (resp.error) { document.getElementById('requests-grid').innerHTML = '<p>Error: ' + resp.error.message + '</p>'; return; }
       allRequests = resp.data || [];
-      updateStats();
-      renderRequests();
+      updateStats(); renderRequests();
       var notifResp = await sb.from('notifications').select('id', { count: 'exact' }).eq('leida', false);
       if (notifResp.count > 0) {
         document.getElementById('notif-count').innerHTML = '<span class="notif-badge">' + notifResp.count + '</span>';
@@ -145,10 +150,10 @@
     }
 
     function updateStats() {
-      var p = allRequests.filter(function(r){return r.estado==='pendiente'}).length;
-      var a = allRequests.filter(function(r){return r.estado==='aprobado'}).length;
-      var re = allRequests.filter(function(r){return r.estado==='rechazado'}).length;
-      document.getElementById('stats-bar').innerHTML =
+      var p=allRequests.filter(function(r){return r.estado==='pendiente'}).length;
+      var a=allRequests.filter(function(r){return r.estado==='aprobado'}).length;
+      var re=allRequests.filter(function(r){return r.estado==='rechazado'}).length;
+      document.getElementById('stats-bar').innerHTML=
         '<div class="stat-mini"><strong>'+allRequests.length+'</strong><span>Total</span></div>'+
         '<div class="stat-mini"><strong style="color:#f59f00">'+p+'</strong><span>Pendientes</span></div>'+
         '<div class="stat-mini"><strong style="color:#51cf66">'+a+'</strong><span>Aprobadas</span></div>'+
@@ -158,8 +163,7 @@
     function filtrar(estado, btn) {
       currentFilter = estado;
       document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-      btn.classList.add('active');
-      renderRequests();
+      btn.classList.add('active'); renderRequests();
     }
 
     function renderRequests() {
@@ -170,9 +174,23 @@
         var fecha = new Date(r.fecha_solicitud).toLocaleDateString('es-CL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
         var actions = '';
         if (r.estado==='pendiente') {
-          actions='<button class="btn btn--approve" onclick="aprobar(\''+r.id+'\',\''+r.email+'\',\''+(r.nombre||'').replace(/'/g,'')+'\')">Aprobar</button>'+
-                  '<button class="btn btn--reject" onclick="rechazar(\''+r.id+'\')">Rechazar</button>';
-        } else { actions='<span class="badge badge--'+r.estado+'">'+r.estado.toUpperCase()+'</span>'; }
+          var defaultPass = generarPassword();
+          actions =
+            '<div style="width:100%">'+
+              '<p class="pass-label">Contrase\u00f1a para el usuario (puedes cambiarla):</p>'+
+              '<div class="pass-input-row">'+
+                '<input type="text" id="pass-'+r.id+'" value="'+defaultPass+'">'+
+              '</div>'+
+              '<div style="display:flex;gap:0.6rem;flex-wrap:wrap">'+
+                '<button class="btn btn--approve" onclick="aprobar(\''+r.id+'\',\''+r.email+'\',\''+(r.nombre||'').replace(/'/g,'')+'\')">' +
+                  'Aprobar y crear cuenta</button>'+
+                '<button class="btn btn--reject" onclick="rechazar(\''+r.id+'\')">' +
+                  'Rechazar</button>'+
+              '</div>'+
+            '</div>';
+        } else {
+          actions = '<span class="badge badge--'+r.estado+'">'+r.estado.toUpperCase()+'</span>';
+        }
         return '<div class="req-card req-card--'+r.estado+'">'+
           '<h3>'+(r.nombre||'Sin nombre')+'</h3>'+
           '<div class="meta">'+(r.email||'')+' &middot; '+(r.institucion||'')+' &middot; '+fecha+'</div>'+
@@ -181,40 +199,100 @@
       }).join('');
     }
 
-    async function aprobar(id,email,nombre) {
-      var el=document.getElementById('actions-'+id);
-      el.innerHTML='<span style="color:#888">Procesando...</span>';
+    async function aprobar(id, email, nombre) {
+      var el = document.getElementById('actions-' + id);
+      var passInput = document.getElementById('pass-' + id);
+      var password = passInput ? passInput.value.trim() : '';
+      if (!password || password.length < 6) {
+        alert('La contrase\u00f1a debe tener al menos 6 caracteres.'); return;
+      }
+      el.innerHTML = '<span style="color:#888">Procesando...</span>';
+
       try {
-        var resp=await fetch(SUPABASE_URL+'/functions/v1/admin-approve',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionToken},body:JSON.stringify({action:'approve',request_id:id,email:email,nombre:nombre})});
-        var data=await resp.json();
-        if(data.success){el.innerHTML='<span class="badge badge--aprobado">APROBADO</span><div class="password-result">Contrase\u00f1a temporal: <code>'+data.temp_password+'</code><br><small>Env\u00eda esta contrase\u00f1a a '+email+'</small></div>';allRequests=allRequests.map(function(r){return r.id===id?Object.assign({},r,{estado:'aprobado'}):r});updateStats();}
-        else{el.innerHTML='<span style="color:red">Error: '+(data.error||'desconocido')+'</span>';}
-      }catch(e){el.innerHTML='<span style="color:red">Error: '+e.message+'</span>';}
+        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+          body: JSON.stringify({ action: 'approve', request_id: id, email: email, nombre: nombre, password: password })
+        });
+        var data = await resp.json();
+
+        if (data.success) {
+          var usedPass = data.temp_password || password;
+          var msg = 'Hola ' + nombre + ',\n\n' +
+            'Tu solicitud de acceso a la investigaci\u00f3n del Colegio Camilo Henr\u00edquez ha sido aprobada.\n\n' +
+            'Ingresa aqu\u00ed:\n' + SITE_URL + '/privado.html\n\n' +
+            'Tus credenciales:\n' +
+            'Correo: ' + email + '\n' +
+            'Contrase\u00f1a: ' + usedPass + '\n\n' +
+            'Este acceso es personal e intransferible, sujeto al acuerdo de confidencialidad que aceptaste.\n\n' +
+            'Colegio Camilo Henr\u00edquez \u00b7 Talca, Chile';
+
+          el.innerHTML =
+            '<div class="approve-result">' +
+              '<h4>\u2705 Solicitud aprobada \u2014 Cuenta creada</h4>' +
+              '<p style="font-size:0.85rem;color:#155724;margin-bottom:0.6rem">Copia este mensaje y env\u00edaselo al usuario por correo o WhatsApp:</p>' +
+              '<div class="msg-box" id="msg-' + id + '">' + msg.replace(/\n/g, '\n') + '</div>' +
+              '<button class="btn btn--copy" onclick="copiarMensaje(\'msg-' + id + '\', this)">Copiar mensaje</button>' +
+              '<span class="copy-ok" id="copy-ok-' + id + '">\u2713 Copiado</span>' +
+            '</div>';
+
+          allRequests = allRequests.map(function(r) { return r.id===id ? Object.assign({},r,{estado:'aprobado'}) : r; });
+          updateStats();
+        } else {
+          el.innerHTML = '<span style="color:red">Error: ' + (data.error||'desconocido') + '</span>';
+        }
+      } catch(e) {
+        el.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
+      }
+    }
+
+    function copiarMensaje(msgId, btn) {
+      var msgBox = document.getElementById(msgId);
+      var text = msgBox.innerText;
+      navigator.clipboard.writeText(text).then(function() {
+        var okEl = btn.nextElementSibling;
+        okEl.style.display = 'inline';
+        setTimeout(function() { okEl.style.display = 'none'; }, 3000);
+      });
     }
 
     async function rechazar(id) {
-      var el=document.getElementById('actions-'+id);
-      el.innerHTML='<span style="color:#888">Procesando...</span>';
+      if (!confirm('\u00bfRechazar esta solicitud?')) return;
+      var el = document.getElementById('actions-' + id);
+      el.innerHTML = '<span style="color:#888">Procesando...</span>';
       try {
-        var resp=await fetch(SUPABASE_URL+'/functions/v1/admin-approve',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionToken},body:JSON.stringify({action:'reject',request_id:id})});
-        var data=await resp.json();
-        if(data.success){el.innerHTML='<span class="badge badge--rechazado">RECHAZADO</span>';allRequests=allRequests.map(function(r){return r.id===id?Object.assign({},r,{estado:'rechazado'}):r});updateStats();}
-        else{el.innerHTML='<span style="color:red">Error: '+(data.error||'desconocido')+'</span>';}
-      }catch(e){el.innerHTML='<span style="color:red">Error: '+e.message+'</span>';}
+        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+          body: JSON.stringify({ action: 'reject', request_id: id })
+        });
+        var data = await resp.json();
+        if (data.success) {
+          el.innerHTML = '<span class="badge badge--rechazado">RECHAZADO</span>';
+          allRequests = allRequests.map(function(r) { return r.id===id ? Object.assign({},r,{estado:'rechazado'}) : r; });
+          updateStats();
+        } else { el.innerHTML = '<span style="color:red">Error: ' + (data.error||'desconocido') + '</span>'; }
+      } catch(e) { el.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>'; }
     }
 
     async function cerrarSesion() {
       await sb.auth.signOut();
-      document.getElementById('login-view').style.display='block';
-      document.getElementById('admin-view').style.display='none';
-      document.getElementById('logout-btn').style.display='none';
+      document.getElementById('login-view').style.display = 'block';
+      document.getElementById('admin-view').style.display = 'none';
+      document.getElementById('logout-btn').style.display = 'none';
     }
 
-    (async function(){
-      var resp=await sb.auth.getSession();
-      if(resp.data&&resp.data.session){
-        var check=await sb.from('admins').select('email').single();
-        if(check.data){sessionToken=resp.data.session.access_token;document.getElementById('login-view').style.display='none';document.getElementById('admin-view').style.display='block';document.getElementById('logout-btn').style.display='inline-block';await loadRequests();}
+    (async function() {
+      var resp = await sb.auth.getSession();
+      if (resp.data && resp.data.session) {
+        var check = await sb.from('admins').select('email').single();
+        if (check.data) {
+          sessionToken = resp.data.session.access_token;
+          document.getElementById('login-view').style.display = 'none';
+          document.getElementById('admin-view').style.display = 'block';
+          document.getElementById('logout-btn').style.display = 'inline-block';
+          await loadRequests();
+        }
       }
     })();
   </script>
