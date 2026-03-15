@@ -16,92 +16,87 @@
 
     <header class="topbar">
       <a href="privado.html" class="topbar__title">CCH · Investigación</a>
-      <nav class="sitenav">
-        <a href="privado.html">Inicio</a>
-        <a href="investigacion.html">Evidencia</a>
-        <a href="modelo.html">Modelo</a>
-        <a href="instrumentos.html">Instrumentos</a>
-        <a href="para-familias.html">Familias</a>
-      </nav>
-      <div class="topbar__right">
-        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Informe completo</a>
-        <button class="topbar__logout" onclick="doLogout()">Salir</button>
-      </div>
+      <nav class="sitenav"><a href="privado.html">Inicio</a><a href="investigacion.html">Evidencia</a><a href="modelo.html">Modelo</a><a href="instrumentos.html">Instrumentos</a><a href="para-familias.html">Familias</a></nav>
+      <div class="topbar__right"><button class="topbar__logout" onclick="doLogout()">Salir</button></div>
     </header>
 
-    <section class="page-hero">
-      <div class="page-hero__inner">
-        <h1 class="anim">Instrumentos y Materiales</h1>
-        <p class="anim">Herramientas diseñadas, validadas y listas para aplicar. Todo el detalle técnico está en el informe descargable.</p>
-      </div>
-    </section>
+    <section class="page-hero"><div class="page-hero__inner">
+      <h1 class="anim">Instrumentos y Materiales</h1>
+      <p class="anim">Herramientas diseñadas, validadas y listas para aplicar en cada fase de la intervención.</p>
+    </div></section>
 
-    <section class="slide">
-      <div class="slide__inner">
-        <h2 class="slide__heading anim">8 instrumentos listos para usar</h2>
-        <div class="inst-grid">
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F4CB;</div>
-            <h3>Encuesta diagnóstica</h3>
-            <p>46 preguntas en 6 secciones: sociodemográfica, conocimiento del modelo, valoración, disposición, condiciones/barreras, contexto digital.</p>
-            <div class="inst__meta">Fase: Definir · Aplicación: masiva</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F399;</div>
-            <h3>Guía de entrevista</h3>
-            <p>Entrevista semiestructurada con 5 bloques temáticos para profundizar en percepciones familiares.</p>
-            <div class="inst__meta">Fase: Definir · Aplicación: selectiva</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F465;</div>
-            <h3>Guía de grupo focal</h3>
-            <p>3 bloques de discusión grupal para triangular datos cualitativos con familias.</p>
-            <div class="inst__meta">Fase: Definir · Aplicación: grupal</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F4DC;</div>
-            <h3>Protocolo ético</h3>
-            <p>6 principios, 3 consentimientos informados diferenciados, protocolo de manejo de datos y devolución.</p>
-            <div class="inst__meta">Fase: Transversal · Aplicación: obligatoria</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F4D6;</div>
-            <h3>Cuadernillo para familias</h3>
-            <p>5 páginas en lenguaje accesible: qué hace diferente al colegio, las 6 habilidades, por qué importa hoy.</p>
-            <div class="inst__meta">Fase: Difundir · Entregable a familias</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x2705;</div>
-            <h3>Rúbrica de evaluación</h3>
-            <p>16 criterios en 4 dimensiones + 10 preguntas poderosas para que las familias evalúen colegios de continuidad.</p>
-            <div class="inst__meta">Fase: Activar · Herramienta de empoderamiento</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F4CB;</div>
-            <h3>Estrategia de convocatoria</h3>
-            <p>5 perfiles familiares con estrategias diferenciadas, 8 canales de comunicación, 6 principios de equidad.</p>
-            <div class="inst__meta">Fase: Difundir · Aplicación: planificación</div>
-          </div>
-          <div class="inst anim">
-            <div class="inst__icon">&#x1F3C5;</div>
-            <h3>Programa de formación de agentes</h3>
-            <p>7 módulos, 12 horas, certificación. Desde el modelo educativo hasta autocuidado del agente.</p>
-            <div class="inst__meta">Fase: Sostener · Aplicación: formación</div>
-          </div>
-        </div>
+    <!-- ENCUESTA -->
+    <section class="slide" id="encuesta"><div class="slide__inner">
+      <h2 class="slide__heading anim">Encuesta diagnóstica: 46 preguntas, 6 secciones</h2>
+      <p class="slide__sub anim">Aplicación masiva (~15 min). Produce la línea base para el Índice ICAF.</p>
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>A: Datos sociodemográficos</h3><p>9 preguntas: parentesco, escolaridad, empleo, nacionalidad, años en el colegio, acceso a internet, historial de participación.</p></div>
+        <div class="fase-card anim"><h3>B: Conocimiento del modelo</h3><p>10 ítems Likert (1-5): comprensión del modelo educativo, competencias del siglo XXI, conocimiento de marcos formativos.</p></div>
+        <div class="fase-card anim"><h3>C: Valoración</h3><p>8 ítems Likert (1-5): valor y satisfacción con el enfoque educativo, percepción de calidad e impacto.</p></div>
+        <div class="fase-card anim"><h3>D: Disposición para la continuidad</h3><p>7 ítems Likert + 1 pregunta abierta: disposición a evaluar colegios de continuidad, exigir estándares, preocupaciones.</p></div>
+        <div class="fase-card anim"><h3>E: Condiciones y barreras</h3><p>6 preguntas: barreras de participación, horarios, formatos preferidos, idioma, redes de apoyo, interés en talleres.</p></div>
+        <div class="fase-card anim"><h3>F: Percepción digital</h3><p>5 ítems Likert (1-5): impacto de IA, preocupación por desinformación, conciencia sobre economía digital.</p></div>
       </div>
-    </section>
+    </div></section>
 
-    <section class="slide slide--cta">
-      <div class="slide__inner">
-        <h2 class="anim">Todo el detalle técnico está en el informe.</h2>
-        <p class="anim">Cada instrumento incluye su guía de aplicación, matrices de análisis y criterios de evaluación.</p>
-        <div class="cta-buttons anim">
-          <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
-          <a href="para-familias.html" class="cta-btn cta-btn--secondary">Ver versión para familias &rarr;</a>
-        </div>
+    <!-- ENTREVISTA + FOCAL -->
+    <section class="slide slide--dark" id="cuali"><div class="slide__inner">
+      <h2 class="slide__heading anim">Instrumentos cualitativos</h2>
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>Entrevista semiestructurada</h3><p><strong>5 bloques, 30-45 min, 8-12 familias:</strong></p><ul><li>Relación con el colegio (5-8 min)</li><li>Comprensión del modelo educativo (8-10 min)</li><li>Habilidades del siglo XXI (5-8 min)</li><li>Proyección y continuidad (5-8 min)</li><li>Condiciones sociales y barreras (5-8 min)</li></ul></div>
+        <div class="fase-card anim"><h3>Grupos focales</h3><p><strong>2 grupos diferenciados, 60-90 min, 6-10 familias c/u:</strong></p><ul><li><strong>Grupo A:</strong> familias activas (ICAF medio-alto/alto)</li><li><strong>Grupo B:</strong> familias distantes (ICAF bajo/medio-bajo)</li></ul><p style="margin-top:.5rem"><strong>Estructura:</strong> bienvenida → rompe-hielo → conocimiento del modelo → valoración y competencias → continuidad y empoderamiento → cierre.</p></div>
+        <div class="fase-card anim"><h3>Convocatoria diferenciada</h3><p><strong>5 perfiles familiares</strong> con estrategias específicas:</p><ul><li>Familias activas</li><li>Interesadas pero limitadas</li><li>Distantes</li><li>Migrantes</li><li>Vulnerables</li></ul><p style="margin-top:.5rem">8 canales de comunicación, 6 principios de equidad.</p></div>
       </div>
-    </section>
+    </div></section>
+
+    <!-- RÚBRICA -->
+    <section class="slide" id="rubrica"><div class="slide__inner">
+      <h2 class="slide__heading anim">Rúbrica de evaluación de colegios de continuidad</h2>
+      <p class="slide__sub anim">16 criterios en 4 dimensiones + 10 preguntas poderosas. La herramienta de empoderamiento central.</p>
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>D1: ¿Cómo aprenden? (5 criterios)</h3><ul><li>¿Trabajan en equipo regularmente?</li><li>¿Hacen proyectos o solo escuchan clases?</li><li>¿Tienen espacio para opinar, proponer y decidir?</li><li>¿Usan tecnología como herramienta de aprendizaje?</li><li>¿Se promueve la creatividad?</li></ul></div>
+        <div class="fase-card anim"><h3>D2: ¿Cómo se relacionan? (4 criterios)</h3><ul><li>¿Hay programa activo de convivencia?</li><li>¿Se trabajan emociones y relaciones?</li><li>¿Los conflictos se resuelven con diálogo?</li><li>¿Se respeta la diversidad y se promueve inclusión?</li></ul></div>
+        <div class="fase-card anim"><h3>D3: ¿Cómo participan las familias? (3)</h3><ul><li>¿Informan regularmente sobre el modelo?</li><li>¿Hay espacios reales de participación?</li><li>¿Pueden las familias opinar sobre el proyecto?</li></ul></div>
+        <div class="fase-card anim"><h3>D4: ¿Qué visión tiene? (4 criterios)</h3><ul><li>¿Menciona habilidades del siglo XXI?</li><li>¿Tiene proyecto documentado y accesible?</li><li>¿Docentes capacitados en metodologías activas?</li><li>¿Actualiza prácticas y busca mejora?</li></ul></div>
+      </div>
+
+      <div class="slide__punchline anim" style="margin-top:2rem">
+        <strong>Escala de evaluación:</strong> ✓✓ Lo hace muy bien (evidencia clara) · ✓ Lo hace parcialmente · ✗ No lo hace.<br>
+        <strong>Interpretación:</strong> 13+ criterios ✓✓ = Excelente · 8-12 = Aceptable con diálogo · &lt;8 = Preocupante, considerar alternativas.
+      </div>
+
+      <h3 class="slide__heading anim" style="font-size:1.1rem;margin-top:2.5rem">Las 10 preguntas poderosas para visitar colegios</h3>
+      <div class="caso-grid">
+        <div class="caso anim"><p><strong>1.</strong> ¿Cuál es el modelo educativo del colegio?</p></div>
+        <div class="caso anim"><p><strong>2.</strong> ¿Cómo trabajan pensamiento crítico, creatividad, colaboración, autonomía?</p></div>
+        <div class="caso anim"><p><strong>3.</strong> ¿Qué metodologías usan? ¿Proyectos, trabajo en equipo, investigación?</p></div>
+        <div class="caso anim"><p><strong>4.</strong> ¿Cómo evalúan? ¿Solo pruebas escritas u otras formas?</p></div>
+        <div class="caso anim"><p><strong>5.</strong> ¿Puede mostrarme un ejemplo de trabajo de estudiante?</p></div>
+        <div class="caso anim"><p><strong>6.</strong> ¿Cómo participan las familias en la vida escolar?</p></div>
+        <div class="caso anim"><p><strong>7.</strong> ¿Qué hacen cuando hay conflictos? ¿Cómo manejan la convivencia?</p></div>
+        <div class="caso anim"><p><strong>8.</strong> ¿Cómo preparan a los estudiantes para el mundo futuro y laboral?</p></div>
+        <div class="caso anim"><p><strong>9.</strong> ¿Los docentes reciben formación continua? ¿En qué temas?</p></div>
+        <div class="caso anim"><p><strong>10.</strong> ¿Qué rol tiene la tecnología en el aprendizaje?</p></div>
+      </div>
+    </div></section>
+
+    <!-- MATERIALES PARA FAMILIAS -->
+    <section class="slide slide--dark" id="materiales"><div class="slide__inner">
+      <h2 class="slide__heading anim">Materiales para familias</h2>
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>Cuadernillo "Nuestro Modelo Educativo"</h3><p>5 páginas en lenguaje accesible:</p><ul><li>Qué hace diferente al colegio</li><li>Las 6 habilidades explicadas</li><li>Por qué importa hoy (datos globales)</li><li>La transición a colegios de continuidad</li><li>5 acciones concretas para las familias</li></ul></div>
+        <div class="fase-card anim"><h3>Protocolo ético completo</h3><p>Marco para toda la intervención:</p><ul><li>6 principios rectores</li><li>3 consentimientos informados diferenciados</li><li>Protocolo de manejo de datos</li><li>Compromiso de confidencialidad del equipo</li><li>Protocolo de devolución de resultados</li></ul></div>
+      </div>
+    </div></section>
+
+    <section class="slide slide--cta"><div class="slide__inner">
+      <h2 class="anim">Cada instrumento está diseñado para empoderar.</h2>
+      <p class="anim">No son formularios burocráticos. Son herramientas que transforman la relación de las familias con la educación.</p>
+      <div class="cta-buttons anim">
+        <a href="para-familias.html" class="cta-btn cta-btn--primary">Ver versión para familias &rarr;</a>
+        <a href="privado.html" class="cta-btn cta-btn--secondary">Volver al inicio</a>
+      </div>
+    </div></section>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
