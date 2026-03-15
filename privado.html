@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- ===== LOGIN ===== -->
+  <!-- LOGIN -->
   <div id="login-view" class="login-overlay">
     <div class="login-card">
       <h1>Zona Privada</h1>
@@ -29,165 +29,273 @@
     </div>
   </div>
 
-  <!-- ===== PITCH NARRATIVO ===== -->
+  <!-- PITCH -->
   <div id="pitch-view" style="display:none">
 
     <!-- TOPBAR -->
     <header class="topbar">
-      <span class="topbar__title">Colegio Camilo Henríquez · Investigación</span>
+      <span class="topbar__title">CCH · Investigación</span>
+      <nav class="topbar__nav">
+        <a href="#contexto">Contexto</a>
+        <a href="#ia">IA</a>
+        <a href="#modelo">Modelo</a>
+        <a href="#chile">Chile</a>
+        <a href="#alianzas">Alianzas</a>
+      </nav>
       <div class="topbar__right">
-        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Descargar Informe Completo</a>
+        <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="topbar__dl" download>Descargar Informe</a>
         <button class="topbar__logout" onclick="doLogout()">Salir</button>
       </div>
     </header>
 
-    <!-- SLIDE 1: TESIS -->
-    <section class="slide slide--hero">
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots" id="progress-dots"></div>
+
+    <!-- S1: TESIS -->
+    <section class="slide slide--hero" data-dot="Tesis">
       <div class="slide__inner">
-        <p class="slide__label">Investigación &middot; Trabajo Social en Contexto Educativo</p>
-        <h1 class="slide__title">Este colegio ya prepara para el siglo XXI.<br><span>Las familias necesitan saberlo.</span></h1>
-        <p class="slide__sub">Una investigación con evidencia de 10 marcos internacionales, datos de Chile, y un modelo de intervención para empoderar a las familias como garantes de la educación del futuro.</p>
-        <a href="#contexto" class="slide__cta">Explorar &darr;</a>
+        <p class="slide__label anim">Colegio Camilo Henríquez · Talca, Chile</p>
+        <h1 class="slide__bigtitle anim">Este colegio ya prepara<br>para el siglo XXI.</h1>
+        <h2 class="slide__accent anim">Las familias necesitan saberlo,<br>valorarlo y exigirlo.</h2>
+        <p class="slide__sub anim">Evidencia de 10 marcos internacionales · Datos de Chile · Un modelo de intervención desde el Trabajo Social</p>
+        <a href="#contexto" class="slide__cta anim">Descubre por qué &darr;</a>
       </div>
     </section>
 
-    <!-- SLIDE 2: EL MUNDO CAMBIÓ -->
-    <section class="slide slide--dark" id="contexto">
+    <!-- S2: EL MUNDO CAMBIÓ -->
+    <section class="slide slide--dark" id="contexto" data-dot="Contexto">
       <div class="slide__inner">
-        <h2 class="slide__heading">El mundo ya cambió</h2>
+        <h2 class="slide__heading anim">El mundo ya cambió</h2>
+        <p class="slide__sub anim">Estas cifras no son proyecciones. Ya están ocurriendo.</p>
         <div class="kpi-grid">
-          <div class="kpi"><strong>300M</strong><span>empleos expuestos a IA generativa</span><em>Goldman Sachs</em></div>
-          <div class="kpi"><strong>55%</strong><span>de empleos en Chile son tareas repetitivas &mdash; el mayor % de la OCDE</span><em>OCDE/PIAAC</em></div>
-          <div class="kpi"><strong>21,4%</strong><span>desempleo juvenil en Chile</span><em>INE, 2024</em></div>
-          <div class="kpi"><strong>900%</strong><span>crecimiento anual de deepfakes</span><em>WEF/Sumsub</em></div>
-          <div class="kpi"><strong>90M</strong><span>posiciones remotas para 2030 &mdash; competencia global</span><em>WEF</em></div>
-          <div class="kpi"><strong>81%</strong><span>de chilenos cree que la IA facilita fake news</span><em>Ipsos</em></div>
+          <div class="kpi anim"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em></div>
+          <div class="kpi anim"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em></div>
+          <div class="kpi anim"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em></div>
+          <div class="kpi anim"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em></div>
+          <div class="kpi anim"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em></div>
+          <div class="kpi anim"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em></div>
         </div>
-        <p class="slide__callout">Los estudiantes que solo memoricen y sigan instrucciones competirán contra la IA &mdash; <strong>y perderán.</strong></p>
+        <div class="cases anim">
+          <h3>Ya está pasando</h3>
+          <div class="cases-grid">
+            <div class="case"><strong>Klarna</strong><span>-50% staff, duplicó ingresos</span></div>
+            <div class="case"><strong>IBM</strong><span>94% RRHH automatizado</span></div>
+            <div class="case"><strong>UPS</strong><span>-20.000 empleos</span></div>
+            <div class="case"><strong>Chegg</strong><span>-45% por ChatGPT</span></div>
+            <div class="case"><strong>Duolingo</strong><span>-10% contratistas</span></div>
+            <div class="case"><strong>Dropbox</strong><span>-528 empleados</span></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- SLIDE 3: LA OPORTUNIDAD -->
-    <section class="slide" id="oportunidad">
+    <!-- S3: IA CAN VS CAN'T -->
+    <section class="slide" id="ia" data-dot="IA">
       <div class="slide__inner">
-        <h2 class="slide__heading">Pero la oportunidad es enorme</h2>
+        <h2 class="slide__heading anim">Lo que define el futuro de tus hijos</h2>
+        <p class="slide__sub anim">No es lo que la IA <em>puede</em> hacer. Es lo que <strong>no puede</strong>.</p>
+        <div class="versus">
+          <div class="versus__col versus__col--red anim">
+            <h3>La IA ya hace mejor</h3>
+            <ul>
+              <li>Tareas rutinarias y repetitivas</li>
+              <li>Procesamiento de datos masivos</li>
+              <li>Traducción, resumen, codificación</li>
+              <li>Contabilidad y compliance</li>
+              <li>Atención al cliente por script</li>
+              <li>Diseño basado en plantillas</li>
+            </ul>
+            <p class="versus__verdict">Estas destrezas <strong>pierden valor</strong> cada día</p>
+          </div>
+          <div class="versus__col versus__col--green anim">
+            <h3>La IA NO puede hacer</h3>
+            <ul>
+              <li>Juicio ético en contextos complejos</li>
+              <li>Creatividad genuinamente original</li>
+              <li>Empatía y relaciones profundas</li>
+              <li>Liderazgo en incertidumbre</li>
+              <li>Motivación intrínseca y propósito</li>
+              <li>Negociación con dimensión emocional</li>
+            </ul>
+            <p class="versus__verdict">Estas destrezas <strong>ganan +56% prima salarial</strong></p>
+          </div>
+        </div>
+        <p class="slide__punchline anim">Los estudiantes que solo memoricen competirán contra la IA &mdash; y perderán.<br><strong>Los que desarrollen estas destrezas tendrán una ventaja que ninguna tecnología replica.</strong></p>
+      </div>
+    </section>
+
+    <!-- S4: OPORTUNIDAD -->
+    <section class="slide slide--dark" data-dot="Oportunidad">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">La oportunidad es enorme</h2>
         <div class="opp-grid">
-          <div class="opp-card">
+          <div class="opp-card anim">
             <div class="opp-card__num">+56%</div>
             <h3>Prima salarial</h3>
-            <p>Quienes complementan a la IA con pensamiento crítico, creatividad y empatía ganan un 56% más.</p>
+            <p>Quienes complementan a la IA ganan un 56% más en promedio</p>
             <em>PwC, 2025</em>
           </div>
-          <div class="opp-card">
+          <div class="opp-card anim">
             <div class="opp-card__num">12,4x</div>
             <h3>Startups con IA</h3>
-            <p>Producen 12,4 veces más ingresos por empleado que empresas Fortune 500. Una persona con destrezas correctas genera impacto masivo.</p>
+            <p>Producen 12,4x más ingresos por empleado que Fortune 500</p>
             <em>MBO Partners</em>
           </div>
-          <div class="opp-card">
+          <div class="opp-card anim">
             <div class="opp-card__num">$250K</div>
             <h3>Nuevos roles</h3>
-            <p>Prompt Engineer, AI Ethics Officer, AI Trainer. Ninguno existía hace 5 años. Todos requieren destrezas del siglo XXI.</p>
-            <em>Lightcast, 2025</em>
+            <p>Prompt Engineer, AI Ethics Officer. No existían hace 5 años</p>
+            <em>Lightcast</em>
+          </div>
+          <div class="opp-card anim">
+            <div class="opp-card__num">$75K</div>
+            <h3>Trabajo remoto global</h3>
+            <p>Salario mediano global para trabajadores remotos, sin emigrar</p>
+            <em>Deel, 2026</em>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 4: LAS 5 COMPETENCIAS -->
-    <section class="slide slide--dark" id="competencias">
+    <!-- S5: 5 COMPETENCIAS -->
+    <section class="slide" data-dot="Competencias">
       <div class="slide__inner">
-        <h2 class="slide__heading">Las 5 competencias que la IA no puede replicar</h2>
-        <p class="slide__sub" style="margin-bottom:2rem">Presentes en los 10 marcos internacionales revisados. Son lo que este colegio desarrolla.</p>
-        <div class="comp-grid">
-          <div class="comp"><span>&#x1F9E0;</span><h3>Pensamiento crítico</h3><p>Evaluar, cuestionar, decidir con información incompleta</p></div>
-          <div class="comp"><span>&#x1F3AF;</span><h3>Capacidad de agencia</h3><p>Dirigir el propio aprendizaje y actuar con propósito</p></div>
-          <div class="comp"><span>&#x1F91D;</span><h3>Colaboración</h3><p>Trabajar con equipos diversos, incluidos equipos humano-IA</p></div>
-          <div class="comp"><span>&#x1F504;</span><h3>Adaptabilidad</h3><p>Reinventarse, tolerar ambigüedad, aprender continuamente</p></div>
-          <div class="comp"><span>&#x1F4A1;</span><h3>Creatividad</h3><p>Generar ideas originales que ninguna máquina imagina</p></div>
+        <h2 class="slide__heading anim">Las 5 competencias innegociables</h2>
+        <p class="slide__sub anim">Presentes en los 10 marcos internacionales. Son exactamente lo que este colegio desarrolla.</p>
+        <div class="comp-row">
+          <div class="comp anim"><span>&#x1F9E0;</span><h3>Pensamiento<br>crítico</h3></div>
+          <div class="comp anim"><span>&#x1F3AF;</span><h3>Capacidad<br>de agencia</h3></div>
+          <div class="comp anim"><span>&#x1F91D;</span><h3>Colaboración</h3></div>
+          <div class="comp anim"><span>&#x1F504;</span><h3>Adaptabilidad</h3></div>
+          <div class="comp anim"><span>&#x1F4A1;</span><h3>Creatividad</h3></div>
         </div>
+        <p class="slide__sub anim" style="margin-top:1.5rem"><strong>OCDE · WEF · UNESCO · P21 · Harvard · Ken Robinson · MINEDUC · CASEL</strong></p>
       </div>
     </section>
 
-    <!-- SLIDE 5: EL PROBLEMA -->
-    <section class="slide" id="problema">
+    <!-- S6: CHILE -->
+    <section class="slide slide--chile" id="chile" data-dot="Chile">
       <div class="slide__inner">
-        <h2 class="slide__heading">El problema no está en el colegio.<br>Está en lo que viene después.</h2>
-        <div class="flow">
-          <div class="flow__step flow__step--ok">
-            <h3>Este colegio</h3>
-            <p>Ya forma agentes competentes del siglo XXI</p>
-          </div>
+        <h2 class="slide__heading anim">En Chile la urgencia es aún mayor</h2>
+        <div class="chile-grid">
+          <div class="chile-stat anim"><strong>55%</strong><p>de empleos son tareas repetitivas<br><em>El mayor porcentaje de toda la OCDE</em></p></div>
+          <div class="chile-stat anim"><strong>4,7M</strong><p>trabajadores pueden acelerar +30% de sus tareas con IA</p></div>
+          <div class="chile-stat anim"><strong>21,4%</strong><p>desempleo juvenil<br><em>Uno de cada cinco jóvenes</em></p></div>
+          <div class="chile-stat anim"><strong>81%</strong><p>cree que la IA facilita fake news<br><em>3er país del mundo</em></p></div>
+          <div class="chile-stat anim"><strong>25,5%</strong><p>puede detectar contenido generado por IA</p></div>
+          <div class="chile-stat anim"><strong>52%</strong><p>recibe información falsa<br><em>todos o casi todos los días</em></p></div>
+        </div>
+        <p class="slide__punchline anim">Las familias de este colegio no solo enfrentan un escenario global.<br><strong>Enfrentan un contexto nacional donde la brecha es especialmente aguda.</strong></p>
+      </div>
+    </section>
+
+    <!-- S7: EL PROBLEMA -->
+    <section class="slide slide--dark" id="problema" data-dot="Problema">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">El problema no está en el colegio</h2>
+        <p class="slide__accent anim" style="text-align:center;margin-bottom:2rem">Está en lo que viene después.</p>
+        <div class="flow anim">
+          <div class="flow__step flow__step--ok"><h3>Este colegio</h3><p>Ya forma agentes competentes del siglo XXI</p></div>
           <div class="flow__arrow">&rarr;</div>
-          <div class="flow__step flow__step--warn">
-            <h3>Egreso</h3>
-            <p>¿Las familias saben exigir este estándar?</p>
-          </div>
+          <div class="flow__step flow__step--warn"><h3>Egreso</h3><p>¿Las familias saben exigir este estándar?</p></div>
           <div class="flow__arrow">&rarr;</div>
-          <div class="flow__step flow__step--danger">
-            <h3>Colegio de continuidad</h3>
-            <p>Sin familias empoderadas, se pierde lo ganado</p>
-          </div>
+          <div class="flow__step flow__step--danger"><h3>Colegio de continuidad</h3><p>Sin familias empoderadas, se pierde lo ganado</p></div>
         </div>
-        <p class="slide__callout">Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo después.</p>
+        <div class="problem-box anim">
+          <p>Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo en los colegios de continuidad.</p>
+          <p class="problem-box__action">Este proyecto les da las herramientas para hacerlo.</p>
+        </div>
       </div>
     </section>
 
-    <!-- SLIDE 6: EL MODELO -->
-    <section class="slide slide--dark" id="modelo">
+    <!-- S8: MODELO -->
+    <section class="slide" id="modelo" data-dot="Modelo">
       <div class="slide__inner">
-        <h2 class="slide__heading">El modelo de intervención</h2>
-        <p class="slide__sub" style="margin-bottom:2rem">Tres fases articuladas desde el Trabajo Social para empoderar a las familias.</p>
+        <h2 class="slide__heading anim">El modelo de intervención</h2>
+        <p class="slide__sub anim">Tres fases articuladas desde el Trabajo Social</p>
         <div class="model-grid">
-          <div class="model-card">
-            <div class="model-card__phase">Fase 1</div>
-            <h3>Definir</h3>
-            <p><strong>Observatorio Escolar</strong> &mdash; Diagnóstico con encuesta de 46 preguntas, entrevistas, grupos focales e Índice ICAF.</p>
-            <details class="pitch-detail"><summary>Más detalle</summary><div class="pitch-detail__body"><p>5 dimensiones: inclusión, bienestar, convivencia, redes/recursos, condiciones sociales. Produce la base informacional para todo el proyecto.</p></div></details>
+          <div class="model-card anim">
+            <div class="model-card__num">1</div>
+            <div class="model-card__phase">Definir</div>
+            <h3>Observatorio Escolar</h3>
+            <p>Diagnóstico con encuesta de 46 preguntas, entrevistas, grupos focales e Índice ICAF</p>
+            <details class="pd"><summary>Profundizar</summary><div class="pd__body">5 dimensiones de observación: inclusión, bienestar, convivencia, redes/recursos, condiciones sociales. Protocolo ético con 6 principios y 3 consentimientos informados.</div></details>
           </div>
-          <div class="model-card">
-            <div class="model-card__phase">Fase 2</div>
-            <h3>Difundir + Activar</h3>
-            <p><strong>Programa Familiar</strong> &mdash; 4 talleres de 90 min en 3 niveles (universal, selectivo, indicado) + rúbrica de evaluación de colegios.</p>
-            <details class="pitch-detail"><summary>Más detalle</summary><div class="pitch-detail__body"><p>Taller 1: Nuestro colegio. Taller 2: Competencias del siglo XXI. Taller 3: Evaluar y exigir. Taller 4: De la información a la convicción. Cada uno con evaluación pre-post.</p></div></details>
+          <div class="model-card anim">
+            <div class="model-card__num">2</div>
+            <div class="model-card__phase">Difundir + Activar</div>
+            <h3>Programa Familiar</h3>
+            <p>4 talleres de 90 min en 3 niveles + rúbrica de evaluación de colegios + cuadernillo para familias</p>
+            <details class="pd"><summary>Profundizar</summary><div class="pd__body">Taller 1: Nuestro colegio. Taller 2: Competencias sXXI. Taller 3: Evaluar y exigir. Taller 4: De la información a la convicción. Rúbrica con 16 criterios y 10 preguntas poderosas.</div></details>
           </div>
-          <div class="model-card">
-            <div class="model-card__phase">Fase 3</div>
-            <h3>Sostener</h3>
-            <p><strong>Red de Agentes Comunitarios</strong> &mdash; Formación de 12 horas, certificación y red activa de líderes parentales.</p>
-            <details class="pitch-detail"><summary>Más detalle</summary><div class="pitch-detail__body"><p>4 perfiles: líderes parentales, egresados, líderes territoriales, profesionales locales. Reuniones mensuales de red. Asegura sostenibilidad más allá de la presencia del profesional.</p></div></details>
+          <div class="model-card anim">
+            <div class="model-card__num">3</div>
+            <div class="model-card__phase">Sostener</div>
+            <h3>Red de Agentes</h3>
+            <p>Formación de 12 horas, certificación y red activa de líderes parentales y comunitarios</p>
+            <details class="pd"><summary>Profundizar</summary><div class="pd__body">4 perfiles: líderes parentales, egresados, líderes territoriales, profesionales locales. 7 módulos de formación. Reuniones mensuales de red.</div></details>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 7: QUÉ ENTREGA EL PROYECTO -->
-    <section class="slide" id="entregables">
+    <!-- S9: ENTREGABLES -->
+    <section class="slide slide--dark" data-dot="Entregables">
       <div class="slide__inner">
-        <h2 class="slide__heading">Qué entrega este proyecto</h2>
+        <h2 class="slide__heading anim">Qué entrega este proyecto</h2>
         <div class="del-grid">
-          <div class="del"><strong>Encuesta diagnóstica</strong><span>46 preguntas, 6 secciones, índice ICAF</span></div>
-          <div class="del"><strong>Protocolo ético completo</strong><span>6 principios, 3 consentimientos informados</span></div>
-          <div class="del"><strong>4 talleres diseñados</strong><span>Minuto a minuto, materiales, evaluación pre-post</span></div>
-          <div class="del"><strong>Cuadernillo para familias</strong><span>5 páginas con lenguaje accesible</span></div>
-          <div class="del"><strong>Rúbrica de evaluación</strong><span>16 criterios para evaluar colegios de continuidad</span></div>
-          <div class="del"><strong>Programa de formación</strong><span>7 módulos (12 horas) para agentes comunitarios</span></div>
-          <div class="del"><strong>Marco lógico</strong><span>Indicadores, medios de verificación, supuestos</span></div>
-          <div class="del"><strong>Carta Gantt</strong><span>3 semestres, 48 semanas, hitos de decisión</span></div>
+          <div class="del anim"><strong>Encuesta diagnóstica</strong><span>46 preguntas · 6 secciones · Índice ICAF</span></div>
+          <div class="del anim"><strong>Protocolo ético</strong><span>6 principios · 3 consentimientos informados</span></div>
+          <div class="del anim"><strong>4 talleres diseñados</strong><span>Minuto a minuto · materiales · pre-post</span></div>
+          <div class="del anim"><strong>Cuadernillo familias</strong><span>5 páginas · lenguaje accesible</span></div>
+          <div class="del anim"><strong>Rúbrica evaluación</strong><span>16 criterios · 10 preguntas poderosas</span></div>
+          <div class="del anim"><strong>Formación agentes</strong><span>7 módulos · 12 horas · certificación</span></div>
+          <div class="del anim"><strong>Marco lógico</strong><span>Indicadores · verificación · supuestos</span></div>
+          <div class="del anim"><strong>Carta Gantt</strong><span>3 semestres · 48 semanas · hitos</span></div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 8: CTA -->
-    <section class="slide slide--cta">
+    <!-- S10: ALIANZAS -->
+    <section class="slide" id="alianzas" data-dot="Alianzas">
       <div class="slide__inner">
-        <h2>La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
-        <p>Este proyecto le da a las familias las herramientas para comprenderlo, valorarlo y exigirlo.</p>
-        <div class="cta-buttons">
-          <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
-          <a href="index.html" class="cta-btn cta-btn--secondary">Volver a la landing pública</a>
+        <h2 class="slide__heading anim">Un proyecto de alianzas estratégicas</h2>
+        <p class="slide__sub anim">El Colegio Camilo Henríquez invita a participar a diversos actores</p>
+        <div class="alliance-grid">
+          <div class="alliance anim">
+            <div class="alliance__icon">&#x1F393;</div>
+            <h3>Universidades</h3>
+            <p>Prácticas profesionales, pasantías supervisadas, investigación colaborativa</p>
+          </div>
+          <div class="alliance anim">
+            <div class="alliance__icon">&#x1F52C;</div>
+            <h3>Investigadores</h3>
+            <p>Acceso a datos, co-autoría de publicaciones, estudios longitudinales</p>
+          </div>
+          <div class="alliance anim">
+            <div class="alliance__icon">&#x1F4BC;</div>
+            <h3>Profesionales</h3>
+            <p>Trabajo Social, Psicología, Educación — intervención interdisciplinaria</p>
+          </div>
+          <div class="alliance anim">
+            <div class="alliance__icon">&#x1F3DB;</div>
+            <h3>Instituciones públicas</h3>
+            <p>Municipios, MINEDUC, programas sociales — articulación territorial</p>
+          </div>
         </div>
-        <p class="cta-note">Colegio Camilo Henríquez · Talca, Chile · 2026<br>Proyecto mediante alianzas estratégicas · Contenido confidencial</p>
+      </div>
+    </section>
+
+    <!-- S11: CTA FINAL -->
+    <section class="slide slide--cta" data-dot="Acción">
+      <div class="slide__inner">
+        <h2 class="anim">La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
+        <p class="anim">Este proyecto le da a las familias las herramientas para comprenderlo, valorarlo y exigirlo.</p>
+        <div class="cta-buttons anim">
+          <a href="https://cupykpcsxjihnzwyflbm.supabase.co/storage/v1/object/public/reports/Informe-Tecnico-CCH.docx" class="cta-btn cta-btn--primary" download>Descargar Informe Técnico Completo</a>
+          <a href="index.html" class="cta-btn cta-btn--secondary">Ver landing pública</a>
+        </div>
+        <p class="cta-note">Colegio Camilo Henríquez · Talca, Chile · 2026<br>Contenido confidencial · Uso académico/profesional</p>
       </div>
     </section>
 
@@ -203,8 +311,49 @@
       if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;}
       show();
     }
-    function show(){document.getElementById('login-view').style.display='none';document.getElementById('pitch-view').style.display='block';}
+    function show(){
+      document.getElementById('login-view').style.display='none';
+      document.getElementById('pitch-view').style.display='block';
+      initAnimations();
+      initProgressDots();
+    }
     async function doLogout(){await sb.auth.signOut();location.reload();}
+
+    /* Scroll animations */
+    function initAnimations(){
+      var els=document.querySelectorAll('.anim');
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('anim--visible');}
+        });
+      },{threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+    }
+
+    /* Progress dots */
+    function initProgressDots(){
+      var slides=document.querySelectorAll('.slide[data-dot]');
+      var container=document.getElementById('progress-dots');
+      container.innerHTML=slides.length ? '' : '';
+      slides.forEach(function(s,i){
+        var dot=document.createElement('button');
+        dot.className='pdot';
+        dot.title=s.dataset.dot;
+        dot.onclick=function(){s.scrollIntoView({behavior:'smooth'});};
+        container.appendChild(dot);
+      });
+      var dots=container.querySelectorAll('.pdot');
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var idx=Array.from(slides).indexOf(e.target);
+            dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===idx);});
+          }
+        });
+      },{threshold:0.4});
+      slides.forEach(function(s){obs.observe(s);});
+    }
+
     (async function(){var r=await sb.auth.getSession();if(r.data&&r.data.session)show();})();
   </script>
 </body>
