@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración — CCH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="zona.css">
+  <style>
+    .admin-grid { display: grid; gap: 1rem; }
+    .req-card { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #302b63; }
+    .req-card--pendiente { border-left-color: #f59f00; }
+    .req-card--aprobado { border-left-color: #51cf66; }
+    .req-card--rechazado { border-left-color: #ff6b6b; }
+    .req-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .req-card .meta { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+    .req-card .motivo { font-size: 0.9rem; color: #444; margin-bottom: 1rem; padding: 0.6rem; background: #f8f8fc; border-radius: 8px; }
+    .req-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+    .badge { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; }
+    .badge--pendiente { background: #fff3cd; color: #856404; }
+    .badge--aprobado { background: #d4edda; color: #155724; }
+    .badge--rechazado { background: #f8d7da; color: #721c24; }
+    .btn--approve { background: #51cf66; color: #fff; border-color: #51cf66; padding: 0.4rem 1.2rem; font-size: 0.85rem; }
+    .btn--approve:hover { background: #40c057; }
+    .btn--reject { background: #ff6b6b; color: #fff; border-color: #ff6b6b; padding: 0.4rem 1.2rem; font-size: 0.85rem; }
+    .btn--reject:hover { background: #fa5252; }
+    .password-result { margin-top: 0.8rem; padding: 0.8rem; background: #d4edda; border-radius: 8px; font-size: 0.88rem; }
+    .password-result code { background: #155724; color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    .notif-badge { background: #ff6b6b; color: #fff; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; margin-left: 0.4rem; }
+    .stats-bar { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .stat-mini { text-align: center; padding: 1rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); min-width: 120px; }
+    .stat-mini strong { display: block; font-size: 1.8rem; color: #302b63; }
+    .stat-mini span { font-size: 0.8rem; color: #888; }
+    .tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tab { padding: 0.5rem 1.2rem; border-radius: 8px; border: 2px solid #e0e0e0; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.88rem; font-family: inherit; }
+    .tab.active { background: #302b63; color: #ffd200; border-color: #302b63; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a href="index.html" class="topbar__back">&larr; Sitio</a>
+      <span class="topbar__title">Panel de Administración <span id="notif-count"></span></span>
+      <button class="btn btn--small btn--outline" id="logout-btn" style="display:none" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <!-- LOGIN ADMIN -->
+  <main class="section" id="login-view">
+    <div class="container">
+      <div class="form-card">
+        <h1>Acceso Administrador</h1>
+        <p class="form-card__desc">Solo personal autorizado del Colegio Camilo Henríquez.</p>
+        <form onsubmit="return false;">
+          <div class="field">
+            <label for="admin-email">Correo</label>
+            <input type="email" id="admin-email" required value="alejandro@colegiocamilohenriquez.cl">
+          </div>
+          <div class="field">
+            <label for="admin-pass">Contraseña</label>
+            <input type="password" id="admin-pass" required>
+          </div>
+          <button type="button" class="btn btn--primary" onclick="loginAdmin()">Ingresar</button>
+          <p class="form-error" id="admin-error"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- PANEL ADMIN -->
+  <main class="section" id="admin-view" style="display:none">
+    <div class="container">
+      <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:1.5rem">Solicitudes de Acceso</h1>
+
+      <div class="stats-bar" id="stats-bar"></div>
+
+      <div class="tab-bar">
+        <button class="tab active" onclick="filtrar('todas',this)">Todas</button>
+        <button class="tab" onclick="filtrar('pendiente',this)">Pendientes</button>
+        <button class="tab" onclick="filtrar('aprobado',this)">Aprobadas</button>
+        <button class="tab" onclick="filtrar('rechazado',this)">Rechazadas</button>
+      </div>
+
+      <div class="admin-grid" id="requests-grid">
+        <p>Cargando...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__colegio">Colegio Camilo Henríquez · Talca, Chile</p>
+      <p class="footer__year">Panel de Administración · 2026</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script>
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var allRequests = [];
+    var currentFilter = 'todas';
+    var sessionToken = '';
+
+    async function loginAdmin() {
+      var errEl = document.getElementById('admin-error');
+      errEl.textContent = '';
+      var email = document.getElementById('admin-email').value.trim();
+      var password = document.getElementById('admin-pass').value;
+
+      var resp = await sb.auth.signInWithPassword({ email: email, password: password });
+      if (resp.error) {
+        errEl.textContent = 'Credenciales inv\u00e1lidas.';
+        return;
+      }
+
+      // Verificar que es admin
+      var adminCheck = await sb.from('admins').select('email').eq('email', email).single();
+      if (!adminCheck.data) {
+        errEl.textContent = 'No tienes permisos de administrador.';
+        await sb.auth.signOut();
+        return;
+      }
+
+      sessionToken = resp.data.session.access_token;
+      document.getElementById('login-view').style.display = 'none';
+      document.getElementById('admin-view').style.display = 'block';
+      document.getElementById('logout-btn').style.display = 'inline-block';
+      await loadRequests();
+    }
+
+    async function loadRequests() {
+      var resp = await sb.from('access_requests').select('*').order('fecha_solicitud', { ascending: false });
+      if (resp.error) {
+        document.getElementById('requests-grid').innerHTML = '<p>Error cargando: ' + resp.error.message + '</p>';
+        return;
+      }
+      allRequests = resp.data || [];
+      updateStats();
+      renderRequests();
+
+      // Cargar notificaciones no leídas
+      var notifResp = await sb.from('notifications').select('id', { count: 'exact' }).eq('leida', false);
+      if (notifResp.count > 0) {
+        document.getElementById('notif-count').innerHTML = '<span class="notif-badge">' + notifResp.count + '</span>';
+        // Marcar como leídas
+        await sb.from('notifications').update({ leida: true }).eq('leida', false);
+      }
+    }
+
+    function updateStats() {
+      var pendientes = allRequests.filter(function(r) { return r.estado === 'pendiente'; }).length;
+      var aprobados = allRequests.filter(function(r) { return r.estado === 'aprobado'; }).length;
+      var rechazados = allRequests.filter(function(r) { return r.estado === 'rechazado'; }).length;
+      document.getElementById('stats-bar').innerHTML =
+        '<div class="stat-mini"><strong>' + allRequests.length + '</strong><span>Total</span></div>' +
+        '<div class="stat-mini"><strong style="color:#f59f00">' + pendientes + '</strong><span>Pendientes</span></div>' +
+        '<div class="stat-mini"><strong style="color:#51cf66">' + aprobados + '</strong><span>Aprobadas</span></div>' +
+        '<div class="stat-mini"><strong style="color:#ff6b6b">' + rechazados + '</strong><span>Rechazadas</span></div>';
+    }
+
+    function filtrar(estado, btn) {
+      currentFilter = estado;
+      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      renderRequests();
+    }
+
+    function renderRequests() {
+      var filtered = currentFilter === 'todas' ? allRequests : allRequests.filter(function(r) { return r.estado === currentFilter; });
+      var grid = document.getElementById('requests-grid');
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">No hay solicitudes en esta categor\u00eda.</p>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function(r) {
+        var fecha = new Date(r.fecha_solicitud).toLocaleDateString('es-CL', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+        var actions = '';
+        if (r.estado === 'pendiente') {
+          actions = '<button class="btn btn--approve" onclick="aprobar(\'' + r.id + '\',\'' + r.email + '\',\'' + (r.nombre || '').replace(/'/g, '') + '\')">Aprobar</button>' +
+                    '<button class="btn btn--reject" onclick="rechazar(\'' + r.id + '\')">Rechazar</button>';
+        } else {
+          actions = '<span class="badge badge--' + r.estado + '">' + r.estado.toUpperCase() + '</span>';
+        }
+        return '<div class="req-card req-card--' + r.estado + '">' +
+          '<h3>' + (r.nombre || 'Sin nombre') + '</h3>' +
+          '<div class="meta">' + (r.email || '') + ' &middot; ' + (r.institucion || '') + ' &middot; ' + fecha + '</div>' +
+          '<div class="motivo">' + (r.motivo || 'Sin motivo') + '</div>' +
+          '<div class="req-actions" id="actions-' + r.id + '">' + actions + '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    async function aprobar(id, email, nombre) {
+      var actionsEl = document.getElementById('actions-' + id);
+      actionsEl.innerHTML = '<span style="color:#888">Procesando...</span>';
+
+      try {
+        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionToken
+          },
+          body: JSON.stringify({ action: 'approve', request_id: id, email: email, nombre: nombre })
+        });
+        var data = await resp.json();
+
+        if (data.success) {
+          actionsEl.innerHTML = '<span class="badge badge--aprobado">APROBADO</span>' +
+            '<div class="password-result">Contrase\u00f1a temporal: <code>' + data.temp_password + '</code><br><small>Env\u00eda esta contrase\u00f1a a ' + email + '</small></div>';
+          // Actualizar datos locales
+          allRequests = allRequests.map(function(r) { return r.id === id ? Object.assign({}, r, { estado: 'aprobado' }) : r; });
+          updateStats();
+        } else {
+          actionsEl.innerHTML = '<span style="color:red">Error: ' + (data.error || 'desconocido') + '</span>';
+        }
+      } catch(e) {
+        actionsEl.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
+      }
+    }
+
+    async function rechazar(id) {
+      var actionsEl = document.getElementById('actions-' + id);
+      actionsEl.innerHTML = '<span style="color:#888">Procesando...</span>';
+
+      try {
+        var resp = await fetch(SUPABASE_URL + '/functions/v1/admin-approve', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionToken
+          },
+          body: JSON.stringify({ action: 'reject', request_id: id })
+        });
+        var data = await resp.json();
+
+        if (data.success) {
+          actionsEl.innerHTML = '<span class="badge badge--rechazado">RECHAZADO</span>';
+          allRequests = allRequests.map(function(r) { return r.id === id ? Object.assign({}, r, { estado: 'rechazado' }) : r; });
+          updateStats();
+        } else {
+          actionsEl.innerHTML = '<span style="color:red">Error: ' + (data.error || 'desconocido') + '</span>';
+        }
+      } catch(e) {
+        actionsEl.innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
+      }
+    }
+
+    async function cerrarSesion() {
+      await sb.auth.signOut();
+      document.getElementById('login-view').style.display = 'block';
+      document.getElementById('admin-view').style.display = 'none';
+      document.getElementById('logout-btn').style.display = 'none';
+    }
+
+    // Auto-check session
+    (async function() {
+      var resp = await sb.auth.getSession();
+      if (resp.data && resp.data.session) {
+        var check = await sb.from('admins').select('email').single();
+        if (check.data) {
+          sessionToken = resp.data.session.access_token;
+          document.getElementById('login-view').style.display = 'none';
+          document.getElementById('admin-view').style.display = 'block';
+          document.getElementById('logout-btn').style.display = 'inline-block';
+          await loadRequests();
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
