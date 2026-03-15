@@ -32,7 +32,6 @@
 
   <!-- DOCS LAYOUT -->
   <div id="docs-view" style="display:none">
-    <!-- TOP BAR -->
     <header class="docs-topbar">
       <button class="hamburger" onclick="toggleSidebar()" title="Menú">&#9776;</button>
       <span class="docs-topbar__title">Investigación CCH</span>
@@ -43,7 +42,6 @@
     </header>
 
     <div class="docs-layout">
-      <!-- SIDEBAR -->
       <aside class="sidebar" id="sidebar">
         <div class="sidebar__header">
           <p class="sidebar__colegio">Colegio Camilo Henríquez</p>
@@ -52,21 +50,17 @@
         <nav class="sidebar__nav" id="sidebar-nav"></nav>
       </aside>
 
-      <!-- MAIN CONTENT -->
       <main class="docs-main" id="docs-main">
-        <!-- Welcome screen -->
         <div id="welcome-screen">
           <h1>Contenido de la Investigación</h1>
-          <p class="welcome-desc">Selecciona una sección del menú lateral para comenzar a leer. Este sitio contiene el contenido completo de las 28 notas de investigación y el marco completo del proyecto.</p>
+          <p class="welcome-desc">Explora 9 secciones con 28 artículos. Cada sección presenta primero las ideas clave y te permite profundizar a tu ritmo.</p>
           <div id="section-cards" class="section-cards"></div>
         </div>
-        <!-- Article view -->
         <article id="article-view" style="display:none">
           <div class="article-breadcrumb" id="article-breadcrumb"></div>
           <div class="article-content" id="article-content"></div>
           <div class="article-nav" id="article-nav"></div>
         </article>
-        <!-- Search results -->
         <div id="search-results" style="display:none">
           <h2>Resultados de búsqueda</h2>
           <div id="search-list"></div>
@@ -79,202 +73,252 @@
   <script src="config.js"></script>
   <script>
     var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    var sections = [];
-    var articles = {};
-    var articleList = [];
-    var currentArticleIdx = -1;
+    var sections = [], articles = {}, articleList = [], currentArticleIdx = -1;
 
     function togglePass() {
       var p = document.getElementById('login-pass');
-      var b = event.target;
-      if (p.type === 'password') { p.type = 'text'; b.textContent = '\u{1F648}'; }
-      else { p.type = 'password'; b.textContent = '\u{1F441}'; }
+      if (p.type === 'password') { p.type = 'text'; } else { p.type = 'password'; }
     }
 
     async function doLogin() {
-      var err = document.getElementById('login-error');
-      err.textContent = '';
-      var email = document.getElementById('login-email').value.trim();
-      var pass = document.getElementById('login-pass').value;
-      var r = await sb.auth.signInWithPassword({email:email, password:pass});
+      var err = document.getElementById('login-error'); err.textContent = '';
+      var r = await sb.auth.signInWithPassword({email: document.getElementById('login-email').value.trim(), password: document.getElementById('login-pass').value});
       if (r.error) { err.textContent = 'Credenciales inv\u00e1lidas.'; return; }
       await initDocs();
     }
 
-    async function doLogout() {
-      await sb.auth.signOut();
-      document.getElementById('docs-view').style.display = 'none';
-      document.getElementById('login-view').style.display = 'flex';
-    }
-
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('sidebar--open');
-    }
+    async function doLogout() { await sb.auth.signOut(); document.getElementById('docs-view').style.display='none'; document.getElementById('login-view').style.display='flex'; }
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('sidebar--open'); }
 
     async function initDocs() {
-      document.getElementById('login-view').style.display = 'none';
-      document.getElementById('docs-view').style.display = 'block';
-
-      // Load sections
+      document.getElementById('login-view').style.display='none'; document.getElementById('docs-view').style.display='block';
       var r1 = await sb.from('content_sections').select('*').order('orden');
-      if (r1.error || !r1.data || r1.data.length === 0) {
-        document.getElementById('docs-main').innerHTML = '<div style="padding:3rem;text-align:center"><h2>Acceso pendiente</h2><p>Tu solicitud a\u00fan no ha sido aprobada.</p></div>';
-        return;
-      }
+      if (r1.error || !r1.data || !r1.data.length) { document.getElementById('docs-main').innerHTML='<div style="padding:3rem;text-align:center"><h2>Acceso pendiente</h2></div>'; return; }
       sections = r1.data;
-
-      // Load all articles
       var r2 = await sb.from('content_articles').select('key,section_key,title,orden').order('orden');
-      if (r2.data) {
-        articleList = [];
-        r2.data.forEach(function(a) {
-          if (!articles[a.section_key]) articles[a.section_key] = [];
-          articles[a.section_key].push(a);
-          articleList.push(a);
-        });
-      }
-
-      renderSidebar();
-      renderWelcome();
+      if (r2.data) { articleList=[]; r2.data.forEach(function(a){ if(!articles[a.section_key]) articles[a.section_key]=[]; articles[a.section_key].push(a); articleList.push(a); }); }
+      renderSidebar(); renderWelcome();
     }
 
     function renderSidebar() {
-      var nav = document.getElementById('sidebar-nav');
-      nav.innerHTML = '<a class="sidebar__link sidebar__link--home" href="#" onclick="showWelcome();return false">Inicio</a>' +
-        sections.map(function(s) {
-          var arts = articles[s.key] || [];
-          return '<div class="sidebar__section">' +
-            '<button class="sidebar__toggle" onclick="this.parentElement.classList.toggle(\'open\')">' +
-              '<span class="sidebar__icon">' + (s.icon||'') + '</span> ' + s.title +
-            '</button>' +
-            '<div class="sidebar__items">' +
-              arts.map(function(a) {
-                return '<a class="sidebar__link" href="#" data-key="'+a.key+'" onclick="loadArticle(\''+a.key+'\');return false">'+a.title+'</a>';
-              }).join('') +
-            '</div></div>';
-        }).join('');
+      document.getElementById('sidebar-nav').innerHTML = '<a class="sidebar__link sidebar__link--home" href="#" onclick="showWelcome();return false">Inicio</a>' +
+        sections.map(function(s){ var arts=articles[s.key]||[]; return '<div class="sidebar__section"><button class="sidebar__toggle" onclick="this.parentElement.classList.toggle(\'open\')">' +
+          '<span class="sidebar__icon">'+(s.icon||'')+'</span> '+s.title+'</button><div class="sidebar__items">' +
+          arts.map(function(a){ return '<a class="sidebar__link" href="#" data-key="'+a.key+'" onclick="loadArticle(\''+a.key+'\');return false">'+a.title+'</a>'; }).join('') +
+          '</div></div>'; }).join('');
     }
 
     function renderWelcome() {
-      var cards = document.getElementById('section-cards');
-      cards.innerHTML = sections.map(function(s) {
-        var count = (articles[s.key]||[]).length;
+      document.getElementById('section-cards').innerHTML = sections.map(function(s){ var c=(articles[s.key]||[]).length;
         return '<div class="scard" onclick="openSection(\''+s.key+'\')">' +
-          '<span class="scard__icon">'+(s.icon||'')+'</span>' +
-          '<h3>'+s.title+'</h3>' +
-          '<p>'+s.description+'</p>' +
-          '<span class="scard__count">'+count+' art\u00edculo'+(count!==1?'s':'')+'</span></div>';
-      }).join('');
+          '<span class="scard__icon">'+(s.icon||'')+'</span><h3>'+s.title+'</h3><p>'+s.description+'</p>' +
+          '<span class="scard__count">'+c+' art\u00edculo'+(c!==1?'s':'')+'</span></div>'; }).join('');
     }
 
     function showWelcome() {
-      document.getElementById('welcome-screen').style.display = 'block';
-      document.getElementById('article-view').style.display = 'none';
-      document.getElementById('search-results').style.display = 'none';
+      document.getElementById('welcome-screen').style.display='block'; document.getElementById('article-view').style.display='none'; document.getElementById('search-results').style.display='none';
       document.getElementById('sidebar').classList.remove('sidebar--open');
-      // Clear active states
       document.querySelectorAll('.sidebar__link--active').forEach(function(el){el.classList.remove('sidebar__link--active')});
     }
 
-    function openSection(sectionKey) {
-      var arts = articles[sectionKey];
-      if (arts && arts.length > 0) { loadArticle(arts[0].key); }
-      // Open sidebar section
-      document.querySelectorAll('.sidebar__section').forEach(function(el) {
-        var toggle = el.querySelector('.sidebar__toggle');
-        if (toggle && toggle.textContent.includes(sections.find(function(s){return s.key===sectionKey}).title)) {
-          el.classList.add('open');
+    function openSection(sk) { var a=articles[sk]; if(a&&a.length) loadArticle(a[0].key);
+      document.querySelectorAll('.sidebar__section').forEach(function(el){ var t=el.querySelector('.sidebar__toggle'); if(t&&t.textContent.includes(sections.find(function(s){return s.key===sk}).title)) el.classList.add('open'); });
+    }
+
+    /* ==================== LAYERED RENDERING ==================== */
+    function parseIntoLayers(markdown) {
+      var lines = markdown.split('\n');
+      var layers = [];
+      var currentH1 = null;
+      var currentH2 = null;
+      var buffer = [];
+
+      function flushBuffer() {
+        if (buffer.length > 0) {
+          var text = buffer.join('\n').trim();
+          if (text) {
+            if (currentH2) { currentH2.content.push(text); }
+            else if (currentH1) { currentH1.intro.push(text); }
+          }
+          buffer = [];
+        }
+      }
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        // H1
+        if (/^# [^#]/.test(line)) {
+          flushBuffer();
+          currentH1 = { title: line.replace(/^# /, ''), intro: [], sections: [] };
+          layers.push(currentH1);
+          currentH2 = null;
+        }
+        // H2
+        else if (/^## /.test(line)) {
+          flushBuffer();
+          currentH2 = { title: line.replace(/^## /, ''), content: [], subsections: [] };
+          if (currentH1) currentH1.sections.push(currentH2);
+          else { currentH1 = { title: '', intro: [], sections: [currentH2] }; layers.push(currentH1); }
+        }
+        // H3
+        else if (/^### /.test(line)) {
+          flushBuffer();
+          var h3 = { title: line.replace(/^### /, ''), content: [] };
+          if (currentH2) currentH2.subsections.push(h3);
+          // Redirect buffer to h3
+          var collectH3 = [];
+          i++;
+          while (i < lines.length && !/^#{1,3} /.test(lines[i])) {
+            collectH3.push(lines[i]); i++;
+          }
+          i--; // step back
+          h3.content = [collectH3.join('\n').trim()];
+        }
+        else { buffer.push(line); }
+      }
+      flushBuffer();
+      return layers;
+    }
+
+    function extractPreview(textArray) {
+      // Get first blockquote or first paragraph as preview
+      var full = textArray.join('\n');
+      var bqMatch = full.match(/^>\s*(.+(?:\n>\s*.+)*)/m);
+      if (bqMatch) return bqMatch[0];
+      // First non-empty paragraph
+      var paras = full.split(/\n\n+/);
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (p && !p.startsWith('|') && !p.startsWith('```') && !p.startsWith('- ') && p.length > 20) return p;
+      }
+      return paras[0] || '';
+    }
+
+    function hasDetailContent(contentArray, preview) {
+      var full = contentArray.join('\n').trim();
+      return full.length > preview.length + 50;
+    }
+
+    function renderLayered(markdown) {
+      var layers = parseIntoLayers(markdown);
+      var html = '';
+      var expandId = 0;
+
+      layers.forEach(function(h1) {
+        // Title
+        if (h1.title) html += '<h1 class="layer-title">' + h1.title + '</h1>';
+
+        // Intro (blockquote / first paragraph)
+        if (h1.intro.length) {
+          var introText = h1.intro.join('\n');
+          var introPreview = extractPreview(h1.intro);
+          html += '<div class="layer-intro">' + marked.parse(introPreview) + '</div>';
+          if (hasDetailContent(h1.intro, introPreview)) {
+            expandId++;
+            html += '<details class="layer-expand" id="exp-'+expandId+'">' +
+              '<summary class="layer-more">Leer m\u00e1s sobre la introducci\u00f3n</summary>' +
+              '<div class="layer-detail">' + marked.parse(introText) + '</div></details>';
+          }
+        }
+
+        // H2 sections as cards
+        if (h1.sections.length) {
+          html += '<div class="layer-sections">';
+          h1.sections.forEach(function(h2) {
+            expandId++;
+            var sectionContent = h2.content.join('\n');
+            var preview = extractPreview(h2.content);
+            var hasH3 = h2.subsections.length > 0;
+            var hasMore = hasDetailContent(h2.content, preview) || hasH3;
+
+            html += '<div class="layer-card">';
+            html += '<h2 class="layer-card__title">' + h2.title + '</h2>';
+
+            // Preview
+            if (preview) {
+              html += '<div class="layer-card__preview">' + marked.parse(preview) + '</div>';
+            }
+
+            // Expandable detail
+            if (hasMore) {
+              html += '<details class="layer-expand">' +
+                '<summary class="layer-more">Profundizar</summary>' +
+                '<div class="layer-detail">';
+
+              // Full H2 content
+              if (sectionContent && hasDetailContent(h2.content, preview)) {
+                html += marked.parse(sectionContent);
+              }
+
+              // H3 subsections
+              h2.subsections.forEach(function(h3) {
+                html += '<details class="layer-subsection">' +
+                  '<summary class="layer-sub-toggle">' + h3.title + '</summary>' +
+                  '<div class="layer-sub-content">' + marked.parse(h3.content.join('\n')) + '</div>' +
+                  '</details>';
+              });
+
+              html += '</div></details>';
+            }
+
+            html += '</div>'; // layer-card
+          });
+          html += '</div>'; // layer-sections
         }
       });
+
+      // Enlaces section at the bottom (strip it from main content)
+      html = html.replace(/<h2[^>]*>Enlaces<\/h2>[\s\S]*$/, '');
+
+      return html;
     }
 
     async function loadArticle(key) {
-      document.getElementById('welcome-screen').style.display = 'none';
-      document.getElementById('search-results').style.display = 'none';
-      document.getElementById('article-view').style.display = 'block';
-      document.getElementById('article-content').innerHTML = '<p style="color:#888">Cargando...</p>';
+      document.getElementById('welcome-screen').style.display='none';
+      document.getElementById('search-results').style.display='none';
+      document.getElementById('article-view').style.display='block';
+      document.getElementById('article-content').innerHTML='<p style="color:#888">Cargando...</p>';
       document.getElementById('sidebar').classList.remove('sidebar--open');
 
-      // Update active sidebar link
       document.querySelectorAll('.sidebar__link--active').forEach(function(el){el.classList.remove('sidebar__link--active')});
-      var activeLink = document.querySelector('.sidebar__link[data-key="'+key+'"]');
-      if (activeLink) {
-        activeLink.classList.add('sidebar__link--active');
-        activeLink.closest('.sidebar__section').classList.add('open');
-      }
+      var al = document.querySelector('.sidebar__link[data-key="'+key+'"]');
+      if (al) { al.classList.add('sidebar__link--active'); al.closest('.sidebar__section').classList.add('open'); }
 
-      // Find article index in flat list
       currentArticleIdx = articleList.findIndex(function(a){return a.key===key});
 
-      // Fetch full content
-      var r = await sb.from('content_articles').select('*').eq('key', key).single();
-      if (r.error || !r.data) {
-        document.getElementById('article-content').innerHTML = '<p style="color:red">Error cargando art\u00edculo.</p>';
-        return;
-      }
+      var r = await sb.from('content_articles').select('*').eq('key',key).single();
+      if (r.error||!r.data) { document.getElementById('article-content').innerHTML='<p style="color:red">Error.</p>'; return; }
 
       var art = r.data;
       var sec = sections.find(function(s){return s.key===art.section_key});
 
-      // Breadcrumb
       document.getElementById('article-breadcrumb').innerHTML =
         '<a href="#" onclick="showWelcome();return false">Inicio</a> &rsaquo; ' +
         '<a href="#" onclick="openSection(\''+art.section_key+'\');return false">'+(sec?sec.icon+' '+sec.title:'')+'</a> &rsaquo; ' +
         '<span>'+art.title+'</span>';
 
-      // Render markdown
-      document.getElementById('article-content').innerHTML = marked.parse(art.content);
+      // LAYERED RENDER
+      document.getElementById('article-content').innerHTML = renderLayered(art.content);
 
-      // Prev/Next navigation
-      var navHtml = '<div class="article-nav__inner">';
-      if (currentArticleIdx > 0) {
-        var prev = articleList[currentArticleIdx - 1];
-        navHtml += '<a class="article-nav__link" href="#" onclick="loadArticle(\''+prev.key+'\');return false">&larr; '+prev.title+'</a>';
-      } else { navHtml += '<span></span>'; }
-      if (currentArticleIdx < articleList.length - 1) {
-        var next = articleList[currentArticleIdx + 1];
-        navHtml += '<a class="article-nav__link article-nav__link--next" href="#" onclick="loadArticle(\''+next.key+'\');return false">'+next.title+' &rarr;</a>';
-      } else { navHtml += '<span></span>'; }
-      navHtml += '</div>';
-      document.getElementById('article-nav').innerHTML = navHtml;
-
-      window.scrollTo(0, 0);
+      // Prev/Next
+      var nav = '<div class="article-nav__inner">';
+      if (currentArticleIdx > 0) { var p=articleList[currentArticleIdx-1]; nav+='<a class="article-nav__link" href="#" onclick="loadArticle(\''+p.key+'\');return false">&larr; '+p.title+'</a>'; } else nav+='<span></span>';
+      if (currentArticleIdx < articleList.length-1) { var n=articleList[currentArticleIdx+1]; nav+='<a class="article-nav__link article-nav__link--next" href="#" onclick="loadArticle(\''+n.key+'\');return false">'+n.title+' &rarr;</a>'; } else nav+='<span></span>';
+      nav+='</div>';
+      document.getElementById('article-nav').innerHTML = nav;
+      window.scrollTo(0,0);
     }
 
-    function doSearch(query) {
-      if (!query || query.length < 2) {
-        document.getElementById('search-results').style.display = 'none';
-        if (currentArticleIdx >= 0) document.getElementById('article-view').style.display = 'block';
-        else document.getElementById('welcome-screen').style.display = 'block';
-        return;
-      }
-      document.getElementById('welcome-screen').style.display = 'none';
-      document.getElementById('article-view').style.display = 'none';
-      document.getElementById('search-results').style.display = 'block';
-
-      var q = query.toLowerCase();
-      var results = articleList.filter(function(a) {
-        return a.title.toLowerCase().includes(q) || a.key.toLowerCase().includes(q);
-      });
-
-      var list = document.getElementById('search-list');
-      if (results.length === 0) {
-        list.innerHTML = '<p style="color:#888;padding:1rem">No se encontraron resultados para "'+query+'"</p>';
-      } else {
-        list.innerHTML = results.map(function(a) {
-          var sec = sections.find(function(s){return s.key===a.section_key});
-          return '<a class="search-item" href="#" onclick="loadArticle(\''+a.key+'\');document.getElementById(\'search-input\').value=\'\';return false">' +
-            '<span class="search-item__section">'+(sec?sec.icon+' '+sec.title:'')+'</span>' +
-            '<span class="search-item__title">'+a.title+'</span></a>';
-        }).join('');
-      }
+    function doSearch(q) {
+      if (!q||q.length<2) { document.getElementById('search-results').style.display='none'; if(currentArticleIdx>=0) document.getElementById('article-view').style.display='block'; else document.getElementById('welcome-screen').style.display='block'; return; }
+      document.getElementById('welcome-screen').style.display='none'; document.getElementById('article-view').style.display='none'; document.getElementById('search-results').style.display='block';
+      var ql=q.toLowerCase(); var res=articleList.filter(function(a){return a.title.toLowerCase().includes(ql)});
+      var list=document.getElementById('search-list');
+      if(!res.length){list.innerHTML='<p style="color:#888;padding:1rem">Sin resultados para "'+q+'"</p>';}
+      else{list.innerHTML=res.map(function(a){var s=sections.find(function(s){return s.key===a.section_key}); return '<a class="search-item" href="#" onclick="loadArticle(\''+a.key+'\');document.getElementById(\'search-input\').value=\'\';return false"><span class="search-item__section">'+(s?s.icon+' '+s.title:'')+'</span><span class="search-item__title">'+a.title+'</span></a>';}).join('');}
     }
 
-    // Auto-check session
-    (async function() {
-      var r = await sb.auth.getSession();
-      if (r.data && r.data.session) { await initDocs(); }
-    })();
+    (async function(){ var r=await sb.auth.getSession(); if(r.data&&r.data.session) await initDocs(); })();
   </script>
 </body>
 </html>
