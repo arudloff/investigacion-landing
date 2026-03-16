@@ -3,80 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zona Privada — Familias Guardianas</title>
+  <title>Acceso a la Investigación — Familias Guardianas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="zona.css">
-  <style>
-    .choice-grid{max-width:700px;margin:0 auto 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-    .choice-card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,.08);text-align:center;transition:transform .2s,box-shadow .2s;cursor:pointer;border:2px solid transparent}
-    .choice-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.12)}
-    .choice-card__icon{font-size:2.5rem;margin-bottom:.8rem}
-    .choice-card h2{font-size:1.15rem;font-weight:800;color:#1a1a2e;margin-bottom:.4rem}
-    .choice-card p{font-size:.88rem;color:#666}
-    .choice-card .btn{margin-top:1rem}
-    .cred-box{background:#302b63;border-radius:14px;padding:1.5rem;margin:1.5rem 0;text-align:left}
-    .cred-box p{color:#fff;font-size:.92rem;margin:.3rem 0}
-    .cred-box strong{color:#ffd200}
-    .cred-box code{background:rgba(255,255,255,.15);padding:.2rem .5rem;border-radius:4px;color:#ffd200;font-size:.95rem}
-    .warning-box{background:#fff3cd;border:2px solid #f59f00;border-radius:10px;padding:1rem;margin:1rem 0;text-align:center}
-    .warning-box p{color:#856404;font-size:.88rem;font-weight:600;margin:0}
-    @media(max-width:560px){.choice-grid{grid-template-columns:1fr}}
-  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar__inner">
       <a href="index.html" class="topbar__back">&larr; Volver</a>
-      <span class="topbar__title">Zona Privada</span>
+      <span class="topbar__title">Acceso a la Investigación</span>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
 
-      <div id="choice-view">
-        <h1 style="text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:.5rem">Zona Privada</h1>
-        <p style="text-align:center;color:#666;margin-bottom:2rem">Acceso al contenido completo de la investigación.</p>
-        <div class="choice-grid">
-          <div class="choice-card" onclick="mostrarLogin()">
-            <div class="choice-card__icon">&#x1F513;</div>
-            <h2>Ya tengo cuenta</h2>
-            <p>Tengo mis credenciales de acceso.</p>
-            <span class="btn btn--primary" style="font-size:.85rem;padding:.5rem 1.5rem">Iniciar sesión</span>
-          </div>
-          <div class="choice-card" onclick="mostrarFormulario()">
-            <div class="choice-card__icon">&#x1F4DD;</div>
-            <h2>Solicitar acceso</h2>
-            <p>Quiero acceder por primera vez.</p>
-            <span class="btn btn--outline" style="font-size:.85rem;padding:.5rem 1.5rem">Solicitar</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-card" id="login-section" style="display:none">
-        <h1>Iniciar sesión</h1>
-        <p class="form-card__desc">Ingresa con tus credenciales.</p>
-        <form onsubmit="return false;">
-          <div class="field"><label for="login-email">Correo electrónico</label><input type="email" id="login-email" required></div>
-          <div class="field field--password"><label for="login-pass">Contraseña</label><input type="password" id="login-pass" required><button type="button" class="toggle-pass" onclick="togglePassword('login-pass',this)">&#x1F441;</button></div>
-          <button type="button" class="btn btn--primary" onclick="iniciarSesion()">Ingresar</button>
-          <p class="form-error" id="login-error"></p>
-        </form>
-        <p class="text-muted" style="margin-top:1rem"><a href="#" onclick="mostrarFormulario();return false">¿No tienes cuenta? Solicitar acceso</a></p>
-        <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
-      </div>
-
-      <div class="form-card" id="form-section" style="display:none">
+      <div class="form-card" id="form-section">
         <h1>Solicitud de Acceso</h1>
-        <p class="form-card__desc">Completa el formulario y acepta el acuerdo. Tu acceso se activará de inmediato.</p>
+        <p class="form-card__desc">Completa tus datos y acepta el acuerdo de uso responsable para acceder al contenido completo de la investigación.</p>
+
         <form onsubmit="return false;">
           <div class="field"><label for="nombre">Nombre completo</label><input type="text" id="nombre" required placeholder="Ej: María Pérez González"></div>
           <div class="field"><label for="email">Correo electrónico</label><input type="email" id="email" required placeholder="correo@institucion.cl"></div>
           <div class="field"><label for="institucion">Institución / Organización</label><input type="text" id="institucion" required placeholder="Ej: Universidad Autónoma de Chile"></div>
           <div class="field"><label for="motivo">Motivo de interés</label><textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea></div>
+
           <details class="acuerdo-details">
             <summary class="acuerdo-toggle">Leer Acuerdo de Confidencialidad y Uso Responsable</summary>
             <div class="acuerdo-contenido">
@@ -91,34 +45,11 @@
               </ol>
             </div>
           </details>
-          <div class="field field--check"><label><input type="checkbox" id="acuerdo" required> He leído y acepto el <strong>Acuerdo de Confidencialidad</strong></label></div>
-          <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()" style="width:100%">Solicitar acceso</button>
+
+          <div class="field field--check"><label><input type="checkbox" id="acuerdo" required> He leído y acepto el <strong>Acuerdo de Confidencialidad y Uso Responsable</strong></label></div>
+          <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()" style="width:100%">Aceptar y acceder a la investigación</button>
           <p class="form-error" id="form-error"></p>
         </form>
-        <p class="text-muted" style="margin-top:1rem"><a href="#" onclick="mostrarLogin();return false">¿Ya tienes cuenta? Iniciar sesión</a></p>
-        <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
-      </div>
-
-      <!-- ACCESO LISTO -->
-      <div class="form-card" id="success-section" style="display:none">
-        <div style="text-align:center">
-          <div style="font-size:3rem;margin-bottom:.5rem">&#x2705;</div>
-          <h2 style="color:#1a1a2e;margin-bottom:.5rem">Tu acceso está listo</h2>
-          <p style="color:#555">Bienvenido/a, <strong id="s-nombre"></strong>.</p>
-        </div>
-
-        <div class="warning-box">
-          <p>&#x26A0; Guarda estas credenciales ahora. Esta es la única vez que se mostrarán.</p>
-        </div>
-
-        <div class="cred-box">
-          <p><strong>Correo:</strong> <span id="s-email"></span></p>
-          <p><strong>Contraseña:</strong> <code id="s-pass"></code></p>
-        </div>
-
-        <p style="text-align:center;font-size:.82rem;color:#888;margin-bottom:1rem">Anota, captura pantalla o copia estas credenciales antes de continuar.<br>Las necesitarás cada vez que quieras ingresar.</p>
-
-        <a href="#" class="btn btn--primary" style="width:100%;text-align:center;display:block" onclick="loginConCredenciales()">Ya las guardé — Ingresar ahora &rarr;</a>
       </div>
 
     </div>
@@ -135,36 +66,8 @@
   <script src="config.js"></script>
   <script>
     var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    var savedEmail = '', savedPass = '';
 
-    function togglePassword(id, btn) {
-      var el = document.getElementById(id);
-      if (el.type === 'password') { el.type = 'text'; btn.textContent = '\u{1F648}'; }
-      else { el.type = 'password'; btn.textContent = '\u{1F441}'; }
-    }
-
-    function mostrarLogin() {
-      document.getElementById('choice-view').style.display = 'none';
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('login-section').style.display = 'block';
-    }
-    function mostrarFormulario() {
-      document.getElementById('choice-view').style.display = 'none';
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('form-section').style.display = 'block';
-    }
-    function volverEleccion() {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('choice-view').style.display = 'block';
-    }
-
-    async function iniciarSesion() {
-      var err = document.getElementById('login-error'); err.textContent = '';
-      var email = document.getElementById('login-email').value.trim();
-      var pass = document.getElementById('login-pass').value;
-      var r = await sb.auth.signInWithPassword({ email: email, password: pass });
-      if (r.error) { err.textContent = 'Credenciales inv\u00e1lidas.'; return; }
+    if (localStorage.getItem('fg_access') === 'granted') {
       window.location.href = 'privado.html';
     }
 
@@ -180,47 +83,20 @@
       if (!nombre || !email || !institucion || !motivo) { err.textContent = 'Completa todos los campos.'; return; }
       if (!acuerdo) { err.textContent = 'Debes aceptar el acuerdo de confidencialidad.'; return; }
 
-      btn.disabled = true; btn.textContent = 'Creando tu acceso...';
+      btn.disabled = true; btn.textContent = 'Procesando...';
 
       try {
-        var resp = await fetch(SUPABASE_URL + '/functions/v1/auto-approve', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre: nombre, email: email, institucion: institucion, motivo: motivo })
-        });
-        var data = await resp.json();
+        await sb.from('access_requests').insert([{
+          nombre: nombre, email: email, institucion: institucion,
+          motivo: motivo, acuerdo_aceptado: true, estado: 'aprobado'
+        }]);
+      } catch(e) { /* no bloquear por error de registro */ }
 
-        if (data.error) {
-          err.textContent = data.error;
-          btn.disabled = false; btn.textContent = 'Solicitar acceso';
-          return;
-        }
-
-        savedEmail = data.email;
-        savedPass = data.password;
-        document.getElementById('s-nombre').textContent = data.nombre;
-        document.getElementById('s-email').textContent = data.email;
-        document.getElementById('s-pass').textContent = data.password;
-
-        document.getElementById('form-section').style.display = 'none';
-        document.getElementById('success-section').style.display = 'block';
-
-      } catch(e) {
-        err.textContent = 'Error: ' + e.message;
-        btn.disabled = false; btn.textContent = 'Solicitar acceso';
-      }
-    }
-
-    async function loginConCredenciales() {
-      var r = await sb.auth.signInWithPassword({ email: savedEmail, password: savedPass });
-      if (r.error) { alert('Error al ingresar. Intenta manualmente con tus credenciales.'); return; }
+      localStorage.setItem('fg_access', 'granted');
+      localStorage.setItem('fg_nombre', nombre);
+      localStorage.setItem('fg_email', email);
       window.location.href = 'privado.html';
     }
-
-    (async function() {
-      var r = await sb.auth.getSession();
-      if (r.data && r.data.session) window.location.href = 'privado.html';
-    })();
   </script>
 </body>
 </html>

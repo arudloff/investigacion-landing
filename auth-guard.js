@@ -1,16 +1,15 @@
-// Auth guard compartido para todas las páginas privadas
-var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-async function checkAuth() {
-  var r = await sb.auth.getSession();
-  if (r.data && r.data.session) return true;
+// Auth guard simplificado - acceso por acuerdo de confidencialidad
+function checkAccess() {
+  if (localStorage.getItem('fg_access') === 'granted') return true;
   window.location.href = 'solicitud.html';
   return false;
 }
 
-async function doLogout() {
-  await sb.auth.signOut();
-  window.location.href = 'solicitud.html';
+function doLogout() {
+  localStorage.removeItem('fg_access');
+  localStorage.removeItem('fg_nombre');
+  localStorage.removeItem('fg_email');
+  window.location.href = 'index.html';
 }
 
 function initAnimations() {
