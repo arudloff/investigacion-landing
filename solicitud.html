@@ -21,6 +21,8 @@
     .cred-box p{color:#fff;font-size:.92rem;margin:.3rem 0}
     .cred-box strong{color:#ffd200}
     .cred-box code{background:rgba(255,255,255,.15);padding:.2rem .5rem;border-radius:4px;color:#ffd200;font-size:.95rem}
+    .warning-box{background:#fff3cd;border:2px solid #f59f00;border-radius:10px;padding:1rem;margin:1rem 0;text-align:center}
+    .warning-box p{color:#856404;font-size:.88rem;font-weight:600;margin:0}
     @media(max-width:560px){.choice-grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -35,7 +37,6 @@
   <main class="section">
     <div class="container">
 
-      <!-- ELECCIÓN -->
       <div id="choice-view">
         <h1 style="text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:.5rem">Zona Privada</h1>
         <p style="text-align:center;color:#666;margin-bottom:2rem">Acceso al contenido completo de la investigación.</p>
@@ -55,7 +56,6 @@
         </div>
       </div>
 
-      <!-- LOGIN -->
       <div class="form-card" id="login-section" style="display:none">
         <h1>Iniciar sesión</h1>
         <p class="form-card__desc">Ingresa con tus credenciales.</p>
@@ -69,7 +69,6 @@
         <p class="text-muted"><a href="#" onclick="volverEleccion();return false">&larr; Volver</a></p>
       </div>
 
-      <!-- FORMULARIO -->
       <div class="form-card" id="form-section" style="display:none">
         <h1>Solicitud de Acceso</h1>
         <p class="form-card__desc">Completa el formulario y acepta el acuerdo. Tu acceso se activará de inmediato.</p>
@@ -78,7 +77,6 @@
           <div class="field"><label for="email">Correo electrónico</label><input type="email" id="email" required placeholder="correo@institucion.cl"></div>
           <div class="field"><label for="institucion">Institución / Organización</label><input type="text" id="institucion" required placeholder="Ej: Universidad Autónoma de Chile"></div>
           <div class="field"><label for="motivo">Motivo de interés</label><textarea id="motivo" rows="3" required placeholder="Describa brevemente por qué desea acceder..."></textarea></div>
-
           <details class="acuerdo-details">
             <summary class="acuerdo-toggle">Leer Acuerdo de Confidencialidad y Uso Responsable</summary>
             <div class="acuerdo-contenido">
@@ -93,7 +91,6 @@
               </ol>
             </div>
           </details>
-
           <div class="field field--check"><label><input type="checkbox" id="acuerdo" required> He leído y acepto el <strong>Acuerdo de Confidencialidad</strong></label></div>
           <button type="button" class="btn btn--primary" id="submit-btn" onclick="enviarSolicitud()" style="width:100%">Solicitar acceso</button>
           <p class="form-error" id="form-error"></p>
@@ -107,15 +104,21 @@
         <div style="text-align:center">
           <div style="font-size:3rem;margin-bottom:.5rem">&#x2705;</div>
           <h2 style="color:#1a1a2e;margin-bottom:.5rem">Tu acceso está listo</h2>
-          <p style="color:#555">Bienvenido/a, <strong id="s-nombre"></strong>. Ya puedes ingresar a la investigación completa.</p>
+          <p style="color:#555">Bienvenido/a, <strong id="s-nombre"></strong>.</p>
         </div>
+
+        <div class="warning-box">
+          <p>&#x26A0; Guarda estas credenciales ahora. Esta es la única vez que se mostrarán.</p>
+        </div>
+
         <div class="cred-box">
           <p><strong>Correo:</strong> <span id="s-email"></span></p>
           <p><strong>Contraseña:</strong> <code id="s-pass"></code></p>
-          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin-top:.5rem">Guarda estas credenciales. Tu contraseña es permanente.</p>
         </div>
-        <a href="#" class="btn btn--primary" style="width:100%;text-align:center;display:block" onclick="loginConCredenciales()">Ingresar ahora &rarr;</a>
-        <p id="s-email-note" style="text-align:center;font-size:.82rem;color:#888;margin-top:1rem;display:none">También recibirás estas credenciales por correo electrónico.</p>
+
+        <p style="text-align:center;font-size:.82rem;color:#888;margin-bottom:1rem">Anota, captura pantalla o copia estas credenciales antes de continuar.<br>Las necesitarás cada vez que quieras ingresar.</p>
+
+        <a href="#" class="btn btn--primary" style="width:100%;text-align:center;display:block" onclick="loginConCredenciales()">Ya las guardé — Ingresar ahora &rarr;</a>
       </div>
 
     </div>
@@ -193,13 +196,11 @@
           return;
         }
 
-        // Show credentials
         savedEmail = data.email;
         savedPass = data.password;
         document.getElementById('s-nombre').textContent = data.nombre;
         document.getElementById('s-email').textContent = data.email;
         document.getElementById('s-pass').textContent = data.password;
-        if (data.emailSent) document.getElementById('s-email-note').style.display = 'block';
 
         document.getElementById('form-section').style.display = 'none';
         document.getElementById('success-section').style.display = 'block';
@@ -216,7 +217,6 @@
       window.location.href = 'privado.html';
     }
 
-    // Auto-redirect if session exists
     (async function() {
       var r = await sb.auth.getSession();
       if (r.data && r.data.session) window.location.href = 'privado.html';
