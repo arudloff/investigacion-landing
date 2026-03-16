@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Mundo que Cambió — Familias Guardianas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pitch.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="loading" class="loading">Verificando acceso...</div>
+  <div id="app" style="display:none">
+
+    <header class="topbar">
+      <a href="privado.html" class="topbar__title">Familias Guardianas</a>
+      <nav class="sitenav"><a href="privado.html">Inicio</a><a href="contexto.html">Contexto</a><a href="evidencia.html">Evidencia</a><a href="modelo-educativo.html">Modelo Educativo</a><a href="eslabon.html">El Eslabón</a><a href="intervencion.html">Intervención</a><a href="para-familias.html">Familias</a><a href="para-escuelas.html">Escuelas</a><a href="fuentes.html">Fuentes</a></nav>
+      <div class="topbar__right"><button class="topbar__logout" onclick="doLogout()">Salir</button></div>
+    </header>
+
+    <section class="page-hero"><div class="page-hero__inner">
+      <h1 class="anim">El mundo que cambió</h1>
+      <p class="anim">Cómo la transformación laboral, económica y social presiona a la educación en una dirección irreversible.</p>
+    </div></section>
+
+    <!-- TESIS -->
+    <section class="slide"><div class="slide__inner">
+      <h2 class="slide__heading anim">No es el futuro. Ya llegó.</h2>
+      <p class="slide__sub anim">Cuatro transformaciones simultáneas están redefiniendo qué significa estar preparado para la vida. Ninguna es teórica. Todas tienen datos verificables y consecuencias concretas.</p>
+    </div></section>
+
+    <!-- 1. TRABAJO -->
+    <section class="slide slide--dark" id="trabajo"><div class="slide__inner">
+      <h2 class="slide__heading anim">1. El trabajo se transformó</h2>
+      <p class="slide__sub anim">La IA ya no solo apoya al trabajo humano: lo reemplaza. Lo que comenzó como automatización de tareas repetitivas escaló al reemplazo de departamentos completos.</p>
+
+      <div class="kpi-grid" style="margin-bottom:2rem">
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em><div class="kpi__detail">No todos desaparecerán, pero las tareas que los componen cambiarán radicalmente. El soporte administrativo (46%), trabajo legal (44%) y arquitectura (37%) son los más expuestos.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em><div class="kpi__detail">Pero también 170 millones de nuevos empleos creados. La clave: los nuevos requieren destrezas del siglo XXI que la mayoría de la fuerza laboral actual no tiene.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>60-70%</strong><span>de tareas actuales<br>son automatizables</span><em>McKinsey, 2024</em><div class="kpi__detail">Con tecnología que ya existe hoy. No es cuestión de si se automatizarán, sino de cuándo.</div></div>
+      </div>
+
+      <h3 class="slide__heading anim" style="font-size:1.1rem;margin-bottom:1rem">Ya está pasando: casos documentados</h3>
+      <div class="caso-grid">
+        <div class="caso anim" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)"><div class="caso__header"><strong style="color:#fff">Klarna</strong><span class="caso__tag caso__tag--red">-50% staff</span></div><p style="color:rgba(255,255,255,.8)">De 5.500 a menos de 3.000 empleados, <strong style="color:#ffd200">duplicando ingresos</strong>. Pero tuvo que recontratar humanos: la IA no podía manejar empatía ni interacciones complejas.</p></div>
+        <div class="caso anim" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)"><div class="caso__header"><strong style="color:#fff">IBM</strong><span class="caso__tag caso__tag--red">94% RRHH</span></div><p style="color:rgba(255,255,255,.8)">AskHR automatizó el 94% de tareas de RRHH. <strong style="color:#ffd200">Recontratarón</strong> porque la IA no ejecutaba tareas con juicio subjetivo y empatía.</p></div>
+        <div class="caso anim" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)"><div class="caso__header"><strong style="color:#fff">Chegg</strong><span class="caso__tag caso__tag--red">-45%</span></div><p style="color:rgba(255,255,255,.8)">Despidió al 45% porque los estudiantes migraron a ChatGPT. El modelo educativo basado en respuestas colapsó.</p></div>
+        <div class="caso anim" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)"><div class="caso__header"><strong style="color:#fff">UPS</strong><span class="caso__tag caso__tag--red">-20.000</span></div><p style="color:rgba(255,255,255,.8)">El mayor recorte en 116 años de historia, citando directamente el machine learning.</p></div>
+      </div>
+
+      <div class="slide__punchline anim" style="margin-top:2rem">
+        <strong>Patrón revelador:</strong> Las empresas que intentaron reemplazar todo con IA tuvieron que recontratar humanos. Lo que la IA no pudo replicar — empatía, juicio contextual, relaciones complejas — son exactamente las competencias que una educación del siglo XXI desarrolla.
+      </div>
+    </div></section>
+
+    <!-- 2. FRONTERAS -->
+    <section class="slide" id="fronteras"><div class="slide__inner">
+      <h2 class="slide__heading anim">2. Las fronteras desaparecieron</h2>
+      <p class="slide__sub anim">Tres tecnologías disuelven simultáneamente las barreras geográficas, lingüísticas y de conectividad.</p>
+
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>Teletrabajo global</h3><ul><li><strong>90 millones</strong> de posiciones remotas para 2030</li><li>Contratación transfronteriza creció <strong>+38% anual</strong></li><li>El 45% de la fuerza laboral remota tiene 18-30 años</li><li>Un joven de cualquier país compite con talento global por el mismo puesto</li></ul></div>
+        <div class="fase-card anim"><h3>Traducción en tiempo real</h3><ul><li><strong>75%</strong> de traductores espera impacto negativo de la IA</li><li>Conversaciones habladas traducidas en tiempo real</li><li>El idioma deja de ser barrera de protección laboral</li><li>La diferenciación pasa a <strong>destrezas no lingüísticas</strong></li></ul></div>
+        <div class="fase-card anim"><h3>Conectividad satelital</h3><ul><li>Starlink: <strong>10 millones</strong> de suscriptores en 125+ países</li><li>9.422+ satélites en órbita baja</li><li>26 nuevos mercados solo en 2025</li><li>Millones de nuevos competidores al mercado digital global</li></ul></div>
+      </div>
+
+      <div class="slide__punchline anim" style="margin-top:2rem">
+        <strong>Implicancia directa:</strong> La formación académica ya no compite solo a nivel local. Un egresado chileno compite con egresados del mundo entero. La ventaja no está en el título, sino en las <strong>destrezas reales</strong> que pueda demostrar.
+      </div>
+    </div></section>
+
+    <!-- 3. ECONOMÍA -->
+    <section class="slide slide--dark" id="economia"><div class="slide__inner">
+      <h2 class="slide__heading anim">3. La economía se digitalizó</h2>
+      <p class="slide__sub anim">El dinero, las transacciones, el emprendimiento y hasta la residencia fiscal se volvieron digitales.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi anim"><strong>$24B</strong><span>en pagos digitales<br>anuales</span><em>Statista, 2025</em></div>
+        <div class="kpi anim"><strong>560-860M</strong><span>usuarios globales<br>de criptomonedas</span><em>Triple-A / Chainalysis</em></div>
+        <div class="kpi anim"><strong>55-73</strong><span>países con visa<br>de nómada digital</span><em>MBO Partners, 2025</em></div>
+      </div>
+
+      <div class="fase-grid" style="margin-top:2rem">
+        <div class="fase-card anim"><h3>Solopreneurs con IA</h3><p>Una sola persona con las destrezas correctas puede generar impacto masivo. <strong>Midjourney:</strong> $500M/año con ~150 empleados. Startups potenciadas por IA producen <strong>12,4x más ingresos por empleado</strong> que Fortune 500.</p></div>
+        <div class="fase-card anim"><h3>Competencia entre países</h3><p>Estonia, Portugal, Dubái, España, Indonesia: compiten por atraer talento digital con visas especiales y beneficios fiscales. <strong>El talento se mueve hacia donde lo valoran.</strong></p></div>
+        <div class="fase-card anim"><h3>Lo que esto requiere</h3><p>Alfabetización financiera digital, pensamiento crítico para evaluar riesgos, capacidad de gestionar la propia carrera como empresa. <strong>Destrezas que la educación tradicional no desarrolla.</strong></p></div>
+      </div>
+    </div></section>
+
+    <!-- 4. DESINFORMACIÓN -->
+    <section class="slide" id="desinformacion"><div class="slide__inner">
+      <h2 class="slide__heading anim">4. La información se contaminó</h2>
+      <p class="slide__sub anim">Hoy es más fácil que nunca crear información falsa capaz de manipular la conducta de millones.</p>
+
+      <div class="kpi-grid" style="max-width:900px;margin:0 auto 2rem">
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')" style="background:#fff;border-color:#eee"><strong style="color:#c92a2a">900%</strong><span style="color:#555">crecimiento anual<br>de deepfakes</span><em style="color:#999">WEF / Sumsub</em><div class="kpi__detail" style="color:#555">Se han usado para fraudes de $25 millones (Arup, Hong Kong), manipulación electoral (Eslovaquia, India, EE.UU.) y estafas personales a jubilados ($690.000 en un caso).</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')" style="background:#fff;border-color:#eee"><strong style="color:#c92a2a">#1</strong><span style="color:#555">riesgo global<br>según WEF 2024</span><em style="color:#999">Global Risks Report</em><div class="kpi__detail" style="color:#555">La desinformación superó al cambio climático, la ciberseguridad y los conflictos armados como el riesgo más urgente del planeta.</div></div>
+        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')" style="background:#fff;border-color:#eee"><strong style="color:#302b63">0,60</strong><span style="color:#555">efecto de intervenciones<br>de pensamiento crítico</span><em style="color:#999">49 estudios, 81.155 participantes</em><div class="kpi__detail" style="color:#555">Las intervenciones de alfabetización mediática tienen efecto significativo en la capacidad de detectar información falsa. El pensamiento crítico <strong>se puede enseñar</strong>.</div></div>
+      </div>
+
+      <div class="fase-grid">
+        <div class="fase-card anim"><h3>Fraude financiero</h3><p>Un empleado de <strong>Arup</strong> transfirió $25M a estafadores que usaron deepfakes de video suplantando ejecutivos. Una jubilada perdió $690.000 por deepfake de voz imitando a un familiar.</p></div>
+        <div class="fase-card anim"><h3>Manipulación electoral</h3><p><strong>Eslovaquia:</strong> audio deepfake de candidato 48h antes de la elección. <strong>India:</strong> candidatos "resucitados" digitalmente. <strong>EE.UU.:</strong> robocalls con voz clonada de Biden.</p></div>
+        <div class="fase-card anim"><h3>Impacto cotidiano</h3><p>Decisiones de salud basadas en info falsa. Inversiones fraudulentas. Perfiles falsos. Contenido académico generado por IA sin verificar. <strong>Sin pensamiento crítico, cada persona es vulnerable.</strong></p></div>
+      </div>
+    </div></section>
+
+    <!-- PRESIÓN SOBRE DESTREZAS -->
+    <section class="slide slide--dark" id="destrezas"><div class="slide__inner">
+      <h2 class="slide__heading anim">Todo esto presiona en una dirección</h2>
+      <p class="slide__sub anim">Las cuatro transformaciones convergen en un mismo mensaje para la educación.</p>
+
+      <div class="versus">
+        <div class="versus__col versus__col--red anim">
+          <h3>Destrezas que pierden valor</h3>
+          <ul>
+            <li>Memorización y reproducción de información</li>
+            <li>Procesamiento rutinario de datos</li>
+            <li>Cálculo y análisis estandarizado</li>
+            <li>Traducción literal</li>
+            <li>Atención al cliente por script</li>
+            <li>Diseño basado en plantillas</li>
+          </ul>
+          <p class="versus__verdict">La IA las replica o supera</p>
+        </div>
+        <div class="versus__col versus__col--green anim">
+          <h3>Destrezas que ganan valor</h3>
+          <ul>
+            <li>Pensamiento crítico: evaluar en contexto, detectar sesgos</li>
+            <li>Creatividad: ideas genuinamente originales</li>
+            <li>Empatía: comprender emociones, acompañar, liderar</li>
+            <li>Juicio ético: decidir lo que <em>se debe</em> hacer</li>
+            <li>Adaptabilidad: reinventarse, tolerar ambigüedad</li>
+            <li>Iniciativa: actuar con propósito, dirigir el propio camino</li>
+          </ul>
+          <p class="versus__verdict">La IA no las puede replicar</p>
+        </div>
+      </div>
+
+      <p class="slide__sub anim" style="margin-top:2rem">Las habilidades cambian un <strong style="color:#ffd200">66% más rápido</strong> en empleos expuestos a IA (PwC). El 83% de empleados creen que la IA hará las habilidades humanas aún más críticas (Workday). El 92% de profesionales de talento afirma que las habilidades humanas son <strong style="color:#ffd200">igual o más importantes</strong> que las técnicas (LinkedIn).</p>
+    </div></section>
+
+    <!-- CONCLUSIÓN -->
+    <section class="slide"><div class="slide__inner">
+      <h2 class="slide__heading anim">La ecuación es directa</h2>
+      <div class="fam-highlight anim">
+        <h3 style="color:#ffd200">Para la educación</h3>
+        <p>El objetivo ya no es transferir información — la IA lo hace mejor y más rápido. Es desarrollar la capacidad humana de <strong>pensar, crear, colaborar, decidir y actuar con propósito</strong>.</p>
+      </div>
+      <div class="fam-highlight anim" style="margin-top:1rem">
+        <h3 style="color:#ffd200">Para las familias</h3>
+        <p>Los hijos que solo aprendan a memorizar, calcular y seguir instrucciones competirán directamente contra la IA — y perderán. Los que desarrollen pensamiento crítico, creatividad, empatía e iniciativa tendrán una <strong>ventaja que ninguna tecnología replica</strong>.</p>
+      </div>
+    </div></section>
+
+    <section class="slide slide--cta"><div class="slide__inner">
+      <h2 class="anim">El mundo cambió.<br>¿Cómo responde la educación?</h2>
+      <div class="cta-buttons anim">
+        <a href="evidencia.html" class="cta-btn cta-btn--primary">Ver qué dice la evidencia &rarr;</a>
+        <a href="modelo-educativo.html" class="cta-btn cta-btn--secondary">Ver la respuesta educativa</a>
+      </div>
+    </div></section>
+
+  </div>
+  <script src="auth-guard.js"></script>
+  <script>(function(){if(checkAccess()){document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';initAnimations();initActivePageNav();}})();</script>
+</body>
+</html>
