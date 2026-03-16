@@ -12,194 +12,185 @@
 </head>
 <body>
 
-  <div id="login-view" class="login-overlay">
-    <div class="login-card">
-      <h1>Zona Privada</h1>
-      <p>Familias Guardianas · Educación sXXI</p>
-      <form onsubmit="return false;">
-        <input type="email" id="login-email" placeholder="Correo electrónico" required>
-        <div class="pass-wrap">
-          <input type="password" id="login-pass" placeholder="Contraseña" required>
-          <button type="button" class="eye-btn" onclick="var p=document.getElementById('login-pass');p.type=p.type==='password'?'text':'password'">&#x1F441;</button>
-        </div>
-        <button type="button" class="login-btn" onclick="doLogin()">Ingresar</button>
-        <p class="login-error" id="login-error"></p>
-      </form>
-      <p class="login-link"><a href="solicitud.html">¿No tienes cuenta? Solicitar acceso</a></p>
-    </div>
-  </div>
-
-  <div id="pitch-view" style="display:none">
+  <div id="pitch-view">
 
     <header class="topbar" id="topbar">
       <a href="privado.html" class="topbar__title">Familias Guardianas</a>
-      <nav class="sitenav"><a href="privado.html">Inicio</a><a href="investigacion.html">Evidencia</a><a href="modelo.html">Modelo</a><a href="instrumentos.html">Instrumentos</a><a href="para-familias.html">Familias</a><a href="para-escuelas.html">Escuelas</a><a href="fuentes.html">Fuentes</a></nav>
-      <div class="topbar__right"><button class="topbar__logout" onclick="doLogout()">Salir</button></div>
+      <nav class="sitenav">
+        <a href="privado.html">Inicio</a>
+        <a href="evidencia.html">Evidencia</a>
+        <a href="modelo-educativo.html">Modelo Educativo</a>
+        <a href="eslabon.html">El Eslabón</a>
+        <a href="intervencion.html">Intervención</a>
+        <a href="para-familias.html">Familias</a>
+        <a href="para-escuelas.html">Escuelas</a>
+        <a href="fuentes.html">Fuentes</a>
+      </nav>
+      <div class="topbar__right">
+        <button class="topbar__logout" onclick="doLogout()">Salir</button>
+      </div>
     </header>
 
     <div class="progress-dots" id="progress-dots"></div>
     <button class="fab" id="fab" onclick="document.getElementById('quicknav').classList.toggle('qn--open')" title="Navegación rápida">&#9776;</button>
     <div class="qn" id="quicknav">
       <div class="qn__head">En esta página</div>
-      <a class="qn__link" href="#contexto" onclick="closeQN()">&#x1F4CA; El mundo cambió</a>
-      <a class="qn__link" href="#ia" onclick="closeQN()">&#x1F916; IA: puede vs. no puede</a>
-      <a class="qn__link" href="#oportunidad" onclick="closeQN()">&#x1F680; La oportunidad</a>
-      <a class="qn__link" href="#competencias" onclick="closeQN()">&#x1F3AF; 5 competencias</a>
-      <a class="qn__link" href="#etico" onclick="closeQN()">&#x1F4DC; Compromiso ético</a>
-      <a class="qn__link" href="#problema" onclick="closeQN()">&#x26A0; El problema</a>
-      <a class="qn__link" href="#modelo" onclick="closeQN()">&#x2699; Modelo</a>
-      <a class="qn__link" href="#impacto" onclick="closeQN()">&#x1F4C8; Resultados</a>
-      <div class="qn__head" style="margin-top:.3rem">Explorar</div>
-      <a class="qn__link" href="investigacion.html">&#x1F4D6; Evidencia</a>
-      <a class="qn__link" href="modelo.html">&#x2699; Modelo</a>
-      <a class="qn__link" href="instrumentos.html">&#x1F6E0; Instrumentos</a>
-      <a class="qn__link" href="para-familias.html">&#x1F46A; Familias</a>
-      <a class="qn__link" href="para-escuelas.html">&#x1F3EB; Escuelas</a>
+      <a class="qn__link" href="#tesis" onclick="closeQN()">&#x1F3AF; La tesis</a>
+      <a class="qn__link" href="#contexto" onclick="closeQN()">&#x1F4CA; El contexto</a>
+      <a class="qn__link" href="#evidencia" onclick="closeQN()">&#x1F4D6; La evidencia</a>
+      <a class="qn__link" href="#modelo-ed" onclick="closeQN()">&#x1F3EB; Modelo educativo</a>
+      <a class="qn__link" href="#eslabon" onclick="closeQN()">&#x26A0; El eslabón</a>
+      <a class="qn__link" href="#intervencion" onclick="closeQN()">&#x2699; Intervención</a>
+      <a class="qn__link" href="#invitacion" onclick="closeQN()">&#x1F91D; La invitación</a>
+      <div class="qn__head" style="margin-top:.3rem">Profundizar</div>
+      <a class="qn__link" href="evidencia.html">Evidencia completa</a>
+      <a class="qn__link" href="modelo-educativo.html">Modelo educativo</a>
+      <a class="qn__link" href="eslabon.html">El eslabón que falta</a>
+      <a class="qn__link" href="intervencion.html">Modelo de intervención</a>
+      <a class="qn__link" href="para-familias.html">Para familias</a>
+      <a class="qn__link" href="para-escuelas.html">Para escuelas</a>
     </div>
 
-    <section class="slide slide--hero" id="tesis" data-dot="Tesis"><div class="slide__inner">
-      <p class="slide__label anim">Nacido en el Colegio Camilo Henríquez · Talca, Chile · Diseñado para el mundo</p>
-      <h1 class="slide__bigtitle anim">Cada escuela que prepara<br>para el siglo XXI</h1>
-      <h2 class="slide__accent anim">necesita familias que sean aliados y guardianes de ese futuro.<br>Porque el futuro de tus hijos es lo que no puede esperar.</h2>
-      <p class="slide__sub anim">Investigación con evidencia de 10 marcos internacionales · Modelo replicable · Instrumentos listos para usar</p>
-      <a href="#contexto" class="slide__cta anim">Descubre por qué &darr;</a>
-    </div></section>
+    <!-- ====== NIVEL 1: LA TESIS ====== -->
+    <section class="slide slide--hero" id="tesis" data-dot="Tesis">
+      <div class="slide__inner">
+        <p class="slide__label anim">Nacido en el Colegio Camilo Henríquez · Talca, Chile · Diseñado para el mundo</p>
+        <h1 class="slide__bigtitle anim">Cada escuela que prepara<br>para el siglo XXI</h1>
+        <h2 class="slide__accent anim">necesita familias que sean aliados y guardianes de ese futuro.<br>Porque el futuro de tus hijos es lo que no puede esperar.</h2>
+        <p class="slide__sub anim">Investigación · Modelo educativo · Intervención familiar · Instrumentos replicables</p>
+        <a href="#contexto" class="slide__cta anim">Descubre por qué &darr;</a>
+      </div>
+    </section>
 
-    <section class="slide slide--dark" id="contexto" data-dot="Contexto"><div class="slide__inner">
-      <h2 class="slide__heading anim">El mundo ya cambió</h2>
-      <p class="slide__sub anim">Haz clic en cualquier cifra para conocer el contexto.</p>
-      <div class="kpi-grid">
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em><div class="kpi__detail">Goldman Sachs estima que la IA generativa podría exponer a automatización 300 millones de empleos a tiempo completo.</div></div>
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>92M</strong><span>empleos desplazados<br>para 2030</span><em>WEF, 2025</em><div class="kpi__detail">92 millones desplazados, 170 millones creados. Los nuevos requieren destrezas que la mayoría no tiene.</div></div>
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em><div class="kpi__detail">En economías avanzadas sube al 60%. Impacta abogados, contadores, analistas, traductores y diseñadores.</div></div>
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em><div class="kpi__detail">Fraudes millonarios, manipulación electoral, estafas personales. El pensamiento crítico es protección.</div></div>
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em><div class="kpi__detail">Contratación transfronteriza +38% anual. Un joven de cualquier país compite con talento global.</div></div>
-        <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em><div class="kpi__detail">La única preparación: desarrollar la capacidad de aprender, adaptarse, crear y colaborar.</div></div>
+    <!-- ====== NIVEL 2: EL CONTEXTO ====== -->
+    <section class="slide slide--dark" id="contexto" data-dot="Contexto">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">El mundo cambió — y sigue cambiando</h2>
+        <p class="slide__sub anim">No son proyecciones. Esto ya está ocurriendo. Haz clic en cualquier cifra.</p>
+        <div class="kpi-grid">
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>300M</strong><span>empleos expuestos<br>a IA generativa</span><em>Goldman Sachs, 2023</em><div class="kpi__detail">La IA generativa podría exponer a automatización 300 millones de empleos a tiempo completo. No todos desaparecerán, pero las tareas cambiarán radicalmente.</div></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>65%</strong><span>de los niños trabajarán en<br>empleos que no existen</span><em>WEF</em><div class="kpi__detail">Dos de cada tres niños que entran hoy a la escuela tendrán empleos que aún no se han inventado. La única preparación: aprender a aprender.</div></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>900%</strong><span>crecimiento anual<br>de deepfakes</span><em>WEF/Sumsub</em><div class="kpi__detail">Fraudes millonarios, manipulación electoral, estafas personales. El pensamiento crítico ya no es un lujo: es protección personal.</div></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>40%</strong><span>del empleo global<br>expuesto a IA</span><em>FMI, 2024</em><div class="kpi__detail">En economías avanzadas sube al 60%. Impacta abogados, contadores, analistas, traductores, diseñadores.</div></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>90M</strong><span>posiciones remotas<br>para 2030</span><em>WEF</em><div class="kpi__detail">Contratación transfronteriza +38% anual. Un joven de cualquier país compite con talento global. Sin barrera de idioma.</div></div>
+          <div class="kpi kpi--click anim" onclick="this.classList.toggle('kpi--expanded')"><strong>+56%</strong><span>de empleabilidad<br>con destrezas humanas</span><em>PwC, 2025</em><div class="kpi__detail">Quienes complementan a la IA con pensamiento crítico, creatividad y empatía tienen 56% más empleabilidad.</div></div>
+        </div>
+        <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="evidencia.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem">Ver evidencia completa &rarr;</a></p>
       </div>
-      <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="investigacion.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem">Ver evidencia completa &rarr;</a></p>
-    </div></section>
+    </section>
 
-    <section class="slide" id="ia" data-dot="IA"><div class="slide__inner">
-      <h2 class="slide__heading anim">Lo que define el futuro</h2>
-      <p class="slide__sub anim">No es lo que la IA <em>puede</em> hacer. Es lo que <strong>no puede</strong>.</p>
-      <div class="versus">
-        <div class="versus__col versus__col--red anim"><h3>La IA ya hace mejor</h3><ul><li>Tareas rutinarias y repetitivas</li><li>Procesamiento de datos masivos</li><li>Traducción, resumen, codificación</li><li>Contabilidad y compliance</li><li>Atención al cliente por script</li><li>Diseño basado en plantillas</li></ul><p class="versus__verdict">Estas destrezas <strong>pierden valor</strong> cada día</p></div>
-        <div class="versus__col versus__col--green anim"><h3>La IA NO puede hacer</h3><ul><li>Juicio ético en contextos complejos</li><li>Creatividad genuinamente original</li><li>Empatía y relaciones profundas</li><li>Liderazgo en incertidumbre</li><li>Motivación intrínseca y propósito</li><li>Negociación con dimensión emocional</li></ul><p class="versus__verdict">Estas destrezas tienen <strong>la mayor demanda global</strong></p></div>
+    <!-- ====== NIVEL 3: LA EVIDENCIA ====== -->
+    <section class="slide" id="evidencia" data-dot="Evidencia">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">¿Qué dicen los que más saben?</h2>
+        <p class="slide__sub anim">10 marcos internacionales convergen en las mismas 5 competencias. No es opinión: es consenso global.</p>
+        <div class="comp-row">
+          <div class="comp anim"><span>&#x1F9E0;</span><h3>Pensamiento<br>crítico</h3></div>
+          <div class="comp anim"><span>&#x1F3AF;</span><h3>Iniciativa<br>propia</h3></div>
+          <div class="comp anim"><span>&#x1F91D;</span><h3>Colaboración</h3></div>
+          <div class="comp anim"><span>&#x1F504;</span><h3>Adaptabilidad</h3></div>
+          <div class="comp anim"><span>&#x1F4A1;</span><h3>Creatividad</h3></div>
+        </div>
+        <p class="slide__sub anim" style="margin-top:1.5rem"><strong>OCDE · WEF · UNESCO · P21 · Harvard Project Zero · Ken Robinson · MINEDUC · CASEL</strong></p>
+        <div class="versus" style="margin-top:2rem">
+          <div class="versus__col versus__col--red anim"><h3>La IA ya hace mejor</h3><ul><li>Tareas rutinarias y repetitivas</li><li>Procesamiento de datos masivos</li><li>Traducción, resumen, codificación</li><li>Contabilidad y compliance</li><li>Diseño basado en plantillas</li></ul><p class="versus__verdict">Estas destrezas <strong>pierden valor</strong> cada día</p></div>
+          <div class="versus__col versus__col--green anim"><h3>La IA NO puede hacer</h3><ul><li>Juicio ético en contextos complejos</li><li>Creatividad genuinamente original</li><li>Empatía y relaciones profundas</li><li>Liderazgo en incertidumbre</li><li>Motivación intrínseca y propósito</li></ul><p class="versus__verdict">Estas destrezas tienen <strong>la mayor demanda global</strong></p></div>
+        </div>
+        <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="evidencia.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem;border-color:#302b63;color:#302b63">Explorar los 10 marcos &rarr;</a></p>
       </div>
-      <p class="slide__punchline anim">Los estudiantes que solo memoricen competirán contra la IA &mdash; y perderán.<br><strong>Los que desarrollen estas destrezas tendrán una ventaja que ninguna tecnología replica.</strong></p>
-    </div></section>
+    </section>
 
-    <section class="slide slide--dark" id="oportunidad" data-dot="Oportunidad"><div class="slide__inner">
-      <h2 class="slide__heading anim">La oportunidad es enorme</h2>
-      <div class="opp-grid">
-        <div class="opp-card anim"><div class="opp-card__num">+56%</div><h3>Ventaja competitiva</h3><p>Quienes complementan a la IA tienen 56% más de empleabilidad</p><em>PwC, 2025</em></div>
-        <div class="opp-card anim"><div class="opp-card__num">12,4x</div><h3>Productividad con IA</h3><p>Startups con IA producen 12,4x más por persona</p><em>MBO Partners</em></div>
-        <div class="opp-card anim"><div class="opp-card__num">+136%</div><h3>Roles emergentes</h3><p>Crecimiento en demanda de nuevos perfiles</p><em>Lightcast, 2025</em></div>
-        <div class="opp-card anim"><div class="opp-card__num">+38%</div><h3>Empleos remotos</h3><p>Contratación transfronteriza crece 38% anual</p><em>OIT / Deel, 2026</em></div>
+    <!-- ====== NIVEL 4: MODELO EDUCATIVO ====== -->
+    <section class="slide slide--dark" id="modelo-ed" data-dot="Modelo Educativo">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">Nuestra respuesta educativa</h2>
+        <p class="slide__sub anim">El Colegio Camilo Henríquez desarrolla 6 ejes formativos. Cada uno responde a un desafío documentado.</p>
+        <div class="impact-grid">
+          <div class="impact-card anim"><div class="impact-card__icon">&#x1F91D;</div><h3>Aprendizaje colaborativo</h3><p>Trabajar juntos para alcanzar objetivos compartidos. Responde a la demanda de <strong>colaboración</strong> del WEF y OCDE.</p></div>
+          <div class="impact-card anim"><div class="impact-card__icon">&#x1F3AF;</div><h3>Autonomía en el aprendizaje</h3><p>Dirigir el propio proceso formativo. Responde a la <strong>agencia estudiantil</strong> de OCDE Learning Compass 2030.</p></div>
+          <div class="impact-card anim"><div class="impact-card__icon">&#x1F9E0;</div><h3>Pensamiento complejo</h3><p>Comprender fenómenos multidimensionales. Responde al <strong>pensamiento crítico</strong> de P21 y Harvard PZ.</p></div>
+          <div class="impact-card anim"><div class="impact-card__icon">&#x1F4A1;</div><h3>Creatividad</h3><p>Generar soluciones originales. Responde a la <strong>innovación</strong> que Ken Robinson y el WEF identifican como esencial.</p></div>
+          <div class="impact-card anim"><div class="impact-card__icon">&#x2764;</div><h3>Habilidades socioemocionales</h3><p>Empatía, regulación, relaciones. Responde al marco <strong>CASEL</strong>: +11 puntos en rendimiento académico.</p></div>
+          <div class="impact-card anim"><div class="impact-card__icon">&#x1F4BC;</div><h3>Empleabilidad y emprendimiento</h3><p>Adaptarse, liderar, crear valor. Responde al escenario de <strong>+136% en roles emergentes</strong>.</p></div>
+        </div>
+        <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="modelo-educativo.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem">Ver modelo educativo completo &rarr;</a></p>
       </div>
-    </div></section>
+    </section>
 
-    <section class="slide" id="competencias" data-dot="Competencias"><div class="slide__inner">
-      <h2 class="slide__heading anim">Las 5 competencias innegociables</h2>
-      <p class="slide__sub anim">Presentes en los 10 marcos internacionales. Son lo que toda escuela del siglo XXI debería desarrollar.</p>
-      <div class="comp-row">
-        <div class="comp anim"><span>&#x1F9E0;</span><h3>Pensamiento<br>crítico</h3></div>
-        <div class="comp anim"><span>&#x1F3AF;</span><h3>Iniciativa<br>propia</h3></div>
-        <div class="comp anim"><span>&#x1F91D;</span><h3>Colaboración</h3></div>
-        <div class="comp anim"><span>&#x1F504;</span><h3>Adaptabilidad</h3></div>
-        <div class="comp anim"><span>&#x1F4A1;</span><h3>Creatividad</h3></div>
+    <!-- ====== NIVEL 5: EL ESLABÓN QUE FALTA ====== -->
+    <section class="slide" id="eslabon" data-dot="Eslabón">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">La escuela no basta sola</h2>
+        <p class="slide__sub anim">El modelo funciona. Pero ¿qué pasa cuando el estudiante egresa?</p>
+        <div class="flow anim">
+          <div class="flow__step flow__step--ok"><h3>Camilo Henríquez</h3><p>Forma personas competentes para el siglo XXI</p></div>
+          <div class="flow__arrow">&rarr;</div>
+          <div class="flow__step flow__step--warn"><h3>Egreso</h3><p>¿Las familias saben exigir este estándar?</p></div>
+          <div class="flow__arrow">&rarr;</div>
+          <div class="flow__step flow__step--danger"><h3>Siguiente etapa</h3><p>Sin familias empoderadas, se pierde lo ganado</p></div>
+        </div>
+        <div class="slide__punchline anim" style="margin-top:2rem">
+          Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo en la siguiente etapa educativa. Este proyecto les da las herramientas para hacerlo.
+        </div>
+        <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="eslabon.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem;border-color:#302b63;color:#302b63">Entender el problema completo &rarr;</a></p>
       </div>
-      <p class="slide__sub anim" style="margin-top:1.5rem"><strong>OCDE · WEF · UNESCO · P21 · Harvard · Ken Robinson · CASEL</strong></p>
-    </div></section>
+    </section>
 
-    <section class="slide slide--dark" id="etico" data-dot="Ética"><div class="slide__inner">
-      <h2 class="slide__heading anim">El compromiso ético</h2>
-      <div style="max-width:750px;margin:0 auto;text-align:center">
-        <p class="anim" style="font-size:1.1rem;line-height:1.8;color:rgba(255,255,255,.9);margin-bottom:1.5rem">Las familias que depositan el futuro de sus hijos en una escuela <strong style="color:#ffd200">merecen comprender la profundidad de lo que reciben</strong>. Y las escuelas que asumen el mandato de preparar para el siglo XXI tienen la responsabilidad de activarlas como aliados informados.</p>
-        <p class="anim" style="font-size:1.15rem;line-height:1.8;color:#ffd200;font-weight:800">No es marketing educativo.<br>Es el acto ético de democratizar el conocimiento<br>que permite a una familia ser guardián del futuro de sus hijos.</p>
-        <p class="anim" style="font-size:.9rem;color:rgba(255,255,255,.5);margin-top:1.5rem">Este compromiso guía cada instrumento, cada taller y cada decisión de diseño de este proyecto.</p>
+    <!-- ====== NIVEL 6: MODELO DE INTERVENCIÓN ====== -->
+    <section class="slide slide--dark" id="intervencion" data-dot="Intervención">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">El modelo de intervención</h2>
+        <p class="slide__sub anim">Tres fases articuladas. Diseñado para adaptarse a cualquier escuela.</p>
+        <div class="tabs anim">
+          <button class="tab tab--active" onclick="switchTab(0,this)">1. Definir</button>
+          <button class="tab" onclick="switchTab(1,this)">2. Activar</button>
+          <button class="tab" onclick="switchTab(2,this)">3. Sostener</button>
+        </div>
+        <div class="tab-panels">
+          <div class="tab-panel tab-panel--active" id="tabp-0"><div class="tp-grid"><div class="tp-main"><h3>Observatorio Escolar</h3><p>Diagnóstico social con instrumentos validados.</p><div class="tp-tags"><span>Encuesta 46 preguntas</span><span>Entrevistas</span><span>Índice ICAF</span></div></div><div class="tp-detail"><h4>5 dimensiones</h4><ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes</li><li>Condiciones sociales</li></ul></div></div></div>
+          <div class="tab-panel" id="tabp-1"><div class="tp-grid"><div class="tp-main"><h3>Programa Familiar</h3><p>4 talleres + rúbrica + cuadernillo.</p><div class="tp-tags"><span>4 talleres</span><span>3 niveles</span><span>16 criterios</span></div></div><div class="tp-detail"><h4>Talleres</h4><ul><li>Nuestro colegio</li><li>Competencias sXXI</li><li>Evaluar y exigir</li><li>Información → convicción</li></ul></div></div></div>
+          <div class="tab-panel" id="tabp-2"><div class="tp-grid"><div class="tp-main"><h3>Red de Agentes</h3><p>Líderes comunitarios formados.</p><div class="tp-tags"><span>12 horas</span><span>Certificación</span><span>4 perfiles</span></div></div><div class="tp-detail"><h4>Perfiles</h4><ul><li>Líderes parentales</li><li>Egresados</li><li>Líderes territoriales</li><li>Profesionales locales</li></ul></div></div></div>
+        </div>
+        <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="intervencion.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem">Ver modelo completo &rarr;</a></p>
       </div>
-    </div></section>
+    </section>
 
-    <section class="slide" id="problema" data-dot="Problema"><div class="slide__inner">
-      <h2 class="slide__heading anim">El problema compartido</h2>
-      <p class="slide__sub anim">No es exclusivo de una escuela ni de un país. Es sistémico.</p>
-      <div class="flow anim">
-        <div class="flow__step flow__step--ok"><h3>Escuela innovadora</h3><p>Forma personas competentes para el siglo XXI</p></div>
-        <div class="flow__arrow">&rarr;</div>
-        <div class="flow__step flow__step--warn"><h3>Egreso</h3><p>¿Las familias saben exigir este estándar?</p></div>
-        <div class="flow__arrow">&rarr;</div>
-        <div class="flow__step flow__step--danger"><h3>Siguiente etapa</h3><p>Sin familias empoderadas, se pierde lo ganado</p></div>
+    <!-- ====== NIVEL 7: LA INVITACIÓN ====== -->
+    <section class="slide" id="invitacion" data-dot="Invitación">
+      <div class="slide__inner">
+        <h2 class="slide__heading anim">Esto no se hace solo</h2>
+        <p class="slide__sub anim">Hay un lugar para cada uno en este proyecto.</p>
+        <div class="explore-grid" style="grid-template-columns:repeat(3,1fr)">
+          <a href="para-familias.html" class="explore-card anim"><div class="explore-card__icon">&#x1F46A;</div><h3>Para Familias</h3><p>Qué significa para tu hijo, qué puedes hacer, cómo evaluar colegios</p></a>
+          <a href="para-escuelas.html" class="explore-card anim"><div class="explore-card__icon">&#x1F3EB;</div><h3>Para Escuelas</h3><p>Kit replicable, adaptable y gratuito. Si tu escuela innova, esto es para ti</p></a>
+          <a href="fuentes.html" class="explore-card anim"><div class="explore-card__icon">&#x1F4D6;</div><h3>Fuentes</h3><p>30+ referencias verificables. Cada dato tiene respaldo</p></a>
+        </div>
       </div>
-      <div class="problem-box anim">
-        <p>Las familias <strong>no comprenden</strong> el valor de lo que reciben sus hijos, y <strong>no están preparadas</strong> para exigirlo en la siguiente etapa educativa.</p>
-        <p class="problem-box__action">Este proyecto les da las herramientas para hacerlo.</p>
-      </div>
-    </div></section>
+    </section>
 
-    <section class="slide slide--dark" id="modelo" data-dot="Modelo"><div class="slide__inner">
-      <h2 class="slide__heading anim">Un modelo replicable</h2>
-      <p class="slide__sub anim">Tres fases articuladas. Diseñado para adaptarse a cualquier contexto escolar.</p>
-      <div class="tabs anim">
-        <button class="tab tab--active" onclick="switchTab(0,this)">1. Definir</button>
-        <button class="tab" onclick="switchTab(1,this)">2. Activar</button>
-        <button class="tab" onclick="switchTab(2,this)">3. Sostener</button>
+    <!-- CTA FINAL -->
+    <section class="slide slide--cta" id="accion" data-dot="Acción">
+      <div class="slide__inner">
+        <h2 class="anim">La educación del siglo XXI ya existe.<br>Lo que falta es que las familias lo sepan,<br>lo valoren y lo exijan.</h2>
+        <p class="anim">Ese es el trabajo que no puede esperar.</p>
+        <div class="cta-buttons anim">
+          <a href="para-familias.html" class="cta-btn cta-btn--primary">¿Eres familia? Empieza aquí &rarr;</a>
+          <a href="para-escuelas.html" class="cta-btn cta-btn--secondary">¿Eres escuela? Tu kit está listo</a>
+        </div>
+        <p class="cta-note">Nacido en el Colegio Camilo Henríquez · Talca, Chile · 2026<br>Proyecto de Intervención en fases de Investigación, diseño y desarrollo de prototipos</p>
       </div>
-      <div class="tab-panels">
-        <div class="tab-panel tab-panel--active" id="tabp-0"><div class="tp-grid"><div class="tp-main"><h3>Observatorio Escolar</h3><p>Diagnóstico social con instrumentos validados.</p><div class="tp-tags"><span>Encuesta 46 preguntas</span><span>Entrevistas</span><span>Índice ICAF</span></div></div><div class="tp-detail"><h4>5 dimensiones</h4><ul><li>Inclusión</li><li>Bienestar</li><li>Convivencia</li><li>Redes</li><li>Condiciones sociales</li></ul></div></div></div>
-        <div class="tab-panel" id="tabp-1"><div class="tp-grid"><div class="tp-main"><h3>Programa Familiar</h3><p>4 talleres + rúbrica + cuadernillo.</p><div class="tp-tags"><span>4 talleres</span><span>3 niveles</span><span>16 criterios</span></div></div><div class="tp-detail"><h4>Talleres</h4><ul><li>Nuestro colegio</li><li>Competencias sXXI</li><li>Evaluar y exigir</li><li>Información → convicción</li></ul></div></div></div>
-        <div class="tab-panel" id="tabp-2"><div class="tp-grid"><div class="tp-main"><h3>Red de Agentes</h3><p>Líderes comunitarios formados.</p><div class="tp-tags"><span>12 horas</span><span>Certificación</span><span>4 perfiles</span></div></div><div class="tp-detail"><h4>Perfiles</h4><ul><li>Líderes parentales</li><li>Egresados</li><li>Líderes territoriales</li><li>Profesionales locales</li></ul></div></div></div>
-      </div>
-      <p class="anim" style="text-align:center;margin-top:1.5rem"><a href="modelo.html" class="slide__cta" style="font-size:.8rem;padding:.5rem 1.5rem">Ver modelo completo &rarr;</a></p>
-    </div></section>
-
-    <section class="slide" id="impacto" data-dot="Resultados"><div class="slide__inner">
-      <h2 class="slide__heading anim">Resultados proyectados</h2>
-      <div class="impact-grid">
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F50D;</div><h3>Visibilizar la brecha</h3><p>Las familias descubren que lo que reciben <strong>no es obvio ni común</strong>.</p></div>
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F4A1;</div><h3>Percepción → convicción</h3><p>De "hacen cosas diferentes" a <strong>"formación con la mayor demanda global"</strong>.</p></div>
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F6E1;</div><h3>Familias garantes</h3><p>Criterio informado para <strong>evaluar cualquier establecimiento</strong>.</p></div>
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F393;</div><h3>Proteger la trayectoria</h3><p>Las familias <strong>exigen el estándar</strong> más allá del egreso.</p></div>
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F91D;</div><h3>Capacidad instalada</h3><p>Red activa que <strong>persiste sin el profesional</strong>.</p></div>
-        <div class="impact-card anim"><div class="impact-card__icon">&#x1F4C8;</div><h3>Transformar la demanda</h3><p>Familias que <strong>presionan al sistema desde la base</strong>.</p></div>
-      </div>
-    </div></section>
-
-    <section class="slide slide--dark" id="explorar" data-dot="Explorar"><div class="slide__inner">
-      <h2 class="slide__heading anim">Explora en profundidad</h2>
-      <div class="explore-grid" style="grid-template-columns:repeat(5,1fr)">
-        <a href="investigacion.html" class="explore-card anim"><div class="explore-card__icon">&#x1F4D6;</div><h3>Evidencia</h3><p>10 marcos, IA, desinformación</p></a>
-        <a href="modelo.html" class="explore-card anim"><div class="explore-card__icon">&#x2699;</div><h3>Modelo</h3><p>3 fases, ICAF, cronograma</p></a>
-        <a href="instrumentos.html" class="explore-card anim"><div class="explore-card__icon">&#x1F6E0;</div><h3>Instrumentos</h3><p>Encuesta, rúbrica, protocolo</p></a>
-        <a href="para-familias.html" class="explore-card anim"><div class="explore-card__icon">&#x1F46A;</div><h3>Familias</h3><p>Qué significa para tu hijo</p></a>
-        <a href="para-escuelas.html" class="explore-card anim"><div class="explore-card__icon">&#x1F3EB;</div><h3>Escuelas</h3><p>Kit replicable para tu escuela</p></a>
-      </div>
-    </div></section>
-
-    <section class="slide slide--cta" id="accion" data-dot="Acción"><div class="slide__inner">
-      <h2 class="anim">La única ventaja competitiva durable<br>son las destrezas humanas.</h2>
-      <p class="anim">Este proyecto le da a las familias y a las escuelas las herramientas para comprenderlo, valorarlo y defenderlo.</p>
-      <div class="cta-buttons anim">
-        <a href="para-escuelas.html" class="cta-btn cta-btn--primary">¿Tu escuela está lista? &rarr;</a>
-        <a href="colabora.html" class="cta-btn cta-btn--secondary">Súmate como aliado</a>
-      </div>
-      <p class="cta-note">Nacido en el Colegio Camilo Henríquez · Talca, Chile · 2026<br>Diseñado para cualquier escuela del mundo</p>
-    </div></section>
+    </section>
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="config.js"></script>
+  <script src="auth-guard.js"></script>
   <script>
-    var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    async function doLogin(){var e=document.getElementById('login-error');e.textContent='';var r=await sb.auth.signInWithPassword({email:document.getElementById('login-email').value.trim(),password:document.getElementById('login-pass').value});if(r.error){e.textContent='Credenciales inv\u00e1lidas.';return;}show();}
-    function show(){document.getElementById('login-view').style.display='none';document.getElementById('pitch-view').style.display='block';initAnimations();initProgressDots();}
-    async function doLogout(){await sb.auth.signOut();window.location.href='solicitud.html';}
+    if (!checkAccess()) { /* redirects */ }
+    initAnimations();
     function closeQN(){document.getElementById('quicknav').classList.remove('qn--open');}
     function switchTab(idx,btn){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('tab--active');});btn.classList.add('tab--active');document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('tab-panel--active',i===idx);});}
-    function initAnimations(){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('anim--visible');});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.anim').forEach(function(el){obs.observe(el);});}
-    function initProgressDots(){var slides=document.querySelectorAll('.slide[data-dot]');var c=document.getElementById('progress-dots');c.innerHTML='';slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});var dots=c.querySelectorAll('.pdot');slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});}
-    (async function(){var r=await sb.auth.getSession();if(r.data&&r.data.session)show();})();
+    // Progress dots
+    var slides=document.querySelectorAll('.slide[data-dot]');var c=document.getElementById('progress-dots');if(c){c.innerHTML='';slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});var dots=c.querySelectorAll('.pdot');slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});}
   </script>
 </body>
 </html>
