@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pitch.css">
   <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 
@@ -184,5 +185,6 @@
     // Progress dots
     var slides=document.querySelectorAll('.slide[data-dot]');var c=document.getElementById('progress-dots');if(c){c.innerHTML='';slides.forEach(function(s){var d=document.createElement('button');d.className='pdot';d.title=s.dataset.dot;d.onclick=function(){s.scrollIntoView({behavior:'smooth'});};c.appendChild(d);});var dots=c.querySelectorAll('.pdot');slides.forEach(function(s){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var i=Array.from(slides).indexOf(e.target);dots.forEach(function(d,j){d.classList.toggle('pdot--active',j===i);});}});},{threshold:0.4}).observe(s);});}
   </script>
+  <script src="mobile-nav.js"></script>
 </body>
 </html>
