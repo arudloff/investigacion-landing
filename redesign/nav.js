@@ -1,71 +1,72 @@
-// nav.js — Navegación institucional + submenús
-// Centro de gravedad: la idea, no la institución
+// nav.js — Navegación compartida
+// Visibles: Contexto | Modelo Educativo | Familias
+// Dropdown: I+D Colaborativo | Conócenos
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
+  { href: 'contexto-global.html', label: 'Contexto' },
+  { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
+  { href: 'para-familias.html', label: 'Familias' },
   {
-    label: 'Proyecto Educativo',
+    label: 'I+D Colaborativo',
     children: [
-      { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
-      { href: 'por-que-importa.html', label: 'Por qué esto importa' },
-      { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
-      { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
+      { href: 'industria.html', label: 'Empresas e industria' },
+      { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+      { href: 'gobiernos.html', label: 'Gobiernos' },
+      { href: 'modelo-educativo.html', label: 'Centros educativos' },
+      { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
     ]
   },
   {
-    label: 'Comunidad',
+    label: 'Conócenos',
     children: [
-      { href: 'para-familias.html', label: 'Para familias de este colegio' },
-      { href: 'familias-otros-colegios.html', label: 'Para familias de otros colegios' },
-      { href: 'trabaja-con-nosotros.html', label: 'Para docentes' },
-      { href: 'industria.html', label: 'Para la industria' },
-      { href: 'universidades.html', label: 'Para universidades e investigadores' },
-      { href: 'gobiernos.html', label: 'Para gobiernos y política pública' },
+      { href: 'nosotros.html', label: 'Quiénes somos' },
+      { href: 'equipo.html', label: 'Nuestro equipo' },
+      { href: 'visita.html', label: 'Solicita una visita guiada' },
+      { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
     ]
   },
-  { href: 'visita.html', label: 'Admisión' },
-  { href: '#contacto', label: 'Contacto' },
 ];
 
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
+
   { label: 'Proyecto Educativo', isSection: true },
-  { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
-  { href: 'por-que-importa.html', label: 'Por qué esto importa' },
   { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
-  { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
-  { label: 'Comunidad', isSection: true },
-  { href: 'para-familias.html', label: 'Familias de este colegio' },
+  { href: 'modelo-educativo.html', label: 'Modelo educativo' },
+  { href: 'por-que-importa.html', label: 'Por qué esto importa' },
+
+  { label: 'Familias', isSection: true },
+  { href: 'para-familias.html', label: 'Nuestras familias' },
   { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
-  { href: 'trabaja-con-nosotros.html', label: 'Para docentes' },
-  { href: 'industria.html', label: 'Para la industria' },
-  { href: 'universidades.html', label: 'Universidades e investigadores' },
-  { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
+
+  { label: 'I+D Colaborativo', isSection: true },
+  { href: 'industria.html', label: 'Empresas e industria' },
+  { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+  { href: 'gobiernos.html', label: 'Gobiernos' },
+  { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
+
   { label: 'Conócenos', isSection: true },
-  { href: 'visita.html', label: 'Admisión · Visita guiada' },
   { href: 'nosotros.html', label: 'Quiénes somos' },
   { href: 'equipo.html', label: 'Nuestro equipo' },
+  { href: 'visita.html', label: 'Visita guiada' },
 ];
 
 const FOOTER_COLS = {
   proyecto: [
+    { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
-    { href: 'por-que-importa.html', label: 'Por qué esto importa' },
-    { href: 'contexto-global.html', label: 'El contexto global' },
     { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
   ],
-  comunidad: [
-    { href: 'para-familias.html', label: 'Familias de este colegio' },
-    { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
+  id: [
     { href: 'industria.html', label: 'Empresas e industria' },
-    { href: 'universidades.html', label: 'Universidades e investigación' },
-    { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
-    { href: 'trabaja-con-nosotros.html', label: 'Docentes' },
+    { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+    { href: 'gobiernos.html', label: 'Gobiernos' },
+    { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
   ],
-  conocenos: [
-    { href: 'nosotros.html', label: 'Quiénes somos' },
-    { href: 'equipo.html', label: 'Nuestro equipo' },
-    { href: 'visita.html', label: 'Admisión · Visita guiada' },
+  familias: [
+    { href: 'para-familias.html', label: 'Nuestras familias' },
+    { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
   ],
 };
 
@@ -137,12 +138,12 @@ function buildFooter() {
           ${FOOTER_COLS.proyecto.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">Comunidad</p>
-          ${FOOTER_COLS.comunidad.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+          <p class="footer__title">I+D Colaborativo</p>
+          ${FOOTER_COLS.id.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">Conócenos</p>
-          ${FOOTER_COLS.conocenos.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+          <p class="footer__title">Familias</p>
+          ${FOOTER_COLS.familias.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
           <p class="footer__title">Contacto</p>
