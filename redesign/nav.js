@@ -11,14 +11,11 @@ const NAV_ITEMS = [
     label: 'I+D Colaborativo',
     children: [
       { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
-      { href: 'cepah-summits.html', label: 'Summits' },
-      { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
-      { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
       { isSeparator: true },
       { href: 'industria.html', label: 'Empresas e industria' },
-      { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+      { href: 'universidades.html', label: 'Universidades y centros de investigación' },
       { href: 'gobiernos.html', label: 'Gobiernos' },
-      { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
+      { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
     ]
   },
   {
@@ -44,17 +41,12 @@ const MOBILE_LINKS = [
   { href: 'para-familias.html', label: 'Nuestras familias' },
   { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
 
-  { label: 'CEPAH — Centro de Estudios', isSection: true },
-  { href: 'cepah.html', label: 'Qué es el CEPAH' },
-  { href: 'cepah-summits.html', label: 'Summits' },
-  { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
-  { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
-
   { label: 'I+D Colaborativo', isSection: true },
+  { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
   { href: 'industria.html', label: 'Empresas e industria' },
-  { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+  { href: 'universidades.html', label: 'Universidades y centros de investigación' },
   { href: 'gobiernos.html', label: 'Gobiernos' },
-  { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
+  { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
 
   { label: 'Conócenos', isSection: true },
   { href: 'nosotros.html', label: 'Quiénes somos' },
@@ -68,17 +60,12 @@ const FOOTER_COLS = {
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
     { href: 'para-familias.html', label: 'Familias' },
   ],
-  cepah: [
-    { href: 'cepah.html', label: 'Qué es el CEPAH' },
-    { href: 'cepah-summits.html', label: 'Summits' },
-    { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
-    { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
-  ],
   id: [
+    { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
     { href: 'industria.html', label: 'Empresas e industria' },
-    { href: 'universidades.html', label: 'Universidades' },
+    { href: 'universidades.html', label: 'Universidades y centros de investigación' },
     { href: 'gobiernos.html', label: 'Gobiernos' },
-    { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
+    { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
   ],
 };
 
@@ -149,10 +136,6 @@ function buildFooter() {
         <div>
           <p class="footer__title">Proyecto Educativo</p>
           ${FOOTER_COLS.proyecto.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
-        </div>
-        <div>
-          <p class="footer__title">CEPAH</p>
-          ${FOOTER_COLS.cepah.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
           <p class="footer__title">I+D Colaborativo</p>
