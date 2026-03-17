@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicaciones — Colegio Camilo Henríquez</title>
+  <meta name="description" content="El conocimiento que generamos es de acceso público. Cada documento es evidencia del rigor con que trabajamos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <section class="hero" style="padding:4rem 0 3rem">
+    <div class="container">
+      <p class="hero__label anim">Biblioteca de conocimiento</p>
+      <h1 class="anim">Publicaciones</h1>
+      <p class="hero__quote anim">El conocimiento que generamos es de acceso público. Cada documento es evidencia del rigor con que trabajamos.</p>
+    </div>
+  </section>
+
+  <!-- FILTROS -->
+  <section class="section" style="padding:var(--space-lg) 0">
+    <div class="container">
+      <div class="filter-pills anim">
+        <button class="filter-pill filter-pill--active" data-filter="all">Todos</button>
+        <button class="filter-pill" data-filter="informe">Informes técnicos</button>
+        <button class="filter-pill" data-filter="icaf">Resultados ICAF</button>
+        <button class="filter-pill" data-filter="metodologia">Metodología</button>
+        <button class="filter-pill" data-filter="sintesis">Síntesis</button>
+        <button class="filter-pill" data-filter="coautoria">Co-autoría</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICACIONES -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="grid grid-2" id="pub-grid">
+
+        <!-- PUBLICACIÓN REAL #1 -->
+        <div class="pub-card anim" data-type="informe">
+          <span class="pub-card__type">Informe técnico</span>
+          <h3 class="pub-card__title">Informe Técnico v9.0 — Intervención de Trabajo Social en Contexto Educativo</h3>
+          <p class="pub-card__meta">Colegio Camilo Henríquez · Universidad Autónoma de Chile · Marzo 2026</p>
+          <p class="pub-card__summary">Investigación y propuestas de intervención de Trabajo Social en contexto educativo. Modelo de 3 componentes con evidencia de 10 marcos internacionales. Incluye diseño del ICAF, talleres familiares y Red de Agentes Comunitarios.</p>
+          <div>
+            <span class="pub-card__access pub-card__access--libre">Acceso libre</span>
+            <!-- CTA: reemplazar href="#" con URL del PDF del Informe Técnico v9.0 -->
+            <a href="#" class="btn btn--primary" style="font-size:.82rem;padding:.4rem 1rem;margin-left:.5rem">Descargar PDF &rarr;</a>
+          </div>
+        </div>
+
+        <!-- PUBLICACIÓN PLACEHOLDER #2 -->
+        <div class="pub-card anim" data-type="icaf" style="border-left-color:var(--color-accent-green)">
+          <!-- PUBLICACIÓN FUTURA: agregar título, autores, fecha y enlace al PDF
+               Tipo: Resultados ICAF
+               Acceso: Solo socios -->
+          <span class="pub-card__type" style="background:var(--color-green-light);color:var(--color-accent-green)">Resultados ICAF</span>
+          <h3 class="pub-card__title">Resultados ICAF — Primer ciclo de aplicación</h3>
+          <p class="pub-card__meta">Colegio Camilo Henríquez · Universidad Autónoma de Chile · [Fecha por confirmar]</p>
+          <p class="pub-card__summary">Resultados del primer ciclo de aplicación del Índice de Apropiación Familiar. Análisis por dimensión, comparación pre/post talleres, y recomendaciones para el siguiente ciclo.</p>
+          <div>
+            <span class="pub-card__access pub-card__access--socios">Solo socios</span>
+            <span style="font-size:.82rem;color:var(--color-text-tertiary);margin-left:.5rem">Próximamente</span>
+          </div>
+        </div>
+
+        <!-- PUBLICACIÓN PLACEHOLDER #3 -->
+        <div class="pub-card anim" data-type="sintesis" style="border-left-color:var(--color-teal)">
+          <!-- PUBLICACIÓN FUTURA: agregar título, autores, fecha y enlace al PDF
+               Tipo: Síntesis
+               Acceso: Libre -->
+          <span class="pub-card__type" style="background:var(--color-teal-light);color:var(--color-teal)">Síntesis</span>
+          <h3 class="pub-card__title">Competencias del Siglo XXI — Síntesis de 10 marcos internacionales</h3>
+          <p class="pub-card__meta">Colegio Camilo Henríquez · [Fecha por confirmar]</p>
+          <p class="pub-card__summary">Revisión comparada de OCDE, WEF, UNESCO, P21, Harvard PZ, CASEL, Ken Robinson y MINEDUC. Tabla de convergencia y conexión con los 6 ejes del modelo educativo.</p>
+          <div>
+            <span class="pub-card__access pub-card__access--libre">Acceso libre</span>
+            <span style="font-size:.82rem;color:var(--color-text-tertiary);margin-left:.5rem">Próximamente</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" style="text-align:center">
+    <div class="container">
+      <h2 class="anim mb-3">Transparencia es credibilidad.</h2>
+      <p class="anim mb-4" style="max-width:550px;margin-left:auto;margin-right:auto">Cada afirmación de esta investigación puede ser verificada por cualquier lector. Publicamos para que otros puedan construir sobre lo que hacemos.</p>
+      <a href="contexto-global.html#fuentes" class="btn btn--primary anim">Ver todas las fuentes &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-human anim" style="max-width:400px;margin:0 auto">
+        <p class="contact-human__name">[Nombre Apellido]</p>
+        <p class="contact-human__role">Coordinación de Publicaciones</p>
+        <p class="contact-human__email">contacto@colegiocamilohenriquez.cl</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="nav.js"></script>
+  <script>
+    // Simple filter for publication cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const pills = document.querySelectorAll('.filter-pill');
+      const cards = document.querySelectorAll('.pub-card');
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => p.classList.remove('filter-pill--active'));
+          pill.classList.add('filter-pill--active');
+          const filter = pill.dataset.filter;
+          cards.forEach(card => {
+            card.style.display = (filter === 'all' || card.dataset.type === filter) ? '' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
