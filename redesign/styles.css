@@ -477,7 +477,144 @@ table th, table td {
 }
 .footer__address { font-size: 0.78rem; margin-bottom: 0.3rem; }
 
-/* --- DASHBOARD — panel de datos estilo monitor de control --- */
+/* --- INFOGRAFÍA INTERACTIVA — luminosa, moderna --- */
+.infog-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+}
+.infog-tab {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.55rem 1.3rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-primary-light);
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.infog-tab:hover { border-color: var(--color-primary-mid); color: var(--color-primary-mid); }
+.infog-tab--active {
+  background: var(--color-primary-mid);
+  color: var(--color-white);
+  border-color: var(--color-primary-mid);
+  box-shadow: 0 4px 15px rgba(46,109,164,0.3);
+}
+.infog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+.infog-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.infog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.infog-card__accent {
+  height: 4px;
+  transition: height 0.3s ease;
+}
+.infog-card--amenaza .infog-card__accent { background: linear-gradient(90deg, #FF6B6B, #ee5a24); }
+.infog-card--digital .infog-card__accent { background: linear-gradient(90deg, var(--color-primary-mid), var(--color-teal)); }
+.infog-card--oportunidad .infog-card__accent { background: linear-gradient(90deg, #51CF66, var(--color-accent-green)); }
+.infog-card--open .infog-card__accent { height: 6px; }
+.infog-card__body { padding: var(--space-md) var(--space-md) var(--space-sm); position: relative; }
+.infog-card__number {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.3rem;
+}
+.infog-card--amenaza .infog-card__number { color: #ee5a24; }
+.infog-card--digital .infog-card__number { color: var(--color-primary-mid); }
+.infog-card--oportunidad .infog-card__number { color: var(--color-accent-green); }
+.infog-card__label {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+.infog-card__source {
+  font-size: 0.65rem;
+  color: var(--color-text-tertiary);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+.infog-card__toggle {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-bg-neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  transition: all 0.3s ease;
+}
+.infog-card--open .infog-card__toggle {
+  transform: rotate(45deg);
+  background: var(--color-primary-mid);
+  color: var(--color-white);
+}
+.infog-card__expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+.infog-card--open .infog-card__expand {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.infog-card__expand p {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+.infog-card--open {
+  box-shadow: var(--shadow-lg);
+}
+.infog-card--open.infog-card--amenaza { background: linear-gradient(135deg, #fff5f5, #fff); }
+.infog-card--open.infog-card--digital { background: linear-gradient(135deg, var(--color-primary-light), #fff); }
+.infog-card--open.infog-card--oportunidad { background: linear-gradient(135deg, var(--color-green-light), #fff); }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 1024px) {
+  .infog-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .infog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .infog-grid { grid-template-columns: 1fr; }
+  .infog-tab { font-size: 0.75rem; padding: 0.45rem 0.9rem; }
+}
+
+/* --- DASHBOARD (legacy — can remove if unused) --- */
 .dashboard {
   background: var(--color-primary-dark);
   border-radius: var(--radius-lg);
