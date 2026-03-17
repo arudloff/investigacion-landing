@@ -1,6 +1,6 @@
 // nav.js — Navegación compartida
-// Visibles: Contexto | Modelo Educativo | Familias
-// Dropdown: I+D Colaborativo | Conócenos
+// Visibles: Inicio | Contexto | Modelo Educativo | Familias | I+D Colaborativo ▾
+// I+D Colaborativo contiene CEPAH como sub-sección principal
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
@@ -10,10 +10,14 @@ const NAV_ITEMS = [
   {
     label: 'I+D Colaborativo',
     children: [
+      { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
+      { href: 'cepah-summits.html', label: 'Summits' },
+      { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
+      { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
+      { isSeparator: true },
       { href: 'industria.html', label: 'Empresas e industria' },
       { href: 'universidades.html', label: 'Centros de investigación y universidades' },
       { href: 'gobiernos.html', label: 'Gobiernos' },
-      { href: 'modelo-educativo.html', label: 'Centros educativos' },
       { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
     ]
   },
@@ -40,6 +44,12 @@ const MOBILE_LINKS = [
   { href: 'para-familias.html', label: 'Nuestras familias' },
   { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
 
+  { label: 'CEPAH — Centro de Estudios', isSection: true },
+  { href: 'cepah.html', label: 'Qué es el CEPAH' },
+  { href: 'cepah-summits.html', label: 'Summits' },
+  { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
+  { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
+
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'industria.html', label: 'Empresas e industria' },
   { href: 'universidades.html', label: 'Centros de investigación y universidades' },
@@ -58,15 +68,17 @@ const FOOTER_COLS = {
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
     { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
   ],
+  cepah: [
+    { href: 'cepah.html', label: 'Qué es el CEPAH' },
+    { href: 'cepah-summits.html', label: 'Summits' },
+    { href: 'cepah-entrevistas.html', label: 'Entrevistas' },
+    { href: 'cepah-publicaciones.html', label: 'Publicaciones' },
+  ],
   id: [
     { href: 'industria.html', label: 'Empresas e industria' },
-    { href: 'universidades.html', label: 'Centros de investigación y universidades' },
+    { href: 'universidades.html', label: 'Universidades' },
     { href: 'gobiernos.html', label: 'Gobiernos' },
     { href: 'trabaja-con-nosotros.html', label: 'Docentes transformadores' },
-  ],
-  familias: [
-    { href: 'para-familias.html', label: 'Nuestras familias' },
-    { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
   ],
 };
 
@@ -75,7 +87,7 @@ function getCurrentPage() {
 }
 function isActive(href) { return href === getCurrentPage(); }
 function isParentActive(children) {
-  return children.some(c => c.href === getCurrentPage());
+  return children.some(c => c.href && c.href === getCurrentPage());
 }
 
 function buildNavbar() {
@@ -87,6 +99,7 @@ function buildNavbar() {
     if (item.children) {
       const active = isParentActive(item.children) ? ' navbar__link--active' : '';
       const childrenHTML = item.children.map(c =>
+        c.isSeparator ? '<hr class="dropdown__separator">' :
         `<a href="${c.href}" class="dropdown__link${isActive(c.href) ? ' dropdown__link--active' : ''}">${c.label}</a>`
       ).join('');
       menuHTML += `
@@ -138,12 +151,12 @@ function buildFooter() {
           ${FOOTER_COLS.proyecto.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">I+D Colaborativo</p>
-          ${FOOTER_COLS.id.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+          <p class="footer__title">CEPAH</p>
+          ${FOOTER_COLS.cepah.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">Familias</p>
-          ${FOOTER_COLS.familias.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+          <p class="footer__title">I+D Colaborativo</p>
+          ${FOOTER_COLS.id.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
           <p class="footer__title">Contacto</p>
