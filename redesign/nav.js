@@ -66,7 +66,7 @@ const FOOTER_COLS = {
   proyecto: [
     { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
-    { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
+    { href: 'para-familias.html', label: 'Familias' },
   ],
   cepah: [
     { href: 'cepah.html', label: 'Qué es el CEPAH' },
