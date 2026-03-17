@@ -18,59 +18,116 @@
        ═══════════════════════════════════════════════ -->
   <section class="hero">
     <div class="container">
-      <h1 class="anim">El mundo cambió<br>y la educación se quedó atrás</h1>
-      <p class="hero__quote anim">300 millones de empleos expuestos a IA generativa. El 65% de los niños trabajarán en empleos que aún no existen. Chile tiene el mayor porcentaje de empleos repetitivos de toda la OCDE. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
+      <h1 class="anim">El mundo cambió<br>y la educación es la única respuesta</h1>
+      <p class="hero__quote anim">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
     </div>
   </section>
 
-  <!-- Datos que respaldan la afirmación -->
-  <section class="section">
+  <!-- DASHBOARD — panel de datos del mundo que cambió -->
+  <section class="section" style="padding-top:var(--space-lg)">
     <div class="container">
-      <!-- Fila 1: 3 datos principales -->
-      <div class="grid grid-3 mb-4">
-        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
-          <div class="stat-card__number">300M</div>
-          <div class="stat-card__label">empleos expuestos a IA generativa</div>
-          <div class="stat-card__source">(Goldman Sachs, 2023)</div>
-          <div class="stat-card__detail">Klarna, IBM, Chegg, UPS — empresas reales que ya reemplazaron departamentos completos. Las que recontratan buscan empatía, juicio y negociación. <strong>Las destrezas que la IA no replica.</strong></div>
+      <div class="dashboard anim">
+        <p class="dashboard__title">El mundo que enfrentarán nuestros estudiantes — datos en tiempo real</p>
+
+        <div class="dashboard__grid">
+
+          <!-- CATEGORÍA: EMPLEO Y AUTOMATIZACIÓN -->
+          <p class="dashboard__category">Empleo y automatización</p>
+
+          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">300M</div>
+            <div class="dashboard__label">empleos expuestos a IA generativa en el mundo</div>
+            <div class="dashboard__source">Goldman Sachs, 2023</div>
+            <div class="dashboard__detail">Klarna, IBM, Chegg, UPS — empresas reales que ya reemplazaron departamentos completos. Las que recontratan buscan empatía, juicio y negociación.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">92M</div>
+            <div class="dashboard__label">empleos desplazados para 2030</div>
+            <div class="dashboard__source">WEF, 2025</div>
+            <div class="dashboard__detail">Pero también 170M nuevos. El problema: los nuevos requieren destrezas completamente distintas a los que desaparecen.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">55%</div>
+            <div class="dashboard__label">empleos en Chile son tareas repetitivas — el mayor % de la OCDE</div>
+            <div class="dashboard__source">OCDE/PIAAC, 2023</div>
+            <div class="dashboard__detail">4,7M trabajadores expuestos. 21,4% desempleo juvenil. Quiebras minoristas +100% en 2025.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">65%</div>
+            <div class="dashboard__label">de los niños trabajarán en empleos que aún no existen</div>
+            <div class="dashboard__source">WEF, 2025</div>
+            <div class="dashboard__detail">La única preparación posible: aprender a aprender, adaptarse, crear y colaborar — y eso se desarrolla en la etapa escolar.</div>
+          </div>
+
+          <!-- CATEGORÍA: ECONOMÍA DIGITAL Y TELETRABAJO -->
+          <p class="dashboard__category">Economía digital y teletrabajo</p>
+
+          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">90M</div>
+            <div class="dashboard__label">posiciones remotas disponibles para 2030</div>
+            <div class="dashboard__source">WEF, 2025</div>
+            <div class="dashboard__detail">Un joven con las destrezas correctas puede trabajar para cualquier empresa del mundo sin emigrar. Las oportunidades son globales.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">$14.2B</div>
+            <div class="dashboard__label">e-commerce en Chile — el mayor per cápita de Latinoamérica</div>
+            <div class="dashboard__source">Trade.gov, 2025</div>
+            <div class="dashboard__detail">59% de las ventas desde el celular. MercadoLibre pasó del 3% al 14% del mercado en 5 años. El comercio local compite contra algoritmos globales.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--info" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">12.4x</div>
+            <div class="dashboard__label">más productividad por persona en startups con IA</div>
+            <div class="dashboard__source">PwC, 2025</div>
+            <div class="dashboard__detail">Midjourney: $500M/año con ~40 empleados. Las startups de un solo fundador pasaron del 22% al 38%. Una persona con IA hace el trabajo de 5.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--info" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">38%</div>
+            <div class="dashboard__label">de startups nuevas son de un solo fundador</div>
+            <div class="dashboard__source">Carta, 2024</div>
+            <div class="dashboard__detail">Era 22% en 2015. Las herramientas de IA devuelven entre el 10-40% del día laboral. El emprendimiento individual ya no es un sueño — es una realidad económica.</div>
+          </div>
+
+          <!-- CATEGORÍA: OPORTUNIDAD -->
+          <p class="dashboard__category">La oportunidad</p>
+
+          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">+56%</div>
+            <div class="dashboard__label">empleabilidad con destrezas complementarias a IA</div>
+            <div class="dashboard__source">PwC, 2025</div>
+            <div class="dashboard__detail">Salarios crecen 2x más rápido en sectores IA-expuestos: +16,7% vs +7,9%. La destreza demostrable vale más que el título.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">+28%</div>
+            <div class="dashboard__label">prima salarial en ofertas con habilidades IA</div>
+            <div class="dashboard__source">Lightcast, 2025</div>
+            <div class="dashboard__detail">~USD 18.000/año adicionales. El 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">4ª</div>
+            <div class="dashboard__label">posición del pensamiento creativo entre habilidades más demandadas al 2030</div>
+            <div class="dashboard__source">WEF, 2025</div>
+            <div class="dashboard__detail">Resiliencia, empatía y aprendizaje continuo completan el top 10. Son exactamente las destrezas que desarrolla este colegio.</div>
+          </div>
+
+          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
+            <div class="dashboard__number">900%</div>
+            <div class="dashboard__label">crecimiento anual de contenido falso generado por IA</div>
+            <div class="dashboard__source">WEF/Sumsub, 2024</div>
+            <div class="dashboard__detail">Sin pensamiento crítico, un joven es vulnerable a estafas, manipulación política y decisiones basadas en información falsa cada vez más sofisticada.</div>
+          </div>
+
         </div>
-        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
-          <div class="stat-card__number">65%</div>
-          <div class="stat-card__label">de los niños trabajarán en empleos que aún no existen</div>
-          <div class="stat-card__source">(WEF, 2025)</div>
-          <div class="stat-card__detail">Quienes desarrollan pensamiento crítico y creatividad acceden a +56% empleabilidad (PwC). <strong>La única preparación: aprender a aprender — y eso se desarrolla en la etapa escolar.</strong></div>
-        </div>
-        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
-          <div class="stat-card__number">55%</div>
-          <div class="stat-card__label">de empleos en Chile son tareas repetitivas — el mayor % de la OCDE</div>
-          <div class="stat-card__source">(OCDE/PIAAC, 2023)</div>
-          <div class="stat-card__detail">4,7M trabajadores expuestos. 21,4% desempleo juvenil. Quiebras minoristas +100% en 2025. <strong>Un joven que egresa hoy compite con algoritmos.</strong></div>
-        </div>
+
+        <p style="text-align:center;font-size:.75rem;color:rgba(255,255,255,0.3);margin-top:var(--space-lg)">Toca cualquier cifra para ver el contexto. <a href="contexto-global.html" style="color:rgba(255,255,255,0.5)">Ver toda la evidencia →</a></p>
       </div>
-      <!-- Fila 2: datos complementarios, más visuales -->
-      <div class="grid grid-4">
-        <div class="stat-card anim" style="border-top-color:var(--color-teal)">
-          <div class="stat-card__number">92M</div>
-          <div class="stat-card__label">empleos desplazados para 2030</div>
-          <div class="stat-card__source">(WEF, 2025)</div>
-        </div>
-        <div class="stat-card anim" style="border-top-color:var(--color-accent-green)">
-          <div class="stat-card__number">+56%</div>
-          <div class="stat-card__label">empleabilidad con destrezas complementarias a IA</div>
-          <div class="stat-card__source">(PwC, 2025)</div>
-        </div>
-        <div class="stat-card anim" style="border-top-color:var(--color-purple)">
-          <div class="stat-card__number">900%</div>
-          <div class="stat-card__label">crecimiento anual de contenido falso generado por IA</div>
-          <div class="stat-card__source">(WEF/Sumsub, 2024)</div>
-        </div>
-        <div class="stat-card anim" style="border-top-color:#C92A2A">
-          <div class="stat-card__number">12.4x</div>
-          <div class="stat-card__label">más productividad por persona en startups con IA</div>
-          <div class="stat-card__source">(PwC, 2025)</div>
-        </div>
-      </div>
-      <p class="text-center text-sm mt-2 anim" style="color:var(--color-text-tertiary)">Toca las cifras de arriba para ver casos reales. <a href="contexto-global.html">Ver toda la evidencia →</a></p>
     </div>
   </section>
 
