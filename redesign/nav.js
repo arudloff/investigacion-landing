@@ -110,10 +110,14 @@ function initAnimations() {
 
 // Auto-inject on load
 document.addEventListener('DOMContentLoaded', () => {
-  // Insert navbar at top of body
-  document.body.insertBefore(buildNavbar(), document.body.firstChild);
-  document.body.insertBefore(buildMobileNav(), document.body.children[1]);
-  // Append footer
+  // Wrap existing body content in <main>
+  const main = document.createElement('main');
+  while (document.body.firstChild) main.appendChild(document.body.firstChild);
+  document.body.appendChild(main);
+  // Insert navbar + mobile nav before <main>
+  document.body.insertBefore(buildNavbar(), main);
+  document.body.insertBefore(buildMobileNav(), main);
+  // Append footer after <main>
   document.body.appendChild(buildFooter());
   // Init animations
   initAnimations();
