@@ -1,6 +1,6 @@
 // nav.js — Navegación compartida
-// Estructura: links visibles + 2 dropdowns (I+D Colaborativo, Conócenos)
-// Principio: evolución continua, diálogo con múltiples actores
+// Estructura: links visibles + 2 dropdowns (Súmate, Conócenos)
+// Principio: confluencia de visiones y esfuerzos ante un desafío que no puede esperar
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
   { href: 'para-familias.html', label: 'Familias' },
   {
-    label: 'I+D Colaborativo',
+    label: 'Súmate',
     children: [
       { href: 'industria.html', label: 'Empresas e industria' },
       { href: 'universidades.html', label: 'Universidades y centros de investigación' },
@@ -40,7 +40,7 @@ const MOBILE_LINKS = [
   { href: 'para-familias.html', label: 'Familias de este colegio' },
   { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
 
-  { label: 'I+D Colaborativo', isSection: true },
+  { label: 'Súmate', isSection: true },
   { href: 'industria.html', label: 'Empresas e industria' },
   { href: 'universidades.html', label: 'Universidades e investigación' },
   { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
@@ -143,7 +143,7 @@ function buildFooter() {
           ${FOOTER_COLS.proyecto.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">I+D Colaborativo</p>
+          <p class="footer__title">Súmate al desafío</p>
           ${FOOTER_COLS.id.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
