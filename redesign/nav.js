@@ -1,62 +1,82 @@
-// nav.js — Navegación compartida · Dos capas: institucional + submenús
+// nav.js — Navegación compartida
+// Estructura: links visibles + 2 dropdowns (I+D Colaborativo, Conócenos)
+// Principio: evolución continua, diálogo con múltiples actores
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
+  { href: 'contexto-global.html', label: 'Contexto' },
+  { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
+  { href: 'para-familias.html', label: 'Familias' },
   {
-    label: 'Proyecto Educativo',
+    label: 'I+D Colaborativo',
     children: [
-      { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
-      { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
-      { href: 'por-que-importa.html', label: '¿Por qué esto importa?' },
-      { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
+      { href: 'industria.html', label: 'Empresas e industria' },
+      { href: 'universidades.html', label: 'Universidades y centros de investigación' },
+      { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
+      { href: 'trabaja-con-nosotros.html', label: 'Docentes visionarios' },
     ]
   },
   {
-    label: 'Comunidad',
+    label: 'Conócenos',
     children: [
-      { href: 'para-familias.html', label: 'Para familias de este colegio' },
-      { href: 'familias-otros-colegios.html', label: 'Para familias de otros colegios' },
-      { href: 'trabaja-con-nosotros.html', label: 'Para docentes' },
-      { href: 'industria.html', label: 'Para la industria' },
+      { href: 'nosotros.html', label: 'Quiénes somos' },
+      { href: 'equipo.html', label: 'Nuestro equipo' },
+      { href: 'visita.html', label: 'Solicita una visita guiada' },
+      { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
+      { href: 'por-que-importa.html', label: '¿Por qué esto importa?' },
     ]
   },
 ];
 
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
+
   { label: 'Proyecto Educativo', isSection: true },
   { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
-  { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
+  { href: 'modelo-educativo.html', label: 'Modelo educativo' },
   { href: 'por-que-importa.html', label: '¿Por qué esto importa?' },
-  { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
-  { label: 'Comunidad', isSection: true },
-  { href: 'para-familias.html', label: 'Para familias de este colegio' },
-  { href: 'familias-otros-colegios.html', label: 'Para familias de otros colegios' },
-  { href: 'trabaja-con-nosotros.html', label: 'Para docentes' },
-  { href: 'industria.html', label: 'Para la industria' },
+
+  { label: 'Familias', isSection: true },
+  { href: 'para-familias.html', label: 'Familias de este colegio' },
+  { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
+
+  { label: 'I+D Colaborativo', isSection: true },
+  { href: 'industria.html', label: 'Empresas e industria' },
+  { href: 'universidades.html', label: 'Universidades e investigación' },
+  { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
+  { href: 'trabaja-con-nosotros.html', label: 'Docentes visionarios' },
+
+  { label: 'Conócenos', isSection: true },
+  { href: 'nosotros.html', label: 'Quiénes somos' },
+  { href: 'equipo.html', label: 'Nuestro equipo' },
+  { href: 'visita.html', label: 'Solicita una visita guiada' },
 ];
 
 const FOOTER_COLS = {
   proyecto: [
     { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
-    { href: 'por-que-importa.html', label: '¿Por qué importa?' },
     { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
+    { href: 'por-que-importa.html', label: '¿Por qué importa?' },
   ],
-  comunidad: [
-    { href: 'para-familias.html', label: 'Familias de este colegio' },
+  id: [
+    { href: 'industria.html', label: 'Empresas e industria' },
+    { href: 'universidades.html', label: 'Universidades e investigación' },
+    { href: 'gobiernos.html', label: 'Gobiernos y política pública' },
+    { href: 'trabaja-con-nosotros.html', label: 'Docentes visionarios' },
+  ],
+  conocenos: [
+    { href: 'nosotros.html', label: 'Quiénes somos' },
+    { href: 'equipo.html', label: 'Nuestro equipo' },
+    { href: 'visita.html', label: 'Visita guiada' },
     { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
-    { href: 'industria.html', label: 'Industria y empresas' },
-    { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
   ],
 };
 
 function getCurrentPage() {
   return window.location.pathname.split('/').pop() || 'index.html';
 }
-
 function isActive(href) { return href === getCurrentPage(); }
-
 function isParentActive(children) {
   return children.some(c => c.href === getCurrentPage());
 }
@@ -100,7 +120,6 @@ function buildMobileNav() {
   const overlay = document.createElement('div');
   overlay.className = 'mobile-nav';
   overlay.id = 'mobile-nav';
-
   let html = '';
   MOBILE_LINKS.forEach(l => {
     if (l.isSection) {
@@ -109,7 +128,6 @@ function buildMobileNav() {
       html += `<a href="${l.href}" class="mobile-nav__link${isActive(l.href) ? ' mobile-nav__link--active' : ''}">${l.label}</a>`;
     }
   });
-
   overlay.innerHTML = `<button class="mobile-nav__close" onclick="toggleMobileNav()">&times;</button>${html}`;
   return overlay;
 }
@@ -125,22 +143,23 @@ function buildFooter() {
           ${FOOTER_COLS.proyecto.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
-          <p class="footer__title">Comunidad</p>
-          ${FOOTER_COLS.comunidad.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+          <p class="footer__title">I+D Colaborativo</p>
+          ${FOOTER_COLS.id.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
+        </div>
+        <div>
+          <p class="footer__title">Conócenos</p>
+          ${FOOTER_COLS.conocenos.map(l => `<a href="${l.href}" class="footer__link">${l.label}</a>`).join('')}
         </div>
         <div>
           <p class="footer__title">Contacto</p>
           <p class="footer__address">Av. Lircay 2550, Talca</p>
           <a href="mailto:colegio@colegiocamilohenriquez.cl" class="footer__link">colegio@colegiocamilohenriquez.cl</a>
-        </div>
-        <div>
-          <p class="footer__title">Identidad</p>
-          <p style="font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.5">«Un colegio que enseña desde el futuro, para el futuro — porque el mapa solo puede dibujarse entre todos.»</p>
+          <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:.75rem;line-height:1.5">«Un colegio que enseña desde el futuro, para el futuro — porque el mapa solo puede dibujarse entre todos.»</p>
         </div>
       </div>
       <div class="footer__bottom">
         <p>Nacido en el Colegio Camilo Henríquez, Talca, Chile · Diseñado para cualquier escuela del mundo</p>
-        <p style="margin-top:.35rem">Proyecto de Intervención en fases de Investigación, diseño y desarrollo de prototipos</p>
+        <p style="margin-top:.35rem">Proyecto en evolución continua · Investigación, diseño y desarrollo colaborativo</p>
       </div>
     </div>
   `;
