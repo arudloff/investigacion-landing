@@ -38,7 +38,7 @@ const MOBILE_LINKS = [
 
   { label: 'Familias', isSection: true },
   { href: 'para-familias.html', label: 'Nuestras familias' },
-  { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
+  { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'industria.html', label: 'Empresas e industria' },
@@ -66,7 +66,7 @@ const FOOTER_COLS = {
   ],
   familias: [
     { href: 'para-familias.html', label: 'Nuestras familias' },
-    { href: 'familias-otros-colegios.html', label: 'Familias de otros colegios' },
+    { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
   ],
 };
 
