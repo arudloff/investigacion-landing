@@ -18,118 +18,235 @@
        ═══════════════════════════════════════════════ -->
   <section class="hero">
     <div class="container">
-      <h1 class="anim">El mundo cambió<br>y la educación es la única respuesta</h1>
+      <h1 class="anim">El mundo cambió<br>y la educación de vanguardia es la única respuesta</h1>
       <p class="hero__quote anim">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
     </div>
   </section>
 
-  <!-- DASHBOARD — panel de datos del mundo que cambió -->
+  <!-- INFOGRAFÍA INTERACTIVA — El mundo que cambió -->
   <section class="section" style="padding-top:var(--space-lg)">
     <div class="container">
-      <div class="dashboard anim">
-        <p class="dashboard__title">El mundo que enfrentarán nuestros estudiantes — datos en tiempo real</p>
 
-        <div class="dashboard__grid">
+      <!-- Tabs de categoría -->
+      <div class="infog-tabs anim" id="infog-tabs">
+        <button class="infog-tab infog-tab--active" data-cat="all">Todo el panorama</button>
+        <button class="infog-tab" data-cat="amenaza">El desafío</button>
+        <button class="infog-tab" data-cat="digital">Economía digital</button>
+        <button class="infog-tab" data-cat="oportunidad">La oportunidad</button>
+      </div>
 
-          <!-- CATEGORÍA: EMPLEO Y AUTOMATIZACIÓN -->
-          <p class="dashboard__category">Empleo y automatización</p>
+      <!-- Grid de tarjetas -->
+      <div class="infog-grid anim" id="infog-grid">
 
-          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">300M</div>
-            <div class="dashboard__label">empleos expuestos a IA generativa en el mundo</div>
-            <div class="dashboard__source">Goldman Sachs, 2023</div>
-            <div class="dashboard__detail">Klarna, IBM, Chegg, UPS — empresas reales que ya reemplazaron departamentos completos. Las que recontratan buscan empatía, juicio y negociación.</div>
+        <!-- DESAFÍO -->
+        <div class="infog-card infog-card--amenaza" data-cat="amenaza" data-value="300" data-suffix="M" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="300" data-suffix="M">0</div>
+            <div class="infog-card__label">empleos expuestos a IA generativa</div>
+            <div class="infog-card__source">Goldman Sachs, 2023</div>
+            <div class="infog-card__expand">
+              <p>Klarna, IBM, Chegg, UPS — ya reemplazaron departamentos completos. Las que recontratan buscan empatía, juicio y negociación: las destrezas que la IA no replica.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
           </div>
-
-          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">92M</div>
-            <div class="dashboard__label">empleos desplazados para 2030</div>
-            <div class="dashboard__source">WEF, 2025</div>
-            <div class="dashboard__detail">Pero también 170M nuevos. El problema: los nuevos requieren destrezas completamente distintas a los que desaparecen.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">55%</div>
-            <div class="dashboard__label">empleos en Chile son tareas repetitivas — el mayor % de la OCDE</div>
-            <div class="dashboard__source">OCDE/PIAAC, 2023</div>
-            <div class="dashboard__detail">4,7M trabajadores expuestos. 21,4% desempleo juvenil. Quiebras minoristas +100% en 2025.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">65%</div>
-            <div class="dashboard__label">de los niños trabajarán en empleos que aún no existen</div>
-            <div class="dashboard__source">WEF, 2025</div>
-            <div class="dashboard__detail">La única preparación posible: aprender a aprender, adaptarse, crear y colaborar — y eso se desarrolla en la etapa escolar.</div>
-          </div>
-
-          <!-- CATEGORÍA: ECONOMÍA DIGITAL Y TELETRABAJO -->
-          <p class="dashboard__category">Economía digital y teletrabajo</p>
-
-          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">90M</div>
-            <div class="dashboard__label">posiciones remotas disponibles para 2030</div>
-            <div class="dashboard__source">WEF, 2025</div>
-            <div class="dashboard__detail">Un joven con las destrezas correctas puede trabajar para cualquier empresa del mundo sin emigrar. Las oportunidades son globales.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--shift" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">$14.2B</div>
-            <div class="dashboard__label">e-commerce en Chile — el mayor per cápita de Latinoamérica</div>
-            <div class="dashboard__source">Trade.gov, 2025</div>
-            <div class="dashboard__detail">59% de las ventas desde el celular. MercadoLibre pasó del 3% al 14% del mercado en 5 años. El comercio local compite contra algoritmos globales.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--info" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">12.4x</div>
-            <div class="dashboard__label">más productividad por persona en startups con IA</div>
-            <div class="dashboard__source">PwC, 2025</div>
-            <div class="dashboard__detail">Midjourney: $500M/año con ~40 empleados. Las startups de un solo fundador pasaron del 22% al 38%. Una persona con IA hace el trabajo de 5.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--info" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">38%</div>
-            <div class="dashboard__label">de startups nuevas son de un solo fundador</div>
-            <div class="dashboard__source">Carta, 2024</div>
-            <div class="dashboard__detail">Era 22% en 2015. Las herramientas de IA devuelven entre el 10-40% del día laboral. El emprendimiento individual ya no es un sueño — es una realidad económica.</div>
-          </div>
-
-          <!-- CATEGORÍA: OPORTUNIDAD -->
-          <p class="dashboard__category">La oportunidad</p>
-
-          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">+56%</div>
-            <div class="dashboard__label">empleabilidad con destrezas complementarias a IA</div>
-            <div class="dashboard__source">PwC, 2025</div>
-            <div class="dashboard__detail">Salarios crecen 2x más rápido en sectores IA-expuestos: +16,7% vs +7,9%. La destreza demostrable vale más que el título.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">+28%</div>
-            <div class="dashboard__label">prima salarial en ofertas con habilidades IA</div>
-            <div class="dashboard__source">Lightcast, 2025</div>
-            <div class="dashboard__detail">~USD 18.000/año adicionales. El 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--opportunity" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">4ª</div>
-            <div class="dashboard__label">posición del pensamiento creativo entre habilidades más demandadas al 2030</div>
-            <div class="dashboard__source">WEF, 2025</div>
-            <div class="dashboard__detail">Resiliencia, empatía y aprendizaje continuo completan el top 10. Son exactamente las destrezas que desarrolla este colegio.</div>
-          </div>
-
-          <div class="dashboard__card dashboard__card--threat" onclick="this.classList.toggle('dashboard__card--expanded')">
-            <div class="dashboard__number">900%</div>
-            <div class="dashboard__label">crecimiento anual de contenido falso generado por IA</div>
-            <div class="dashboard__source">WEF/Sumsub, 2024</div>
-            <div class="dashboard__detail">Sin pensamiento crítico, un joven es vulnerable a estafas, manipulación política y decisiones basadas en información falsa cada vez más sofisticada.</div>
-          </div>
-
         </div>
 
-        <p style="text-align:center;font-size:.75rem;color:rgba(255,255,255,0.3);margin-top:var(--space-lg)">Toca cualquier cifra para ver el contexto. <a href="contexto-global.html" style="color:rgba(255,255,255,0.5)">Ver toda la evidencia →</a></p>
+        <div class="infog-card infog-card--amenaza" data-cat="amenaza" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="92" data-suffix="M">0</div>
+            <div class="infog-card__label">empleos desplazados para 2030</div>
+            <div class="infog-card__source">WEF, 2025</div>
+            <div class="infog-card__expand">
+              <p>Pero también 170M nuevos. El problema: los nuevos requieren destrezas completamente distintas a los que desaparecen.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--amenaza" data-cat="amenaza" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="55" data-suffix="%">0</div>
+            <div class="infog-card__label">empleos en Chile son tareas repetitivas — el mayor % de la OCDE</div>
+            <div class="infog-card__source">OCDE/PIAAC, 2023</div>
+            <div class="infog-card__expand">
+              <p>4,7M trabajadores expuestos. 21,4% desempleo juvenil. Quiebras minoristas +100% en 2025.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--amenaza" data-cat="amenaza" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="900" data-suffix="%">0</div>
+            <div class="infog-card__label">crecimiento anual de contenido falso generado por IA</div>
+            <div class="infog-card__source">WEF/Sumsub, 2024</div>
+            <div class="infog-card__expand">
+              <p>Sin pensamiento crítico, un joven es vulnerable a estafas, manipulación política y decisiones basadas en información falsa cada vez más sofisticada.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <!-- ECONOMÍA DIGITAL -->
+        <div class="infog-card infog-card--digital" data-cat="digital" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="65" data-suffix="%">0</div>
+            <div class="infog-card__label">de los niños trabajarán en empleos que aún no existen</div>
+            <div class="infog-card__source">WEF, 2025</div>
+            <div class="infog-card__expand">
+              <p>Aprender a aprender, adaptarse, crear y colaborar — se desarrolla en la etapa escolar, no después.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--digital" data-cat="digital" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="90" data-suffix="M">0</div>
+            <div class="infog-card__label">posiciones remotas disponibles para 2030</div>
+            <div class="infog-card__source">WEF, 2025</div>
+            <div class="infog-card__expand">
+              <p>Un joven con las destrezas correctas puede trabajar para cualquier empresa del mundo sin emigrar.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--digital" data-cat="digital" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="12" data-suffix=".4x">0</div>
+            <div class="infog-card__label">más productividad por persona en startups con IA</div>
+            <div class="infog-card__source">PwC, 2025</div>
+            <div class="infog-card__expand">
+              <p>Midjourney: $500M/año con ~40 empleados. Una persona con IA hace el trabajo de 5.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--digital" data-cat="digital" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-count="38" data-suffix="%">0</div>
+            <div class="infog-card__label">de startups nuevas son de un solo fundador</div>
+            <div class="infog-card__source">Carta, 2024</div>
+            <div class="infog-card__expand">
+              <p>Era 22% en 2015. Las herramientas de IA devuelven entre el 10-40% del día laboral.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <!-- OPORTUNIDAD -->
+        <div class="infog-card infog-card--oportunidad" data-cat="oportunidad" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-prefix="+" data-count="56" data-suffix="%">0</div>
+            <div class="infog-card__label">empleabilidad con destrezas complementarias a IA</div>
+            <div class="infog-card__source">PwC, 2025</div>
+            <div class="infog-card__expand">
+              <p>Salarios crecen 2x más rápido en sectores IA-expuestos. La destreza demostrable vale más que el título.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--oportunidad" data-cat="oportunidad" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-prefix="+" data-count="28" data-suffix="%">0</div>
+            <div class="infog-card__label">prima salarial en ofertas con habilidades IA</div>
+            <div class="infog-card__source">Lightcast, 2025</div>
+            <div class="infog-card__expand">
+              <p>~USD 18.000/año adicionales. El 51% de estas ofertas están fuera de TI.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--oportunidad" data-cat="oportunidad" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" style="font-size:clamp(1.6rem,3vw,2.2rem)">4ª</div>
+            <div class="infog-card__label">posición del pensamiento creativo entre habilidades más demandadas al 2030</div>
+            <div class="infog-card__source">WEF, 2025</div>
+            <div class="infog-card__expand">
+              <p>Resiliencia, empatía y aprendizaje continuo completan el top 10. Son exactamente las destrezas que desarrolla este colegio.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
+        <div class="infog-card infog-card--digital" data-cat="digital" onclick="this.classList.toggle('infog-card--open')">
+          <div class="infog-card__accent"></div>
+          <div class="infog-card__body">
+            <div class="infog-card__number" data-prefix="$" data-count="14" data-suffix=".2B">0</div>
+            <div class="infog-card__label">e-commerce en Chile — el mayor per cápita de Latam</div>
+            <div class="infog-card__source">Trade.gov, 2025</div>
+            <div class="infog-card__expand">
+              <p>59% desde el celular. MercadoLibre pasó del 3% al 14% en 5 años. El comercio local compite contra algoritmos globales.</p>
+            </div>
+            <div class="infog-card__toggle">+</div>
+          </div>
+        </div>
+
       </div>
+
+      <p class="text-center text-sm mt-2 anim" style="color:var(--color-text-tertiary)">Toca cualquier dato para ver el contexto · Filtra por categoría · <a href="contexto-global.html">Ver toda la evidencia →</a></p>
     </div>
   </section>
+
+  <script>
+  // Tabs filter
+  document.querySelectorAll('.infog-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.infog-tab').forEach(t => t.classList.remove('infog-tab--active'));
+      tab.classList.add('infog-tab--active');
+      const cat = tab.dataset.cat;
+      document.querySelectorAll('.infog-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = '';
+          card.style.animation = 'fadeSlideUp .4s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+  // Animated counters on scroll
+  const counted = new Set();
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('.infog-card__number[data-count]').forEach(el => {
+        if (counted.has(el)) return;
+        counted.add(el);
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const prefix = el.dataset.prefix || '';
+        const duration = 1500;
+        const start = performance.now();
+        const ease = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        function animate(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.round(target * ease(progress));
+          el.textContent = prefix + current + suffix;
+          if (progress < 1) requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+      });
+    });
+  }, { threshold: 0.2 });
+  counterObserver.observe(document.getElementById('infog-grid'));
+  </script>
 
   <!-- Frase ética de cierre del bloque 1 -->
   <section class="section section--dark" style="text-align:center;padding:var(--space-xl) 0">
