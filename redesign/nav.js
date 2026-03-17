@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   {
     label: 'Proyecto Educativo',
     children: [
+      { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
       { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
       { href: 'por-que-importa.html', label: '¿Por qué esto importa?' },
       { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
   { label: 'Proyecto Educativo', isSection: true },
+  { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
   { href: 'modelo-educativo.html', label: 'Nuestro modelo educativo' },
   { href: 'por-que-importa.html', label: '¿Por qué esto importa?' },
   { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
@@ -36,6 +38,7 @@ const MOBILE_LINKS = [
 
 const FOOTER_COLS = {
   proyecto: [
+    { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
     { href: 'modelo-educativo.html', label: 'Modelo educativo' },
     { href: 'por-que-importa.html', label: '¿Por qué importa?' },
     { href: 'para-familias.html', label: 'Programa Familias Guardianas' },
