@@ -173,6 +173,46 @@ strong { font-weight: 600; color: var(--color-text); }
   padding: 0.5rem;
 }
 
+/* --- DROPDOWN SUBMENUS --- */
+.navbar__dropdown { position: relative; }
+.navbar__link--parent {
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.navbar__chevron { font-size: 0.65rem; opacity: 0.5; transition: transform 0.2s; }
+.navbar__dropdown--open .navbar__chevron { transform: rotate(180deg); }
+.dropdown__panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: 0.5rem;
+  min-width: 260px;
+  z-index: 1001;
+}
+.navbar__dropdown--open .dropdown__panel { display: block; }
+.dropdown__link {
+  display: block;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.84rem;
+  font-weight: 450;
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+.dropdown__link:hover { background: var(--color-bg-neutral); color: var(--color-primary-mid); text-decoration: none; }
+.dropdown__link--active { color: var(--color-primary-mid); font-weight: 600; }
+
 /* --- MOBILE NAV OVERLAY --- */
 .mobile-nav {
   display: none;
@@ -202,7 +242,17 @@ strong { font-weight: 600; color: var(--color-text); }
   text-decoration: none;
 }
 .mobile-nav__link:hover { color: var(--color-primary-mid); text-decoration: none; }
-.mobile-nav__link.navbar__link--active { color: var(--color-primary-mid); font-weight: 600; background: var(--color-primary-light); border-radius: var(--radius); padding: 1rem; }
+.mobile-nav__link--active { color: var(--color-primary-mid); font-weight: 600; background: var(--color-primary-light); border-radius: var(--radius); padding: 1rem; }
+.mobile-nav__section {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 
 /* --- HERO — inspirado en Malala (identidad como protagonista) + Stripe (gradiente) --- */
 .hero {
@@ -225,6 +275,14 @@ strong { font-weight: 600; color: var(--color-text); }
   max-width: 720px;
   margin: 0 auto 2.5rem;
   line-height: 1.75;
+}
+.hero__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 1.25rem;
 }
 .hero__cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
 
