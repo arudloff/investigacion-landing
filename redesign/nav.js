@@ -126,7 +126,7 @@ function buildMobileNav() {
     if (l.isSection) {
       html += `<div class="mobile-nav__section">${l.label}</div>`;
     } else {
-      html += `<a href="${l.href}" class="mobile-nav__link${isActive(l.href) ? ' mobile-nav__link--active' : ''}">${l.label}</a>`;
+      html += `<a href="${l.href}" class="mobile-nav__link${isActive(l.href) ? ' mobile-nav__link--active' : ''}" onclick="closeMobileNav()">${l.label}</a>`;
     }
   });
   overlay.innerHTML = `<button class="mobile-nav__close" onclick="toggleMobileNav()">&times;</button>${html}`;
@@ -163,7 +163,12 @@ function buildFooter() {
 }
 
 function toggleMobileNav() {
-  document.getElementById('mobile-nav').classList.toggle('mobile-nav--open');
+  const nav = document.getElementById('mobile-nav');
+  if (nav) nav.classList.toggle('mobile-nav--open');
+}
+function closeMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  if (nav) nav.classList.remove('mobile-nav--open');
 }
 
 function initDropdowns() {

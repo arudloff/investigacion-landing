@@ -190,7 +190,9 @@ strong { font-weight: 600; color: var(--color-text); }
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--color-white);
-  padding: 0.5rem;
+  padding: 0.75rem;
+  min-width: 48px;
+  min-height: 48px;
 }
 
 /* --- DROPDOWN SUBMENUS --- */
@@ -1457,9 +1459,18 @@ p > .btn { display: inline-flex; }
   .hero { padding: 5rem 0 4rem; }
   .section { padding: var(--space-2xl) 0; }
   .footer__grid { grid-template-columns: 1fr; }
+  /* Touch targets mínimo 44px en mobile */
+  .btn { min-height: 44px; padding: 0.75rem 1.5rem; }
+  .tab { min-height: 44px; padding: 0.6rem 1rem; }
+  /* Tabs wrapping */
+  .tabs { gap: 0.35rem; }
+  /* Container padding para pantallas pequeñas */
+  .container { padding: 0 var(--space-md); }
 }
 @media (max-width: 480px) {
   .grid-6 { grid-template-columns: 1fr; }
   .hero__cta-group { flex-direction: column; align-items: center; }
+  .hero__cta-group .btn { width: 100%; justify-content: center; }
   .hero { padding: 4rem 0 3rem; }
+  .container { padding: 0 1rem; }
 }
