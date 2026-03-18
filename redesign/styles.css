@@ -271,7 +271,7 @@ strong { font-weight: 600; color: var(--color-text); }
 .hero__subhead {
   font-size: clamp(1.2rem, 2.8vw, 1.8rem);
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-white);
   margin: var(--space-md) auto var(--space-lg);
   max-width: 720px;
   line-height: 1.5;
@@ -286,9 +286,8 @@ strong { font-weight: 600; color: var(--color-text); }
 .hero__strike {
   text-decoration: line-through;
   text-decoration-thickness: 3px;
-  text-decoration-color: #1a1a1a;
-  color: var(--color-text-tertiary);
-  opacity: .55;
+  text-decoration-color: rgba(255,255,255,.8);
+  color: rgba(255,255,255,.4);
   font-weight: 700;
   text-transform: uppercase;
 }
