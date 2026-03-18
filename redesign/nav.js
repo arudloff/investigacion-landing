@@ -148,8 +148,9 @@ function buildFooter() {
           <a href="mailto:colegio@colegiocamilohenriquez.cl" class="footer__link">colegio@colegiocamilohenriquez.cl</a>
         </div>
       </div>
-      <div class="footer__didyouknow" style="text-align:center;padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05)">
-        <p style="font-size:.78rem;color:rgba(245,166,35,0.6);margin:0;max-width:none" id="footer-dyk"></p>
+      <div style="text-align:center;padding:1.25rem 1.5rem;border-top:1px solid rgba(245,166,35,0.1);background:rgba(245,166,35,0.03)">
+        <p style="font-size:.88rem;color:rgba(245,166,35,0.8);margin:0 0 .5rem;max-width:none;font-weight:500;line-height:1.5" id="footer-dyk"></p>
+        <button onclick="refreshDyk()" style="background:none;border:1px solid rgba(245,166,35,0.25);color:rgba(245,166,35,0.6);font-size:.72rem;font-weight:600;padding:.3rem .8rem;border-radius:100px;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.02em" onmouseover="this.style.borderColor='rgba(245,166,35,0.5)';this.style.color='rgba(245,166,35,0.9)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.25)';this.style.color='rgba(245,166,35,0.6)'">Otro dato que no conocías →</button>
       </div>
       <div class="footer__bottom">
         <p style="text-align:center;max-width:none;margin:0 auto">Colegio Camilo Henríquez, Talca, Chile</p>
@@ -217,6 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
     '¿Sabías que Google descubrió que su factor #1 de equipos exitosos no era el talento, sino la seguridad psicológica?',
     '¿Sabías que Klarna tuvo que recontratar humanos porque la IA no pudo manejar empatía ni interacciones complejas?',
   ];
-  const dykEl = document.getElementById('footer-dyk');
-  if (dykEl) dykEl.textContent = dykData[Math.floor(Math.random() * dykData.length)];
+  refreshDyk();
+});
+
+var _lastDyk = -1;
+function refreshDyk() {
+  var el = document.getElementById('footer-dyk');
+  if (!el) return;
+  var idx;
+  do { idx = Math.floor(Math.random() * dykData.length); } while (dykData.length > 1 && idx === _lastDyk);
+  _lastDyk = idx;
+  el.style.opacity = '0';
+  setTimeout(function(){ el.textContent = dykData[idx]; el.style.opacity = '1'; }, 250);
+}
+// Add transition to dyk element
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('footer-dyk');
+  if (el) el.style.transition = 'opacity 0.25s ease';
 });
