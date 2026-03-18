@@ -58,23 +58,36 @@
         </div>
       </div>
 
-      <!-- 3 mini-stats debajo del glass -->
-      <div class="ig-mini-row anim">
-        <div class="ig-mini">
+      <!-- 3 mini-stats debajo del glass — staggered reveal -->
+      <div class="ig-mini-row">
+        <div class="ig-mini anim ig-stagger" style="--delay:0">
           <span class="ig-mini__num" data-count="92" data-suffix="M">0</span>
           <span class="ig-mini__label">desplazados<br>para 2030</span>
         </div>
         <div class="ig-mini__divider"></div>
-        <div class="ig-mini">
+        <div class="ig-mini anim ig-stagger" style="--delay:1">
           <span class="ig-mini__num" data-count="65" data-suffix="%">0</span>
           <span class="ig-mini__label">niños trabajarán en<br>empleos que no existen</span>
         </div>
         <div class="ig-mini__divider"></div>
-        <div class="ig-mini">
+        <div class="ig-mini anim ig-stagger" style="--delay:2">
           <span class="ig-mini__num" data-count="900" data-suffix="%">0</span>
           <span class="ig-mini__label">crecimiento anual<br>contenido falso por IA</span>
         </div>
       </div>
+
+      <!-- Scroll prompt -->
+      <div class="ig-scroll-hint anim" style="margin-top:var(--space-xl)">
+        <div class="ig-scroll-hint__arrow"></div>
+        <span style="font-size:.65rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.15em">Descubre qué significa esto</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTA PERSONAL — interpela al visitante -->
+  <section style="background:var(--color-white);padding:var(--space-xl) 0;text-align:center">
+    <div class="container" style="max-width:700px">
+      <p class="anim ig-question">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
     </div>
   </section>
 
@@ -127,7 +140,25 @@
 
       </div>
 
-      <!-- Bottom: economía digital row -->
+      <!-- Pregunta entre secciones -->
+      <div class="anim" style="text-align:center;margin:var(--space-xl) 0 var(--space-lg)">
+        <p class="ig-question" style="font-size:clamp(1rem,2vw,1.3rem)">¿El colegio de tu hijo prepara para el mundo de la izquierda o le da acceso al de la derecha?</p>
+      </div>
+
+      <!-- Mini quiz — ¿Sabías que...? -->
+      <div class="ig-quiz anim">
+        <div class="ig-quiz__prompt" onclick="this.parentElement.classList.toggle('ig-quiz--revealed')">
+          <span class="ig-quiz__icon">💡</span>
+          <span>¿Sabías que una persona con IA ya hace el trabajo de 5?</span>
+          <span class="ig-quiz__cta">Toca para descubrir más →</span>
+        </div>
+        <div class="ig-quiz__answer">
+          <p>Las startups de un solo fundador pasaron del <strong>22% al 38%</strong> en menos de una década. Midjourney genera <strong>$500M/año con ~40 empleados</strong>. El 48% de empresas que usan ChatGPT ahorraron más de $50.000.</p>
+          <p style="margin-top:.5rem;font-weight:600;color:var(--color-primary-dark)">Las destrezas que la IA no puede replicar — empatía, creatividad, pensamiento crítico — son exactamente las que tu hijo necesita desarrollar en la etapa escolar.</p>
+        </div>
+      </div>
+
+      <!-- Economía digital ticker -->
       <div class="ig-ticker anim">
         <div class="ig-ticker__item"><strong>$14.2B</strong> e-commerce Chile</div>
         <div class="ig-ticker__dot"></div>
@@ -159,6 +190,34 @@
     e.target.closest('section').querySelectorAll('[data-count]').forEach(el=>animCount(el));
   }})},{threshold:.3}).observe(document.getElementById('ig-hero'));
 
+  // Parallax blobs on scroll
+  const meshSection = document.querySelector('.ig-hero-section');
+  if (meshSection) {
+    window.addEventListener('scroll', () => {
+      const rect = meshSection.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const scrollPct = -rect.top / (rect.height + window.innerHeight);
+      const blobs = meshSection.querySelectorAll('.ig-mesh__blob');
+      blobs[0] && (blobs[0].style.transform = `translate(${scrollPct*40}px, ${scrollPct*-30}px) scale(${1+scrollPct*.1})`);
+      blobs[1] && (blobs[1].style.transform = `translate(${scrollPct*-25}px, ${scrollPct*20}px) scale(${1-scrollPct*.05})`);
+      blobs[2] && (blobs[2].style.transform = `translate(${scrollPct*15}px, ${scrollPct*25}px) scale(${1+scrollPct*.08})`);
+    }, { passive: true });
+  }
+  // Stagger animations
+  document.querySelectorAll('.ig-stagger').forEach(el => {
+    const d = parseInt(el.style.getPropertyValue('--delay') || 0);
+    el.style.transitionDelay = (d * 0.2) + 's';
+  });
+  // Donut hover tooltip
+  document.querySelectorAll('.ig-donut').forEach(d => {
+    d.addEventListener('mouseenter', () => d.classList.add('ig-donut--hover'));
+    d.addEventListener('mouseleave', () => d.classList.remove('ig-donut--hover'));
+  });
+  // List items stagger
+  document.querySelectorAll('.ig-list li').forEach((li, i) => {
+    li.style.transitionDelay = (i * 0.1) + 's';
+    li.classList.add('anim');
+  });
   // Donuts + lists
   new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
     e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
