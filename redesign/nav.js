@@ -150,6 +150,7 @@ function buildFooter() {
         <div>
           <p class="footer__title">Contacto</p>
           <p class="footer__address">Av. Lircay 2550, Talca</p>
+          <a href="tel:+56712681435" class="footer__link">+56 71 268 1435</a>
           <a href="mailto:colegio@colegiocamilohenriquez.cl" class="footer__link">colegio@colegiocamilohenriquez.cl</a>
         </div>
       </div>
