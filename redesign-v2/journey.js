@@ -199,9 +199,12 @@ function insertCheckpoint() {
   const j = getJourney();
   if (j.emotions && j.emotions[stationId]) return; // ya respondió
 
-  // Find the last section before the footer/nav script
-  const sections = document.querySelectorAll('main > section, body > section');
-  if (sections.length < 2) return;
+  // Find sections — try main first, then body, then any section
+  let sections = document.querySelectorAll('main > section');
+  if (!sections.length) sections = document.querySelectorAll('section');
+  if (sections.length < 1) return;
+
+  // Insert before the last section (usually footer or CTA)
   const targetSection = sections[sections.length - 1];
 
   const cpDiv = document.createElement('section');
