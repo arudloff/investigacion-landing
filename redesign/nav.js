@@ -16,7 +16,7 @@ const NAV_ITEMS = [
       { href: 'industria.html', label: 'Empresas e industria' },
       { href: 'universidades.html', label: 'Universidades y centros de investigación' },
       { href: 'gobiernos.html', label: 'Gobiernos' },
-      { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
+      { href: 'profesores.html', label: 'Profesores Transformadores' },
     ]
   },
   {
@@ -50,7 +50,7 @@ const MOBILE_LINKS = [
   { href: 'industria.html', label: 'Empresas e industria' },
   { href: 'universidades.html', label: 'Universidades y centros de investigación' },
   { href: 'gobiernos.html', label: 'Gobiernos' },
-  { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
+  { href: 'profesores.html', label: 'Profesores Transformadores' },
 
   { label: 'Conócenos', isSection: true },
   { href: 'nosotros.html', label: 'Quiénes somos' },
@@ -69,7 +69,7 @@ const FOOTER_COLS = {
     { href: 'industria.html', label: 'Empresas e industria' },
     { href: 'universidades.html', label: 'Universidades y centros de investigación' },
     { href: 'gobiernos.html', label: 'Gobiernos' },
-    { href: 'trabaja-con-nosotros.html', label: 'Forma parte de nuestro equipo' },
+    { href: 'profesores.html', label: 'Profesores Transformadores' },
   ],
 };
 
