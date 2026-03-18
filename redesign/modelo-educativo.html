@@ -210,32 +210,32 @@
         <button class="mg-eje mg-eje--active" data-eje="colab" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F91D;</span>
           <span class="mg-eje__name">Colaboración</span>
-          <span class="mg-eje__count">10/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="97.4 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">10</text></svg>
         </button>
         <button class="mg-eje" data-eje="auton" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F3AF;</span>
           <span class="mg-eje__name">Autonomía</span>
-          <span class="mg-eje__count">9/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="87.6 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">9</text></svg>
         </button>
         <button class="mg-eje" data-eje="pensa" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F9E0;</span>
           <span class="mg-eje__name">Pensamiento complejo</span>
-          <span class="mg-eje__count">10/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="97.4 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">10</text></svg>
         </button>
         <button class="mg-eje" data-eje="creat" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F4A1;</span>
           <span class="mg-eje__name">Creatividad</span>
-          <span class="mg-eje__count">9/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="87.6 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">9</text></svg>
         </button>
         <button class="mg-eje" data-eje="socio" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x2764;</span>
           <span class="mg-eje__name">Socioemocional</span>
-          <span class="mg-eje__count">8/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="77.9 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">8</text></svg>
         </button>
         <button class="mg-eje" data-eje="emple" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F4BC;</span>
           <span class="mg-eje__name">Empleabilidad</span>
-          <span class="mg-eje__count">8/10</span>
+          <svg class="mg-eje__arc" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2.5"/><circle class="mg-eje__arc-fill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-amber)" stroke-width="2.5" stroke-dasharray="77.9 97.4" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="20.5" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-weight="800">8</text></svg>
         </button>
       </div>
 
@@ -260,6 +260,10 @@
             <span class="mg-careers__label" style="font-size:.85rem;color:rgba(255,255,255,0.55);border-left:3px solid var(--color-teal);padding-left:.75rem">Profesiones y cargos donde esta competencia es relevante</span>
           </div>
           <div class="mg-careers__list" id="mg-careers-list"></div>
+        </div>
+        <!-- Frase de impacto dinámica -->
+        <div class="mg-insight" id="mg-insight">
+          <p class="mg-insight__text" id="mg-insight-text"></p>
         </div>
       </div>
 
@@ -435,6 +439,46 @@
       color: var(--color-amber);
     }
 
+    /* Arco de progreso en botón */
+    .mg-eje__arc {
+      width: 38px;
+      height: 38px;
+      position: relative;
+      z-index: 1;
+    }
+    .mg-eje__arc-fill {
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+    .mg-eje--active .mg-eje__arc-fill { opacity: 1; }
+    .mg-eje--active .mg-eje__arc text { fill: var(--color-amber); }
+
+    /* Frase de impacto */
+    .mg-insight {
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(245,166,35,0.04);
+    }
+    .mg-insight__text {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      margin: 0;
+      font-style: italic;
+      max-width: none;
+    }
+    .mg-insight__text strong { color: var(--color-amber); }
+
+    /* Stagger animation for pills */
+    .mg-stagger {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: mgPillIn 0.35s ease forwards;
+    }
+    @keyframes mgPillIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Profesiones/cargos */
     .mg-careers {
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -491,37 +535,43 @@
       name: 'Colaboración',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
       skills: ['Trabajo en equipos multidisciplinarios','Negociación y resolución de conflictos','Comunicación efectiva en contextos diversos','Liderazgo distribuido','Co-creación con IA y herramientas digitales','Gestión de proyectos colaborativos','Facilitación de procesos grupales'],
-      careers: ['Product Manager','Scrum Master / Agile Coach','Director de proyectos','Coordinador de equipos remotos','Consultor de gestión','Mediador organizacional','Director de operaciones','Líder de innovación','Gestor de alianzas estratégicas']
+      careers: ['Product Manager','Scrum Master / Agile Coach','Director de proyectos','Coordinador de equipos remotos','Consultor de gestión','Mediador organizacional','Director de operaciones','Líder de innovación','Gestor de alianzas estratégicas'],
+      insight: 'El <strong>92% de los profesionales de talento</strong> considera la colaboración igual o más importante que las habilidades técnicas. En un mundo donde los equipos humano-IA serán la norma, quien no sepa co-construir quedará fuera. <em>(LinkedIn, 2023)</em>'
     },
     auton: {
       name: 'Autonomía',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC'],
       skills: ['Aprendizaje autodirigido y continuo','Gestión del tiempo y prioridades','Toma de decisiones con información incompleta','Automonitoreo y metacognición','Planificación estratégica personal','Teletrabajo y gestión remota','Emprendimiento e intraemprendimiento'],
-      careers: ['Emprendedor / Founder','Freelancer profesional','Consultor independiente','Investigador','Desarrollador de software','Creador de contenido digital','Arquitecto de soluciones','Analista de negocios','Trader e inversionista']
+      careers: ['Emprendedor / Founder','Freelancer profesional','Consultor independiente','Investigador','Desarrollador de software','Creador de contenido digital','Arquitecto de soluciones','Analista de negocios','Trader e inversionista'],
+      insight: 'Las habilidades cambian un <strong>66% más rápido</strong> en empleos expuestos a IA. La capacidad de aprender continuamente vale más que cualquier conocimiento específico. En 2023, solo el <strong>31% de ofertas IA</strong> requieren título universitario — la destreza demostrable supera al diploma. <em>(PwC · Lightcast, 2025)</em>'
     },
     pensa: {
       name: 'Pensamiento complejo',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
       skills: ['Análisis de datos e interpretación de evidencia','Detección de sesgos y falacias','Evaluación de fuentes y verificación de información','Resolución de problemas multivariables','Pensamiento sistémico','Argumentación basada en evidencia','Alfabetización mediática y digital'],
-      careers: ['Científico de datos','Analista de inteligencia','Periodista investigativo','Abogado','Médico especialista','Auditor','Investigador académico','Policy Analyst','Ingeniero de sistemas complejos']
+      careers: ['Científico de datos','Analista de inteligencia','Periodista investigativo','Abogado','Médico especialista','Auditor','Investigador académico','Policy Analyst','Ingeniero de sistemas complejos'],
+      insight: 'Los contenidos falsos generados por IA crecen <strong>900% anual</strong>. La desinformación es el <strong>riesgo global #1</strong> según el WEF. Un meta-análisis con 81.155 participantes demostró que el pensamiento crítico se puede enseñar y reduce la vulnerabilidad a la manipulación. <em>(WEF · Sumsub · Amazeen, 2024)</em>'
     },
     creat: {
       name: 'Creatividad',
       marcos: ['OCDE','WEF','P21','Harvard PZ','Robinson','MINEDUC','PwC','Stanford','CASEL'],
       skills: ['Generación de soluciones originales','Pensamiento divergente y lateral','Prototipado rápido e iteración','Diseño centrado en el usuario','Conexión de ideas entre dominios distintos','Innovación en productos, servicios y procesos','Storytelling y comunicación creativa'],
-      careers: ['Diseñador UX/UI','Director creativo','Arquitecto','Guionista y escritor','Director de marketing','Ingeniero de innovación','Game designer','Publicista','Chef ejecutivo','Productor audiovisual']
+      careers: ['Diseñador UX/UI','Director creativo','Arquitecto','Guionista y escritor','Director de marketing','Ingeniero de innovación','Game designer','Publicista','Chef ejecutivo','Productor audiovisual'],
+      insight: 'El WEF ubica el pensamiento creativo como la <strong>4ª habilidad más demandada al 2030</strong>. Startups con IA producen <strong>12,4x más por persona</strong> que empresas Fortune 500. La IA puede copiar patrones — la creatividad genuina es lo que no puede replicar. <em>(WEF · PwC, 2025)</em>'
     },
     socio: {
       name: 'Socioemocional',
       marcos: ['OCDE','UNESCO','MINEDUC','CASEL','Harvard PZ','Robinson','WEF','PwC'],
       skills: ['Empatía y escucha activa','Regulación emocional bajo presión','Resolución de conflictos interpersonales','Liderazgo con inteligencia emocional','Atención al cliente y experiencia de usuario','Resiliencia ante la incertidumbre','Trabajo en contextos multiculturales'],
-      careers: ['Psicólogo organizacional','Director de RRHH','Trabajador social','Terapeuta y coach','Profesor y formador','Negociador internacional','Líder comunitario','Director de experiencia al cliente','Diplomático','Profesional de salud']
+      careers: ['Psicólogo organizacional','Director de RRHH','Trabajador social','Terapeuta y coach','Profesor y formador','Negociador internacional','Líder comunitario','Director de experiencia al cliente','Diplomático','Profesional de salud'],
+      insight: 'Meta-análisis de 213 programas con <strong>270.000 estudiantes</strong>: +11 puntos en rendimiento académico, reducción de problemas de conducta, mejora en habilidades sociales. Klarna e IBM descubrieron que la IA no puede manejar empatía — y tuvieron que recontratar humanos. <em>(CASEL · Durlak, 2011)</em>'
     },
     emple: {
       name: 'Empleabilidad',
       marcos: ['OCDE','WEF','P21','MINEDUC','PwC','Stanford','Harvard PZ','Robinson'],
       skills: ['Adaptabilidad al cambio tecnológico','Alfabetización en IA y herramientas digitales','Gestión de carrera y marca personal','Networking y construcción de redes','Comunicación profesional escrita y oral','Negociación salarial y contractual','Pensamiento financiero y económico'],
-      careers: ['Prompt Engineer','Especialista en IA aplicada','Growth Hacker','Business Developer','Gerente de transformación digital','Analista financiero','Estratega de negocios','Key Account Manager','Headhunter / Talent Acquisition','Fundador de startup']
+      careers: ['Prompt Engineer','Especialista en IA aplicada','Growth Hacker','Business Developer','Gerente de transformación digital','Analista financiero','Estratega de negocios','Key Account Manager','Headhunter / Talent Acquisition','Fundador de startup'],
+      insight: '<strong>+56% de empleabilidad</strong> con destrezas complementarias a IA. Prima salarial de <strong>+USD 18.000/año</strong> en ofertas con habilidades IA. El 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura. Las oportunidades son globales para quienes tengan las destrezas. <em>(PwC · Lightcast, 2025)</em>'
     },
   };
   const allMarcos = [
@@ -552,14 +602,16 @@
         <div class="mg-marco__dot"></div>
       </div>`;
     }).join('');
-    // Destrezas laborales
-    document.getElementById('mg-skills-list').innerHTML = data.skills.map(s =>
-      `<span class="mg-skill">${s}</span>`
+    // Destrezas laborales con stagger
+    document.getElementById('mg-skills-list').innerHTML = data.skills.map((s, i) =>
+      `<span class="mg-skill mg-stagger" style="animation-delay:${i * 0.06}s">${s}</span>`
     ).join('');
-    // Profesiones/cargos
-    document.getElementById('mg-careers-list').innerHTML = data.careers.map(c =>
-      `<span class="mg-career">${c}</span>`
+    // Profesiones/cargos con stagger
+    document.getElementById('mg-careers-list').innerHTML = data.careers.map((c, i) =>
+      `<span class="mg-career mg-stagger" style="animation-delay:${(i * 0.06) + 0.3}s">${c}</span>`
     ).join('');
+    // Frase de impacto
+    document.getElementById('mg-insight-text').innerHTML = data.insight;
   }
 
   // Click fuera deselecciona
