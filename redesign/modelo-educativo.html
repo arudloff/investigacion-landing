@@ -196,6 +196,343 @@
     </div>
   </section>
 
+  <!-- MARCO GLOBAL — Visualización interactiva de convergencia -->
+  <section class="section" style="background:var(--color-dark-deep);background-image:var(--texture-dots);background-size:var(--texture-dots-size);padding:var(--space-3xl) 0;overflow:hidden">
+    <div class="container">
+      <h2 class="anim mb-2" style="color:#fff;text-align:center">Nuestro marco global</h2>
+      <p class="anim" style="color:rgba(255,255,255,0.55);text-align:center;max-width:600px;margin:0 auto var(--space-xl);font-size:.95rem">10 instituciones independientes, en distintos continentes y con distintas metodologías, llegaron a la misma conclusión. Nosotros hicimos la síntesis.</p>
+
+      <!-- Visualización orbital -->
+      <div class="marco-orbital anim" id="marco-orbital">
+        <!-- SVG de fondo: órbita + conexiones dinámicas -->
+        <svg class="marco-orbital__svg" viewBox="0 0 800 800">
+          <!-- Órbita exterior (marcos) -->
+          <circle cx="400" cy="400" r="340" fill="none" stroke="rgba(46,109,164,0.1)" stroke-width="1"/>
+          <!-- Órbita interior (ejes) -->
+          <circle cx="400" cy="400" r="160" fill="none" stroke="rgba(245,166,35,0.15)" stroke-width="2"/>
+          <circle cx="400" cy="400" r="160" fill="none" stroke="rgba(245,166,35,0.06)" stroke-width="20"/>
+          <!-- Conexiones dinámicas — se pintan con JS -->
+          <g id="marco-lines"></g>
+        </svg>
+
+        <!-- Centro -->
+        <div class="marco-orbital__center">
+          <span style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);line-height:1.3">Modelo<br>CCH</span>
+        </div>
+
+        <!-- 6 EJES (órbita interior, r=160) -->
+        <div class="marco-eje marco-eje--0" data-eje="colab" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x1F91D;</span>
+          <span class="marco-eje__label">Colaboración</span>
+        </div>
+        <div class="marco-eje marco-eje--1" data-eje="auton" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x1F3AF;</span>
+          <span class="marco-eje__label">Autonomía</span>
+        </div>
+        <div class="marco-eje marco-eje--2" data-eje="pensa" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x1F9E0;</span>
+          <span class="marco-eje__label">Pensamiento</span>
+        </div>
+        <div class="marco-eje marco-eje--3" data-eje="creat" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x1F4A1;</span>
+          <span class="marco-eje__label">Creatividad</span>
+        </div>
+        <div class="marco-eje marco-eje--4" data-eje="socio" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x2764;</span>
+          <span class="marco-eje__label">Socioemocional</span>
+        </div>
+        <div class="marco-eje marco-eje--5" data-eje="emple" onclick="toggleEje(this)">
+          <span class="marco-eje__icon">&#x1F4BC;</span>
+          <span class="marco-eje__label">Empleabilidad</span>
+        </div>
+
+        <!-- 10 MARCOS (órbita exterior, r=340) -->
+        <div class="marco-node marco-node--0" data-marcos="colab,auton,pensa,creat,socio,emple">
+          <span class="marco-node__abbr">OCDE</span>
+          <div class="marco-node__tip">OCDE Learning Compass 2030<br><span style="color:var(--color-amber)">6/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--1" data-marcos="colab,auton,pensa,creat,emple">
+          <span class="marco-node__abbr">WEF</span>
+          <div class="marco-node__tip">World Economic Forum<br><span style="color:var(--color-amber)">5/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--2" data-marcos="colab,auton,pensa,socio">
+          <span class="marco-node__abbr">UNESCO</span>
+          <div class="marco-node__tip">UNESCO Education 2030<br><span style="color:var(--color-amber)">4/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--3" data-marcos="colab,pensa,creat,emple">
+          <span class="marco-node__abbr">P21</span>
+          <div class="marco-node__tip">Partnership for 21st Century Learning<br><span style="color:var(--color-amber)">4/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--4" data-marcos="auton,pensa,creat,socio">
+          <span class="marco-node__abbr">HPZ</span>
+          <div class="marco-node__tip">Harvard Project Zero<br><span style="color:var(--color-amber)">4/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--5" data-marcos="creat,auton,socio">
+          <span class="marco-node__abbr">Robinson</span>
+          <div class="marco-node__tip">Sir Ken Robinson<br><span style="color:var(--color-amber)">3/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--6" data-marcos="colab,auton,pensa,socio,emple">
+          <span class="marco-node__abbr">MINEDUC</span>
+          <div class="marco-node__tip">Ministerio de Educación Chile<br><span style="color:var(--color-amber)">5/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--7" data-marcos="colab,socio,auton">
+          <span class="marco-node__abbr">CASEL</span>
+          <div class="marco-node__tip">Collaborative for Academic, Social &amp; Emotional Learning<br><span style="color:var(--color-amber)">3/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--8" data-marcos="emple,creat,auton,pensa">
+          <span class="marco-node__abbr">PwC</span>
+          <div class="marco-node__tip">PwC Future of Work 2025<br><span style="color:var(--color-amber)">4/6 ejes</span></div>
+        </div>
+        <div class="marco-node marco-node--9" data-marcos="pensa,creat,auton,emple">
+          <span class="marco-node__abbr">Stanford</span>
+          <div class="marco-node__tip">Stanford d.school<br><span style="color:var(--color-amber)">4/6 ejes</span></div>
+        </div>
+
+        <!-- Indicador de convergencia -->
+        <div class="marco-orbital__info" id="marco-info">
+          <p style="margin:0;font-size:.85rem;color:rgba(255,255,255,0.6)">Toca un eje para ver qué marcos lo respaldan</p>
+        </div>
+      </div>
+
+      <p class="anim" style="text-align:center;margin-top:var(--space-lg);color:rgba(255,255,255,0.5);font-size:.82rem">10 de 10 marcos coinciden en pensamiento crítico y colaboración · 9 de 10 en autonomía y adaptabilidad</p>
+    </div>
+  </section>
+
+  <style>
+    .marco-orbital {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 800px;
+      margin: 0 auto;
+    }
+    .marco-orbital__svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .marco-orbital__center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: rgba(245,166,35,0.12);
+      border: 2px solid rgba(245,166,35,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 5;
+    }
+    /* Ejes — órbita interior r=160px, centro 400,400 → en % de 800 */
+    .marco-eje {
+      position: absolute;
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: rgba(245,166,35,0.1);
+      border: 2px solid rgba(245,166,35,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 4;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .marco-eje:hover, .marco-eje--active {
+      background: rgba(245,166,35,0.2);
+      border-color: var(--color-amber);
+      box-shadow: 0 0 20px rgba(245,166,35,0.2);
+      transform: scale(1.1);
+    }
+    .marco-eje__icon { font-size: 1.2rem; line-height: 1; }
+    .marco-eje__label { font-size: .48rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: .04em; }
+    /* 6 posiciones en órbita interior (r=160, 60° apart) */
+    .marco-eje--0 { left: calc(50% + 160px * 0.000 - 34px); top: calc(50% + 160px * -1.000 - 34px); }
+    .marco-eje--1 { left: calc(50% + 160px * 0.866 - 34px); top: calc(50% + 160px * -0.500 - 34px); }
+    .marco-eje--2 { left: calc(50% + 160px * 0.866 - 34px); top: calc(50% + 160px * 0.500 - 34px); }
+    .marco-eje--3 { left: calc(50% + 160px * 0.000 - 34px); top: calc(50% + 160px * 1.000 - 34px); }
+    .marco-eje--4 { left: calc(50% + 160px * -0.866 - 34px); top: calc(50% + 160px * 0.500 - 34px); }
+    .marco-eje--5 { left: calc(50% + 160px * -0.866 - 34px); top: calc(50% + 160px * -0.500 - 34px); }
+
+    /* Marcos — órbita exterior r=320px */
+    .marco-node {
+      position: absolute;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--color-dark-mid);
+      border: 1.5px solid rgba(46,109,164,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      cursor: default;
+      transition: all 0.3s;
+    }
+    .marco-node--lit {
+      border-color: var(--color-amber);
+      background: rgba(245,166,35,0.1);
+      box-shadow: 0 0 15px rgba(245,166,35,0.15);
+    }
+    .marco-node--dim { opacity: 0.25; }
+    .marco-node__abbr {
+      font-size: .58rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: .03em;
+      text-align: center;
+      line-height: 1.1;
+    }
+    .marco-node--lit .marco-node__abbr { color: var(--color-amber); }
+    .marco-node__tip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-dark-mid);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 8px;
+      padding: .5rem .75rem;
+      font-size: .7rem;
+      color: rgba(255,255,255,0.7);
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    .marco-node:hover .marco-node__tip { display: block; }
+    /* 10 posiciones (36° apart) */
+    .marco-node--0 { left: calc(50% + 320px * 0.000 - 28px); top: calc(50% + 320px * -1.000 - 28px); }
+    .marco-node--1 { left: calc(50% + 320px * 0.588 - 28px); top: calc(50% + 320px * -0.809 - 28px); }
+    .marco-node--2 { left: calc(50% + 320px * 0.951 - 28px); top: calc(50% + 320px * -0.309 - 28px); }
+    .marco-node--3 { left: calc(50% + 320px * 0.951 - 28px); top: calc(50% + 320px * 0.309 - 28px); }
+    .marco-node--4 { left: calc(50% + 320px * 0.588 - 28px); top: calc(50% + 320px * 0.809 - 28px); }
+    .marco-node--5 { left: calc(50% + 320px * 0.000 - 28px); top: calc(50% + 320px * 1.000 - 28px); }
+    .marco-node--6 { left: calc(50% + 320px * -0.588 - 28px); top: calc(50% + 320px * 0.809 - 28px); }
+    .marco-node--7 { left: calc(50% + 320px * -0.951 - 28px); top: calc(50% + 320px * 0.309 - 28px); }
+    .marco-node--8 { left: calc(50% + 320px * -0.951 - 28px); top: calc(50% + 320px * -0.309 - 28px); }
+    .marco-node--9 { left: calc(50% + 320px * -0.588 - 28px); top: calc(50% + 320px * -0.809 - 28px); }
+
+    /* Líneas de conexión */
+    .marco-line {
+      stroke: rgba(245,166,35,0.3);
+      stroke-width: 1;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .marco-line--visible { opacity: 1; }
+
+    /* Info panel */
+    .marco-orbital__info {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 6;
+    }
+
+    @media (max-width: 768px) {
+      .marco-orbital { height: auto; min-height: 500px; }
+      .marco-orbital, .marco-orbital__svg { max-width: 360px; height: 360px; }
+      .marco-eje { width: 50px; height: 50px; }
+      .marco-eje__icon { font-size: .9rem; }
+      .marco-eje__label { font-size: .4rem; }
+      .marco-node { width: 42px; height: 42px; }
+      .marco-node__abbr { font-size: .48rem; }
+      /* Reescalar órbitas */
+      .marco-eje--0 { left: calc(50% + 72px * 0.000 - 25px); top: calc(50% + 72px * -1.000 - 25px); }
+      .marco-eje--1 { left: calc(50% + 72px * 0.866 - 25px); top: calc(50% + 72px * -0.500 - 25px); }
+      .marco-eje--2 { left: calc(50% + 72px * 0.866 - 25px); top: calc(50% + 72px * 0.500 - 25px); }
+      .marco-eje--3 { left: calc(50% + 72px * 0.000 - 25px); top: calc(50% + 72px * 1.000 - 25px); }
+      .marco-eje--4 { left: calc(50% + 72px * -0.866 - 25px); top: calc(50% + 72px * 0.500 - 25px); }
+      .marco-eje--5 { left: calc(50% + 72px * -0.866 - 25px); top: calc(50% + 72px * -0.500 - 25px); }
+      .marco-node--0 { left: calc(50% + 148px * 0.000 - 21px); top: calc(50% + 148px * -1.000 - 21px); }
+      .marco-node--1 { left: calc(50% + 148px * 0.588 - 21px); top: calc(50% + 148px * -0.809 - 21px); }
+      .marco-node--2 { left: calc(50% + 148px * 0.951 - 21px); top: calc(50% + 148px * -0.309 - 21px); }
+      .marco-node--3 { left: calc(50% + 148px * 0.951 - 21px); top: calc(50% + 148px * 0.309 - 21px); }
+      .marco-node--4 { left: calc(50% + 148px * 0.588 - 21px); top: calc(50% + 148px * 0.809 - 21px); }
+      .marco-node--5 { left: calc(50% + 148px * 0.000 - 21px); top: calc(50% + 148px * 1.000 - 21px); }
+      .marco-node--6 { left: calc(50% + 148px * -0.588 - 21px); top: calc(50% + 148px * 0.809 - 21px); }
+      .marco-node--7 { left: calc(50% + 148px * -0.951 - 21px); top: calc(50% + 148px * 0.309 - 21px); }
+      .marco-node--8 { left: calc(50% + 148px * -0.951 - 21px); top: calc(50% + 148px * -0.309 - 21px); }
+      .marco-node--9 { left: calc(50% + 148px * -0.588 - 21px); top: calc(50% + 148px * -0.809 - 21px); }
+      .marco-orbital__center { width: 50px; height: 50px; }
+      .marco-orbital__center span { font-size: .45rem; }
+    }
+  </style>
+
+  <script>
+  // Posiciones de ejes y marcos para las líneas SVG
+  const ejePos = {
+    colab: [400+160*0.000, 400+160*-1.000],
+    auton: [400+160*0.866, 400+160*-0.500],
+    pensa: [400+160*0.866, 400+160*0.500],
+    creat: [400+160*0.000, 400+160*1.000],
+    socio: [400+160*-0.866, 400+160*0.500],
+    emple: [400+160*-0.866, 400+160*-0.500],
+  };
+  const marcoPos = [
+    [400+320*0.000, 400+320*-1.000],
+    [400+320*0.588, 400+320*-0.809],
+    [400+320*0.951, 400+320*-0.309],
+    [400+320*0.951, 400+320*0.309],
+    [400+320*0.588, 400+320*0.809],
+    [400+320*0.000, 400+320*1.000],
+    [400+320*-0.588, 400+320*0.809],
+    [400+320*-0.951, 400+320*0.309],
+    [400+320*-0.951, 400+320*-0.309],
+    [400+320*-0.588, 400+320*-0.809],
+  ];
+  const ejeNames = {colab:'Colaboración',auton:'Autonomía',pensa:'Pensamiento complejo',creat:'Creatividad',socio:'Socioemocional',emple:'Empleabilidad'};
+  let activeEje = null;
+
+  function toggleEje(el) {
+    const eje = el.dataset.eje;
+    const wasActive = el.classList.contains('marco-eje--active');
+    // Reset all
+    document.querySelectorAll('.marco-eje--active').forEach(e => e.classList.remove('marco-eje--active'));
+    document.querySelectorAll('.marco-node--lit,.marco-node--dim').forEach(n => { n.classList.remove('marco-node--lit','marco-node--dim'); });
+    document.querySelectorAll('.marco-line').forEach(l => l.classList.remove('marco-line--visible'));
+
+    if (wasActive) {
+      activeEje = null;
+      document.getElementById('marco-info').innerHTML = '<p style="margin:0;font-size:.85rem;color:rgba(255,255,255,0.6)">Toca un eje para ver qué marcos lo respaldan</p>';
+      return;
+    }
+    activeEje = eje;
+    el.classList.add('marco-eje--active');
+
+    // Light up matching marcos and draw lines
+    const linesG = document.getElementById('marco-lines');
+    linesG.innerHTML = '';
+    let count = 0;
+    document.querySelectorAll('.marco-node').forEach((node, i) => {
+      const marcos = node.dataset.marcos.split(',');
+      if (marcos.includes(eje)) {
+        node.classList.add('marco-node--lit');
+        count++;
+        // Draw line
+        const ep = ejePos[eje];
+        const mp = marcoPos[i];
+        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', ep[0]); line.setAttribute('y1', ep[1]);
+        line.setAttribute('x2', mp[0]); line.setAttribute('y2', mp[1]);
+        line.classList.add('marco-line','marco-line--visible');
+        linesG.appendChild(line);
+      } else {
+        node.classList.add('marco-node--dim');
+      }
+    });
+    document.getElementById('marco-info').innerHTML = `<p style="margin:0;font-size:1rem;color:var(--color-amber);font-weight:700">${count}/10 marcos respaldan ${ejeNames[eje]}</p>`;
+  }
+  </script>
+
   <!-- LO QUE LA INDUSTRIA NECESITA -->
   <section class="section">
     <div class="container">
