@@ -159,54 +159,68 @@ function trackInteractions() {
 }
 
 // ==========================================
-// REACTION SYSTEM — doble click en párrafos
+// REACTION SYSTEM — botón visible + etiquetas + persistencia
 // ==========================================
+function getParaKey(el) {
+  // ID única por párrafo: primeros 60 chars del texto
+  return currentPage() + '::' + el.textContent.trim().substring(0, 60);
+}
+
 function initReactions() {
   var targets = document.querySelectorAll('main p, main .card__text, main .est-barrier__text, main .prof-reality__card p, main .col-card__text, main .est-agentic__text, main .est-agentic__phrase, main .prof-identity__phrase, main .prof-identity__text');
 
+  var s = getS();
+  var saved = s.paraReactions || {};
+
   targets.forEach(function(el) {
     if (el.textContent.trim().length < 40) return;
-    if (el.closest('.jy-checkpoint, .tb-panel, footer, nav')) return;
+    if (el.closest('.tb-panel, footer, nav, .rx-picker')) return;
 
-    var tapCount = 0, tapTimer = null;
-    el.style.cursor = 'default';
+    var key = getParaKey(el);
 
-    el.addEventListener('click', function(evt) {
-      tapCount++;
-      if (tapCount === 1) {
-        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
-      } else if (tapCount === 2) {
-        clearTimeout(tapTimer);
-        tapCount = 0;
-        evt.stopPropagation();
-        showReactionPicker(el);
-      }
+    // Si ya tiene reacción guardada, restaurar el estilo
+    if (saved[key]) {
+      applyReactionStyle(el, saved[key]);
+      return; // no agregar botón de nuevo
+    }
+
+    // Crear botón de reacción visible
+    el.style.position = 'relative';
+    var trigger = document.createElement('button');
+    trigger.className = 'rx-trigger';
+    trigger.innerHTML = '+';
+    trigger.setAttribute('aria-label', 'Reaccionar a este párrafo');
+    trigger.addEventListener('click', function(evt) {
+      evt.stopPropagation();
+      showReactionPicker(el, trigger);
     });
+    el.appendChild(trigger);
   });
 }
 
-function showReactionPicker(el) {
-  // Remove any existing picker
+function showReactionPicker(el, trigger) {
+  // Cerrar picker anterior
   var old = document.querySelector('.rx-picker');
   if (old) old.remove();
 
   var picker = document.createElement('div');
   picker.className = 'rx-picker';
   picker.innerHTML = REACTIONS.map(function(r) {
-    return '<button class="rx-pick" onclick="doReaction(this,\'' + r.emoji + '\',\'' + r.label + '\',' + r.pts + ')">' + r.emoji + '</button>';
+    return '<button class="rx-pick" onclick="doReaction(this,\'' + r.emoji + '\',\'' + r.label + '\',' + r.pts + ')">' +
+      '<span class="rx-pick__emoji">' + r.emoji + '</span>' +
+      '<span class="rx-pick__label">' + r.label + '</span>' +
+      '</button>';
   }).join('');
 
-  // Position near the element
-  el.style.position = 'relative';
   el.appendChild(picker);
 
-  // Auto-close after 4 seconds
-  setTimeout(function() { if (picker.parentNode) picker.remove(); }, 4000);
+  // Auto-cerrar en 5 segundos
+  setTimeout(function() { if (picker.parentNode) picker.remove(); }, 5000);
 
-  // Close on click outside
+  // Cerrar al click fuera
   setTimeout(function() {
     document.addEventListener('click', function closer(e) {
-      if (!e.target.closest('.rx-picker')) {
+      if (!e.target.closest('.rx-picker') && !e.target.closest('.rx-trigger')) {
         if (picker.parentNode) picker.remove();
         document.removeEventListener('click', closer);
       }
@@ -219,32 +233,48 @@ function doReaction(btn, emoji, label, pts) {
   var picker = btn.closest('.rx-picker');
   picker.remove();
 
-  // Visual feedback
-  el.style.transition = 'background 0.3s, padding 0.3s';
-  el.style.background = 'rgba(245,166,35,0.1)';
-  el.style.padding = '6px 10px';
-  el.style.borderRadius = '6px';
-  el.style.borderLeft = '3px solid rgba(245,166,35,0.4)';
+  // Quitar el botón trigger
+  var trigger = el.querySelector('.rx-trigger');
+  if (trigger) trigger.remove();
 
-  // Add emoji badge
-  var badge = document.createElement('span');
-  badge.className = 'rx-badge';
-  badge.textContent = emoji;
-  el.appendChild(badge);
+  // Aplicar estilo visual
+  applyReactionStyle(el, emoji);
 
-  // Save reaction
+  // Guardar en state
+  var key = getParaKey(el);
   var s = getS();
+  if (!s.paraReactions) s.paraReactions = {};
+  s.paraReactions[key] = emoji;
   s.reactions.push({ emoji: emoji, label: label, page: currentPage(), time: Date.now() });
   s.pts += pts;
   saveS(s);
   updateTurbine();
 
-  // Flash the turbine button
+  // Flash en el botón de la turbina
   var tbBtn = document.getElementById('tb-btn');
   if (tbBtn) {
     tbBtn.style.transform = 'scale(1.2)';
     setTimeout(function() { tbBtn.style.transform = ''; }, 300);
   }
+}
+
+function applyReactionStyle(el, emoji) {
+  el.style.transition = 'background 0.3s, padding 0.3s';
+  el.style.background = 'rgba(245,166,35,0.08)';
+  el.style.padding = '8px 12px';
+  el.style.borderRadius = '6px';
+  el.style.borderLeft = '3px solid rgba(245,166,35,0.35)';
+  el.style.position = 'relative';
+
+  // Quitar badge anterior si existe
+  var oldBadge = el.querySelector('.rx-badge');
+  if (oldBadge) oldBadge.remove();
+
+  // Agregar badge emoji
+  var badge = document.createElement('span');
+  badge.className = 'rx-badge';
+  badge.textContent = emoji;
+  el.appendChild(badge);
 }
 
 // ==========================================
@@ -323,7 +353,7 @@ function updateTurbine() {
     rxHTML +
     (mirror ? '<div class="tb-mirror">' + mirror.text + '</div>' : '') +
     ctaHTML +
-    '<div class="tb-tip">Doble click en cualquier párrafo para reaccionar</div>';
+    '<div class="tb-tip">Toca el + junto a un párrafo para reaccionar</div>';
 }
 
 function togglePanel() {

@@ -1732,19 +1732,54 @@ p > .btn { display: inline-flex; }
 }
 
 /* ==========================================
-   REACTION PICKER (aparece en doble-click)
+   REACTION SYSTEM — trigger + picker + badge
    ========================================== */
+
+/* Trigger button — visible al costado del párrafo */
+.rx-trigger {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(245,166,35,0.1);
+  border: 1.5px solid rgba(245,166,35,0.25);
+  color: rgba(245,166,35,0.5);
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: all 0.2s;
+  opacity: 0.4;
+  z-index: 5;
+  padding: 0;
+  line-height: 1;
+}
+.rx-trigger:hover {
+  opacity: 1;
+  background: rgba(245,166,35,0.2);
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+  transform: translateY(-50%) scale(1.15);
+}
+
+/* Picker — aparece al hacer click en trigger */
 .rx-picker {
   position: absolute;
-  top: -48px;
+  top: -58px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 6px;
   background: var(--color-dark-mid);
   border: 1px solid rgba(245,166,35,0.25);
-  border-radius: 12px;
-  padding: 6px 10px;
+  border-radius: 14px;
+  padding: 8px 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
   z-index: 800;
   animation: rxPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1754,28 +1789,30 @@ p > .btn { display: inline-flex; }
   to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
 }
 .rx-pick {
-  width: 40px;
-  height: 40px;
+  min-width: 56px;
   border-radius: 10px;
   border: 1.5px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.04);
-  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.15s;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0;
+  gap: 2px;
+  padding: 8px 6px;
+  font-family: inherit;
 }
+.rx-pick__emoji { font-size: 1.3rem; line-height: 1; }
+.rx-pick__label { font-size: .55rem; font-weight: 600; color: rgba(255,255,255,0.45); white-space: nowrap; }
 .rx-pick:hover {
   background: rgba(245,166,35,0.15);
   border-color: rgba(245,166,35,0.4);
-  transform: scale(1.15);
+  transform: scale(1.08);
 }
-.rx-pick:active {
-  transform: scale(0.95);
-}
-/* Badge on reacted paragraph */
+.rx-pick:hover .rx-pick__label { color: var(--color-amber); }
+.rx-pick:active { transform: scale(0.95); }
+
+/* Badge en párrafo con reacción */
 .rx-badge {
   display: inline-block;
   margin-left: 6px;
@@ -1786,6 +1823,14 @@ p > .btn { display: inline-flex; }
 @keyframes rxBadgeIn {
   from { opacity: 0; transform: scale(0); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* Mobile: trigger siempre visible, picker más compacto */
+@media (max-width: 768px) {
+  .rx-trigger { opacity: 0.6; right: -4px; }
+  .rx-picker { padding: 6px 8px; gap: 4px; }
+  .rx-pick { min-width: 48px; padding: 6px 4px; }
+  .rx-pick__emoji { font-size: 1.1rem; }
 }
 
 @media (max-width: 480px) {
