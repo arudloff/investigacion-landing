@@ -1,290 +1,342 @@
-// journey.js v2 — Turbina de Convicción
-// Acumula energía con cada comportamiento del visitante hasta que
-// tomar acción se vuelve inminente. No manipula — acompaña.
+// journey.js v3 — Turbina de Convicción (puntos abiertos + reacciones)
+// Sin tope. Cada señal suma puntos. Las reacciones en párrafos
+// aportan al puntaje y revelan qué contenido conecta emocionalmente.
 
 // ==========================================
-// CONFIGURACIÓN DE SEÑALES
+// PUNTOS POR SEÑAL
 // ==========================================
-// Cada comportamiento suma puntos de momentum
-const SIGNAL_WEIGHTS = {
-  pageVisit:      5,    // visitar una página nueva
-  revisit:        8,    // volver a una página ya visitada (reflexión)
-  timeOnPage:     1,    // por cada 15 segundos en una página
-  scrollDepth:    3,    // al llegar al 70% de scroll
-  interaction:    4,    // click en contenido interactivo (tabs, expand, etc)
-  like:          10,    // marcar un párrafo como destacado
+const PTS = {
+  pageNew:      5,     // página nueva
+  pageRevisit:  8,     // revisita (reflexión)
+  time15s:      1,     // cada 15 segundos en una página
+  scroll70:     3,     // scroll al 70%
+  interact:     4,     // click en contenido interactivo
+  reaction:    12,     // reaccionar a un párrafo
 };
 
-// Niveles de la turbina
+// Reacciones disponibles
+const REACTIONS = [
+  { emoji: '💡', label: 'Me inspira', pts: 12 },
+  { emoji: '🔥', label: 'Me moviliza', pts: 15 },
+  { emoji: '🤔', label: 'Me hace pensar', pts: 10 },
+  { emoji: '✊', label: 'Me compromete', pts: 18 },
+];
+
+// Niveles (umbrales crecientes, sin tope)
 const LEVELS = [
-  { min: 0,   label: 'Curiosidad',    verb: 'Algo llamó tu atención',            color: 'rgba(255,255,255,0.4)' },
-  { min: 15,  label: 'Exploración',   verb: 'Estás descubriendo algo',           color: 'rgba(46,109,164,0.8)' },
-  { min: 35,  label: 'Reflexión',     verb: 'Esto te está haciendo pensar',      color: 'rgba(74,35,90,0.8)' },
-  { min: 55,  label: 'Conexión',      verb: 'Algo resonó contigo',               color: 'rgba(31,107,59,0.8)' },
-  { min: 75,  label: 'Convicción',    verb: 'Una idea se está formando',         color: 'rgba(245,166,35,0.8)' },
-  { min: 90,  label: 'Despegue',      verb: 'Estás listo para actuar',           color: 'rgba(245,166,35,1)' },
+  { min: 0,    name: 'Curiosidad',    verb: 'Algo llamó tu atención' },
+  { min: 15,   name: 'Exploración',   verb: 'Estás descubriendo algo importante' },
+  { min: 40,   name: 'Reflexión',     verb: 'Esto te está haciendo pensar' },
+  { min: 80,   name: 'Conexión',      verb: 'Algo resonó profundamente contigo' },
+  { min: 140,  name: 'Convicción',    verb: 'Una idea se está formando en ti' },
+  { min: 220,  name: 'Impulso',       verb: 'La urgencia de actuar crece' },
+  { min: 350,  name: 'Despegue',      verb: 'Estás listo para transformar algo' },
+  { min: 500,  name: 'Órbita',        verb: 'Ya eres parte de este movimiento' },
 ];
 
-// CTAs por nivel (lo que el botón invita a hacer)
-const LEVEL_CTAS = [
-  { min: 0,  text: 'Sigue explorando', href: null },
-  { min: 35, text: 'Hay más por descubrir', href: null },
-  { min: 55, text: 'Haz el autodiagnóstico', href: 'autodiagnostico.html' },
-  { min: 75, text: '¿Quién necesita saber esto?', href: null, action: 'share' },
-  { min: 90, text: 'Da el paso →', href: 'visita.html' },
+// CTAs que evolucionan
+const CTAS = [
+  { min: 0,   text: 'Sigue explorando', href: null },
+  { min: 40,  text: 'Hay más por descubrir', href: null },
+  { min: 80,  text: 'Haz el autodiagnóstico →', href: 'autodiagnostico.html' },
+  { min: 140, text: '¿Quién necesita saber esto?', action: 'share' },
+  { min: 220, text: 'Da el paso →', href: 'visita.html' },
+  { min: 350, text: 'Únete al movimiento →', href: 'visita.html' },
 ];
 
-// Frases espejo por nivel
-const MIRROR = [
-  { min: 0,  text: '' },
-  { min: 15, text: 'Ya diste el primer paso. La mayoría nunca llega hasta aquí.' },
-  { min: 35, text: 'Estás invirtiendo tiempo en algo que importa. Eso dice mucho de ti.' },
-  { min: 55, text: 'Pocas personas reflexionan con esta profundidad sobre la educación.' },
-  { min: 75, text: 'Algo cambió desde que empezaste a explorar. ¿Lo sientes?' },
-  { min: 90, text: 'Ya tienes la información. Ya tienes la convicción. Solo falta la acción.' },
+// Frases espejo
+const MIRRORS = [
+  { min: 15,  text: 'Ya diste el primer paso. La mayoría nunca llega hasta aquí.' },
+  { min: 40,  text: 'Estás invirtiendo tiempo en algo que importa. Eso dice mucho de ti.' },
+  { min: 80,  text: 'Pocas personas reflexionan con esta profundidad sobre la educación.' },
+  { min: 140, text: 'Algo cambió desde que empezaste a explorar. ¿Lo sientes?' },
+  { min: 220, text: 'Ya tienes la información. Ya tienes la convicción. Solo falta la acción.' },
+  { min: 350, text: 'No eres un visitante más. Eres alguien que decidió entender antes de actuar.' },
+  { min: 500, text: 'Este sitio fue diseñado para personas como tú. Gracias por llegar hasta aquí.' },
 ];
 
 // ==========================================
 // STATE
 // ==========================================
-const STORE_KEY = 'cch_turbine';
+const STORE = 'cch_turbine3';
 
-function getState() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || initState(); }
-  catch(e) { return initState(); }
+function getS() {
+  try { return JSON.parse(localStorage.getItem(STORE)) || freshState(); }
+  catch(e) { return freshState(); }
+}
+function freshState() {
+  return { pts: 0, pages: {}, reactions: [], totalTime: 0, interactions: 0 };
+}
+function saveS(s) { localStorage.setItem(STORE, JSON.stringify(s)); }
+
+function addPts(n) {
+  var s = getS();
+  s.pts += n;
+  saveS(s);
+  updateTurbine();
 }
 
-function initState() {
-  return { momentum: 0, pages: {}, likes: [], totalTime: 0, interactions: 0, firstVisit: Date.now() };
+function getLevel(pts) {
+  var lv = LEVELS[0];
+  for (var i = 0; i < LEVELS.length; i++) { if (pts >= LEVELS[i].min) lv = LEVELS[i]; }
+  return lv;
+}
+function getNextLevel(pts) {
+  for (var i = 0; i < LEVELS.length; i++) { if (pts < LEVELS[i].min) return LEVELS[i]; }
+  return null;
+}
+function getCTA(pts) {
+  var c = CTAS[0];
+  for (var i = 0; i < CTAS.length; i++) { if (pts >= CTAS[i].min) c = CTAS[i]; }
+  return c;
+}
+function getMirror(pts) {
+  var m = null;
+  for (var i = 0; i < MIRRORS.length; i++) { if (pts >= MIRRORS[i].min) m = MIRRORS[i]; }
+  return m;
 }
 
-function saveState(s) {
-  localStorage.setItem(STORE_KEY, JSON.stringify(s));
-}
-
-function addMomentum(points) {
-  const s = getState();
-  s.momentum = Math.min(100, s.momentum + points);
-  saveState(s);
-  updateUI();
-}
-
-function getLevel() {
-  const m = getState().momentum;
-  let level = LEVELS[0];
-  for (const l of LEVELS) { if (m >= l.min) level = l; }
-  return level;
-}
-
-function getCTA() {
-  const m = getState().momentum;
-  let cta = LEVEL_CTAS[0];
-  for (const c of LEVEL_CTAS) { if (m >= c.min) cta = c; }
-  return cta;
-}
-
-function getMirror() {
-  const m = getState().momentum;
-  let mirror = MIRROR[0];
-  for (const mi of MIRROR) { if (m >= mi.min) mirror = mi; }
-  return mirror;
+// Color por nivel
+function getLevelColor(pts) {
+  if (pts >= 350) return '#F5A623';
+  if (pts >= 220) return '#F5A623';
+  if (pts >= 140) return 'rgba(245,166,35,0.8)';
+  if (pts >= 80)  return 'rgba(31,107,59,0.8)';
+  if (pts >= 40)  return 'rgba(74,35,90,0.8)';
+  if (pts >= 15)  return 'rgba(46,109,164,0.8)';
+  return 'rgba(255,255,255,0.3)';
 }
 
 // ==========================================
 // SIGNAL TRACKING
 // ==========================================
-function trackPageVisit() {
-  const page = getCurrentPage();
-  const s = getState();
+function trackPage() {
+  var page = currentPage();
+  var s = getS();
   if (!s.pages[page]) {
     s.pages[page] = { visits: 1, time: 0 };
-    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.pageVisit);
+    s.pts += PTS.pageNew;
   } else {
     s.pages[page].visits++;
-    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.revisit);
+    s.pts += PTS.pageRevisit;
   }
-  saveState(s);
+  saveS(s);
 }
 
 function trackTime() {
   setInterval(function() {
-    const s = getState();
-    const page = getCurrentPage();
+    var s = getS();
+    var page = currentPage();
     if (s.pages[page]) s.pages[page].time += 15;
     s.totalTime += 15;
-    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.timeOnPage);
-    saveState(s);
-    updateUI();
-  }, 15000); // cada 15 segundos
+    s.pts += PTS.time15s;
+    saveS(s);
+    updateTurbine();
+  }, 15000);
 }
 
 function trackScroll() {
-  let scrollTracked = false;
+  var done = false;
   window.addEventListener('scroll', function() {
-    if (scrollTracked) return;
-    const scrollPct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
-    if (scrollPct > 0.7) {
-      scrollTracked = true;
-      addMomentum(SIGNAL_WEIGHTS.scrollDepth);
+    if (done) return;
+    if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight > 0.7) {
+      done = true;
+      addPts(PTS.scroll70);
     }
   });
 }
 
 function trackInteractions() {
   document.addEventListener('click', function(e) {
-    const interactive = e.target.closest('.stat-card, .mg-eje, .ig-quiz__prompt, .infog-card, .ig-list li, .tab, .ig-item');
-    if (interactive) {
-      const s = getState();
+    if (e.target.closest('.stat-card, .mg-eje, .ig-quiz__prompt, .infog-card, .ig-list li, .tab, .ig-item, .refresh-btn, .dyk-btn')) {
+      var s = getS();
       s.interactions++;
-      s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.interaction);
-      saveState(s);
-      updateUI();
+      s.pts += PTS.interact;
+      saveS(s);
+      updateTurbine();
     }
   });
 }
 
 // ==========================================
-// LIKE SYSTEM (double-tap or long-press on paragraphs)
+// REACTION SYSTEM — doble click en párrafos
 // ==========================================
-function initLikes() {
-  document.querySelectorAll('main p, main .card__text, main .est-barrier__text, main .prof-reality__card p, main .col-card__text').forEach(function(p) {
-    if (p.textContent.trim().length < 30) return; // skip short paragraphs
+function initReactions() {
+  var targets = document.querySelectorAll('main p, main .card__text, main .est-barrier__text, main .prof-reality__card p, main .col-card__text, main .est-agentic__text, main .est-agentic__phrase, main .prof-identity__phrase, main .prof-identity__text');
 
-    let tapCount = 0;
-    let tapTimer = null;
+  targets.forEach(function(el) {
+    if (el.textContent.trim().length < 40) return;
+    if (el.closest('.jy-checkpoint, .tb-panel, footer, nav')) return;
 
-    p.style.cursor = 'default';
-    p.style.transition = 'background 0.3s';
-    p.style.borderRadius = '4px';
+    var tapCount = 0, tapTimer = null;
+    el.style.cursor = 'default';
 
-    p.addEventListener('click', function() {
+    el.addEventListener('click', function(evt) {
       tapCount++;
       if (tapCount === 1) {
         tapTimer = setTimeout(function() { tapCount = 0; }, 400);
       } else if (tapCount === 2) {
         clearTimeout(tapTimer);
         tapCount = 0;
-        toggleLike(p);
+        evt.stopPropagation();
+        showReactionPicker(el);
       }
     });
   });
 }
 
-function toggleLike(el) {
-  if (el.dataset.liked === 'true') {
-    el.dataset.liked = 'false';
-    el.style.background = '';
-    el.style.padding = '';
-  } else {
-    el.dataset.liked = 'true';
-    el.style.background = 'rgba(245,166,35,0.08)';
-    el.style.padding = '4px 8px';
-    addMomentum(SIGNAL_WEIGHTS.like);
-    // Brief flash
-    el.style.background = 'rgba(245,166,35,0.2)';
-    setTimeout(function() { el.style.background = 'rgba(245,166,35,0.08)'; }, 300);
+function showReactionPicker(el) {
+  // Remove any existing picker
+  var old = document.querySelector('.rx-picker');
+  if (old) old.remove();
+
+  var picker = document.createElement('div');
+  picker.className = 'rx-picker';
+  picker.innerHTML = REACTIONS.map(function(r) {
+    return '<button class="rx-pick" onclick="doReaction(this,\'' + r.emoji + '\',\'' + r.label + '\',' + r.pts + ')">' + r.emoji + '</button>';
+  }).join('');
+
+  // Position near the element
+  el.style.position = 'relative';
+  el.appendChild(picker);
+
+  // Auto-close after 4 seconds
+  setTimeout(function() { if (picker.parentNode) picker.remove(); }, 4000);
+
+  // Close on click outside
+  setTimeout(function() {
+    document.addEventListener('click', function closer(e) {
+      if (!e.target.closest('.rx-picker')) {
+        if (picker.parentNode) picker.remove();
+        document.removeEventListener('click', closer);
+      }
+    });
+  }, 100);
+}
+
+function doReaction(btn, emoji, label, pts) {
+  var el = btn.closest('.rx-picker').parentNode;
+  var picker = btn.closest('.rx-picker');
+  picker.remove();
+
+  // Visual feedback
+  el.style.transition = 'background 0.3s, padding 0.3s';
+  el.style.background = 'rgba(245,166,35,0.1)';
+  el.style.padding = '6px 10px';
+  el.style.borderRadius = '6px';
+  el.style.borderLeft = '3px solid rgba(245,166,35,0.4)';
+
+  // Add emoji badge
+  var badge = document.createElement('span');
+  badge.className = 'rx-badge';
+  badge.textContent = emoji;
+  el.appendChild(badge);
+
+  // Save reaction
+  var s = getS();
+  s.reactions.push({ emoji: emoji, label: label, page: currentPage(), time: Date.now() });
+  s.pts += pts;
+  saveS(s);
+  updateTurbine();
+
+  // Flash the turbine button
+  var tbBtn = document.getElementById('tb-btn');
+  if (tbBtn) {
+    tbBtn.style.transform = 'scale(1.2)';
+    setTimeout(function() { tbBtn.style.transform = ''; }, 300);
   }
 }
 
 // ==========================================
-// UI — Turbina flotante
+// TURBINE UI
 // ==========================================
 function buildTurbine() {
-  const s = getState();
-  const level = getLevel();
-  const m = s.momentum;
-
-  // Botón flotante
-  const btn = document.createElement('button');
+  var btn = document.createElement('button');
   btn.className = 'tb-btn';
   btn.id = 'tb-btn';
-  btn.onclick = toggleTurbinePanel;
+  btn.onclick = togglePanel;
 
-  // Panel
-  const panel = document.createElement('div');
+  var panel = document.createElement('div');
   panel.className = 'tb-panel';
   panel.id = 'tb-panel';
 
   document.body.appendChild(btn);
   document.body.appendChild(panel);
-
-  updateUI();
+  updateTurbine();
 }
 
-function updateUI() {
-  const s = getState();
-  const m = s.momentum;
-  const level = getLevel();
-  const cta = getCTA();
-  const mirror = getMirror();
-  const pageCount = Object.keys(s.pages).length;
+function updateTurbine() {
+  var s = getS();
+  var pts = s.pts;
+  var lv = getLevel(pts);
+  var next = getNextLevel(pts);
+  var cta = getCTA(pts);
+  var mirror = getMirror(pts);
+  var color = getLevelColor(pts);
+  var pageCount = Object.keys(s.pages).length;
+
+  // Progress toward next level (for the ring)
+  var ringPct = 100;
+  if (next) {
+    var prevMin = lv.min;
+    ringPct = Math.min(100, Math.round(((pts - prevMin) / (next.min - prevMin)) * 100));
+  }
+  var circumference = 2 * Math.PI * 22;
+  var dashArray = (ringPct / 100) * circumference;
+
+  // Pulse intensity
+  var pulse = pts >= 220 ? 'tb-btn--pulse-strong' : pts >= 80 ? 'tb-btn--pulse' : '';
 
   // Button
-  const btn = document.getElementById('tb-btn');
+  var btn = document.getElementById('tb-btn');
   if (!btn) return;
+  btn.className = 'tb-btn ' + pulse;
+  btn.innerHTML = '<svg viewBox="0 0 52 52" class="tb-btn__ring"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/><circle cx="26" cy="26" r="22" fill="none" stroke="' + color + '" stroke-width="3" stroke-dasharray="' + dashArray + ' ' + circumference + '" stroke-linecap="round" transform="rotate(-90 26 26)" style="transition:stroke-dasharray 1s ease,stroke 0.5s"/></svg><span class="tb-btn__pct">' + pts + '</span>';
 
-  // Pulse animation intensity based on momentum
-  const pulseIntensity = m > 75 ? 'tb-btn--pulse-strong' : m > 40 ? 'tb-btn--pulse' : '';
-  btn.className = `tb-btn ${pulseIntensity}`;
-
-  // Ring arc
-  const circumference = 2 * Math.PI * 22;
-  const dashArray = (m / 100) * circumference;
-
-  btn.innerHTML = `
-    <svg viewBox="0 0 52 52" class="tb-btn__ring">
-      <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/>
-      <circle cx="26" cy="26" r="22" fill="none" stroke="${level.color}" stroke-width="3"
-        stroke-dasharray="${dashArray} ${circumference}" stroke-linecap="round" transform="rotate(-90 26 26)"
-        style="transition:stroke-dasharray 1s ease,stroke 0.5s"/>
-    </svg>
-    <span class="tb-btn__pct">${m}%</span>
-  `;
-
-  // Panel content
-  const panel = document.getElementById('tb-panel');
+  // Panel
+  var panel = document.getElementById('tb-panel');
   if (!panel) return;
 
-  let ctaHTML = '';
+  var ctaHTML = '';
   if (cta.href) {
-    ctaHTML = `<a href="${cta.href}" class="tb-cta">${cta.text}</a>`;
+    ctaHTML = '<a href="' + cta.href + '" class="tb-cta">' + cta.text + '</a>';
   } else if (cta.action === 'share') {
-    ctaHTML = `<button onclick="shareTurbine()" class="tb-cta">${cta.text}</button>`;
+    ctaHTML = '<button onclick="shareTB()" class="tb-cta">' + cta.text + '</button>';
   } else {
-    ctaHTML = `<div class="tb-cta tb-cta--muted">${cta.text}</div>`;
+    ctaHTML = '<div class="tb-cta tb-cta--muted">' + cta.text + '</div>';
   }
 
-  panel.innerHTML = `
-    <div class="tb-panel__header">
-      <button class="tb-panel__close" onclick="toggleTurbinePanel()">×</button>
-    </div>
-    <div class="tb-panel__level" style="color:${level.color}">${level.label}</div>
-    <div class="tb-panel__verb">${level.verb}</div>
-    <div class="tb-panel__meter">
-      <div class="tb-panel__meter-fill" style="width:${m}%;background:${level.color}"></div>
-    </div>
-    <div class="tb-panel__stats">
-      <div class="tb-stat"><span class="tb-stat__val">${pageCount}</span><span class="tb-stat__label">páginas</span></div>
-      <div class="tb-stat"><span class="tb-stat__val">${Math.round(s.totalTime/60)}m</span><span class="tb-stat__label">explorando</span></div>
-      <div class="tb-stat"><span class="tb-stat__val">${s.interactions}</span><span class="tb-stat__label">interacciones</span></div>
-    </div>
-    ${mirror.text ? `<div class="tb-mirror">${mirror.text}</div>` : ''}
-    ${ctaHTML}
-    <div class="tb-tip">Doble click en cualquier párrafo = destacar</div>
-  `;
+  var nextHTML = next ? '<div class="tb-next">Siguiente nivel: <strong>' + next.name + '</strong> (' + next.min + ' pts)</div>' : '<div class="tb-next" style="color:var(--color-amber)">Has alcanzado el nivel máximo</div>';
+
+  // Recent reactions
+  var recentRx = s.reactions.slice(-5).reverse();
+  var rxHTML = recentRx.length ? '<div class="tb-rx-title">Tus reacciones recientes</div><div class="tb-rx-list">' + recentRx.map(function(r) { return '<span class="tb-rx">' + r.emoji + '</span>'; }).join('') + '</div>' : '';
+
+  panel.innerHTML =
+    '<div class="tb-panel__header"><button class="tb-panel__close" onclick="togglePanel()">×</button></div>' +
+    '<div class="tb-panel__pts" style="color:' + color + '">' + pts + ' <span>puntos</span></div>' +
+    '<div class="tb-panel__level" style="color:' + color + '">' + lv.name + '</div>' +
+    '<div class="tb-panel__verb">' + lv.verb + '</div>' +
+    '<div class="tb-panel__meter"><div class="tb-panel__meter-fill" style="width:' + ringPct + '%;background:' + color + '"></div></div>' +
+    nextHTML +
+    '<div class="tb-panel__stats"><div class="tb-stat"><span class="tb-stat__val">' + pageCount + '</span><span class="tb-stat__label">páginas</span></div><div class="tb-stat"><span class="tb-stat__val">' + Math.round(s.totalTime / 60) + 'm</span><span class="tb-stat__label">explorando</span></div><div class="tb-stat"><span class="tb-stat__val">' + s.reactions.length + '</span><span class="tb-stat__label">reacciones</span></div></div>' +
+    rxHTML +
+    (mirror ? '<div class="tb-mirror">' + mirror.text + '</div>' : '') +
+    ctaHTML +
+    '<div class="tb-tip">Doble click en cualquier párrafo para reaccionar</div>';
 }
 
-function toggleTurbinePanel() {
+function togglePanel() {
   document.getElementById('tb-panel').classList.toggle('tb-panel--open');
 }
 
-function shareTurbine() {
-  const url = encodeURIComponent(window.location.origin + window.location.pathname);
-  const text = encodeURIComponent('Descubrí algo sobre educación que necesitas ver. Haz el autodiagnóstico de habilidades del siglo XXI.');
+function shareTB() {
+  var url = encodeURIComponent(window.location.href);
+  var text = encodeURIComponent('Descubrí algo sobre educación que cambia la perspectiva. Llevo ' + getS().pts + ' puntos explorando.');
   window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
 }
 
-function getCurrentPage() {
+function currentPage() {
   return window.location.pathname.split('/').pop() || 'index.html';
 }
 
@@ -293,19 +345,16 @@ function getCurrentPage() {
 // ==========================================
 (function() {
   function run() {
-    trackPageVisit();
+    trackPage();
     buildTurbine();
     trackTime();
     trackScroll();
     trackInteractions();
-    initLikes();
+    setTimeout(initReactions, 300);
   }
-
   if (document.querySelector('main')) {
     setTimeout(run, 200);
   } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(run, 600);
-    });
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(run, 600); });
   }
 })();

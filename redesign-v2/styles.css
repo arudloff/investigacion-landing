@@ -1682,6 +1682,111 @@ p > .btn { display: inline-flex; }
   color: rgba(255,255,255,0.25);
   margin-top: .25rem;
 }
+/* Puntos grande */
+.tb-panel__pts {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: .15rem;
+}
+.tb-panel__pts span {
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: 0.6;
+}
+/* Next level indicator */
+.tb-next {
+  text-align: center;
+  font-size: .7rem;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 1rem;
+}
+.tb-next strong { color: rgba(255,255,255,0.6); }
+/* Recent reactions */
+.tb-rx-title {
+  font-size: .65rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  text-align: center;
+  margin-bottom: .4rem;
+}
+.tb-rx-list {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+.tb-rx {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* ==========================================
+   REACTION PICKER (aparece en doble-click)
+   ========================================== */
+.rx-picker {
+  position: absolute;
+  top: -48px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: var(--color-dark-mid);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 12px;
+  padding: 6px 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  z-index: 800;
+  animation: rxPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes rxPopIn {
+  from { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(8px); }
+  to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
+}
+.rx-pick {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.rx-pick:hover {
+  background: rgba(245,166,35,0.15);
+  border-color: rgba(245,166,35,0.4);
+  transform: scale(1.15);
+}
+.rx-pick:active {
+  transform: scale(0.95);
+}
+/* Badge on reacted paragraph */
+.rx-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: .9rem;
+  vertical-align: middle;
+  animation: rxBadgeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes rxBadgeIn {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 @media (max-width: 480px) {
   .tb-panel { right: 12px; left: 12px; width: auto; bottom: 80px; }
