@@ -9,14 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* --- MINDLY — mind map circular --- */
+    /* --- MINDLY v2 — enhanced mind map --- */
     .mindly {
       position: relative;
-      width: 700px;
-      height: 700px;
+      width: 750px;
+      height: 750px;
       margin: 0 auto;
     }
-    /* SVG connections */
+
+    /* SVG — anillo principal + glow + puntos de conexión */
     .mindly__svg {
       position: absolute;
       top: 0; left: 0;
@@ -24,113 +25,171 @@
       pointer-events: none;
       z-index: 1;
     }
-    .mindly__line {
-      stroke: rgba(46,109,164,0.2);
-      stroke-width: 1.5;
-      transition: stroke 0.3s;
+    /* Anillo glow suave detrás */
+    .mindly__ring-glow {
+      fill: none;
+      stroke: rgba(46,109,164,0.06);
+      stroke-width: 30;
     }
+    /* Anillo principal con gradiente animado */
+    .mindly__ring {
+      fill: none;
+      stroke: url(#ringGradient);
+      stroke-width: 2;
+      stroke-dasharray: 8 4;
+      animation: ringRotate 30s linear infinite;
+    }
+    @keyframes ringRotate {
+      to { stroke-dashoffset: -1200; }
+    }
+    /* Anillo sólido sutil */
+    .mindly__ring-solid {
+      fill: none;
+      stroke: rgba(46,109,164,0.15);
+      stroke-width: 1;
+    }
+    /* Puntos de conexión donde el anillo toca cada burbuja */
+    .mindly__dot {
+      fill: var(--color-primary-mid);
+      r: 4;
+      opacity: 0.6;
+      transition: opacity 0.3s, r 0.3s;
+    }
+
     /* Centro */
     .mindly__core {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 130px; height: 130px;
+      width: 120px; height: 120px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(46,109,164,0.2), rgba(13,92,99,0.2));
-      border: 2px solid rgba(46,109,164,0.3);
+      background: radial-gradient(circle, rgba(46,109,164,0.15) 0%, rgba(10,22,40,0.9) 70%);
+      border: 1.5px solid rgba(46,109,164,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       z-index: 5;
-      animation: corePulse 5s ease-in-out infinite;
     }
-    @keyframes corePulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(46,109,164,0.12), 0 0 30px rgba(46,109,164,0.05); }
-      50% { box-shadow: 0 0 0 15px rgba(46,109,164,0), 0 0 50px rgba(46,109,164,0.08); }
+    .mindly__core::before {
+      content: '';
+      position: absolute;
+      inset: -15px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,109,164,0.08);
+      animation: coreBreath 4s ease-in-out infinite;
+    }
+    .mindly__core::after {
+      content: '';
+      position: absolute;
+      inset: -30px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,109,164,0.04);
+      animation: coreBreath 4s ease-in-out infinite 0.5s;
+    }
+    @keyframes coreBreath {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.5; }
     }
     .mindly__core-text {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.45);
       line-height: 1.4;
     }
-    /* Nodos (burbujas) */
+
+    /* Nodos */
     .mindly__node {
       position: absolute;
       z-index: 4;
       cursor: pointer;
-      /* Tamaño de la burbuja */
-      --size: 100px;
+      --size: 105px;
       width: var(--size);
       height: var(--size);
-      /* Posicionamiento trigonométrico */
-      --cx: 350px;
-      --cy: 350px;
-      --r: 260px;
+      --cx: 375px;
+      --cy: 375px;
+      --r: 270px;
+      /* Entrada escalonada */
+      opacity: 0;
+      animation: nodeAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
+    .mindly__node--0 { animation-delay: 0.1s; }
+    .mindly__node--1 { animation-delay: 0.2s; }
+    .mindly__node--2 { animation-delay: 0.3s; }
+    .mindly__node--3 { animation-delay: 0.4s; }
+    .mindly__node--4 { animation-delay: 0.5s; }
+    .mindly__node--5 { animation-delay: 0.6s; }
+    .mindly__node--6 { animation-delay: 0.7s; }
+    @keyframes nodeAppear {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .mindly__bubble {
       width: 100%; height: 100%;
       border-radius: 50%;
-      background: var(--color-dark-mid);
-      border: 2px solid rgba(46,109,164,0.2);
+      background: linear-gradient(145deg, rgba(13,31,60,1), rgba(10,22,40,1));
+      border: 1.5px solid rgba(46,109,164,0.25);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
-      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
     }
     .mindly__bubble::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, rgba(46,109,164,0.1) 0%, transparent 60%);
+      background: radial-gradient(circle at 30% 25%, rgba(46,109,164,0.12) 0%, transparent 50%);
       pointer-events: none;
     }
     .mindly__node:hover .mindly__bubble {
-      border-color: rgba(46,109,164,0.5);
-      transform: scale(1.12);
-      box-shadow: 0 0 30px rgba(46,109,164,0.2), 0 0 60px rgba(46,109,164,0.05);
+      border-color: var(--color-amber);
+      transform: scale(1.15);
+      box-shadow: 0 0 25px rgba(245,166,35,0.15), 0 0 50px rgba(46,109,164,0.1), 0 8px 30px rgba(0,0,0,0.3);
     }
     .mindly__initials {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      color: var(--color-primary-mid);
+      color: rgba(255,255,255,0.85);
       letter-spacing: 0.05em;
       line-height: 1;
-      transition: opacity 0.3s, transform 0.3s;
+      transition: all 0.3s;
     }
+    .mindly__node:hover .mindly__initials { color: var(--color-amber); }
     .mindly__name-short {
-      font-size: 0.6rem;
-      color: rgba(255,255,255,0.5);
-      margin-top: 0.3rem;
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.35rem;
       line-height: 1.2;
       max-width: 80px;
-      transition: opacity 0.3s, transform 0.3s;
+      transition: all 0.3s;
     }
-    /* Tooltip al hover */
+    .mindly__node:hover .mindly__name-short { color: rgba(255,255,255,0.7); }
+
+    /* Tooltip */
     .mindly__tooltip {
       position: absolute;
-      bottom: calc(100% + 12px);
+      bottom: calc(100% + 14px);
       left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: var(--color-dark-mid);
-      border: 1px solid rgba(46,109,164,0.3);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
+      transform: translateX(-50%) translateY(10px) scale(0.95);
+      background: linear-gradient(145deg, #0D1F3C, #0A1628);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 12px;
+      padding: 0.85rem 1.2rem;
       text-align: center;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 10;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 15px rgba(245,166,35,0.05);
     }
     .mindly__tooltip::after {
       content: '';
@@ -138,34 +197,26 @@
       top: 100%;
       left: 50%;
       transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: rgba(46,109,164,0.3);
+      border: 7px solid transparent;
+      border-top-color: rgba(245,166,35,0.25);
     }
     .mindly__node:hover .mindly__tooltip {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateX(-50%) translateY(0) scale(1);
     }
-    .mindly__tooltip-name {
-      font-weight: 700;
-      color: #fff;
-      font-size: 0.88rem;
-    }
+    .mindly__tooltip-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
     .mindly__tooltip-role {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--color-amber);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 0.15rem;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
     }
-    .mindly__tooltip-email {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.45);
-      margin-top: 0.3rem;
-    }
-    .mindly__tooltip-email a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    .mindly__tooltip-email { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.35rem; }
+    .mindly__tooltip-email a { color: rgba(255,255,255,0.4); text-decoration: none; }
     .mindly__tooltip-email a:hover { color: var(--color-amber); }
 
-    /* 7 posiciones equidistantes */
+    /* 7 posiciones */
     .mindly__node--0 { left: calc(var(--cx) + var(--r) *  0.000 - var(--size)/2); top: calc(var(--cy) + var(--r) * -1.000 - var(--size)/2); }
     .mindly__node--1 { left: calc(var(--cx) + var(--r) *  0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
     .mindly__node--2 { left: calc(var(--cx) + var(--r) *  0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
@@ -174,12 +225,8 @@
     .mindly__node--5 { left: calc(var(--cx) + var(--r) * -0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
     .mindly__node--6 { left: calc(var(--cx) + var(--r) * -0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
 
-    /* Hover highlights the SVG line */
-    .mindly__node:hover ~ .mindly__svg .mindly__line,
-    .mindly__node:hover + .mindly__svg .mindly__line { stroke: rgba(46,109,164,0.4); }
-
     /* Mobile */
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       .mindly {
         width: 100%;
         height: auto;
@@ -187,29 +234,25 @@
         flex-wrap: wrap;
         gap: var(--space-md);
         justify-content: center;
+        padding: var(--space-md) 0;
       }
       .mindly__node {
         position: static;
-        --size: 110px;
+        --size: 100px;
+        animation: none;
+        opacity: 1;
       }
       .mindly__core {
         position: static;
         transform: none;
-        width: 100px; height: 100px;
-        margin: 0 auto var(--space-md);
+        width: 90px; height: 90px;
         flex-basis: 100%;
+        margin: 0 auto var(--space-md);
       }
+      .mindly__core::before, .mindly__core::after { display: none; }
       .mindly__svg { display: none; }
-      .mindly__tooltip {
-        bottom: auto;
-        top: calc(100% + 8px);
-      }
-      .mindly__tooltip::after {
-        top: auto;
-        bottom: 100%;
-        border-top-color: transparent;
-        border-bottom-color: rgba(46,109,164,0.3);
-      }
+      .mindly__tooltip { bottom: auto; top: calc(100% + 8px); }
+      .mindly__tooltip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: rgba(245,166,35,0.25); }
     }
   </style>
 </head>
@@ -235,10 +278,31 @@
           <span class="mindly__core-text">Gestión<br>Escolar</span>
         </div>
 
-        <!-- Círculo que une los nodos -->
-        <svg class="mindly__svg" viewBox="0 0 700 700">
-          <circle cx="350" cy="350" r="260" stroke="rgba(46,109,164,0.25)" stroke-width="2" fill="none"/>
-          <circle cx="350" cy="350" r="260" stroke="rgba(46,109,164,0.08)" stroke-width="12" fill="none"/>
+        <!-- Anillo con gradiente animado + glow + puntos de conexión -->
+        <svg class="mindly__svg" viewBox="0 0 750 750">
+          <defs>
+            <linearGradient id="ringGradient" gradientUnits="userSpaceOnUse" x1="0" y1="375" x2="750" y2="375">
+              <stop offset="0%" stop-color="rgba(46,109,164,0.5)"/>
+              <stop offset="25%" stop-color="rgba(245,166,35,0.3)"/>
+              <stop offset="50%" stop-color="rgba(46,109,164,0.5)"/>
+              <stop offset="75%" stop-color="rgba(13,92,99,0.3)"/>
+              <stop offset="100%" stop-color="rgba(46,109,164,0.5)"/>
+            </linearGradient>
+          </defs>
+          <!-- Glow -->
+          <circle class="mindly__ring-glow" cx="375" cy="375" r="270"/>
+          <!-- Anillo sólido base -->
+          <circle class="mindly__ring-solid" cx="375" cy="375" r="270"/>
+          <!-- Anillo gradiente animado -->
+          <circle class="mindly__ring" cx="375" cy="375" r="270"/>
+          <!-- Puntos de conexión en las 7 posiciones -->
+          <circle class="mindly__dot" cx="375" cy="105"/>
+          <circle class="mindly__dot" cx="586" cy="207"/>
+          <circle class="mindly__dot" cx="638" cy="435"/>
+          <circle class="mindly__dot" cx="492" cy="618"/>
+          <circle class="mindly__dot" cx="258" cy="618"/>
+          <circle class="mindly__dot" cx="112" cy="435"/>
+          <circle class="mindly__dot" cx="164" cy="207"/>
         </svg>
 
         <!-- 7 nodos -->
