@@ -1149,6 +1149,51 @@ table th, table td {
   margin: 0.35rem 0;
 }
 
+/* --- TOOL EXPANDABLE — desplegables en lugar de PDF --- */
+.tool-expand { cursor: pointer; }
+.tool-expand__header {
+  display: block;
+  list-style: none;
+}
+.tool-expand__header::-webkit-details-marker { display: none; }
+.tool-expand__header::marker { display: none; content: ''; }
+.tool-expand__header .card__icon { display: block; margin-bottom: .5rem; }
+.tool-expand__header .card__title {
+  display: block;
+  margin-bottom: .4rem;
+  position: relative;
+  padding-right: 1.5rem;
+}
+.tool-expand__header .card__title::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  transition: transform .3s ease;
+}
+.tool-expand[open] .tool-expand__header .card__title::after {
+  transform: rotate(45deg);
+  color: var(--color-primary-mid);
+}
+.tool-expand__header .card__text { display: block; }
+.tool-expand__content {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(0,0,0,.06);
+  font-size: .88rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  animation: expandFade .3s ease;
+}
+.tool-expand__content p { margin-bottom: .4rem; }
+@keyframes expandFade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- CTA CENTERING — botones sueltos siempre centrados --- */
 .section--dark > .container { text-align: center; }
 p > .btn { display: inline-flex; }
