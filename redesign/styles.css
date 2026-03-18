@@ -280,8 +280,9 @@ strong { font-weight: 600; color: var(--color-text); }
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  vertical-align: baseline;
-  line-height: 1.1;
+  vertical-align: middle;
+  line-height: 1;
+  margin: 0 .15em;
 }
 .hero__strike {
   text-decoration: line-through;
