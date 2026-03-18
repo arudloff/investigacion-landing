@@ -200,39 +200,39 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(buildFooter());
   initDropdowns();
   initAnimations();
-  // ¿Sabías que...? — dato aleatorio en footer
-  const dykData = [
-    '¿Sabías que el 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen? (WEF, 2025)',
-    '¿Sabías que Midjourney genera $500M al año con solo 40 empleados? Una persona con las destrezas correctas multiplica su impacto.',
-    '¿Sabías que los contenidos falsos generados por IA crecen 900% cada año? El pensamiento crítico es la única defensa. (WEF/Sumsub)',
-    '¿Sabías que las habilidades cambian un 66% más rápido en empleos expuestos a IA? Aprender a aprender es la destreza que no caduca. (PwC)',
-    '¿Sabías que un estudiante en Talca puede trabajar con una startup en Berlín sin emigrar? La geografía dejó de ser un límite.',
-    '¿Sabías que el 92% de los reclutadores valora la colaboración igual o más que las habilidades técnicas? (LinkedIn, 2023)',
-    '¿Sabías que la creatividad es la 4ª habilidad más demandada al 2030? La IA puede copiar patrones — crear es humano. (WEF)',
-    '¿Sabías que 270.000 estudiantes mostraron +11 puntos en rendimiento al integrar habilidades socioemocionales? (CASEL)',
-    '¿Sabías que entre 55 y 73 países compiten con visas especiales por atraer talento digital? Las oportunidades son globales. (OCDE)',
-    '¿Sabías que el 48% de empresas que usan ChatGPT ahorraron más de $50.000? Quien combina destrezas humanas + IA multiplica su valor. (Tech.co)',
-    '¿Sabías que 10 de 10 marcos internacionales coinciden en que pensamiento crítico y colaboración son esenciales?',
-    '¿Sabías que Chile tiene el 55% de empleos en tareas repetitivas — el mayor porcentaje de la OCDE?',
-    '¿Sabías que la prima salarial por habilidades complementarias a IA es de +USD 18.000 al año? (Lightcast, 2025)',
-    '¿Sabías que Google descubrió que su factor #1 de equipos exitosos no era el talento, sino la seguridad psicológica?',
-    '¿Sabías que Klarna tuvo que recontratar humanos porque la IA no pudo manejar empatía ni interacciones complejas?',
-  ];
   refreshDyk();
 });
 
+// ¿Sabías que...? — pool global + función de refresh
+var dykData = [
+  '¿Sabías que el 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen? (WEF, 2025)',
+  '¿Sabías que Midjourney genera $500M al año con solo 40 empleados? Una persona con las destrezas correctas multiplica su impacto.',
+  '¿Sabías que los contenidos falsos generados por IA crecen 900% cada año? El pensamiento crítico es la única defensa. (WEF/Sumsub)',
+  '¿Sabías que las habilidades cambian un 66% más rápido en empleos expuestos a IA? Aprender a aprender es la destreza que no caduca. (PwC)',
+  '¿Sabías que un estudiante en Talca puede trabajar con una startup en Berlín sin emigrar? La geografía dejó de ser un límite.',
+  '¿Sabías que el 92% de los reclutadores valora la colaboración igual o más que las habilidades técnicas? (LinkedIn, 2023)',
+  '¿Sabías que la creatividad es la 4ª habilidad más demandada al 2030? La IA puede copiar patrones — crear es humano. (WEF)',
+  '¿Sabías que 270.000 estudiantes mostraron +11 puntos en rendimiento al integrar habilidades socioemocionales? (CASEL)',
+  '¿Sabías que entre 55 y 73 países compiten con visas especiales por atraer talento digital? Las oportunidades son globales. (OCDE)',
+  '¿Sabías que el 48% de empresas que usan ChatGPT ahorraron más de $50.000? Quien combina destrezas humanas + IA multiplica su valor. (Tech.co)',
+  '¿Sabías que 10 de 10 marcos internacionales coinciden en que pensamiento crítico y colaboración son esenciales?',
+  '¿Sabías que Chile tiene el 55% de empleos en tareas repetitivas — el mayor porcentaje de la OCDE?',
+  '¿Sabías que la prima salarial por habilidades complementarias a IA es de +USD 18.000 al año? (Lightcast, 2025)',
+  '¿Sabías que Google descubrió que su factor #1 de equipos exitosos no era el talento, sino la seguridad psicológica?',
+  '¿Sabías que Klarna tuvo que recontratar humanos porque la IA no pudo manejar empatía ni interacciones complejas?',
+];
 var _lastDyk = -1;
-var _dykFirstLoad = true;
+var _dykFirst = true;
 function refreshDyk() {
   var el = document.getElementById('footer-dyk');
   if (!el) return;
   var idx;
   do { idx = Math.floor(Math.random() * dykData.length); } while (dykData.length > 1 && idx === _lastDyk);
   _lastDyk = idx;
-  if (_dykFirstLoad) {
+  if (_dykFirst) {
     el.textContent = dykData[idx];
     el.style.transition = 'opacity 0.25s ease';
-    _dykFirstLoad = false;
+    _dykFirst = false;
   } else {
     el.style.opacity = '0';
     setTimeout(function(){ el.textContent = dykData[idx]; el.style.opacity = '1'; }, 250);
