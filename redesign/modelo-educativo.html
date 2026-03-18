@@ -205,7 +205,7 @@
       <p class="anim" style="color:var(--color-amber);text-align:center;font-size:.88rem;font-weight:600;margin:0 auto var(--space-xl)">Selecciona un pilar y descubre qué marcos lo respaldan, qué destrezas habilita y en qué profesiones marca la diferencia ↓</p>
 
       <!-- Sección 1: Pilares -->
-      <p class="anim" style="color:rgba(255,255,255,0.4);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem">Pilares de nuestro modelo educativo</p>
+      <p class="anim" style="color:rgba(255,255,255,0.6);font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;border-left:3px solid var(--color-amber);padding-left:.75rem">Pilares de nuestro modelo educativo</p>
       <div class="mg-ejes anim">
         <button class="mg-eje mg-eje--active" data-eje="colab" onclick="selectEje(this)">
           <span class="mg-eje__icon">&#x1F91D;</span>
@@ -241,24 +241,23 @@
 
       <!-- Panel de resultado -->
       <div class="mg-result anim" id="mg-result">
-        <div class="mg-result__header">
-          <span class="mg-result__title" id="mg-result-title">Colaboración</span>
+        <!-- Sección 2: Marcos -->
+        <div style="padding:1.25rem 1.75rem .75rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06)">
+          <span style="font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,0.6);border-left:3px solid var(--color-primary-mid);padding-left:.75rem">Marcos curriculares de referencia</span>
           <span class="mg-result__badge" id="mg-result-badge">10/10 marcos</span>
         </div>
-        <!-- Sección 2: Marcos -->
-        <div style="padding:0.75rem 1.75rem 0"><span style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.35)">Marcos curriculares de referencia</span></div>
         <div class="mg-result__grid" id="mg-result-grid"></div>
         <!-- Destrezas laborales que habilita -->
         <div class="mg-skills" id="mg-skills">
           <div class="mg-skills__header">
-            <span class="mg-skills__label">Destrezas laborales</span>
+            <span class="mg-skills__label" style="font-size:.85rem;color:rgba(255,255,255,0.55);border-left:3px solid var(--color-accent-green);padding-left:.75rem">Destrezas laborales</span>
           </div>
           <div class="mg-skills__list" id="mg-skills-list"></div>
         </div>
         <!-- Profesiones donde esta competencia es preponderante -->
         <div class="mg-careers" id="mg-careers">
           <div class="mg-careers__header">
-            <span class="mg-careers__label">Profesiones y cargos donde esta competencia es relevante</span>
+            <span class="mg-careers__label" style="font-size:.85rem;color:rgba(255,255,255,0.55);border-left:3px solid var(--color-teal);padding-left:.75rem">Profesiones y cargos donde esta competencia es relevante</span>
           </div>
           <div class="mg-careers__list" id="mg-careers-list"></div>
         </div>
@@ -336,14 +335,6 @@
       border: 1px solid rgba(46,109,164,0.2);
       overflow: hidden;
     }
-    .mg-result__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 1.75rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .mg-result__title { font-size: 1.25rem; font-weight: 700; color: #fff; }
     .mg-result__badge {
       background: rgba(245,166,35,0.15);
       color: var(--color-amber);
@@ -551,7 +542,6 @@
     btn.classList.add('mg-eje--active');
     const eje = btn.dataset.eje;
     const data = mgData[eje];
-    document.getElementById('mg-result-title').textContent = data.name;
     document.getElementById('mg-result-badge').textContent = data.marcos.length + '/10 marcos';
     // Marcos
     document.getElementById('mg-result-grid').innerHTML = allMarcos.map(m => {
