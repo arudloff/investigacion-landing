@@ -31,20 +31,13 @@ const NAV_ITEMS = [
   },
 ];
 
+// Mobile: espejo exacto de NAV_ITEMS
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
-
-  { label: 'Proyecto Educativo', isSection: true },
-  { href: 'contexto-global.html', label: 'El contexto que nos moviliza' },
-  { href: 'modelo-educativo.html', label: 'Modelo educativo' },
-  { href: 'por-que-importa.html', label: 'Por qué esto importa' },
-
-  { label: 'Familias', isSection: true },
-  { href: 'para-familias.html', label: 'Nuestras familias' },
-  { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
-
-  { label: 'Estudiantes', isSection: true },
-  { href: 'estudiantes.html', label: 'Tu lugar en el mundo' },
+  { href: 'contexto-global.html', label: 'Contexto' },
+  { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
+  { href: 'para-familias.html', label: 'Familias' },
+  { href: 'estudiantes.html', label: 'Estudiantes' },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
@@ -57,7 +50,8 @@ const MOBILE_LINKS = [
   { label: 'Conócenos', isSection: true },
   { href: 'nosotros.html', label: 'Quiénes somos' },
   { href: 'equipo.html', label: 'Nuestro equipo' },
-  { href: 'visita.html', label: 'Visita guiada' },
+  { href: 'visita.html', label: 'Solicita una visita guiada' },
+  { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
 ];
 
 const FOOTER_COLS = {
