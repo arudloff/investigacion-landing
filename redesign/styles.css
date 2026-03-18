@@ -197,6 +197,9 @@ strong { font-weight: 600; color: var(--color-text); }
 .navbar__dropdown { position: relative; }
 .navbar__link--parent {
   font-family: inherit;
+  color: rgba(255,255,255,0.8);
+  background: none;
+  border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
