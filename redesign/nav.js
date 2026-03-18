@@ -150,7 +150,7 @@ function buildFooter() {
       </div>
       <div style="text-align:center;padding:1.25rem 1.5rem;border-top:1px solid rgba(245,166,35,0.1);background:rgba(245,166,35,0.03)">
         <p style="font-size:1.05rem;color:rgba(245,166,35,0.85);margin:0 0 .75rem;max-width:none;font-weight:600;line-height:1.55" id="footer-dyk"></p>
-        <button onclick="refreshDyk()" style="background:none;border:1px solid rgba(245,166,35,0.25);color:rgba(245,166,35,0.6);font-size:.72rem;font-weight:600;padding:.3rem .8rem;border-radius:100px;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.02em" onmouseover="this.style.borderColor='rgba(245,166,35,0.5)';this.style.color='rgba(245,166,35,0.9)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.25)';this.style.color='rgba(245,166,35,0.6)'">Otro dato que no conocías →</button>
+        <button onclick="refreshDyk()" class="dyk-btn">Otro dato que no conocías →</button>
       </div>
       <div class="footer__bottom">
         <p style="text-align:center;max-width:none;margin:0 auto">Colegio Camilo Henríquez, Talca, Chile</p>

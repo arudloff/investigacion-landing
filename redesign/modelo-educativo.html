@@ -544,14 +544,18 @@
     @media (max-width: 768px) {
       .mg-ejes { grid-template-columns: repeat(3, 1fr); }
       .mg-result__grid { grid-template-columns: repeat(2, 1fr); }
-      .mg-eje { padding: 1rem 0.5rem; }
+      .mg-eje { padding: 1rem 0.5rem; min-height: 44px; }
       .mg-eje__icon { font-size: 1.5rem; }
-      .mg-eje__name { font-size: 0.68rem; }
+      .mg-eje__name { font-size: 0.72rem; }
       .mg-skills__list, .mg-careers__list { padding: 0 1rem 1rem; }
+      .mg-skill, .mg-career { padding: .55rem .9rem; min-height: 44px; display: inline-flex; align-items: center; }
+      .mg-result__header { padding: 1rem 1rem; }
+      .mg-insight { padding: 1rem; }
     }
     @media (max-width: 480px) {
       .mg-ejes { grid-template-columns: repeat(2, 1fr); }
       .mg-result__grid { grid-template-columns: 1fr; }
+      .mg-eje__name { font-size: 0.65rem; }
     }
   </style>
 

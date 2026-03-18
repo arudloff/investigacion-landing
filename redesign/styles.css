@@ -1474,3 +1474,68 @@ p > .btn { display: inline-flex; }
   .hero { padding: 4rem 0 3rem; }
   .container { padding: 0 1rem; }
 }
+
+/* --- REFRESH BUTTONS — compartido en todas las páginas --- */
+.refresh-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  font-size: .78rem;
+  font-weight: 600;
+  padding: .55rem 1.25rem;
+  min-height: 44px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+  letter-spacing: .02em;
+  display: inline-flex;
+  align-items: center;
+}
+.refresh-btn:active { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.85); }
+@media (hover: hover) {
+  .refresh-btn:hover { border-color: rgba(255,255,255,0.45); color: rgba(255,255,255,0.8); }
+}
+/* Variante ámbar para footer */
+.dyk-btn {
+  background: none;
+  border: 1px solid rgba(245,166,35,0.25);
+  color: rgba(245,166,35,0.6);
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .55rem 1.25rem;
+  min-height: 44px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+  letter-spacing: .02em;
+  display: inline-flex;
+  align-items: center;
+}
+.dyk-btn:active { border-color: rgba(245,166,35,0.5); color: rgba(245,166,35,0.9); }
+@media (hover: hover) {
+  .dyk-btn:hover { border-color: rgba(245,166,35,0.5); color: rgba(245,166,35,0.9); }
+}
+/* Variante morado para estudiantes */
+.refresh-btn--purple {
+  border-color: rgba(237,228,243,0.25);
+  color: rgba(237,228,243,0.5);
+}
+.refresh-btn--purple:active { border-color: rgba(237,228,243,0.5); color: rgba(237,228,243,0.8); }
+@media (hover: hover) {
+  .refresh-btn--purple:hover { border-color: rgba(237,228,243,0.5); color: rgba(237,228,243,0.8); }
+}
+/* Variante verde para profesores */
+.refresh-btn--green {
+  border-color: rgba(212,237,218,0.25);
+  color: rgba(212,237,218,0.5);
+}
+.refresh-btn--green:active { border-color: rgba(212,237,218,0.5); color: rgba(212,237,218,0.8); }
+@media (hover: hover) {
+  .refresh-btn--green:hover { border-color: rgba(212,237,218,0.5); color: rgba(212,237,218,0.8); }
+}
+/* Footer DYK responsive */
+@media (max-width: 480px) {
+  #footer-dyk { font-size: .92rem !important; }
+}
