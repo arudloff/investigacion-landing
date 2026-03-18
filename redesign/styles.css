@@ -499,7 +499,7 @@ table th, table td {
   color: rgba(255,255,255,0.7);
   padding: var(--space-xl) 0 var(--space-lg);
 }
-.footer__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); }
+.footer__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); text-align: center; }
 .footer__title { color: var(--color-white); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; letter-spacing: 0.02em; text-transform: uppercase; }
 .footer__link { display: block; font-size: 0.82rem; padding: 0.25rem 0; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
 .footer__link:hover { color: var(--color-white); text-decoration: none; }
@@ -1148,6 +1148,11 @@ table th, table td {
   border-top: 1px solid rgba(0,0,0,0.08);
   margin: 0.35rem 0;
 }
+
+/* --- CTA CENTERING — botones sueltos siempre centrados --- */
+.section--dark > .container { text-align: center; }
+p > .btn { display: inline-flex; }
+.contact-human { text-align: center; }
 
 /* --- UTILITIES --- */
 .mb-1 { margin-bottom: 0.5rem; }
