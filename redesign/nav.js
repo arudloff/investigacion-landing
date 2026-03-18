@@ -1,5 +1,5 @@
 // nav.js — Navegación compartida
-// Visibles: Inicio | Contexto | Modelo Educativo | Familias | I+D Colaborativo ▾
+// Visibles: Inicio | Contexto | Modelo Educativo | Familias | Estudiantes | I+D Colaborativo ▾
 // I+D Colaborativo contiene CEPAH como sub-sección principal
 
 const NAV_ITEMS = [
@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: 'contexto-global.html', label: 'Contexto' },
   { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
   { href: 'para-familias.html', label: 'Familias' },
+  { href: 'estudiantes.html', label: 'Estudiantes' },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -40,6 +41,9 @@ const MOBILE_LINKS = [
   { label: 'Familias', isSection: true },
   { href: 'para-familias.html', label: 'Nuestras familias' },
   { href: 'para-familias.html#otras-familias', label: 'Familias de otros colegios' },
+
+  { label: 'Estudiantes', isSection: true },
+  { href: 'estudiantes.html', label: 'Tu lugar en el mundo' },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
