@@ -238,40 +238,45 @@
         </button>
       </div>
 
-      <!-- Panel de resultado: marcos que respaldan el eje seleccionado -->
+      <!-- Panel de resultado -->
       <div class="mg-result anim" id="mg-result">
         <div class="mg-result__header">
           <span class="mg-result__title" id="mg-result-title">Colaboración</span>
           <span class="mg-result__badge" id="mg-result-badge">10/10 marcos</span>
         </div>
-        <div class="mg-result__grid" id="mg-result-grid">
-          <!-- Se llena con JS -->
+        <!-- Marcos -->
+        <div class="mg-result__grid" id="mg-result-grid"></div>
+        <!-- Destrezas laborales que habilita -->
+        <div class="mg-skills" id="mg-skills">
+          <div class="mg-skills__header">
+            <span class="mg-skills__label">Destrezas laborales que esta competencia habilita</span>
+          </div>
+          <div class="mg-skills__list" id="mg-skills-list"></div>
         </div>
       </div>
 
-      <p class="anim" style="text-align:center;margin-top:var(--space-xl);color:rgba(255,255,255,0.45);font-size:.82rem">Cada eje del modelo CCH está respaldado por múltiples marcos internacionales independientes. No es opinión — es convergencia verificable.</p>
+      <p class="anim" style="text-align:center;margin-top:var(--space-xl);color:rgba(255,255,255,0.45);font-size:.85rem">Cada eje está respaldado por múltiples marcos internacionales independientes. No es opinión — es convergencia verificable.</p>
     </div>
   </section>
 
   <style>
-    /* === MARCO GLOBAL v2 — Grid + Panel === */
-    /* Ejes como botones horizontales */
+    /* === MARCO GLOBAL v3 — textos grandes + destrezas laborales === */
     .mg-ejes {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-      margin-bottom: var(--space-lg);
+      gap: 10px;
+      margin-bottom: var(--space-xl);
     }
     .mg-eje {
       background: rgba(255,255,255,0.04);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 1rem 0.5rem;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 1.25rem 0.6rem;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: inherit;
       position: relative;
@@ -281,38 +286,35 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(245,166,35,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 30%, rgba(245,166,35,0.1) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s;
     }
     .mg-eje:hover::before { opacity: 1; }
-    .mg-eje:hover {
-      border-color: rgba(245,166,35,0.3);
-      transform: translateY(-2px);
-    }
+    .mg-eje:hover { border-color: rgba(245,166,35,0.35); transform: translateY(-3px); }
     .mg-eje--active {
-      background: rgba(245,166,35,0.1);
+      background: rgba(245,166,35,0.12);
       border-color: var(--color-amber);
-      box-shadow: 0 0 20px rgba(245,166,35,0.12), 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 0 25px rgba(245,166,35,0.15), 0 6px 20px rgba(0,0,0,0.25);
     }
     .mg-eje--active::before { opacity: 1; }
-    .mg-eje__icon { font-size: 1.5rem; line-height: 1; position: relative; z-index: 1; }
+    .mg-eje__icon { font-size: 2rem; line-height: 1; position: relative; z-index: 1; }
     .mg-eje__name {
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       text-align: center;
-      line-height: 1.2;
+      line-height: 1.25;
       position: relative;
       z-index: 1;
     }
     .mg-eje--active .mg-eje__name { color: var(--color-amber); }
     .mg-eje__count {
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.2);
       position: relative;
       z-index: 1;
     }
@@ -322,84 +324,112 @@
     .mg-result {
       background: var(--color-dark-mid);
       border-radius: 16px;
-      border: 1px solid rgba(46,109,164,0.15);
+      border: 1px solid rgba(46,109,164,0.2);
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .mg-result__header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 1.5rem;
+      padding: 1.25rem 1.75rem;
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .mg-result__title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
+    .mg-result__title { font-size: 1.25rem; font-weight: 700; color: #fff; }
     .mg-result__badge {
       background: rgba(245,166,35,0.15);
       color: var(--color-amber);
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      padding: 0.3rem 0.9rem;
+      padding: 0.35rem 1rem;
       border-radius: 100px;
       border: 1px solid rgba(245,166,35,0.25);
     }
+    /* Marcos grid */
     .mg-result__grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.03);
     }
     .mg-marco {
-      padding: 1rem;
+      padding: 1.1rem 0.75rem;
       text-align: center;
       background: var(--color-dark-mid);
       transition: all 0.3s;
-      position: relative;
     }
-    .mg-marco--lit {
-      background: rgba(245,166,35,0.05);
-    }
-    .mg-marco--dim {
-      opacity: 0.2;
-    }
+    .mg-marco--lit { background: rgba(245,166,35,0.06); }
+    .mg-marco--dim { opacity: 0.15; }
     .mg-marco__abbr {
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      color: rgba(255,255,255,0.4);
-      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.02em;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .mg-marco--lit .mg-marco__abbr { color: var(--color-amber); }
     .mg-marco__name {
-      font-size: 0.62rem;
-      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
       line-height: 1.3;
       display: block;
     }
     .mg-marco--lit .mg-marco__name { color: rgba(255,255,255,0.6); }
     .mg-marco__dot {
-      width: 6px;
-      height: 6px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      margin: 8px auto 0;
+      background: rgba(255,255,255,0.08);
+      margin: 10px auto 0;
       transition: all 0.3s;
     }
     .mg-marco--lit .mg-marco__dot {
       background: var(--color-amber);
-      box-shadow: 0 0 8px rgba(245,166,35,0.4);
+      box-shadow: 0 0 10px rgba(245,166,35,0.5);
+    }
+
+    /* Destrezas laborales */
+    .mg-skills {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .mg-skills__header {
+      padding: 1rem 1.75rem 0.5rem;
+    }
+    .mg-skills__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .mg-skills__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 1.75rem 1.25rem;
+    }
+    .mg-skill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.3;
+      transition: all 0.2s;
+    }
+    .mg-skill:hover {
+      background: rgba(245,166,35,0.08);
+      border-color: rgba(245,166,35,0.2);
+      color: var(--color-amber);
     }
 
     @media (max-width: 768px) {
       .mg-ejes { grid-template-columns: repeat(3, 1fr); }
       .mg-result__grid { grid-template-columns: repeat(2, 1fr); }
-      .mg-eje { padding: 0.75rem 0.4rem; }
-      .mg-eje__icon { font-size: 1.2rem; }
+      .mg-eje { padding: 1rem 0.5rem; }
+      .mg-eje__icon { font-size: 1.5rem; }
+      .mg-eje__name { font-size: 0.68rem; }
+      .mg-skills__list { padding: 0 1rem 1rem; }
     }
     @media (max-width: 480px) {
       .mg-ejes { grid-template-columns: repeat(2, 1fr); }
@@ -409,12 +439,36 @@
 
   <script>
   const mgData = {
-    colab: { name: 'Colaboración', marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'] },
-    auton: { name: 'Autonomía', marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC'] },
-    pensa: { name: 'Pensamiento complejo', marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'] },
-    creat: { name: 'Creatividad', marcos: ['OCDE','WEF','P21','Harvard PZ','Robinson','MINEDUC','PwC','Stanford','CASEL'] },
-    socio: { name: 'Socioemocional', marcos: ['OCDE','UNESCO','MINEDUC','CASEL','Harvard PZ','Robinson','WEF','PwC'] },
-    emple: { name: 'Empleabilidad', marcos: ['OCDE','WEF','P21','MINEDUC','PwC','Stanford','Harvard PZ','Robinson'] },
+    colab: {
+      name: 'Colaboración',
+      marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
+      skills: ['Trabajo en equipos multidisciplinarios','Negociación y resolución de conflictos','Comunicación efectiva en contextos diversos','Liderazgo distribuido','Co-creación con IA y herramientas digitales','Gestión de proyectos colaborativos','Facilitación de procesos grupales']
+    },
+    auton: {
+      name: 'Autonomía',
+      marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC'],
+      skills: ['Aprendizaje autodirigido y continuo','Gestión del tiempo y prioridades','Toma de decisiones con información incompleta','Automonitoreo y metacognición','Planificación estratégica personal','Teletrabajo y gestión remota','Emprendimiento e intraemprendimiento']
+    },
+    pensa: {
+      name: 'Pensamiento complejo',
+      marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
+      skills: ['Análisis de datos e interpretación de evidencia','Detección de sesgos y falacias','Evaluación de fuentes y verificación de información','Resolución de problemas multivariables','Pensamiento sistémico','Argumentación basada en evidencia','Alfabetización mediática y digital']
+    },
+    creat: {
+      name: 'Creatividad',
+      marcos: ['OCDE','WEF','P21','Harvard PZ','Robinson','MINEDUC','PwC','Stanford','CASEL'],
+      skills: ['Generación de soluciones originales','Pensamiento divergente y lateral','Prototipado rápido e iteración','Diseño centrado en el usuario','Conexión de ideas entre dominios distintos','Innovación en productos, servicios y procesos','Storytelling y comunicación creativa']
+    },
+    socio: {
+      name: 'Socioemocional',
+      marcos: ['OCDE','UNESCO','MINEDUC','CASEL','Harvard PZ','Robinson','WEF','PwC'],
+      skills: ['Empatía y escucha activa','Regulación emocional bajo presión','Resolución de conflictos interpersonales','Liderazgo con inteligencia emocional','Atención al cliente y experiencia de usuario','Resiliencia ante la incertidumbre','Trabajo en contextos multiculturales']
+    },
+    emple: {
+      name: 'Empleabilidad',
+      marcos: ['OCDE','WEF','P21','MINEDUC','PwC','Stanford','Harvard PZ','Robinson'],
+      skills: ['Adaptabilidad al cambio tecnológico','Alfabetización en IA y herramientas digitales','Gestión de carrera y marca personal','Networking y construcción de redes','Comunicación profesional escrita y oral','Negociación salarial y contractual','Pensamiento financiero y económico']
+    },
   };
   const allMarcos = [
     { abbr: 'OCDE', name: 'Learning Compass 2030' },
@@ -436,8 +490,8 @@
     const data = mgData[eje];
     document.getElementById('mg-result-title').textContent = data.name;
     document.getElementById('mg-result-badge').textContent = data.marcos.length + '/10 marcos';
-    const grid = document.getElementById('mg-result-grid');
-    grid.innerHTML = allMarcos.map(m => {
+    // Marcos
+    document.getElementById('mg-result-grid').innerHTML = allMarcos.map(m => {
       const lit = data.marcos.includes(m.abbr);
       return `<div class="mg-marco ${lit ? 'mg-marco--lit' : 'mg-marco--dim'}">
         <span class="mg-marco__abbr">${m.abbr}</span>
@@ -445,9 +499,27 @@
         <div class="mg-marco__dot"></div>
       </div>`;
     }).join('');
+    // Destrezas laborales
+    document.getElementById('mg-skills-list').innerHTML = data.skills.map(s =>
+      `<span class="mg-skill">${s}</span>`
+    ).join('');
   }
 
-  // Init con Colaboración seleccionada
+  // Click fuera deselecciona
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mg-eje') && !e.target.closest('.mg-result')) {
+      document.querySelectorAll('.mg-eje').forEach(b => b.classList.remove('mg-eje--active'));
+      document.getElementById('mg-result').style.opacity = '0.4';
+    }
+  });
+  // Re-mostrar al seleccionar
+  document.querySelectorAll('.mg-eje').forEach(b => {
+    b.addEventListener('click', () => {
+      document.getElementById('mg-result').style.opacity = '1';
+    });
+  });
+
+  // Init
   document.addEventListener('DOMContentLoaded', () => {
     const first = document.querySelector('.mg-eje--active');
     if (first) selectEje(first);
