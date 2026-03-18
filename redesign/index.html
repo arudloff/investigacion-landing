@@ -28,66 +28,45 @@
        Inspirado en: Bloomberg Visual, The Pudding, Information is Beautiful
        ═══════════════════════════════════════════════ -->
 
-  <!-- HERO STAT — gradient mesh background + glass card -->
-  <section class="ig-hero-section">
-    <!-- Gradient mesh animated blobs -->
-    <div class="ig-mesh">
-      <div class="ig-mesh__blob ig-mesh__blob--1"></div>
-      <div class="ig-mesh__blob ig-mesh__blob--2"></div>
-      <div class="ig-mesh__blob ig-mesh__blob--3"></div>
-    </div>
+  <!-- PANEL DE DATOS — compacto, integrado con el split que sigue -->
+  <section class="section" style="background:var(--color-primary-dark);color:#fff;padding:var(--space-2xl) 0 var(--space-xl)">
+    <div class="container" style="max-width:950px">
 
-    <div class="container" style="position:relative;z-index:1;text-align:center;padding:var(--space-3xl) 0">
-      <p class="anim" style="font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.4);margin-bottom:var(--space-lg)">El dato que lo resume todo</p>
-
-      <!-- Glass card with hero number -->
-      <div class="ig-glass anim">
-        <p class="ig-hero-num" id="ig-hero" data-count="300">0</p>
-        <p style="font-size:clamp(1rem,2vw,1.4rem);font-weight:600;color:rgba(255,255,255,.9);margin-top:.2rem">millones de empleos expuestos a IA generativa</p>
-        <p style="font-size:.75rem;color:rgba(255,255,255,.35);margin-top:.5rem">Goldman Sachs, 2023 · Y esto fue antes de GPT-4</p>
-
-        <!-- Proportional bar -->
-        <div style="margin-top:var(--space-lg);max-width:500px;margin-left:auto;margin-right:auto">
-          <div style="display:flex;justify-content:space-between;font-size:.65rem;color:rgba(255,255,255,.3);margin-bottom:.25rem">
-            <span>0</span><span>Empleo global: ~3.400M</span>
+      <!-- Dato principal + 3 secundarios en una fila -->
+      <div class="ig-panel anim" id="ig-panel">
+        <div class="ig-panel__main">
+          <p class="ig-panel__num" id="ig-hero" data-count="300" data-suffix="M">0</p>
+          <p class="ig-panel__desc">empleos expuestos a IA generativa en el mundo</p>
+          <p class="ig-panel__src">Goldman Sachs, 2023</p>
+          <!-- Barra proporcional -->
+          <div style="margin-top:var(--space-md)">
+            <div style="height:6px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden">
+              <div class="ig-bar" style="height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,#FF6B6B,#FFD93D);transition:width 2s cubic-bezier(.16,1,.3,1)" data-width="9%"></div>
+            </div>
+            <p style="font-size:.6rem;color:rgba(255,255,255,.25);margin-top:.2rem">9% del empleo mundial — solo con IA generativa</p>
           </div>
-          <div style="height:10px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden">
-            <div class="ig-bar" style="height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,#FF6B6B,#FFD93D);transition:width 2.5s cubic-bezier(.16,1,.3,1)" data-width="9%"></div>
+        </div>
+        <div class="ig-panel__secondary">
+          <div class="ig-panel__stat anim ig-stagger" style="--delay:0">
+            <span class="ig-panel__stat-num" data-count="92" data-suffix="M">0</span>
+            <span class="ig-panel__stat-label">empleos desplazados para 2030</span>
+            <span class="ig-panel__stat-src">WEF, 2025</span>
           </div>
-          <p style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:.25rem">▲ 9% del empleo mundial — solo con IA generativa</p>
+          <div class="ig-panel__stat anim ig-stagger" style="--delay:1">
+            <span class="ig-panel__stat-num" data-count="65" data-suffix="%">0</span>
+            <span class="ig-panel__stat-label">niños trabajarán en empleos que no existen</span>
+            <span class="ig-panel__stat-src">WEF, 2025</span>
+          </div>
+          <div class="ig-panel__stat anim ig-stagger" style="--delay:2">
+            <span class="ig-panel__stat-num" data-count="900" data-suffix="%">0</span>
+            <span class="ig-panel__stat-label">crecimiento de contenido falso por IA cada año</span>
+            <span class="ig-panel__stat-src">WEF/Sumsub, 2024</span>
+          </div>
         </div>
       </div>
 
-      <!-- 3 mini-stats debajo del glass — staggered reveal -->
-      <div class="ig-mini-row">
-        <div class="ig-mini anim ig-stagger" style="--delay:0">
-          <span class="ig-mini__num" data-count="92" data-suffix="M">0</span>
-          <span class="ig-mini__label">desplazados<br>para 2030</span>
-        </div>
-        <div class="ig-mini__divider"></div>
-        <div class="ig-mini anim ig-stagger" style="--delay:1">
-          <span class="ig-mini__num" data-count="65" data-suffix="%">0</span>
-          <span class="ig-mini__label">niños trabajarán en<br>empleos que no existen</span>
-        </div>
-        <div class="ig-mini__divider"></div>
-        <div class="ig-mini anim ig-stagger" style="--delay:2">
-          <span class="ig-mini__num" data-count="900" data-suffix="%">0</span>
-          <span class="ig-mini__label">crecimiento anual<br>contenido falso por IA</span>
-        </div>
-      </div>
-
-      <!-- Scroll prompt -->
-      <div class="ig-scroll-hint anim" style="margin-top:var(--space-xl)">
-        <div class="ig-scroll-hint__arrow"></div>
-        <span style="font-size:.65rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.15em">Descubre qué significa esto</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- PREGUNTA PERSONAL — interpela al visitante -->
-  <section style="background:var(--color-white);padding:var(--space-xl) 0;text-align:center">
-    <div class="container" style="max-width:700px">
-      <p class="anim ig-question">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
+      <!-- Pregunta puente -->
+      <p class="anim" style="text-align:center;margin-top:var(--space-xl);font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.7);font-weight:500">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
     </div>
   </section>
 
@@ -188,27 +167,15 @@
     const ease = x => x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
     (function f(n){const pr=Math.min((n-st)/d,1);el.textContent=p+Math.round(t*ease(pr))+s;if(pr<1)requestAnimationFrame(f)})(st);
   }
-  // Hero
-  new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){animCount(e.target);
-    // Hero bar
-    e.target.closest('section').querySelectorAll('.ig-bar').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.width},600)});
-    // Mini stats
-    e.target.closest('section').querySelectorAll('[data-count]').forEach(el=>animCount(el));
-  }})},{threshold:.3}).observe(document.getElementById('ig-hero'));
-
-  // Parallax blobs on scroll
-  const meshSection = document.querySelector('.ig-hero-section');
-  if (meshSection) {
-    window.addEventListener('scroll', () => {
-      const rect = meshSection.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const scrollPct = -rect.top / (rect.height + window.innerHeight);
-      const blobs = meshSection.querySelectorAll('.ig-mesh__blob');
-      blobs[0] && (blobs[0].style.transform = `translate(${scrollPct*40}px, ${scrollPct*-30}px) scale(${1+scrollPct*.1})`);
-      blobs[1] && (blobs[1].style.transform = `translate(${scrollPct*-25}px, ${scrollPct*20}px) scale(${1-scrollPct*.05})`);
-      blobs[2] && (blobs[2].style.transform = `translate(${scrollPct*15}px, ${scrollPct*25}px) scale(${1+scrollPct*.08})`);
-    }, { passive: true });
+  // Panel stats
+  const panel = document.getElementById('ig-panel');
+  if (panel) {
+    new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
+      e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
+      e.target.querySelectorAll('.ig-bar').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.width},600)});
+    })},{threshold:.2}).observe(panel);
   }
+
   // Stagger animations
   document.querySelectorAll('.ig-stagger').forEach(el => {
     const d = parseInt(el.style.getPropertyValue('--delay') || 0);
