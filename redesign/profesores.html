@@ -307,8 +307,23 @@
   <section class="prof-hero">
     <div class="container">
       <h1 class="prof-hero__title anim">La humanidad necesita tu <span class="prof-hero__accent">mejor versión</span> como educador. Ahora.</h1>
-      <p class="prof-hero__sub anim">Estás viviendo el salto evolutivo más grande en la historia de la educación. No viniste a administrar un modelo que ya no funciona. Viniste a construir el que viene. Y no tienes que hacerlo solo.</p>
+      <p class="prof-hero__sub anim" id="prof-mantra">Estás viviendo el salto evolutivo más grande en la historia de la educación. No viniste a administrar un modelo que ya no funciona. Viniste a construir el que viene. Y no tienes que hacerlo solo.</p>
       <a href="#verdad" class="btn--green-light anim">Lo que nadie te dijo en la universidad &rarr;</a>
+      <script>
+      (function(){
+        var m = [
+          'Estás viviendo el salto evolutivo más grande en la historia de la educación. No viniste a administrar un modelo que ya no funciona. Viniste a construir el que viene. Y no tienes que hacerlo solo.',
+          'La humanidad no necesita más transmisores de información. Necesita provocadores de pensamiento. Personas que despierten preguntas donde antes solo había respuestas memorizadas.',
+          'Cada clase es una oportunidad de plantar una semilla que el sistema tradicional no puede dar. Y cada semilla que plantas cambia una trayectoria de vida.',
+          'Innovar dentro de un sistema que resiste el cambio es el acto más valiente de la educación contemporánea. Y tú ya decidiste hacerlo.',
+          'No te formaron para esto. Pero aquí estás — cuestionando, rediseñando, transformando. Eso te convierte en exactamente el tipo de educador que este momento histórico necesita.',
+          'Un profesor que piensa críticamente enseña a pensar críticamente. Un profesor que se atreve a crear enseña a crear. El ejemplo es el currículo invisible más poderoso que existe.',
+          'Por cada año que un profesor transforma su práctica, egresan jóvenes que saben pensar, colaborar y adaptarse. Eso no se mide en una prueba estandarizada — se mide en vidas.',
+          'El aula no es un lugar donde se repite el pasado. Es el único lugar donde se puede ensayar el futuro con seguridad — si el profesor decide que así sea.',
+        ];
+        document.getElementById('prof-mantra').textContent = m[Math.floor(Math.random() * m.length)];
+      })();
+      </script>
     </div>
   </section>
 

@@ -369,8 +369,27 @@
        ═══════════════════════════════════════════════ -->
   <section class="est-close">
     <div class="container">
-      <p class="est-close__question anim">¿Qué problema del mundo vas a empezar a resolver hoy?</p>
-      <p class="est-close__sub anim">No tienes que tener la respuesta completa. Solo tienes que empezar a hacerte la pregunta.</p>
+      <p class="est-close__question anim" id="est-question">¿Qué problema del mundo vas a empezar a resolver hoy?</p>
+      <p class="est-close__sub anim" id="est-sub">No tienes que tener la respuesta completa. Solo tienes que empezar a hacerte la pregunta.</p>
+      <script>
+      (function(){
+        const qs = [
+          ['¿Qué problema del mundo vas a empezar a resolver hoy?','No tienes que tener la respuesta completa. Solo tienes que empezar a hacerte la pregunta.'],
+          ['¿Qué cambiarías de tu ciudad si pudieras empezar mañana?','Las mejores ideas no nacen de la teoría. Nacen de mirar tu entorno con ojos nuevos.'],
+          ['¿Qué problema ves todos los días que nadie está resolviendo?','Ahí hay una oportunidad. Y probablemente tienes más herramientas de las que crees.'],
+          ['¿Qué harías si supieras que no puedes fallar?','Ahora pregúntate: ¿y si el único fracaso real fuera no intentarlo?'],
+          ['¿Qué idea llevas semanas dándole vueltas sin contársela a nadie?','Las ideas que no se comparten mueren en silencio. Las que se comparten transforman el mundo.'],
+          ['¿A quién admiras y qué hizo esa persona que tú también podrías hacer?','La diferencia entre admirar y actuar es una sola decisión.'],
+          ['¿Qué sabes hacer que podría ayudar a alguien al otro lado del planeta?','La distancia ya no es un obstáculo. Tu talento puede llegar a donde tú quieras llevarlo.'],
+          ['¿Qué pregunta te gustaría que tu colegio te hiciera — y nunca te ha hecho?','A veces la mejor educación empieza cuando alguien se atreve a hacer la pregunta incómoda.'],
+          ['¿Qué mundo quieres que exista cuando tengas 30 años?','Ese mundo no se construye solo. Se construye con cada decisión que tomas hoy.'],
+          ['¿Qué te indigna lo suficiente como para dedicarle tu energía?','La indignación sin acción es frustración. La indignación con propósito es el motor del cambio.'],
+        ];
+        const i = Math.floor(Math.random() * qs.length);
+        document.getElementById('est-question').textContent = qs[i][0];
+        document.getElementById('est-sub').textContent = qs[i][1];
+      })();
+      </script>
       <a href="visita.html" class="btn--purple-light anim">Cuéntanos tu idea &rarr;</a>
     </div>
   </section>

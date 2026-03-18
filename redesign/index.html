@@ -20,7 +20,26 @@
     <div class="container">
       <h1 class="anim">El mundo cambió</h1>
       <p class="anim hero__subhead"><span>Ahora Aprender a </span><span class="hero__swap"><span class="hero__strike">APRENDER</span><span class="hero__correct">SOLUCIONAR CON IA</span></span><span> es la Respuesta</span></p>
-      <p class="hero__quote anim">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
+      <p class="hero__quote anim" id="hero-rotating" style="transition:opacity 0.4s ease">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
+      <script>
+      (function(){
+        const phrases = [
+          'IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.',
+          'El 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen. La pregunta no es si el mundo cambió — es si la educación que reciben está a la altura de ese cambio.',
+          '300 millones de empleos expuestos a IA generativa. 92 millones desplazados para 2030. Y la única respuesta que escala al ritmo del problema es la educación.',
+          'Las habilidades cambian un 66% más rápido en empleos expuestos a IA. Lo que un joven aprende hoy puede ser obsoleto antes de que termine la carrera. La capacidad de aprender a aprender es la única destreza que no caduca.',
+          'Los contenidos falsos generados por IA crecen 900% anual. En un mundo donde cualquiera puede fabricar una mentira convincente en 3 segundos, el pensamiento crítico dejó de ser deseable — es supervivencia.',
+          'Un estudiante en Talca puede trabajar con una startup en Berlín, publicar con una universidad en Tokio, o resolver un problema en Ghana. La geografía dejó de ser un límite. La educación que recibe, no.',
+          'Klarna, IBM, UPS, Chegg: las empresas más grandes del mundo descubrieron que la IA no puede reemplazar la empatía, el juicio ni la creatividad. Exactamente lo que una educación de vanguardia desarrolla.',
+          'Las startups de un solo empleado pasaron del 22% al 38% en menos de una década. Una persona con las destrezas correctas y las herramientas de IA tiene más impacto que un departamento entero sin ellas.',
+        ];
+        const key = 'cch_hero_idx';
+        let idx = parseInt(sessionStorage.getItem(key) || '-1');
+        idx = (idx + 1) % phrases.length;
+        sessionStorage.setItem(key, idx);
+        document.getElementById('hero-rotating').textContent = phrases[idx];
+      })();
+      </script>
     </div>
   </section>
 

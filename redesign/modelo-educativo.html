@@ -196,6 +196,31 @@
       <p class="text-center mt-4 anim text-sm" style="color:#666"><strong>10 de 10 marcos</strong> coinciden en pensamiento crítico, agencia y colaboración. <strong>9 de 10</strong> en adaptabilidad y aprendizaje continuo. Cada dato respalda lo que el Colegio Camilo Henríquez ya hace.</p>
     </div>
   </section>
+  <style>
+    /* Checkmarks se encienden secuencialmente */
+    table td:not(:first-child) {
+      opacity: 0;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+    table td.td--visible { opacity: 1; }
+    table td.td--visible:not(:empty) { color: var(--color-accent-green); font-weight: 700; font-size: 1rem; }
+  </style>
+  <script>
+  (function(){
+    const tableObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var cells = e.target.querySelectorAll('tbody td:not(:first-child)');
+        cells.forEach(function(cell, i) {
+          setTimeout(function(){ cell.classList.add('td--visible'); }, i * 60);
+        });
+        tableObs.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    var tbl = document.querySelector('table');
+    if (tbl) tableObs.observe(tbl);
+  })();
+  </script>
 
   <!-- MARCO GLOBAL v2 — Visualización interactiva mejorada -->
   <section class="section" style="background:var(--color-dark-deep);background-image:var(--texture-dots);background-size:var(--texture-dots-size);padding:var(--space-3xl) 0;overflow:hidden">
