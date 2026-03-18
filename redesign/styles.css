@@ -477,7 +477,7 @@ table th, table td {
 }
 .footer__address { font-size: 0.78rem; margin-bottom: 0.3rem; }
 
-/* --- INFOGRAFÍA INTERACTIVA — luminosa, moderna --- */
+/* --- INFOGRAFÍA VISUAL — tipo póster, no grilla de cards --- */
 .infog-tabs {
   display: flex;
   gap: var(--space-sm);
@@ -612,6 +612,120 @@ table th, table td {
 @media (max-width: 480px) {
   .infog-grid { grid-template-columns: 1fr; }
   .infog-tab { font-size: 0.75rem; padding: 0.45rem 0.9rem; }
+}
+
+/* --- INFOGRAFÍA 3 COLUMNAS — Desafío / Cambio / Oportunidad --- */
+.ig-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+.ig-col {
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-md);
+  border-top: 5px solid transparent;
+}
+.ig-col--red { border-top-color: #FF6B6B; }
+.ig-col--blue { border-top-color: var(--color-primary-mid); }
+.ig-col--green { border-top-color: #51CF66; }
+.ig-col__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.ig-col__icon { font-size: 1.6rem; }
+.ig-col__tag {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: .25rem .7rem;
+  border-radius: var(--radius-pill);
+}
+.ig-col__tag--red { background: #FFF0F0; color: #C92A2A; }
+.ig-col__tag--blue { background: var(--color-primary-light); color: var(--color-primary-mid); }
+.ig-col__tag--green { background: var(--color-green-light); color: var(--color-accent-green); }
+
+.ig-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  cursor: pointer;
+  transition: background .2s;
+}
+.ig-item:last-child { border-bottom: none; }
+.ig-item:hover { background: rgba(0,0,0,.015); margin: 0 calc(-1 * var(--space-md)); padding-left: var(--space-md); padding-right: var(--space-md); border-radius: var(--radius); }
+.ig-item__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+.ig-item__num {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.ig-item__num--red { color: #ee5a24; }
+.ig-item__num--blue { color: var(--color-primary-mid); }
+.ig-item__num--green { color: var(--color-accent-green); }
+.ig-item__text {
+  font-size: .82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+}
+.ig-item__bar {
+  height: 6px;
+  background: rgba(0,0,0,.04);
+  border-radius: 100px;
+  margin-top: .5rem;
+  overflow: hidden;
+}
+.ig-item__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 100px;
+  transition: width 1.5s cubic-bezier(.4,0,.2,1);
+}
+.ig-item__fill--red { background: linear-gradient(90deg, #FF6B6B, #ee5a24); }
+.ig-item__fill--blue { background: linear-gradient(90deg, var(--color-primary-mid), var(--color-teal)); }
+.ig-item__fill--green { background: linear-gradient(90deg, #51CF66, var(--color-accent-green)); }
+.ig-item__src {
+  display: block;
+  font-size: .6rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin-top: .3rem;
+}
+.ig-item__detail {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
+  font-size: .8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+.ig-item--open .ig-item__detail {
+  max-height: 150px;
+  opacity: 1;
+  margin-top: .5rem;
+  padding: .5rem;
+  background: rgba(0,0,0,.02);
+  border-radius: var(--radius);
+}
+@media (max-width: 1024px) {
+  .ig-cols { grid-template-columns: 1fr 1fr; }
+  .ig-col--green { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  .ig-cols { grid-template-columns: 1fr; }
+  .ig-col--green { grid-column: auto; }
 }
 
 /* --- DASHBOARD (legacy — can remove if unused) --- */
