@@ -148,6 +148,76 @@
     .dx-dim__bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
     .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
 
+    /* Tips desplegables en barras */
+    .dx-dim { cursor: pointer; }
+    .dx-dim__tip {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      font-size: .85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      background: rgba(245,166,35,0.04);
+      border-radius: 8px;
+      padding: 0;
+      margin-top: 0;
+    }
+    .dx-dim--open .dx-dim__tip {
+      max-height: 200px;
+      padding: .75rem 1rem;
+      margin-top: .5rem;
+    }
+    .dx-dim__expand {
+      font-size: .65rem;
+      color: rgba(245,166,35,0.5);
+      margin-left: .5rem;
+    }
+    .dx-dim--open .dx-dim__expand { display: none; }
+
+    /* Recomendaciones */
+    .dx-recs { margin-bottom: 2rem; }
+    .dx-recs__title { font-size: .8rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: .75rem; }
+    .dx-recs__list { display: flex; flex-direction: column; gap: 8px; }
+    .dx-rec {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: .75rem 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .dx-rec:hover { background: rgba(245,166,35,0.06); border-color: rgba(245,166,35,0.2); text-decoration: none; }
+    .dx-rec__icon { font-size: 1.2rem; flex-shrink: 0; }
+    .dx-rec__text { font-size: .85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+    .dx-rec__text strong { color: var(--color-amber); }
+    .dx-rec__arrow { color: rgba(255,255,255,0.3); margin-left: auto; flex-shrink: 0; }
+
+    /* Tarjeta compartible */
+    .dx-card { max-width: 400px; margin: 0 auto 2rem; }
+    .dx-card__inner {
+      background: linear-gradient(145deg, #0D1F3C, #0A1628);
+      border: 2px solid rgba(245,166,35,0.2);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .dx-card__badge { font-size: .7rem; color: var(--color-amber); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-bottom: .75rem; }
+    .dx-card__score { font-size: 3.5rem; font-weight: 800; color: var(--color-amber); line-height: 1; }
+    .dx-card__label { font-size: .8rem; color: rgba(255,255,255,0.5); margin-top: .3rem; margin-bottom: 1.25rem; }
+    .dx-card__dims { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .dx-card__dim {
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: .3rem .6rem;
+      font-size: .65rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .dx-card__dim strong { color: var(--color-amber); margin-right: 3px; }
+    .dx-card__footer { margin-top: 1.25rem; font-size: .6rem; color: rgba(255,255,255,0.25); letter-spacing: .02em; }
+
     /* Benchmarks */
     .dx-bench { text-align: center; margin-bottom: 2rem; }
     .dx-bench__title { font-size: .75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: .75rem; }
@@ -251,6 +321,7 @@
 
       <div class="dx-scores" id="dx-scores"></div>
 
+      <!-- Barras con tips desplegables -->
       <div class="dx-dims" id="dx-dims"></div>
 
       <div class="dx-insight" id="dx-insight">
@@ -260,6 +331,29 @@
       <div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">
         <div class="dx-insight__title" style="color:var(--color-primary-mid)">Tu mayor oportunidad de crecimiento</div>
         <p class="dx-insight__text" id="dx-insight-growth"></p>
+      </div>
+
+      <!-- Recomendaciones personalizadas -->
+      <div class="dx-recs" id="dx-recs">
+        <div class="dx-recs__title">Recursos recomendados para ti</div>
+        <div class="dx-recs__list" id="dx-recs-list"></div>
+      </div>
+
+      <!-- Tarjeta compartible -->
+      <div class="dx-card" id="dx-card">
+        <div class="dx-card__inner" id="dx-card-inner">
+          <div class="dx-card__badge" id="dx-card-badge"></div>
+          <div class="dx-card__score" id="dx-card-score"></div>
+          <div class="dx-card__label">Score Siglo XXI</div>
+          <div class="dx-card__dims" id="dx-card-dims"></div>
+          <div class="dx-card__footer">colegiocamilohenriquez.cl/redesign/autodiagnostico.html</div>
+        </div>
+        <p style="text-align:center;font-size:.75rem;color:rgba(255,255,255,0.4);margin-top:.75rem">Haz screenshot de esta tarjeta y compártela</p>
+      </div>
+
+      <!-- Contador social -->
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <span style="font-size:.82rem;color:rgba(255,255,255,0.4)">🧭 <strong id="dx-counter" style="color:var(--color-amber)">0</strong> personas han completado este diagnóstico</span>
       </div>
 
       <div class="dx-share">
@@ -380,6 +474,26 @@
   let activeBenchmark = null;
   let userScores = [];
 
+  // Tips prácticos por dimensión (genéricos, aplican a todos los perfiles)
+  const dimTips = {
+    0: ['Esta semana, antes de compartir cualquier información, pregúntate: ¿quién es la fuente? ¿Tiene algo que ganar con que yo crea esto?', 'Practica el "abogado del diablo": elige una opinión que tengas y busca 3 argumentos en contra. Fortalece tu músculo de análisis.', 'Lee un artículo sobre un tema que no dominas y escribe en una línea lo que entendiste. Si no puedes, vuelve a leerlo.'],
+    1: ['Toma un problema cotidiano y genera 10 soluciones en 5 minutos — sin filtrar. La cantidad precede a la calidad.', 'Cambia una rutina esta semana: ve por otro camino, usa otra herramienta, prueba otro orden. La creatividad nace de romper patrones.', 'Conecta dos ideas que no tienen relación aparente. ¿Qué pasa si aplicas la lógica de un restaurante a una sala de clases?'],
+    2: ['En tu próxima reunión, escucha el doble de lo que hablas. Anota lo que otros dicen antes de responder.', 'Pide feedback a alguien con quien trabajaste esta semana. Una pregunta: ¿qué podría haber hecho mejor?', 'Propón un proyecto donde cada persona aporte algo que solo ella sabe hacer. La colaboración real nace de la diversidad.'],
+    3: ['Elige una habilidad que quieras desarrollar y dedícale 20 minutos diarios esta semana — sin que nadie te lo pida.', 'Escribe 3 metas para el mes. Al final de cada semana, revisa tu avance. La autonomía se entrena con estructura propia.', 'Toma una decisión pequeña que normalmente delegas. Observa qué pasa cuando te haces cargo.'],
+    4: ['Hoy, cuando alguien te cuente algo, no respondas con un consejo. Solo escucha y pregunta: ¿cómo te sientes con eso?', 'Cuando sientas frustración, pausa 10 segundos antes de reaccionar. Nombra la emoción en silencio. Eso es regulación emocional.', 'Practica dar un cumplido genuino y específico a alguien esta semana. La empatía se construye con micro-acciones.'],
+    5: ['Identifica algo en tu trabajo o vida que cambió en el último año. ¿Cómo te adaptaste? Si no lo hiciste, ¿qué te detuvo?', 'Aprende a usar una herramienta de IA esta semana (ChatGPT, Canva AI, cualquiera). 20 minutos bastan para entender su potencial.', 'La próxima vez que algo no salga como esperabas, escribe qué aprendiste antes de frustrarte. La adaptabilidad se entrena.'],
+  };
+
+  // Recomendaciones de páginas del sitio por dimensión
+  const dimRecs = {
+    0: { icon: '🧠', text: '<strong>Pensamiento complejo</strong> — Cómo desarrollamos esta destreza en el aula', href: 'modelo-educativo.html' },
+    1: { icon: '💡', text: '<strong>Creatividad</strong> — Por qué es la 4ª habilidad más demandada al 2030', href: 'modelo-educativo.html' },
+    2: { icon: '🤝', text: '<strong>Colaboración</strong> — El 92% de los reclutadores la prioriza', href: 'modelo-educativo.html' },
+    3: { icon: '🎯', text: '<strong>Autonomía</strong> — La destreza que integra a todas las demás (OCDE)', href: 'modelo-educativo.html' },
+    4: { icon: '❤️', text: '<strong>Socioemocional</strong> — +11 puntos en rendimiento con 270.000 estudiantes', href: 'modelo-educativo.html' },
+    5: { icon: '💼', text: '<strong>Adaptabilidad</strong> — +56% de empleabilidad en la era de la IA', href: 'modelo-educativo.html' },
+  };
+
   const insightPool = {
     strength: [
       'Esta es la base sobre la que puedes construir todo lo demás. Las personas y organizaciones que dominan esta dimensión tienen una ventaja que la IA no puede replicar.',
@@ -492,13 +606,15 @@
       <div class="dx-score" style="border-left-color:var(--color-primary-mid)"><div class="dx-score__val" style="color:var(--color-primary-mid)">${scores[minDim]}%</div><div class="dx-score__label">Mayor oportunidad</div></div>
     `;
 
-    // Dimension bars
-    document.getElementById('dx-dims').innerHTML = dims.map((name, i) => `
-      <div class="dx-dim">
-        <div class="dx-dim__header"><span class="dx-dim__name">${name}</span><span class="dx-dim__pct">${scores[i]}%</span></div>
+    // Dimension bars with tips
+    document.getElementById('dx-dims').innerHTML = dims.map((name, i) => {
+      const tip = dimTips[i][Math.floor(Math.random() * dimTips[i].length)];
+      return `<div class="dx-dim" onclick="this.classList.toggle('dx-dim--open')">
+        <div class="dx-dim__header"><span class="dx-dim__name">${name} <span class="dx-dim__expand">toca para ver un tip →</span></span><span class="dx-dim__pct">${scores[i]}%</span></div>
         <div class="dx-dim__bar"><div class="dx-dim__fill" id="dx-bar-${i}"></div></div>
-      </div>
-    `).join('');
+        <div class="dx-dim__tip">💡 ${tip}</div>
+      </div>`;
+    }).join('');
     // Animate bars
     setTimeout(() => {
       dims.forEach((_, i) => { document.getElementById('dx-bar-' + i).style.width = scores[i] + '%'; });
@@ -522,6 +638,31 @@
     const gp = insightPool.growth;
     document.getElementById('dx-insight-strength').innerHTML = `<strong>${dims[maxDim]} (${scores[maxDim]}%):</strong> ${sp[Math.floor(Math.random()*sp.length)]}`;
     document.getElementById('dx-insight-growth').innerHTML = `<strong>${dims[minDim]} (${scores[minDim]}%):</strong> ${gp[Math.floor(Math.random()*gp.length)]}`;
+
+    // Recomendaciones personalizadas (top 3 dimensiones más bajas)
+    const ranked = scores.map((s, i) => ({ s, i })).sort((a, b) => a.s - b.s);
+    const topRecs = ranked.slice(0, 3);
+    document.getElementById('dx-recs-list').innerHTML = topRecs.map(({ i }) => {
+      const rec = dimRecs[i];
+      return `<a href="${rec.href}" class="dx-rec">
+        <span class="dx-rec__icon">${rec.icon}</span>
+        <span class="dx-rec__text">${rec.text}</span>
+        <span class="dx-rec__arrow">→</span>
+      </a>`;
+    }).join('');
+
+    // Tarjeta compartible
+    document.getElementById('dx-card-badge').textContent = data.label.toUpperCase();
+    document.getElementById('dx-card-score').textContent = total + '%';
+    document.getElementById('dx-card-dims').innerHTML = dims.map((name, i) =>
+      `<span class="dx-card__dim"><strong>${scores[i]}%</strong> ${name}</span>`
+    ).join('');
+
+    // Contador social (localStorage)
+    var cnt = parseInt(localStorage.getItem('dx_count') || '247');
+    cnt++;
+    localStorage.setItem('dx_count', cnt);
+    document.getElementById('dx-counter').textContent = cnt;
 
     // Scroll to results
     document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
