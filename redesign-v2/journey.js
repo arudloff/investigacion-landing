@@ -59,95 +59,58 @@ const PAGE_NAMES = {
 };
 
 // ==========================================
-// REACCIONES EN PÁRRAFOS
+// MARCADO DE PÁRRAFOS — un click, sin picker
 // ==========================================
 function initReactions() {
-  var targets = document.querySelectorAll(
-    'main p, main .card__text, main .est-barrier__text, main .prof-reality__card p, ' +
-    'main .col-card__text, main .est-agentic__text, main .est-agentic__phrase, ' +
-    'main .prof-identity__phrase, main .prof-identity__text, main .prof-challenge__text, ' +
-    'main .prof-build-item p, main .est-build-item p, main .col-build p, ' +
-    'main .hero__quote, main .ig-question'
-  );
-
+  // Selector amplio: todos los párrafos, textos de cards, frases de manifiesto
+  var all = document.querySelectorAll('main *');
   var s = getS();
 
-  targets.forEach(function(el) {
-    if (el.textContent.trim().length < 40) return;
-    if (el.closest('.tb-panel, .nb-panel, footer, nav, .rx-picker, script')) return;
+  all.forEach(function(el) {
+    // Solo elementos de texto con contenido suficiente
+    var tag = el.tagName;
+    if (tag !== 'P' && tag !== 'LI' && !el.classList.contains('card__text') &&
+        !el.classList.contains('card__title') && tag !== 'H2' && tag !== 'H3') return;
+    if (el.textContent.trim().length < 30) return;
+    // Excluir elementos del sistema
+    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav, .navbar, .mobile-nav, .footer, script, style, .rx-trigger')) return;
+    // Excluir si tiene hijos interactivos (botones, links como contenido principal)
+    if (el.querySelector('button, .btn, .tab')) return;
 
     var key = getParaKey(el);
 
-    // Si ya tiene reacción, restaurar estilo
+    // Si ya marcado, restaurar estilo
     if (s.reactions[key]) {
-      applyReactionStyle(el, s.reactions[key].emoji);
+      applyMark(el);
       return;
     }
 
-    // Botón "+" visible al costado
+    // Agregar botón "+" al costado
     el.style.position = 'relative';
     var trigger = document.createElement('button');
     trigger.className = 'rx-trigger';
-    trigger.innerHTML = '+';
-    trigger.setAttribute('aria-label', 'Reaccionar');
+    trigger.textContent = '+';
+    trigger.setAttribute('aria-label', 'Destacar esta idea');
     trigger.addEventListener('click', function(evt) {
       evt.stopPropagation();
-      showPicker(el, trigger);
+      markParagraph(el);
     });
     el.appendChild(trigger);
   });
 }
 
-function showPicker(el, trigger) {
-  var old = document.querySelector('.rx-picker');
-  if (old) old.remove();
-
-  var picker = document.createElement('div');
-  picker.className = 'rx-picker';
-  picker.innerHTML = REACTIONS.map(function(r) {
-    return '<button class="rx-pick" data-emoji="' + r.emoji + '" data-label="' + r.label + '">' +
-      '<span class="rx-pick__emoji">' + r.emoji + '</span>' +
-      '<span class="rx-pick__label">' + r.label + '</span>' +
-      '</button>';
-  }).join('');
-
-  // Click handlers
-  picker.querySelectorAll('.rx-pick').forEach(function(btn) {
-    btn.addEventListener('click', function(evt) {
-      evt.stopPropagation();
-      doReaction(el, btn.dataset.emoji, btn.dataset.label);
-      picker.remove();
-    });
-  });
-
-  el.appendChild(picker);
-
-  setTimeout(function() { if (picker.parentNode) picker.remove(); }, 5000);
-
-  setTimeout(function() {
-    document.addEventListener('click', function closer(e) {
-      if (!e.target.closest('.rx-picker') && !e.target.closest('.rx-trigger')) {
-        if (picker.parentNode) picker.remove();
-        document.removeEventListener('click', closer);
-      }
-    });
-  }, 100);
-}
-
-function doReaction(el, emoji, label) {
+function markParagraph(el) {
   // Quitar trigger
   var trigger = el.querySelector('.rx-trigger');
   if (trigger) trigger.remove();
 
-  // Aplicar estilo
-  applyReactionStyle(el, emoji);
+  // Aplicar estilo visual
+  applyMark(el);
 
   // Guardar
   var key = getParaKey(el);
   var s = getS();
   s.reactions[key] = {
-    emoji: emoji,
-    label: label,
     page: currentPage(),
     text: el.textContent.trim().substring(0, 120),
     time: Date.now()
@@ -158,16 +121,16 @@ function doReaction(el, emoji, label) {
   updateNotebook();
   checkCTA();
 
-  // Flash sutil en el botón del cuaderno
+  // Flash en el botón del cuaderno
   var nbBtn = document.getElementById('nb-btn');
   if (nbBtn) {
-    nbBtn.style.transform = 'scale(1.2)';
+    nbBtn.style.transform = 'scale(1.15)';
     nbBtn.style.borderColor = 'var(--color-amber)';
     setTimeout(function() { nbBtn.style.transform = ''; nbBtn.style.borderColor = ''; }, 400);
   }
 }
 
-function applyReactionStyle(el, emoji) {
+function applyMark(el) {
   el.style.transition = 'background 0.3s, padding 0.3s';
   el.style.background = 'rgba(245,166,35,0.07)';
   el.style.padding = '8px 12px';
@@ -175,12 +138,12 @@ function applyReactionStyle(el, emoji) {
   el.style.borderLeft = '3px solid rgba(245,166,35,0.3)';
   el.style.position = 'relative';
 
+  // Badge ✓
   var oldBadge = el.querySelector('.rx-badge');
   if (oldBadge) oldBadge.remove();
-
   var badge = document.createElement('span');
   badge.className = 'rx-badge';
-  badge.textContent = emoji;
+  badge.textContent = '✓';
   el.appendChild(badge);
 }
 
@@ -245,7 +208,7 @@ function updateNotebook() {
     var pageName = PAGE_NAMES[page] || page;
     html += '<div class="nb-group">' + pageName + '</div>';
     byPage[page].forEach(function(r) {
-      html += '<div class="nb-item"><span class="nb-item__emoji">' + r.emoji + '</span><span class="nb-item__text">' + r.text + '</span></div>';
+      html += '<div class="nb-item"><span class="nb-item__check">✓</span><span class="nb-item__text">' + r.text + '</span></div>';
     });
   });
 
