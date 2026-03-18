@@ -101,7 +101,7 @@ function buildNavbar() {
   nav.innerHTML = `
     <div class="navbar__inner">
       <a href="index.html" class="navbar__brand">
-        <img src="logo-cch.png" alt="Logo Colegio Camilo Henríquez" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.9;object-fit:cover;object-position:top;clip-path:inset(0 0 28% 0)">
+        <img src="logo-cch.png" alt="Logo Colegio Camilo Henríquez" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.9;object-fit:cover;object-position:top;clip-path:inset(0 15% 28% 15%);margin-right:-6px">
         Colegio Camilo Henríquez
       </a>
       <div class="navbar__menu">${menuHTML}</div>
