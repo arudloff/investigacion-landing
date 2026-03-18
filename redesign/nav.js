@@ -154,7 +154,7 @@ function buildFooter() {
         </div>
       </div>
       <div class="footer__bottom">
-        <p>Nacido en el Colegio Camilo Henríquez, Talca, Chile · Diseñado para cualquier escuela del mundo</p>
+        <p style="text-align:center">Colegio Camilo Henríquez, Talca, Chile</p>
       </div>
     </div>
   `;
