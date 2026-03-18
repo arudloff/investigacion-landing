@@ -1649,15 +1649,20 @@ p > .btn { display: inline-flex; }
 /* ==========================================
    REACTION SYSTEM
    ========================================== */
-.rx-trigger {
-  position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
-  width: 26px; height: 26px; border-radius: 50%;
-  background: rgba(245,166,35,0.25); border: 2px solid var(--color-amber);
-  color: var(--color-amber); font-size: .9rem; font-weight: 800;
+/* Checkbox de marcado */
+.rx-check {
+  position: absolute; right: -6px; top: 4px;
+  width: 22px; height: 22px; border-radius: 4px;
+  background: rgba(255,255,255,0.04); border: 1.5px solid rgba(245,166,35,0.4);
+  color: var(--color-amber); font-size: .7rem; font-weight: 800;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-family: inherit; transition: all 0.2s; opacity: 0.85; z-index: 5; padding: 0;
+  font-family: inherit; transition: all 0.2s; z-index: 5; padding: 0;
+  line-height: 1;
 }
-.rx-trigger:hover { opacity: 1; background: var(--color-amber); color: var(--color-dark-deep); transform: translateY(-50%) scale(1.15); }
+.rx-check:hover { background: rgba(245,166,35,0.15); border-color: var(--color-amber); }
+.rx-check:empty { background: rgba(255,255,255,0.03); }
+/* rx-trigger kept as alias */
+.rx-trigger { display: none; }
 
 .rx-picker {
   position: absolute; top: -58px; left: 50%; transform: translateX(-50%);
@@ -1681,11 +1686,10 @@ p > .btn { display: inline-flex; }
 .rx-pick:hover { background: rgba(245,166,35,0.15); border-color: rgba(245,166,35,0.4); transform: scale(1.08); }
 .rx-pick:hover .rx-pick__label { color: var(--color-amber); }
 
-.rx-badge { display: inline-block; margin-left: 6px; font-size: .75rem; color: var(--color-amber); font-weight: 700; vertical-align: middle; animation: rxBadgeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes rxBadgeIn { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+/* Badge ya no se usa — el check está en el botón */
+
+/* Picker ya no se usa — marcado directo */
 
 @media (max-width: 768px) {
-  .rx-trigger { opacity: 0.6; right: -4px; }
-  .rx-picker { padding: 6px 8px; gap: 4px; }
-  .rx-pick { min-width: 48px; padding: 6px 4px; }
+  .rx-check { right: -2px; top: 2px; width: 20px; height: 20px; font-size: .65rem; }
 }

@@ -59,92 +59,100 @@ const PAGE_NAMES = {
 };
 
 // ==========================================
-// MARCADO DE PÁRRAFOS — un click, sin picker
+// MARCADO — checkbox en cards y secciones, toggle para desmarcar
 // ==========================================
 function initReactions() {
-  // Selector amplio: todos los párrafos, textos de cards, frases de manifiesto
-  var all = document.querySelectorAll('main *');
   var s = getS();
 
-  all.forEach(function(el) {
-    // Solo elementos de texto con contenido suficiente
-    var tag = el.tagName;
-    if (tag !== 'P' && tag !== 'LI' && !el.classList.contains('card__text') &&
-        !el.classList.contains('card__title') && tag !== 'H2' && tag !== 'H3') return;
+  // Para CARDS: checkbox que toma el card completo
+  document.querySelectorAll('main .card, main .contact-human, main .est-barrier, main .prof-reality__card, main .col-card, main .prof-challenge, main .prof-build-item, main .est-build-item, main .col-build, main .prof-together__col, main .col-col, main .ig-item, main .mg-skill, main .mg-career').forEach(function(card) {
+    if (card.closest('.nb-panel, .nb-cta-banner, footer, nav')) return;
+    if (card.textContent.trim().length < 20) return;
+    setupMarkable(card, s);
+  });
+
+  // Para PÁRRAFOS sueltos (no dentro de cards ya procesadas)
+  document.querySelectorAll('main p, main h2, main h3, main li').forEach(function(el) {
     if (el.textContent.trim().length < 30) return;
-    // Excluir elementos del sistema
-    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav, .navbar, .mobile-nav, .footer, script, style, .rx-trigger')) return;
-    // Excluir si tiene hijos interactivos (botones, links como contenido principal)
-    if (el.querySelector('button, .btn, .tab')) return;
-
-    var key = getParaKey(el);
-
-    // Si ya marcado, restaurar estilo
-    if (s.reactions[key]) {
-      applyMark(el);
-      return;
-    }
-
-    // Agregar botón "+" al costado
-    el.style.position = 'relative';
-    var trigger = document.createElement('button');
-    trigger.className = 'rx-trigger';
-    trigger.textContent = '+';
-    trigger.setAttribute('aria-label', 'Destacar esta idea');
-    trigger.addEventListener('click', function(evt) {
-      evt.stopPropagation();
-      markParagraph(el);
-    });
-    el.appendChild(trigger);
+    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav, .navbar, .mobile-nav, .footer, .card, .est-barrier, .prof-reality__card, .col-card, .prof-challenge, .prof-build-item, .est-build-item, .col-build, .prof-together__col, .col-col')) return;
+    if (el.querySelector('button, .btn, .tab, a.btn')) return;
+    setupMarkable(el, s);
   });
 }
 
-function markParagraph(el) {
-  // Quitar trigger
-  var trigger = el.querySelector('.rx-trigger');
-  if (trigger) trigger.remove();
-
-  // Aplicar estilo visual
-  applyMark(el);
-
-  // Guardar
+function setupMarkable(el, s) {
   var key = getParaKey(el);
-  var s = getS();
-  s.reactions[key] = {
-    page: currentPage(),
-    text: el.textContent.trim().substring(0, 120),
-    time: Date.now()
-  };
-  saveS(s);
+  el.style.position = 'relative';
+  el.dataset.markKey = key;
 
-  // Actualizar cuaderno y verificar CTA
-  updateNotebook();
-  checkCTA();
-
-  // Flash en el botón del cuaderno
-  var nbBtn = document.getElementById('nb-btn');
-  if (nbBtn) {
-    nbBtn.style.transform = 'scale(1.15)';
-    nbBtn.style.borderColor = 'var(--color-amber)';
-    setTimeout(function() { nbBtn.style.transform = ''; nbBtn.style.borderColor = ''; }, 400);
+  if (s.reactions[key]) {
+    applyMark(el, true);
+  } else {
+    applyMark(el, false);
   }
+
+  // Click en el checkbox toggle
+  var existing = el.querySelector('.rx-check');
+  if (existing) return;
+
+  var check = document.createElement('button');
+  check.className = 'rx-check';
+  check.innerHTML = s.reactions[key] ? '✓' : '';
+  check.setAttribute('aria-label', 'Marcar idea');
+  check.addEventListener('click', function(evt) {
+    evt.stopPropagation();
+    toggleMark(el);
+  });
+  el.appendChild(check);
 }
 
-function applyMark(el) {
-  el.style.transition = 'background 0.3s, padding 0.3s';
-  el.style.background = 'rgba(245,166,35,0.07)';
-  el.style.padding = '8px 12px';
-  el.style.borderRadius = '6px';
-  el.style.borderLeft = '3px solid rgba(245,166,35,0.3)';
-  el.style.position = 'relative';
+function toggleMark(el) {
+  var key = el.dataset.markKey;
+  var s = getS();
 
-  // Badge ✓
-  var oldBadge = el.querySelector('.rx-badge');
-  if (oldBadge) oldBadge.remove();
-  var badge = document.createElement('span');
-  badge.className = 'rx-badge';
-  badge.textContent = '✓';
-  el.appendChild(badge);
+  if (s.reactions[key]) {
+    // DESMARCAR
+    delete s.reactions[key];
+    saveS(s);
+    applyMark(el, false);
+    var check = el.querySelector('.rx-check');
+    if (check) check.innerHTML = '';
+  } else {
+    // MARCAR
+    s.reactions[key] = {
+      page: currentPage(),
+      text: el.textContent.trim().replace(/[✓\+]/g, '').substring(0, 120).trim(),
+      time: Date.now()
+    };
+    saveS(s);
+    applyMark(el, true);
+    var check = el.querySelector('.rx-check');
+    if (check) check.innerHTML = '✓';
+
+    // Flash en botón del cuaderno
+    var nbBtn = document.getElementById('nb-btn');
+    if (nbBtn) {
+      nbBtn.style.transform = 'scale(1.15)';
+      nbBtn.style.borderColor = 'var(--color-amber)';
+      setTimeout(function() { nbBtn.style.transform = ''; nbBtn.style.borderColor = ''; }, 400);
+    }
+  }
+
+  updateNotebook();
+  checkCTA();
+}
+
+function applyMark(el, isMarked) {
+  if (isMarked) {
+    el.style.transition = 'background 0.3s';
+    el.style.background = 'rgba(245,166,35,0.06)';
+    el.style.borderLeft = '3px solid rgba(245,166,35,0.35)';
+    el.style.borderRadius = '6px';
+  } else {
+    el.style.background = '';
+    el.style.borderLeft = '';
+    el.style.borderRadius = '';
+  }
 }
 
 // ==========================================
@@ -214,8 +222,8 @@ function updateNotebook() {
 
   // Acciones: copiar + compartir + borrar
   html += '<div class="nb-actions">' +
-    '<button onclick="copyNotebook()" class="nb-action-btn">📋 Copiar todo</button>' +
-    '<button onclick="shareNotebook()" class="nb-action-btn">📤 Compartir</button>' +
+    '<button onclick="copyNotebook()" class="nb-action-btn">📋 Copiar ideas</button>' +
+    '<button onclick="shareNotebook()" class="nb-action-btn">🦋 Enviar a alguien</button>' +
     '</div>' +
     '<div class="nb-actions" style="margin-top:.5rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
@@ -258,10 +266,19 @@ function copyNotebook() {
 
 function shareNotebook() {
   var s = getS();
-  var count = Object.keys(s.reactions).length;
-  var url = encodeURIComponent(window.location.origin + '/redesign-v2/index.html');
-  var text = encodeURIComponent('Marqué ' + count + ' ideas que me resonaron sobre educación del siglo XXI. ¿Cuáles te resuenan a ti?');
-  window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+  var keys = Object.keys(s.reactions);
+  if (!keys.length) return;
+
+  // Tomar las 3 ideas más recientes para compartir
+  var recent = keys.map(function(k) { return s.reactions[k]; })
+    .sort(function(a, b) { return b.time - a.time; })
+    .slice(0, 3);
+
+  var ideas = recent.map(function(r) { return '• ' + r.text.substring(0, 80); }).join('\n');
+  var url = window.location.origin + '/redesign-v2/index.html';
+  var text = 'Encontré estas ideas sobre educación que me hicieron pensar:\n\n' + ideas + '\n\n¿Qué opinas tú?\n' + url;
+
+  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
 }
 
 function clearNotebook() {
@@ -283,17 +300,19 @@ function checkCTA() {
   banner.className = 'nb-cta-banner anim';
 
   var messages = [
-    'Has marcado varias ideas que te resonaron. ¿Quieres conversar sobre cómo llevarlas a la práctica?',
-    'Tu cuaderno muestra que esto te importa. El siguiente paso es una conversación.',
-    'Las ideas que destacaste tienen algo en común: todas apuntan al futuro. ¿Quieres ser parte?',
+    'Has marcado varias ideas. ¿Conoces a alguien que necesite leerlas?',
+    'Las ideas que destacaste merecen salir de esta pantalla. ¿A quién se las enviarías?',
+    'Tu cuaderno muestra que esto te importa. Una conversación con la persona correcta puede cambiar todo.',
   ];
   var msg = messages[Math.floor(Math.random() * messages.length)];
 
   banner.innerHTML =
     '<div class="container" style="max-width:600px;text-align:center">' +
     '<p class="nb-cta-banner__text">' + msg + '</p>' +
-    '<a href="visita.html" class="nb-cta-banner__btn">Conversemos →</a>' +
-    '</div>';
+    '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+    '<button onclick="shareNotebook()" class="nb-cta-banner__btn">🦋 Enviar mis ideas a alguien</button>' +
+    '<a href="visita.html" class="nb-cta-banner__btn" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15)">Quiero conversar con el colegio</a>' +
+    '</div></div>';
 
   // Insertar antes de la última sección
   var sections = document.querySelectorAll('main > section, section');
