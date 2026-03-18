@@ -268,6 +268,29 @@ strong { font-weight: 600; color: var(--color-text); }
   margin-left: auto;
   margin-right: auto;
 }
+.hero__subhead {
+  font-size: clamp(1.2rem, 2.8vw, 1.8rem);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin: var(--space-md) auto var(--space-lg);
+  max-width: 720px;
+  line-height: 1.5;
+}
+.hero__strike {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #C92A2A;
+  color: var(--color-text-tertiary);
+  opacity: .6;
+  font-weight: 700;
+}
+.hero__correct {
+  font-weight: 800;
+  color: var(--color-accent-green);
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
 .hero__quote {
   font-size: clamp(1rem, 2vw, 1.15rem);
   font-style: italic;
