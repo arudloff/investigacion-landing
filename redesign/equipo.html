@@ -31,16 +31,20 @@
       stroke: rgba(46,109,164,0.06);
       stroke-width: 30;
     }
-    /* Anillo principal con gradiente animado */
+    /* Anillo principal — línea continua que pulsa como latido */
     .mindly__ring {
       fill: none;
       stroke: url(#ringGradient);
       stroke-width: 2;
-      stroke-dasharray: 8 4;
-      animation: ringRotate 30s linear infinite;
+      animation: ringHeartbeat 1.8s ease-in-out infinite;
     }
-    @keyframes ringRotate {
-      to { stroke-dashoffset: -1200; }
+    @keyframes ringHeartbeat {
+      0%   { stroke-width: 2;   opacity: 0.6; }
+      15%  { stroke-width: 3.5; opacity: 1; }
+      30%  { stroke-width: 2;   opacity: 0.7; }
+      45%  { stroke-width: 3;   opacity: 0.9; }
+      60%  { stroke-width: 2;   opacity: 0.6; }
+      100% { stroke-width: 2;   opacity: 0.6; }
     }
     /* Anillo sólido sutil */
     .mindly__ring-solid {
@@ -63,8 +67,9 @@
       transform: translate(-50%, -50%);
       width: 120px; height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(46,109,164,0.15) 0%, rgba(10,22,40,0.9) 70%);
-      border: 1.5px solid rgba(46,109,164,0.25);
+      background: radial-gradient(circle, rgba(46,109,164,0.25) 0%, rgba(10,22,40,0.85) 70%);
+      border: 2px solid rgba(46,109,164,0.4);
+      box-shadow: 0 0 30px rgba(46,109,164,0.15), 0 0 60px rgba(46,109,164,0.05);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,7 +101,7 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.6);
       line-height: 1.4;
     }
 
