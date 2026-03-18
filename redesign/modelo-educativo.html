@@ -253,6 +253,13 @@
           </div>
           <div class="mg-skills__list" id="mg-skills-list"></div>
         </div>
+        <!-- Profesiones donde esta competencia es preponderante -->
+        <div class="mg-careers" id="mg-careers">
+          <div class="mg-careers__header">
+            <span class="mg-careers__label">Profesiones y cargos donde esta competencia es preponderante</span>
+          </div>
+          <div class="mg-careers__list" id="mg-careers-list"></div>
+        </div>
       </div>
 
       <p class="anim" style="text-align:center;margin-top:var(--space-xl);color:rgba(255,255,255,0.45);font-size:.85rem">Cada eje está respaldado por múltiples marcos internacionales independientes. No es opinión — es convergencia verificable.</p>
@@ -357,8 +364,20 @@
       background: var(--color-dark-mid);
       transition: all 0.3s;
     }
-    .mg-marco--lit { background: rgba(245,166,35,0.06); }
-    .mg-marco--dim { opacity: 0.15; }
+    .mg-marco--lit {
+      background: rgba(245,166,35,0.08);
+      box-shadow: inset 0 0 0 1px rgba(245,166,35,0.15);
+      position: relative;
+    }
+    .mg-marco--lit::after {
+      content: '';
+      position: absolute;
+      top: 8px; bottom: 8px; left: 0;
+      width: 3px;
+      background: var(--color-amber);
+      border-radius: 0 3px 3px 0;
+    }
+    .mg-marco--dim { opacity: 0.12; }
     .mg-marco__abbr {
       font-size: 1.05rem;
       font-weight: 800;
@@ -423,13 +442,49 @@
       color: var(--color-amber);
     }
 
+    /* Profesiones/cargos */
+    .mg-careers {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .mg-careers__header {
+      padding: 1rem 1.75rem 0.5rem;
+    }
+    .mg-careers__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .mg-careers__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 1.75rem 1.5rem;
+    }
+    .mg-career {
+      background: rgba(46,109,164,0.1);
+      border: 1px solid rgba(46,109,164,0.15);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.3;
+      transition: all 0.2s;
+    }
+    .mg-career:hover {
+      background: rgba(46,109,164,0.18);
+      border-color: rgba(46,109,164,0.35);
+      color: rgba(255,255,255,0.85);
+    }
+
     @media (max-width: 768px) {
       .mg-ejes { grid-template-columns: repeat(3, 1fr); }
       .mg-result__grid { grid-template-columns: repeat(2, 1fr); }
       .mg-eje { padding: 1rem 0.5rem; }
       .mg-eje__icon { font-size: 1.5rem; }
       .mg-eje__name { font-size: 0.68rem; }
-      .mg-skills__list { padding: 0 1rem 1rem; }
+      .mg-skills__list, .mg-careers__list { padding: 0 1rem 1rem; }
     }
     @media (max-width: 480px) {
       .mg-ejes { grid-template-columns: repeat(2, 1fr); }
@@ -442,32 +497,38 @@
     colab: {
       name: 'Colaboración',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
-      skills: ['Trabajo en equipos multidisciplinarios','Negociación y resolución de conflictos','Comunicación efectiva en contextos diversos','Liderazgo distribuido','Co-creación con IA y herramientas digitales','Gestión de proyectos colaborativos','Facilitación de procesos grupales']
+      skills: ['Trabajo en equipos multidisciplinarios','Negociación y resolución de conflictos','Comunicación efectiva en contextos diversos','Liderazgo distribuido','Co-creación con IA y herramientas digitales','Gestión de proyectos colaborativos','Facilitación de procesos grupales'],
+      careers: ['Product Manager','Scrum Master / Agile Coach','Director de proyectos','Coordinador de equipos remotos','Consultor de gestión','Mediador organizacional','Director de operaciones','Líder de innovación','Gestor de alianzas estratégicas']
     },
     auton: {
       name: 'Autonomía',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC'],
-      skills: ['Aprendizaje autodirigido y continuo','Gestión del tiempo y prioridades','Toma de decisiones con información incompleta','Automonitoreo y metacognición','Planificación estratégica personal','Teletrabajo y gestión remota','Emprendimiento e intraemprendimiento']
+      skills: ['Aprendizaje autodirigido y continuo','Gestión del tiempo y prioridades','Toma de decisiones con información incompleta','Automonitoreo y metacognición','Planificación estratégica personal','Teletrabajo y gestión remota','Emprendimiento e intraemprendimiento'],
+      careers: ['Emprendedor / Founder','Freelancer profesional','Consultor independiente','Investigador','Desarrollador de software','Creador de contenido digital','Arquitecto de soluciones','Analista de negocios','Trader e inversionista']
     },
     pensa: {
       name: 'Pensamiento complejo',
       marcos: ['OCDE','WEF','UNESCO','P21','MINEDUC','CASEL','Harvard PZ','Robinson','PwC','Stanford'],
-      skills: ['Análisis de datos e interpretación de evidencia','Detección de sesgos y falacias','Evaluación de fuentes y verificación de información','Resolución de problemas multivariables','Pensamiento sistémico','Argumentación basada en evidencia','Alfabetización mediática y digital']
+      skills: ['Análisis de datos e interpretación de evidencia','Detección de sesgos y falacias','Evaluación de fuentes y verificación de información','Resolución de problemas multivariables','Pensamiento sistémico','Argumentación basada en evidencia','Alfabetización mediática y digital'],
+      careers: ['Científico de datos','Analista de inteligencia','Periodista investigativo','Abogado','Médico especialista','Auditor','Investigador académico','Policy Analyst','Ingeniero de sistemas complejos']
     },
     creat: {
       name: 'Creatividad',
       marcos: ['OCDE','WEF','P21','Harvard PZ','Robinson','MINEDUC','PwC','Stanford','CASEL'],
-      skills: ['Generación de soluciones originales','Pensamiento divergente y lateral','Prototipado rápido e iteración','Diseño centrado en el usuario','Conexión de ideas entre dominios distintos','Innovación en productos, servicios y procesos','Storytelling y comunicación creativa']
+      skills: ['Generación de soluciones originales','Pensamiento divergente y lateral','Prototipado rápido e iteración','Diseño centrado en el usuario','Conexión de ideas entre dominios distintos','Innovación en productos, servicios y procesos','Storytelling y comunicación creativa'],
+      careers: ['Diseñador UX/UI','Director creativo','Arquitecto','Guionista y escritor','Director de marketing','Ingeniero de innovación','Game designer','Publicista','Chef ejecutivo','Productor audiovisual']
     },
     socio: {
       name: 'Socioemocional',
       marcos: ['OCDE','UNESCO','MINEDUC','CASEL','Harvard PZ','Robinson','WEF','PwC'],
-      skills: ['Empatía y escucha activa','Regulación emocional bajo presión','Resolución de conflictos interpersonales','Liderazgo con inteligencia emocional','Atención al cliente y experiencia de usuario','Resiliencia ante la incertidumbre','Trabajo en contextos multiculturales']
+      skills: ['Empatía y escucha activa','Regulación emocional bajo presión','Resolución de conflictos interpersonales','Liderazgo con inteligencia emocional','Atención al cliente y experiencia de usuario','Resiliencia ante la incertidumbre','Trabajo en contextos multiculturales'],
+      careers: ['Psicólogo organizacional','Director de RRHH','Trabajador social','Terapeuta y coach','Profesor y formador','Negociador internacional','Líder comunitario','Director de experiencia al cliente','Diplomático','Profesional de salud']
     },
     emple: {
       name: 'Empleabilidad',
       marcos: ['OCDE','WEF','P21','MINEDUC','PwC','Stanford','Harvard PZ','Robinson'],
-      skills: ['Adaptabilidad al cambio tecnológico','Alfabetización en IA y herramientas digitales','Gestión de carrera y marca personal','Networking y construcción de redes','Comunicación profesional escrita y oral','Negociación salarial y contractual','Pensamiento financiero y económico']
+      skills: ['Adaptabilidad al cambio tecnológico','Alfabetización en IA y herramientas digitales','Gestión de carrera y marca personal','Networking y construcción de redes','Comunicación profesional escrita y oral','Negociación salarial y contractual','Pensamiento financiero y económico'],
+      careers: ['Prompt Engineer','Especialista en IA aplicada','Growth Hacker','Business Developer','Gerente de transformación digital','Analista financiero','Estratega de negocios','Key Account Manager','Headhunter / Talent Acquisition','Fundador de startup']
     },
   };
   const allMarcos = [
@@ -502,6 +563,10 @@
     // Destrezas laborales
     document.getElementById('mg-skills-list').innerHTML = data.skills.map(s =>
       `<span class="mg-skill">${s}</span>`
+    ).join('');
+    // Profesiones/cargos
+    document.getElementById('mg-careers-list').innerHTML = data.careers.map(c =>
+      `<span class="mg-career">${c}</span>`
     ).join('');
   }
 
