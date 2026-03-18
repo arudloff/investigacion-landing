@@ -352,7 +352,7 @@ strong { font-weight: 600; color: var(--color-text); }
 }
 .hero__quote {
   font-size: clamp(1rem, 2vw, 1.15rem);
-  font-style: normal;
+  font-style: italic;
   opacity: 0.88;
   max-width: 720px;
   margin: 0 auto 2.5rem;
