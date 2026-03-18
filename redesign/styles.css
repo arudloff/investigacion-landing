@@ -523,77 +523,90 @@ strong { font-weight: 600; color: var(--color-text); }
 .comparison__col--red li::before { background: #FF6B6B; }
 .comparison__col--green li::before { background: #51CF66; }
 
-/* --- CONTACT HUMAN — modern card --- */
+/* --- CONTACT HUMAN — dark card (Linear/Vercel style) --- */
 .contact-human {
-  background: var(--color-white);
+  background: var(--color-dark-mid);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  padding: var(--space-lg);
   text-align: left;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid rgba(46,109,164,0.15);
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .contact-human::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary-mid), var(--color-teal));
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(46,109,164,0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 .contact-human:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-color: rgba(46,109,164,0.35);
+  transform: translateY(-2px);
 }
+.contact-human:hover::before { opacity: 1; }
 .contact-human__initials {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary-mid), var(--color-teal));
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(46,109,164,0.15);
+  color: var(--color-primary-mid);
+  font-weight: 800;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--space-sm);
-  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(46,109,164,0.2);
 }
 .contact-human__name {
   font-weight: 700;
-  color: var(--color-primary-dark);
-  font-size: 1rem;
+  color: #fff;
+  font-size: 1.05rem;
   line-height: 1.3;
+  position: relative;
+  z-index: 1;
 }
 .contact-human__role {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--color-primary-mid);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-top: 0.2rem;
-  margin-bottom: 0.6rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
 }
 .contact-human__email {
   font-size: 0.82rem;
   margin-top: 0;
+  position: relative;
+  z-index: 1;
 }
 .contact-human__email a {
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.45);
   text-decoration: none;
-  transition: color 0.15s;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  transition: color 0.2s;
+  font-size: 0.8rem;
+  font-weight: 400;
 }
-.contact-human__email a::before {
-  content: '✉';
-  font-size: 0.9rem;
-  opacity: 0.5;
-}
+.contact-human__email a::before { content: none; }
 .contact-human__email a:hover {
-  color: var(--color-primary-mid);
+  color: var(--color-amber);
   text-decoration: none;
+}
+/* Light context override — for pages with light backgrounds */
+.section--alt .contact-human,
+.section-light .contact-human,
+.section-white .contact-human {
+  background: var(--color-dark-mid);
+  border-color: rgba(46,109,164,0.15);
 }
 
 /* --- TABLE (modelo-educativo convergencia) --- */
