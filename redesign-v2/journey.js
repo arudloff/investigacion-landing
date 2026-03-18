@@ -255,17 +255,26 @@ function insertMirrorPhrase() {
 }
 
 // ==========================================
-// INIT
+// INIT — runs after nav.js has built the DOM
 // ==========================================
-document.addEventListener('DOMContentLoaded', function() {
-  // Mark current page as visited
-  const stationId = getCurrentStationId();
-  if (stationId) markVisited(stationId);
-
-  // Build the journey map (after nav.js has built the DOM)
-  setTimeout(function() {
+(function initJourney() {
+  // If main exists, nav.js already ran — go immediately
+  // If not, wait for DOMContentLoaded + small delay
+  function run() {
+    const stationId = getCurrentStationId();
+    if (stationId) markVisited(stationId);
     buildJourneyMap();
     insertCheckpoint();
     insertMirrorPhrase();
-  }, 500);
-});
+  }
+
+  if (document.querySelector('main')) {
+    // nav.js already built the DOM
+    setTimeout(run, 100);
+  } else {
+    // Wait for nav.js
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(run, 600);
+    });
+  }
+})();
