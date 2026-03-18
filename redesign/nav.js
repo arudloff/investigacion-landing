@@ -17,6 +17,7 @@ const NAV_ITEMS = [
       { href: 'universidades.html', label: 'Universidades y centros de investigación' },
       { href: 'gobiernos.html', label: 'Gobiernos' },
       { href: 'profesores.html', label: 'Profesores Transformadores' },
+      { href: 'colegios.html', label: 'Colegios Visionarios' },
     ]
   },
   {
@@ -51,6 +52,7 @@ const MOBILE_LINKS = [
   { href: 'universidades.html', label: 'Universidades y centros de investigación' },
   { href: 'gobiernos.html', label: 'Gobiernos' },
   { href: 'profesores.html', label: 'Profesores Transformadores' },
+  { href: 'colegios.html', label: 'Colegios Visionarios' },
 
   { label: 'Conócenos', isSection: true },
   { href: 'nosotros.html', label: 'Quiénes somos' },

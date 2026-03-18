@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colegios Visionarios — La escuela es la respuesta</title>
+  <meta name="description" content="Cada escuela es un mundo. Pero todas enfrentan el mismo desafío. No necesitamos copiar soluciones — necesitamos compartir el camino.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .col-page { background: var(--color-dark-deep); color: rgba(255,255,255,0.85); }
+
+    .col-hero {
+      background-color: var(--color-dark-deep);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: 8rem 0 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .col-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(31,107,59,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .col-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(46,109,164,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .col-hero .container { position: relative; z-index: 1; }
+    .col-hero__title {
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      max-width: 750px;
+      margin: 0 auto 2rem;
+      letter-spacing: -0.03em;
+    }
+    .col-hero__accent { color: var(--color-accent-green); }
+    .col-hero__sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .btn--green-outline {
+      background: transparent;
+      color: var(--color-green-light);
+      border: 2px solid var(--color-green-light);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn--green-outline:hover {
+      background: var(--color-green-light);
+      color: var(--color-accent-green);
+      text-decoration: none;
+    }
+
+    /* Secciones */
+    .col-section-dark { background: var(--color-dark-mid); padding: var(--space-3xl) 0; }
+    .col-section-deep { background: var(--color-dark-deep); background-image: var(--texture-dots); background-size: var(--texture-dots-size); padding: var(--space-3xl) 0; }
+    .col-section-alt { background: #0F2A4A; padding: var(--space-3xl) 0; }
+
+    .col-section-dark h2, .col-section-deep h2, .col-section-alt h2 { color: #fff; }
+
+    /* Cards con borde verde */
+    .col-card {
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--color-accent-green);
+      margin-bottom: var(--space-md);
+      transition: background 0.2s;
+    }
+    .col-card:hover { background: rgba(255,255,255,0.06); }
+    .col-card__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-green-light);
+      margin-bottom: 0.5rem;
+    }
+    .col-card__text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: none;
+    }
+
+    /* Columnas */
+    .col-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+    .col-col {
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.04);
+      border-top: 3px solid var(--color-accent-green);
+    }
+    .col-col h3 {
+      color: var(--color-green-light);
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .col-col p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+
+    /* Build items */
+    .col-build {
+      border-left: 3px solid var(--color-amber);
+      padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-md);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .col-build p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Cierre */
+    .col-close {
+      background: #0F2A4A;
+      padding: var(--space-3xl) 0;
+      text-align: center;
+    }
+    .col-close__question {
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      max-width: 650px;
+      margin: 0 auto var(--space-lg);
+    }
+    .col-close__sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 550px;
+      margin: 0 auto var(--space-lg);
+      line-height: 1.7;
+    }
+    .col-close__cta {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 800;
+      color: var(--color-amber);
+      max-width: 600px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .col-cols { grid-template-columns: 1fr; }
+      .col-hero { padding: 6rem 0 4rem; }
+    }
+  </style>
+</head>
+<body class="col-page">
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 1 — HERO
+       El protagonista es la escuela como institución convocada.
+       ═══════════════════════════════════════════════ -->
+  <section class="col-hero">
+    <div class="container">
+      <h1 class="col-hero__title anim">Ninguna otra institución tiene el poder de transformar una sociedad entera. <span class="col-hero__accent">La escuela sí.</span></h1>
+      <p class="col-hero__sub anim">Cada establecimiento es una realidad distinta. Lo que funciona en uno no funciona en otro. Pero el desafío es el mismo. Y ninguna escuela debería enfrentarlo sola.</p>
+      <a href="#por-que" class="btn--green-outline anim">Por qué esto nos involucra a todos &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 2 — POR QUÉ LA ESCUELA
+       ═══════════════════════════════════════════════ -->
+  <section class="col-section-dark" id="por-que">
+    <div class="container" style="max-width:750px;text-align:center">
+      <h2 class="anim" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:var(--space-lg)">La escuela es el único organismo que toca a todas las familias, todos los años, durante toda la infancia.</h2>
+      <p class="anim" style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.85;margin-bottom:var(--space-lg)">Ningún gobierno, ninguna empresa, ninguna ONG tiene ese alcance ni esa continuidad. Cuando una escuela decide preparar para el siglo XXI, no transforma solo a sus estudiantes — transforma a cada familia que pasa por sus aulas, a cada comunidad que la rodea, a cada generación que forma.</p>
+      <p class="anim" style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.85">Por eso la escuela no es solo un lugar donde se enseña. Es el principal organismo convocado a dar respuesta a los desafíos que la humanidad enfrenta hoy. Y ese mandato no puede esperar.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 3 — CADA ESCUELA ES UN MUNDO
+       ═══════════════════════════════════════════════ -->
+  <section class="col-section-deep">
+    <div class="container" style="max-width:800px">
+      <h2 class="anim" style="text-align:center;font-size:clamp(1.3rem,2.5vw,1.8rem);margin-bottom:var(--space-lg)">Cada escuela es un mundo. Y eso es exactamente lo que necesitamos.</h2>
+      <p class="anim" style="text-align:center;color:rgba(255,255,255,0.65);max-width:650px;margin:0 auto var(--space-xl);line-height:1.75">No pretendemos que todos hagan lo mismo. Pretendemos que nadie lo haga solo.</p>
+
+      <div class="col-card anim">
+        <div class="col-card__title">Tu cultura escolar es tu mayor activo</div>
+        <p class="col-card__text">La forma en que tu comunidad se comunica, resuelve conflictos, celebra logros y enfrenta crisis es única. Cualquier innovación que no parta de esa realidad será rechazada. Por eso no ofrecemos un modelo para copiar — ofrecemos un marco para que cada escuela construya el suyo.</p>
+      </div>
+
+      <div class="col-card anim">
+        <div class="col-card__title">Tus recursos son los que son — y con esos se empieza</div>
+        <p class="col-card__text">No todas las escuelas tienen laboratorios, presupuesto de innovación o equipos de I+D. Pero todas tienen profesores, estudiantes y familias. La transformación educativa más poderosa no requiere tecnología de punta — requiere decisiones metodológicas valientes con los recursos que ya existen.</p>
+      </div>
+
+      <div class="col-card anim">
+        <div class="col-card__title">Tus urgencias son legítimas — y también tus holguras</div>
+        <p class="col-card__text">Hay escuelas lidiando con deserción, violencia, brechas socioemocionales profundas. Y hay escuelas con margen para experimentar. Ambas necesitan este camino — pero lo recorren a ritmos distintos. Lo que compartimos es la dirección, no la velocidad.</p>
+      </div>
+
+      <div class="col-card anim">
+        <div class="col-card__title">Tu equipo directivo es el que decide — y necesita respaldo</div>
+        <p class="col-card__text">Transformar una escuela es una decisión de liderazgo. Y el líder educativo que decide innovar muchas veces enfrenta resistencia interna, presión de resultados estandarizados y soledad. Este espacio existe para que ese líder sepa que hay otros como él. Y que juntos es más posible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 4 — LO QUE COMPARTIMOS
+       ═══════════════════════════════════════════════ -->
+  <section class="col-section-alt">
+    <div class="container" style="text-align:center">
+      <h2 class="anim" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:var(--space-lg)">No compartimos un modelo. Compartimos objetivos, herramientas y estrategias.</h2>
+      <p class="anim" style="color:rgba(255,255,255,0.65);max-width:650px;margin:0 auto var(--space-xl);line-height:1.75">Para que cada escuela desarrolle sus propias soluciones, a su propia medida.</p>
+
+      <div class="col-cols">
+        <div class="col-col anim">
+          <h3>Objetivos comunes</h3>
+          <p>Preparar estudiantes para un mundo donde el pensamiento crítico, la creatividad, la colaboración y la adaptabilidad no son opcionales — son condiciones de supervivencia. 10 marcos internacionales lo respaldan. El desafío es el mismo en Talca, en Santiago, en Bogotá y en Helsinki.</p>
+        </div>
+        <div class="col-col anim">
+          <h3>Herramientas adaptables</h3>
+          <p>Instrumentos de diagnóstico, metodologías probadas, evidencia sistematizada. No para implementar tal cual — para que cada equipo directivo evalúe qué le sirve, qué adapta y qué descarta. Tu realidad manda. Las herramientas sirven.</p>
+        </div>
+        <div class="col-col anim">
+          <h3>Estrategias desde la trinchera</h3>
+          <p>Cómo negociar con un equipo docente resistente. Cómo comunicar cambios a familias escépticas. Cómo medir avance sin depender de pruebas estandarizadas. Experiencias reales de escuelas reales — no teoría de congreso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 5 — LO QUE PONES EN MOVIMIENTO
+       ═══════════════════════════════════════════════ -->
+  <section class="col-section-dark">
+    <div class="container">
+      <h2 class="anim" style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);font-size:clamp(1.3rem,2.5vw,1.8rem)">Cuando una escuela decide dar el paso, esto es lo que pone en movimiento.</h2>
+
+      <div class="col-build anim">
+        <p>Cada estudiante que pasa por tus aulas sale preparado para un mundo que cambia — no para un mundo que ya no existe.</p>
+      </div>
+      <div class="col-build anim">
+        <p>Cada familia que confía en tu establecimiento entiende por qué la educación de sus hijos es distinta — y la valora.</p>
+      </div>
+      <div class="col-build anim">
+        <p>Cada profesor que se suma a esta visión deja de sentirse solo — y descubre que innovar dentro del sistema es posible.</p>
+      </div>
+      <div class="col-build anim">
+        <p>Cada escuela que se conecta con esta red demuestra que la transformación no depende de un ministerio, un presupuesto ni una política pública. Depende de la decisión de un equipo que dice: nosotros sí.</p>
+      </div>
+      <div class="col-build anim">
+        <p>Y cada generación que egresa de una escuela visionaria transforma su comunidad, su ciudad, su país — porque llegó al mundo con las herramientas que el siglo XXI exige.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 6 — LA RED
+       ═══════════════════════════════════════════════ -->
+  <section class="col-section-deep">
+    <div class="container" style="max-width:750px;text-align:center">
+      <h2 class="anim" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:var(--space-lg)">Esto no es un programa al que te inscribes. Es una red a la que te sumas.</h2>
+      <p class="anim" style="color:rgba(255,255,255,0.7);line-height:1.85;margin-bottom:var(--space-md)">Sin cuotas. Sin franquicias. Sin requisitos de infraestructura. El único requisito es la convicción de que la educación puede ser mejor de lo que es hoy — y la voluntad de empezar.</p>
+      <p class="anim" style="color:rgba(255,255,255,0.7);line-height:1.85">Compartimos lo que sabemos. Aprendemos de lo que tú sabes. Y entre todos construimos algo que ninguna escuela podría construir sola: una masa crítica de establecimientos que demuestra que otra educación no solo es posible — ya está ocurriendo.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 7 — CIERRE
+       ═══════════════════════════════════════════════ -->
+  <section class="col-close">
+    <div class="container">
+      <p class="col-close__question anim">Por cada año que una escuela se deja estar, egresan jóvenes a los que les faltó lo que más necesitaban.</p>
+      <p class="col-close__sub anim">No necesitas tenerlo todo resuelto. Necesitas la decisión de empezar. Y saber que hay otros que ya caminan en la misma dirección.</p>
+      <p class="col-close__cta anim">La escuela es la respuesta. Y la tuya puede ser la próxima en demostrarlo.</p>
+      <div style="margin-top:var(--space-xl)">
+        <a href="visita.html" class="btn--green-outline anim">Quiero sumar mi escuela &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="nav.js"></script>
+</body>
+</html>
