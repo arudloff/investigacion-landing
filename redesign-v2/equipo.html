@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro equipo — Colegio Camilo Henríquez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* --- MINDLY v2 — enhanced mind map --- */
+    .mindly {
+      position: relative;
+      width: 750px;
+      height: 750px;
+      margin: 0 auto;
+    }
+
+    /* SVG — anillo principal + glow + puntos de conexión */
+    .mindly__svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Anillo glow suave detrás */
+    .mindly__ring-glow {
+      fill: none;
+      stroke: rgba(46,109,164,0.06);
+      stroke-width: 30;
+    }
+    /* Anillo principal — línea continua que pulsa como latido */
+    .mindly__ring {
+      fill: none;
+      stroke: url(#ringGradient);
+      stroke-width: 2;
+      animation: ringHeartbeat 1.8s ease-in-out infinite;
+    }
+    @keyframes ringHeartbeat {
+      0%   { stroke-width: 2;   opacity: 0.6; }
+      15%  { stroke-width: 3.5; opacity: 1; }
+      30%  { stroke-width: 2;   opacity: 0.7; }
+      45%  { stroke-width: 3;   opacity: 0.9; }
+      60%  { stroke-width: 2;   opacity: 0.6; }
+      100% { stroke-width: 2;   opacity: 0.6; }
+    }
+    /* Anillo sólido sutil */
+    .mindly__ring-solid {
+      fill: none;
+      stroke: rgba(46,109,164,0.15);
+      stroke-width: 1;
+    }
+    /* Puntos de conexión donde el anillo toca cada burbuja */
+    .mindly__dot {
+      fill: var(--color-primary-mid);
+      r: 4;
+      opacity: 0.6;
+      transition: opacity 0.3s, r 0.3s;
+    }
+
+    /* Centro */
+    .mindly__core {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,109,164,0.25) 0%, rgba(10,22,40,0.85) 70%);
+      border: 2px solid rgba(46,109,164,0.4);
+      box-shadow: 0 0 30px rgba(46,109,164,0.15), 0 0 60px rgba(46,109,164,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 5;
+    }
+    .mindly__core::before {
+      content: '';
+      position: absolute;
+      inset: -15px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,109,164,0.08);
+      animation: coreBreath 4s ease-in-out infinite;
+    }
+    .mindly__core::after {
+      content: '';
+      position: absolute;
+      inset: -30px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,109,164,0.04);
+      animation: coreBreath 4s ease-in-out infinite 0.5s;
+    }
+    @keyframes coreBreath {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.5; }
+    }
+    .mindly__core-text {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+
+    /* Nodos */
+    .mindly__node {
+      position: absolute;
+      z-index: 4;
+      cursor: pointer;
+      --size: 105px;
+      width: var(--size);
+      height: var(--size);
+      --cx: 375px;
+      --cy: 375px;
+      --r: 270px;
+      /* Entrada escalonada */
+      opacity: 0;
+      animation: nodeAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .mindly__node--0 { animation-delay: 0.1s; }
+    .mindly__node--1 { animation-delay: 0.2s; }
+    .mindly__node--2 { animation-delay: 0.3s; }
+    .mindly__node--3 { animation-delay: 0.4s; }
+    .mindly__node--4 { animation-delay: 0.5s; }
+    .mindly__node--5 { animation-delay: 0.6s; }
+    .mindly__node--6 { animation-delay: 0.7s; }
+    @keyframes nodeAppear {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .mindly__bubble {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(13,31,60,1), rgba(10,22,40,1));
+      border: 1.5px solid rgba(46,109,164,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .mindly__bubble::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 25%, rgba(46,109,164,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .mindly__node:hover .mindly__bubble {
+      border-color: var(--color-amber);
+      transform: scale(1.15);
+      box-shadow: 0 0 25px rgba(245,166,35,0.15), 0 0 50px rgba(46,109,164,0.1), 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .mindly__initials {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      transition: all 0.3s;
+    }
+    .mindly__node:hover .mindly__initials { color: var(--color-amber); }
+    .mindly__name-short {
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.35rem;
+      line-height: 1.2;
+      max-width: 80px;
+      transition: all 0.3s;
+    }
+    .mindly__node:hover .mindly__name-short { color: rgba(255,255,255,0.7); }
+
+    /* Tooltip */
+    .mindly__tooltip {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.95);
+      background: linear-gradient(145deg, #0D1F3C, #0A1628);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 12px;
+      padding: 0.85rem 1.2rem;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 15px rgba(245,166,35,0.05);
+    }
+    .mindly__tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: rgba(245,166,35,0.25);
+    }
+    .mindly__node:hover .mindly__tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    .mindly__tooltip-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .mindly__tooltip-role {
+      font-size: 0.68rem;
+      color: var(--color-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+    .mindly__tooltip-email { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.35rem; }
+    .mindly__tooltip-email a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .mindly__tooltip-email a:hover { color: var(--color-amber); }
+
+    /* 7 posiciones */
+    .mindly__node--0 { left: calc(var(--cx) + var(--r) *  0.000 - var(--size)/2); top: calc(var(--cy) + var(--r) * -1.000 - var(--size)/2); }
+    .mindly__node--1 { left: calc(var(--cx) + var(--r) *  0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
+    .mindly__node--2 { left: calc(var(--cx) + var(--r) *  0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
+    .mindly__node--3 { left: calc(var(--cx) + var(--r) *  0.434 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.901 - var(--size)/2); }
+    .mindly__node--4 { left: calc(var(--cx) + var(--r) * -0.434 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.901 - var(--size)/2); }
+    .mindly__node--5 { left: calc(var(--cx) + var(--r) * -0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
+    .mindly__node--6 { left: calc(var(--cx) + var(--r) * -0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mindly {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-md);
+        justify-content: center;
+        padding: var(--space-md) 0;
+      }
+      .mindly__node {
+        position: static;
+        --size: 100px;
+        animation: none;
+        opacity: 1;
+      }
+      .mindly__core {
+        position: static;
+        transform: none;
+        width: 90px; height: 90px;
+        flex-basis: 100%;
+        margin: 0 auto var(--space-md);
+      }
+      .mindly__core::before, .mindly__core::after { display: none; }
+      .mindly__svg { display: none; }
+      .mindly__tooltip { bottom: auto; top: calc(100% + 8px); }
+      .mindly__tooltip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: rgba(245,166,35,0.25); }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="background:var(--color-dark-deep);background-image:var(--texture-dots);background-size:var(--texture-dots-size)">
+    <div class="container">
+      <h2 class="anim mb-2" style="color:#fff;text-align:center">Equipo de Gestión Escolar</h2>
+      <p class="anim" style="color:rgba(255,255,255,0.5);text-align:center;font-size:.9rem;margin-bottom:var(--space-xl);max-width:500px;margin-left:auto;margin-right:auto">Liderazgo distribuido y situacional. Cada desafío convoca al mejor equipo para resolverlo.</p>
+
+      <!-- Mind map Mindly style -->
+      <div class="mindly anim">
+        <!-- Centro -->
+        <div class="mindly__core">
+          <span class="mindly__core-text">Gestión<br>Escolar</span>
+        </div>
+
+        <!-- Anillo con gradiente animado + glow + puntos de conexión -->
+        <svg class="mindly__svg" viewBox="0 0 750 750">
+          <defs>
+            <linearGradient id="ringGradient" gradientUnits="userSpaceOnUse" x1="0" y1="375" x2="750" y2="375">
+              <stop offset="0%" stop-color="rgba(46,109,164,0.5)"/>
+              <stop offset="25%" stop-color="rgba(245,166,35,0.3)"/>
+              <stop offset="50%" stop-color="rgba(46,109,164,0.5)"/>
+              <stop offset="75%" stop-color="rgba(13,92,99,0.3)"/>
+              <stop offset="100%" stop-color="rgba(46,109,164,0.5)"/>
+            </linearGradient>
+          </defs>
+          <!-- Glow -->
+          <circle class="mindly__ring-glow" cx="375" cy="375" r="270"/>
+          <!-- Anillo sólido base -->
+          <circle class="mindly__ring-solid" cx="375" cy="375" r="270"/>
+          <!-- Anillo gradiente animado -->
+          <circle class="mindly__ring" cx="375" cy="375" r="270"/>
+          <!-- Puntos de conexión en las 7 posiciones -->
+          <circle class="mindly__dot" cx="375" cy="105"/>
+          <circle class="mindly__dot" cx="586" cy="207"/>
+          <circle class="mindly__dot" cx="638" cy="435"/>
+          <circle class="mindly__dot" cx="492" cy="618"/>
+          <circle class="mindly__dot" cx="258" cy="618"/>
+          <circle class="mindly__dot" cx="112" cy="435"/>
+          <circle class="mindly__dot" cx="164" cy="207"/>
+        </svg>
+
+        <!-- 7 nodos -->
+        <div class="mindly__node mindly__node--0">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">AR</span>
+            <span class="mindly__name-short">Alejandro<br>Rudloff</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Alejandro Rudloff Muñoz</div>
+            <div class="mindly__tooltip-role">Sostenedor</div>
+            <div class="mindly__tooltip-email"><a href="mailto:alejandro@colegiocamilohenriquez.cl">alejandro@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--1">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">LM</span>
+            <span class="mindly__name-short">Lina<br>Muñoz</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Lina Muñoz Hernández</div>
+            <div class="mindly__tooltip-role">Directora</div>
+            <div class="mindly__tooltip-email"><a href="mailto:lina.munoz@colegiocamilohenriquez.cl">lina.munoz@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--2">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">RV</span>
+            <span class="mindly__name-short">Rodrigo<br>Villarroel</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Rodrigo Villarroel</div>
+            <div class="mindly__tooltip-role">Director Académico</div>
+            <div class="mindly__tooltip-email"><a href="mailto:rodrigo.villarroel@colegiocamilohenriquez.cl">rodrigo.villarroel@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--3">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">XR</span>
+            <span class="mindly__name-short">Ximena<br>Rudloff</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Ximena Rudloff Muñoz</div>
+            <div class="mindly__tooltip-role">Directora Administrativa</div>
+            <div class="mindly__tooltip-email"><a href="mailto:ximena.rudloff@colegiocamilohenriquez.cl">ximena.rudloff@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--4">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">FM</span>
+            <span class="mindly__name-short">Fernanda<br>Maturana</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Fernanda Maturana Aguirre</div>
+            <div class="mindly__tooltip-role">Dinámicas de Grupo</div>
+            <div class="mindly__tooltip-email"><a href="mailto:fernanda.maturana@colegiocamilohenriquez.cl">fernanda.maturana@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--5">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">RM</span>
+            <span class="mindly__name-short">Rodrigo<br>Morales</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Rodrigo Morales Yévenes</div>
+            <div class="mindly__tooltip-role">Procesos y TI</div>
+            <div class="mindly__tooltip-email"><a href="mailto:rodrigo.morales@colegiocamilohenriquez.cl">rodrigo.morales@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+
+        <div class="mindly__node mindly__node--6">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">JL</span>
+            <span class="mindly__name-short">Julia<br>León</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Julia León González</div>
+            <div class="mindly__tooltip-role">Convivencia Escolar</div>
+            <div class="mindly__tooltip-email"><a href="mailto:julia.leon@colegiocamilohenriquez.cl">julia.leon@colegiocamilohenriquez.cl</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container" style="max-width:750px;text-align:center">
+      <h2 class="anim mb-3">Nuestros docentes y asistentes de la educación</h2>
+      <p class="anim mb-3">Detrás de cada eje del modelo hay profesores y profesionales que lo hacen posible cada día. Para contactar con ellos, acércate directamente al establecimiento o escríbenos.</p>
+      <div class="anim" style="display:flex;gap:var(--space-lg);justify-content:center;flex-wrap:wrap;margin-top:var(--space-lg)">
+        <div style="text-align:center">
+          <p style="font-size:.85rem;color:var(--color-text-secondary);margin-bottom:.3rem">Correo institucional</p>
+          <a href="mailto:colegio@colegiocamilohenriquez.cl" style="font-weight:600;font-size:1rem">colegio@colegiocamilohenriquez.cl</a>
+        </div>
+        <div style="text-align:center">
+          <p style="font-size:.85rem;color:var(--color-text-secondary);margin-bottom:.3rem">Teléfono</p>
+          <a href="tel:+56712681435" style="font-weight:600;font-size:1rem">+56 71 268 1435</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:750px;text-align:center">
+      <h2 class="anim mb-3">¿Quieres ser parte de este equipo?</h2>
+      <p class="anim mb-3">Buscamos personas que crean que enseñar es un acto de co-construcción, no de transmisión. Personas curiosas, colaborativas, con identidad pedagógica.</p>
+      <a href="profesores.html" class="btn btn--primary anim">Conoce nuestra visión docente &rarr;</a>
+    </div>
+  </section>
+
+  <script src="nav.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El contexto que nos moviliza — Colegio Camilo Henríquez</title>
+  <meta name="description" content="La evidencia internacional y chilena que fundamenta por qué las destrezas del siglo XXI ya no son opcionales. Datos verificados, fuentes accesibles, sin catastrofismo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <section class="hero" style="padding:4rem 0 3rem">
+    <div class="container">
+      <p class="hero__label anim">La evidencia que fundamenta todo lo que hacemos</p>
+      <h1 class="anim">El contexto que nos moviliza</h1>
+      <p class="hero__quote anim">No es catastrofismo. Es una bifurcación: el mismo mundo que cierra puertas para quienes no se adaptan, abre oportunidades sin precedentes para quienes desarrollan las destrezas correctas. Aquí están los datos.</p>
+    </div>
+  </section>
+
+  <!-- ÍNDICE DE SECCIONES -->
+  <section class="section" style="padding:var(--space-xl) 0">
+    <div class="container" style="max-width:750px">
+      <p class="anim mb-3" style="color:var(--color-text-secondary)">Esta página reúne la evidencia completa. Cada sección de nuestro sitio cita solo lo que necesita — aquí puedes ver el panorama íntegro.</p>
+      <div class="anim" style="display:flex;flex-wrap:wrap;gap:.5rem">
+        <a href="#disrupcion" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">1. Disrupción tecnológica</a>
+        <a href="#ia" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">2. IA: qué reemplaza y qué no</a>
+        <a href="#mercado" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">3. Mercado laboral global</a>
+        <a href="#desinformacion" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">4. Desinformación</a>
+        <a href="#chile" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">5. Chile</a>
+        <a href="#economia" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">6. La economía cotidiana ya cambió</a>
+        <a href="#bifurcacion" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">7. La bifurcación</a>
+        <a href="#educacion" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">8. La respuesta educativa</a>
+        <a href="#fuentes" class="btn btn--outline" style="color:var(--color-primary-mid);border-color:var(--color-primary-mid);font-size:.82rem;padding:.4rem .9rem">Fuentes verificables</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. DISRUPCIÓN TECNOLÓGICA -->
+  <section class="section section--alt" id="disrupcion">
+    <div class="container">
+      <h2 class="anim mb-3">1. La disrupción tecnológica ya no es mañana</h2>
+      <p class="anim mb-4" style="max-width:700px">No son proyecciones. Son decisiones que empresas reales ya tomaron.</p>
+
+      <div class="grid grid-3 mb-4">
+        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
+          <div class="stat-card__number">300M</div>
+          <div class="stat-card__label">empleos expuestos a IA generativa</div>
+          <div class="stat-card__source">(Goldman Sachs, 2023)</div>
+          <div class="stat-card__detail">La IA generativa podría automatizar el equivalente a 300 millones de empleos a tiempo completo en el mundo. No es un escenario lejano: ya está ocurriendo.</div>
+        </div>
+        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
+          <div class="stat-card__number">40%</div>
+          <div class="stat-card__label">del empleo global expuesto a IA</div>
+          <div class="stat-card__source">(FMI, 2024)</div>
+          <div class="stat-card__detail">En economías avanzadas sube al 60%. La adopción de IA en contabilidad saltó del 9% al 41% en un solo año (Wolters Kluwer, 2025). En auditoría pasó del 8% al 21% (Thomson Reuters).</div>
+        </div>
+        <div class="stat-card anim" onclick="this.classList.toggle('stat-card--expanded')">
+          <div class="stat-card__number">92M</div>
+          <div class="stat-card__label">empleos desplazados para 2030</div>
+          <div class="stat-card__source">(WEF, 2025)</div>
+          <div class="stat-card__detail">El WEF proyecta 92 millones de empleos desplazados, pero también 170 millones nuevos creados. El problema no es la cantidad — es que los nuevos requieren destrezas completamente distintas.</div>
+        </div>
+      </div>
+
+      <h3 class="anim mb-3">Empresas que ya reemplazaron departamentos completos</h3>
+      <div class="grid grid-2">
+        <div class="card card--blue anim">
+          <div class="card__title">Klarna <span class="card__tag">Fintech</span></div>
+          <div class="card__text">Redujo su fuerza laboral de <strong>5.500 a menos de 3.000</strong> entre 2022-2024, duplicando ingresos. Eliminó ~700 posiciones de atención al cliente con IA. Resultado: la calidad del servicio cayó. <strong>Tuvo que recontratar humanos</strong> porque la IA no podía manejar empatía ni interacciones complejas.</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title">IBM <span class="card__tag">Tecnología</span></div>
+          <div class="card__text">Su sistema "AskHR" automatizó el <strong>94% de las tareas rutinarias</strong> de RRHH: consultas, documentación, permisos, recibos de sueldo. <strong>Tuvo que recontratar</strong> porque la IA no ejecutaba tareas con empatía y juicio subjetivo.</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title">Chegg <span class="card__tag">Educación</span></div>
+          <div class="card__text">Despidió al <strong>45% de su fuerza laboral</strong> en octubre 2025 porque los estudiantes migraron masivamente a ChatGPT para resolver tareas. El producto dejó de ser necesario.</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title">UPS <span class="card__tag">Logística</span></div>
+          <div class="card__text">Recortó <strong>20.000 empleos</strong> en 2025 — el mayor recorte en sus 116 años de historia — citando directamente el machine learning como habilitador de la reestructuración.</div>
+        </div>
+      </div>
+      <p class="anim mt-4" style="max-width:700px"><strong>El patrón revelador:</strong> Klarna e IBM intentaron reemplazar departamentos completos y tuvieron que recontratar humanos. Las capacidades que la IA no pudo replicar — empatía, juicio contextual, relaciones complejas — son las que distinguen una educación que prepara para el futuro.</p>
+    </div>
+  </section>
+
+  <!-- 2. IA: QUÉ REEMPLAZA Y QUÉ NO -->
+  <section class="section" id="ia">
+    <div class="container">
+      <h2 class="anim mb-3">2. Lo que la IA puede y no puede hacer</h2>
+      <p class="anim mb-4" style="max-width:700px">La pregunta no es si la IA va a transformar el trabajo — ya lo hizo. La pregunta es qué queda del lado humano.</p>
+      <div class="comparison">
+        <div class="comparison__col comparison__col--red anim">
+          <h3>La IA ya hace mejor que los humanos</h3>
+          <ul>
+            <li>Tareas rutinarias y repetitivas</li>
+            <li>Procesamiento masivo de datos</li>
+            <li>Traducción, resumen, codificación</li>
+            <li>Contabilidad rutinaria y compliance</li>
+            <li>Diseño basado en plantillas</li>
+            <li>Atención al cliente estandarizada</li>
+            <li>Diagnóstico por imagen (radiología)</li>
+            <li>Generación de contenido estructurado</li>
+          </ul>
+        </div>
+        <div class="comparison__col comparison__col--green anim">
+          <h3>La IA no puede hacer</h3>
+          <ul>
+            <li>Juicio ético en contextos complejos</li>
+            <li>Creatividad genuinamente original</li>
+            <li>Empatía y relaciones humanas profundas</li>
+            <li>Liderazgo adaptativo en incertidumbre</li>
+            <li>Motivación intrínseca y sentido de propósito</li>
+            <li>Negociación con dimensión emocional</li>
+            <li>Comunicación de malas noticias con humanidad</li>
+            <li>Contención emocional y acompañamiento genuino</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Ocupaciones que pierden y ganan valor</h3>
+      <div class="grid grid-2">
+        <div class="card anim" style="border-top:4px solid #FF6B6B">
+          <div class="card__title" style="color:#C92A2A">Habilidades que pierden valor</div>
+          <div class="card__text">Destreza manual y precisión (<strong>-24%</strong> empleadores prevén disminución). Lectura, escritura y matemáticas básicas. Confiabilidad rutinaria. Empleos de entrada impactados por IA cayeron <strong>-16% en dos años</strong> (Stanford, 2025). Diseñadores gráficos recién agregados a ocupaciones en declive por IA generativa (WEF, 2025).</div>
+        </div>
+        <div class="card anim" style="border-top:4px solid #51CF66">
+          <div class="card__title" style="color:#1F6B3B">Habilidades que ganan valor</div>
+          <div class="card__text">Las 6 más demandadas al 2030 (WEF): IA y big data, ciberseguridad, alfabetización tecnológica, <strong>pensamiento creativo</strong> (#4), <strong>resiliencia y agilidad</strong> (#5), <strong>curiosidad y aprendizaje continuo</strong> (#6). Las habilidades cambian un <strong>66% más rápido</strong> en empleos expuestos a IA (PwC, 2025).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MERCADO LABORAL GLOBAL -->
+  <section class="section section--alt" id="mercado">
+    <div class="container">
+      <h2 class="anim mb-3">3. El mercado laboral se globalizó — y la distancia ya no limita al talento</h2>
+      <p class="anim mb-4" style="max-width:700px">Tres transformaciones simultáneas eliminaron las barreras que antes protegían al trabajador local: el teletrabajo, la traducción automática y la conectividad global.</p>
+
+      <div class="grid grid-3">
+        <div class="card card--teal anim">
+          <div class="card__title">Teletrabajo</div>
+          <div class="card__text"><strong>90 millones</strong> de posiciones remotas para 2030 (WEF). Contratación transfronteriza <strong>+38% anual</strong> (OIT, 2025). El 45% de la fuerza laboral remota global tiene entre 18-30 años (Deel, 2026). Un joven chileno compite directamente con talento de cualquier país por el mismo puesto.</div>
+        </div>
+        <div class="card card--teal anim">
+          <div class="card__title">Traducción en tiempo real</div>
+          <div class="card__text">Más del <strong>75% de los traductores</strong> esperan impacto negativo de la IA en sus ingresos (CEPR, 2024). La IA ya traduce conversaciones habladas en tiempo real. El idioma dejó de ser barrera de entrada <strong>y de protección</strong>.</div>
+        </div>
+        <div class="card card--teal anim">
+          <div class="card__title">Conectividad global</div>
+          <div class="card__text">Starlink: <strong>10 millones</strong> de suscriptores en 125+ países (2026). Millones de trabajadores antes desconectados ahora compiten en el mercado digital global. La oferta de talento se amplía exponencialmente.</div>
+        </div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">La prima salarial de las destrezas correctas</h3>
+      <p class="anim mb-4" style="max-width:700px">Para quienes tienen las destrezas, el mismo escenario que cierra puertas abre oportunidades sin precedentes:</p>
+      <div class="grid grid-4">
+        <div class="stat-card anim">
+          <div class="stat-card__number">+56%</div>
+          <div class="stat-card__label">empleabilidad con destrezas complementarias a IA</div>
+          <div class="stat-card__source">(PwC, 2025)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">+28%</div>
+          <div class="stat-card__label">prima salarial (~USD 18.000/año)</div>
+          <div class="stat-card__source">(Lightcast, 2025)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">2x</div>
+          <div class="stat-card__label">más rápido crecen los salarios en sectores IA-expuestos</div>
+          <div class="stat-card__source">(PwC, 2025)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">51%</div>
+          <div class="stat-card__label">de ofertas con habilidades IA están fuera de TI</div>
+          <div class="stat-card__source">(Lightcast, 2025)</div>
+        </div>
+      </div>
+      <p class="anim mt-4 text-center text-sm" style="color:var(--color-text-secondary)">Entre 55 y 73 países ya compiten por atraer talento digital con visas especiales y beneficios fiscales (OCDE, 2024).</p>
+    </div>
+  </section>
+
+  <!-- 4. DESINFORMACIÓN -->
+  <section class="section" id="desinformacion">
+    <div class="container">
+      <h2 class="anim mb-3">4. Desinformación: el pensamiento crítico como protección personal</h2>
+      <p class="anim mb-4" style="max-width:700px">La desinformación no solo afecta decisiones políticas. Afecta <strong>todas las decisiones de la vida</strong>: salud, finanzas, relaciones, educación, ciudadanía.</p>
+
+      <div class="grid grid-3">
+        <div class="stat-card anim">
+          <div class="stat-card__number">900%</div>
+          <div class="stat-card__label">crecimiento anual de deepfakes</div>
+          <div class="stat-card__source">(WEF/Sumsub, 2024)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">#1</div>
+          <div class="stat-card__label">riesgo global según el WEF: la desinformación</div>
+          <div class="stat-card__source">(WEF Global Risks Report, 2024)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">90%</div>
+          <div class="stat-card__label">del contenido en internet será generado por IA para 2026</div>
+          <div class="stat-card__source">(Europol/Schick, proyección)</div>
+        </div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Casos de daño real</h3>
+      <div class="grid grid-3">
+        <div class="card anim">
+          <div class="card__title">Fraude financiero</div>
+          <div class="card__text">Un empleado de Arup transfirió <strong>$25 millones</strong> a estafadores que usaron deepfakes de video en videollamada, suplantando a ejecutivos (CNN, 2024). Una jubilada perdió $690.000 por deepfake de voz (NBC, 2024).</div>
+        </div>
+        <div class="card anim">
+          <div class="card__title">Manipulación electoral</div>
+          <div class="card__text">Audio deepfake en <strong>Eslovaquia</strong> 48h antes de elecciones (2023). Candidatos "resucitados" digitalmente en <strong>India</strong> (2024). Voz clonada de Biden desmovilizando votantes en <strong>EE.UU.</strong> (2024).</div>
+        </div>
+        <div class="card anim">
+          <div class="card__title">La evidencia funciona</div>
+          <div class="card__text">Meta-análisis de <strong>49 estudios, 81.155 participantes</strong>: las intervenciones de pensamiento crítico reducen significativamente la vulnerabilidad a la manipulación (Amazeen et al., 2015). <strong>Se puede enseñar.</strong></div>
+        </div>
+      </div>
+
+      <p class="anim mt-4" style="max-width:700px"><strong>Para las familias:</strong> Un hijo que no desarrolla pensamiento crítico no solo tendrá desventajas laborales. Será vulnerable a estafas financieras, manipulación política y decisiones de vida basadas en información falsa cada vez más sofisticada.</p>
+    </div>
+  </section>
+
+  <!-- 5. CHILE -->
+  <section class="section section--alt" id="chile">
+    <div class="container">
+      <h2 class="anim mb-3">5. En Chile, la urgencia es aún mayor</h2>
+      <p class="anim mb-4" style="max-width:700px">La evidencia internacional se vuelve más crítica cuando se mira con datos chilenos. Estos no son problemas abstractos — son datos de nuestro país, hoy.</p>
+
+      <div class="grid grid-2">
+        <div class="card card--blue anim">
+          <div class="card__title" style="font-size:1.8rem;color:var(--color-primary-dark)">55%</div>
+          <div class="card__text">de los empleos en Chile consiste en tareas repetitivas en riesgo de automatización — <strong>el porcentaje más alto de toda la OCDE</strong> (OCDE/PIAAC, 2023). La brecha salarial entre trabajo repetitivo y no repetitivo es de <strong>3,5 veces</strong>, también la mayor de la OCDE.</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title" style="font-size:1.8rem;color:var(--color-primary-dark)">4.7M</div>
+          <div class="card__text">trabajadores (<strong>50% de la fuerza laboral chilena</strong>) pueden acelerar al menos un 30% de sus tareas con IA generativa (CENIA-SOFOFA, 2024). Solo el 15,8% de las empresas chilenas usa IA activamente. El 60% de los chilenos teme que la IA le quite el trabajo (SONDA/Corpa, 2025).</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title" style="font-size:1.8rem;color:var(--color-primary-dark)">21.4%</div>
+          <div class="card__text">desempleo juvenil — prácticamente <strong>uno de cada cinco jóvenes</strong> sin trabajo (INE, 2024). PISA 2022: Chile lidera Latinoamérica pero queda por debajo de la OCDE en matemáticas (412), lectura (448) y ciencias (444).</div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__title" style="font-size:1.8rem;color:var(--color-primary-dark)">81%</div>
+          <div class="card__text">de los chilenos cree que la IA facilita fake news — <strong>tercer país del mundo</strong> (Ipsos, 2024). Solo el 25,5% puede detectar contenido generado por IA. El 52% recibe información falsa "todos o casi todos los días". Confianza en noticias: solo 36% (Reuters/Oxford, 2025).</div>
+        </div>
+      </div>
+
+      <div class="anim mt-4" style="background:var(--color-primary-light);border-radius:var(--radius-lg);padding:var(--space-lg);max-width:700px">
+        <p style="margin-bottom:0"><strong>Dato positivo:</strong> Chile es el <strong>primer país del mundo</strong> en completar la Metodología de Evaluación de Preparación de UNESCO para IA. Su Política Nacional de IA (2024) tiene 177 iniciativas, el 78% ya en implementación. Las Bases Curriculares de 3° y 4° medio incluyen fichas para desarrollo de habilidades del siglo XXI. <strong>El marco existe — pero la implementación en las escuelas es desigual.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. LA ECONOMÍA COTIDIANA YA CAMBIÓ -->
+  <section class="section" id="economia">
+    <div class="container">
+      <h2 class="anim mb-3">6. La economía cotidiana ya cambió</h2>
+      <p class="anim mb-4" style="max-width:700px">Los datos globales no son abstracciones lejanas. Ya están transformando la economía cotidiana de cualquier persona — en el comercio, los servicios, las profesiones y el empleo. <strong>La competencia ya no es el negocio de al lado: es un algoritmo global.</strong></p>
+
+      <div class="grid grid-2 mb-4">
+        <div class="card anim" style="border-left:4px solid var(--color-accent-teal)">
+          <div class="card__title">Shein vs. el comercio local en cualquier ciudad</div>
+          <div class="card__text">
+            Un comerciante local pide mercadería a un proveedor, espera semanas, compra stock que espera vender, y fija un precio que le dé margen. Shein diseña con IA, produce en <strong>7 días</strong>, lanza <strong>5.000 productos nuevos cada día</strong>, parte con tirajes de 50 unidades, y vende a <strong>USD $14 promedio</strong> — menos de la mitad que H&M, un tercio de Zara.<br><br>
+            <strong>El comerciante no compite contra otro comerciante — compite contra un algoritmo que aprende más rápido que cualquier persona.</strong><br><br>
+            <span style="font-size:.85rem;color:var(--color-text-secondary)">Ejemplo Chile: las quiebras de comercio minorista crecieron <strong>100% en 2025 vs. 2024</strong> (116 vs. 58 cierres). Las microempresas representan el 52% de todas las quiebras. (Chile-US Chamber, 2025)</span>
+          </div>
+        </div>
+        <div class="card anim" style="border-left:4px solid var(--color-accent-teal)">
+          <div class="card__title">El restaurante que pierde dinero cada vez que vende</div>
+          <div class="card__text">
+            Un restaurante pequeño tiene márgenes de 10-15%. Rappi, Uber Eats y PedidosYa cobran comisiones del <strong>15 al 30%</strong> por pedido. Matemáticamente, el restaurante pierde plata cada vez que vende por la app. Pero si no está en la app, nadie lo ve.<br><br>
+            <strong>PedidosYa:</strong> 1,53M usuarios semanales · <strong>Uber Eats:</strong> 926.000 · <strong>Rappi:</strong> 406.000<br>
+            <span style="font-size:.85rem;color:var(--color-text-secondary)">El mercado de delivery en Chile es de USD $189 millones y crece cada año. (Sensor Tower/IMARC, 2024-2025)</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="anim mb-3">El profesional local compite con el mundo entero — y con la IA</h3>
+      <div class="grid grid-2 mb-4">
+        <div class="card anim">
+          <div class="card__title" style="color:#C92A2A">Traductores</div>
+          <div class="card__text"><strong>43%</strong> reporta caída de ingresos por IA. <strong>49%</strong> vio reducción significativa en volumen de trabajo en 2024. Muchos están dejando la profesión. <span style="font-size:.82rem;color:var(--color-text-secondary)">(Society of Authors, 2024)</span></div>
+        </div>
+        <div class="card anim">
+          <div class="card__title" style="color:#C92A2A">Diseñadores gráficos</div>
+          <div class="card__text">Ofertas para tareas automatizables cayeron <strong>-21%</strong> en los 8 meses post-ChatGPT. Canva y Midjourney hacen en segundos lo que antes era un encargo de 3 días.</div>
+        </div>
+        <div class="card anim">
+          <div class="card__title" style="color:#C92A2A">Escritores y copywriters</div>
+          <div class="card__text">Caída del <strong>21%</strong> en demanda de freelancers. Ingresos -5,2% en Upwork. Hay freelancers que reportan pasar de <strong>$3.000/mes a $100/mes</strong>. <span style="font-size:.82rem;color:var(--color-text-secondary)">(Brookings/Imperial College/Harvard, 2024)</span></div>
+        </div>
+        <div class="card anim">
+          <div class="card__title" style="color:#C92A2A">Contadores</div>
+          <div class="card__text">El <strong>98%</strong> en EE.UU. ya usa IA. La contabilidad básica es la función que los propios contadores creen será más disrumpida. <span style="font-size:.82rem;color:var(--color-text-secondary)">(Intuit QuickBooks, 2024)</span></div>
+        </div>
+      </div>
+      <p class="anim mb-4" style="max-width:700px;color:var(--color-text-secondary);font-size:.9rem">En Fiverr y Upwork hay <strong>9 millones de freelancers de 180 países</strong>. Un profesional en cualquier ciudad del mundo compite con otro en India que cobra la mitad — y ambos compiten con Midjourney, que cobra $10/mes.</p>
+
+      <h3 class="anim mb-3">Una persona con IA hace el trabajo de 5</h3>
+      <div class="grid grid-3 mb-4">
+        <div class="stat-card anim">
+          <div class="stat-card__number">38%</div>
+          <div class="stat-card__label">de las startups nuevas son de un solo empleado (era 22% en 2015)</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">~40</div>
+          <div class="stat-card__label">empleados en Midjourney, que genera $500M/año</div>
+        </div>
+        <div class="stat-card anim">
+          <div class="stat-card__number">48%</div>
+          <div class="stat-card__label">de empresas con ChatGPT ahorraron +$50.000</div>
+          <div class="stat-card__source">(Tech.co, 2025)</div>
+        </div>
+      </div>
+
+      <div class="anim" style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem">
+          <thead>
+            <tr style="background:var(--color-primary-dark);color:white">
+              <th style="padding:.6rem 1rem;text-align:left;border-radius:var(--radius-sm) 0 0 0">Lo que antes requería un empleado</th>
+              <th style="padding:.6rem 1rem;text-align:left;border-radius:0 var(--radius-sm) 0 0">Hoy lo hace una herramienta IA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--color-bg-neutral)"><td style="padding:.5rem 1rem">Diseñador gráfico</td><td style="padding:.5rem 1rem">Canva AI, Midjourney</td></tr>
+            <tr><td style="padding:.5rem 1rem">Community manager</td><td style="padding:.5rem 1rem">ChatGPT, Copy.ai</td></tr>
+            <tr style="background:var(--color-bg-neutral)"><td style="padding:.5rem 1rem">Atención al cliente</td><td style="padding:.5rem 1rem">Chatbots con IA</td></tr>
+            <tr><td style="padding:.5rem 1rem">Contador básico</td><td style="padding:.5rem 1rem">QuickBooks AI, FreshBooks</td></tr>
+            <tr style="background:var(--color-bg-neutral)"><td style="padding:.5rem 1rem">Traductor</td><td style="padding:.5rem 1rem">DeepL, ChatGPT</td></tr>
+            <tr><td style="padding:.5rem 1rem">Asistente administrativo</td><td style="padding:.5rem 1rem">Notion AI, Zapier</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">MercadoLibre se comió el mercado chileno</h3>
+      <div class="grid grid-2">
+        <div class="card card--blue anim">
+          <div class="card__text">
+            En 2019 tenía el <strong>3%</strong> del e-commerce en Chile. En 2024, <strong>14%</strong> — y es líder. El <strong>31%</strong> de los compradores online chilenos lo usaron la última semana de diciembre 2024 (vs. 13% Falabella). Invirtió <strong>USD $550 millones</strong> en Chile en 2025.
+          </div>
+        </div>
+        <div class="card card--blue anim">
+          <div class="card__text">
+            El e-commerce chileno es de <strong>USD $14.200 millones</strong>, el mayor per cápita de Latinoamérica. El <strong>59%</strong> de las ventas son desde el celular. <span style="font-size:.82rem;color:var(--color-text-secondary)">(GlobeNewsWire/Trade.gov, 2025)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim mt-4" style="background:var(--color-primary-light);border-radius:var(--radius-lg);padding:var(--space-lg)">
+        <p style="font-size:1.05rem;font-weight:600;margin-bottom:.5rem">El dato que resume todo</p>
+        <p style="margin-bottom:0">Las pymes son el <strong>99% de las empresas en Chile</strong> y generan el <strong>63% del empleo</strong>. Pero el <strong>37% quiebra en los primeros 3 años</strong>. El sector con mayor mortalidad: comercio (<strong>47,9%</strong>), seguido de transporte (46,9%) y hoteles/restaurantes (46,4%). <span style="font-size:.82rem;color:var(--color-text-secondary)">(Bloomberg Línea/El Desconcierto, 2024)</span></p>
+      </div>
+
+      <p class="anim mt-4" style="max-width:700px;font-size:1.05rem"><strong>Un joven que egresa hoy va a enfrentar este mercado.</strong> No le basta saber un oficio — necesita saber adaptarse cuando ese oficio cambie, crear valor que la IA no pueda replicar, pensar críticamente sobre la información que recibe, y colaborar con personas y máquinas que no existían cuando empezó el colegio.</p>
+    </div>
+  </section>
+
+  <!-- 7. LA BIFURCACIÓN -->
+  <section class="section section--alt" id="bifurcacion">
+    <div class="container" style="max-width:850px">
+      <h2 class="text-center anim mb-3">7. Dos caminos. Una decisión.</h2>
+      <p class="text-center anim mb-4" style="max-width:650px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">El escenario no es apocalíptico. Es una <strong>bifurcación</strong>. Y aplica tanto para el profesional adulto como para el joven que está formándose hoy.</p>
+
+      <div class="grid grid-2">
+        <div class="card anim" style="border-top:4px solid #FF6B6B">
+          <div class="card__title" style="color:#C92A2A">Sin destrezas del siglo XXI</div>
+          <div class="card__text">
+            Competencia directa contra la IA en tareas rutinarias — y la IA es más barata y más rápida.<br><br>
+            Competencia con millones de trabajadores globales que ofrecen lo mismo por menos — sin barrera de idioma ni distancia que los proteja.<br><br>
+            Empleos de entrada cayendo <strong>-16%</strong> en dos años (Stanford, 2025). En UK, 1,2 millones de graduados compitieron por solo 17.000 posiciones de entrada (2024).<br><br>
+            Vulnerabilidad a estafas, manipulación y decisiones basadas en información falsa.
+          </div>
+        </div>
+        <div class="card anim" style="border-top:4px solid #51CF66">
+          <div class="card__title" style="color:#1F6B3B">Con destrezas del siglo XXI</div>
+          <div class="card__text">
+            Acceso a empleadores de cualquier país del mundo sin emigrar — 90M posiciones remotas para 2030 (WEF).<br><br>
+            Prima salarial de <strong>+56%</strong> por habilidades complementarias a IA (PwC, 2025). La destreza demostrable vale más que el título.<br><br>
+            Capacidad de crear: startups con IA producen <strong>12,4x más por persona</strong>. 29,8 millones de empresas unipersonales generan $1,7 billones en EE.UU. (MBO Partners).<br><br>
+            Pensamiento crítico que protege de la manipulación — y habilita decisiones informadas en todos los ámbitos de la vida.
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center anim mt-4" style="font-size:1.1rem"><strong>Los estudiantes que solo aprendan a memorizar, calcular y seguir instrucciones competirán directamente contra la IA — y perderán.</strong></p>
+    </div>
+  </section>
+
+  <!-- 7. LA RESPUESTA EDUCATIVA -->
+  <section class="section section--alt" id="educacion">
+    <div class="container" style="max-width:800px">
+      <h2 class="text-center anim mb-3">8. Lo que esto implica para la educación</h2>
+
+      <div class="anim" style="background:var(--color-white);border-radius:var(--radius-lg);padding:var(--space-lg);box-shadow:var(--shadow-md);margin-bottom:var(--space-lg)">
+        <p style="font-size:1.05rem;line-height:1.8;font-style:italic;margin-bottom:0">«El objetivo de la educación ya no es transferir información — la IA lo hace mejor y más rápido. Es desarrollar la capacidad humana de pensar, crear, colaborar, decidir y actuar con propósito. Las escuelas que no reorienten su modelo hacia estas competencias estarán preparando a sus estudiantes para empleos que dejarán de existir.»</p>
+      </div>
+
+      <h3 class="anim mb-3">10 marcos internacionales convergen en lo mismo</h3>
+      <p class="anim mb-3">OCDE, WEF, UNESCO, P21, Harvard Project Zero, Ken Robinson, MINEDUC Chile, CASEL y los análisis del mercado laboral de IA — <strong>todos señalan las mismas competencias</strong>:</p>
+      <div class="grid grid-3 anim">
+        <div class="card">
+          <div class="card__title">10 de 10</div>
+          <div class="card__text">marcos coinciden en <strong>pensamiento crítico</strong>, <strong>agencia/autodirección</strong> y <strong>colaboración</strong>.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">9 de 10</div>
+          <div class="card__text">marcos coinciden en <strong>adaptabilidad/resiliencia</strong> y <strong>aprendizaje continuo</strong>.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">Evidencia</div>
+          <div class="card__text">Meta-análisis de <strong>213 programas, 270.000 estudiantes</strong>: +11 puntos percentiles en rendimiento (CASEL/Durlak, 2011).</div>
+        </div>
+      </div>
+
+      <p class="anim mt-4" style="max-width:700px">El Colegio Camilo Henríquez organiza su diseño metodológico alrededor de 6 ejes que responden directamente a esta evidencia. No es una apuesta. Es una respuesta fundamentada.</p>
+      <p class="anim mt-2"><a href="modelo-educativo.html" class="btn btn--primary">Conocer el modelo educativo &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- FUENTES VERIFICABLES — con links directos a documentos originales -->
+  <section class="section" id="fuentes">
+    <div class="container">
+      <h2 class="text-center anim mb-2">Fuentes verificables</h2>
+      <p class="text-center anim mb-4" style="max-width:650px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">Ningún dato en esta página es especulativo. Cada enlace lleva al documento original. Transparencia es credibilidad.</p>
+
+      <h3 class="anim mb-3">Marcos internacionales de competencias</h3>
+      <div class="grid grid-3 anim">
+        <div class="card"><div class="card__title">OCDE</div><div class="card__text">Learning Compass 2030 — Student Agency, competencias transformadoras</div><p class="mt-2"><a href="https://www.oecd.org/education/2030-project/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al documento &rarr;</a></p></div>
+        <div class="card"><div class="card__title">WEF</div><div class="card__text">Future of Jobs Report 2025 — 92M desplazados, top 10 competencias</div><p class="mt-2"><a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al documento &rarr;</a></p></div>
+        <div class="card"><div class="card__title">UNESCO</div><div class="card__text">Los futuros de la educación (2021) — Educación como bien común</div><p class="mt-2"><a href="https://www.unesco.org/en/futures-education" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al documento &rarr;</a></p></div>
+        <div class="card"><div class="card__title">P21</div><div class="card__text">Framework for 21st Century Learning — Las 4 Cs</div><p class="mt-2"><a href="https://www.battelleforkids.org/networks/p21" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al documento &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Harvard Project Zero</div><div class="card__text">Visible Thinking — Disposiciones y culturas de pensamiento</div><p class="mt-2"><a href="https://pz.harvard.edu/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al sitio &rarr;</a></p></div>
+        <div class="card"><div class="card__title">CASEL</div><div class="card__text">Marco SEL — 5 competencias, meta-análisis 213 programas (+11 puntos)</div><p class="mt-2"><a href="https://casel.org/fundamentals-of-sel/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder al documento &rarr;</a></p></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">IA, automatización y mercado laboral</h3>
+      <div class="grid grid-3 anim">
+        <div class="card"><div class="card__title">Goldman Sachs (2023)</div><div class="card__text">300M empleos expuestos a IA generativa</div><p class="mt-2"><a href="https://www.goldmansachs.com/insights/articles/how-will-ai-affect-the-global-workforce" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">FMI (2024)</div><div class="card__text">40% del empleo global expuesto, 60% en economías avanzadas</div><p class="mt-2"><a href="https://www.imf.org/en/Blogs/Articles/2024/01/14/ai-will-transform-the-global-economy-lets-make-sure-it-benefits-humanity" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">McKinsey (2024)</div><div class="card__text">375M deben cambiar de categoría, 60-70% tareas automatizables</div><p class="mt-2"><a href="https://www.mckinsey.com/mgi/our-research" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">PwC (2025)</div><div class="card__text">+56% empleabilidad, productividad 4x en sectores expuestos a IA</div><p class="mt-2"><a href="https://www.pwc.com/gx/en/news-room/press-releases/2025/ai-linked-to-a-fourfold-increase-in-productivity-growth.html" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Lightcast (2025)</div><div class="card__text">+136% demanda roles IA, 51% fuera de TI, prima +28%</div><p class="mt-2"><a href="https://lightcast.io/resources/blog/beyond-the-buzz-press-release-2025-07-23" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Challenger (2025)</div><div class="card__text">1,2M recortes en EE.UU., 55.000 atribuidos a IA</div><p class="mt-2"><a href="https://www.challengergray.com/blog/2025-year-end-challenger-report-highest-q4-layoffs-since-2008-lowest-ytd-hiring-since-2010/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Casos empresariales documentados</h3>
+      <div class="grid grid-2 anim">
+        <div class="card"><div class="card__title">Klarna</div><div class="card__text">-50% staff, duplicó ingresos, recontrató humanos.</div><p class="mt-2"><a href="https://www.fastcompany.com/91468582/klarna-tried-to-replace-its-workforce-with-ai" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Fast Company &rarr;</a> · <a href="https://fortune.com/2025/02/03/klarna-ceo-ai-replacing-human-workers/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Fortune &rarr;</a></p></div>
+        <div class="card"><div class="card__title">IBM</div><div class="card__text">94% RRHH automatizado, recontrató por falta de empatía.</div><p class="mt-2"><a href="https://www.entrepreneur.com/business-news/ibm-ceo-ai-replaced-hundreds-of-human-resources-staff/491341" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Entrepreneur &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Chegg</div><div class="card__text">-45% por migración masiva a ChatGPT.</div><p class="mt-2"><a href="https://www.finalroundai.com/blog/chegg-layoffs-2025" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">FinalRoundAI &rarr;</a></p></div>
+        <div class="card"><div class="card__title">UPS</div><div class="card__text">-20.000 empleos, el mayor recorte en 116 años.</div><p class="mt-2"><a href="https://gulfnews.com/technology/ai-job-cuts-the-8-major-companies-replacing-humans-with-bots-1.500450587" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Gulf News &rarr;</a></p></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Desinformación y pensamiento crítico</h3>
+      <div class="grid grid-2 anim">
+        <div class="card"><div class="card__title">Sumsub (2024)</div><div class="card__text">Deepfakes +900% anual</div><p class="mt-2"><a href="https://sumsub.com/identity-fraud-report-2024/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">WEF Global Risks 2024</div><div class="card__text">Desinformación como riesgo #1 global</div><p class="mt-2"><a href="https://www.weforum.org/publications/global-risks-report-2024/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">CNN — Caso Arup</div><div class="card__text">$25M robados con deepfake en videollamada</div><p class="mt-2"><a href="https://www.cnn.com/2024/02/04/asia/arup-hong-kong-deepfake-scam/index.html" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Meta-análisis (Amazeen, 2024)</div><div class="card__text">49 estudios, 81.155 participantes: el pensamiento crítico funciona</div><p class="mt-2"><a href="https://doi.org/10.1177/00936502241277749" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Escenario global: teletrabajo, conectividad y economía digital</h3>
+      <div class="grid grid-2 anim">
+        <div class="card"><div class="card__title">Deel (2026)</div><div class="card__text">Contratación remota global, demografía laboral</div><p class="mt-2"><a href="https://www.deel.com/global-hiring-report-2026/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">OIT / Career Ahead</div><div class="card__text">Contratación transfronteriza +38% anual</div><p class="mt-2"><a href="https://careeraheadonline.com/cross-border-remote-jobs-surge-in-2025-reconfiguring-global-youth-employment/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Starlink</div><div class="card__text">10M suscriptores, 125+ países, 9.422 satélites</div><p class="mt-2"><a href="https://spacelaunchindex.com/blog/starlink-global-coverage-milestones-2025" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Statista (2025)</div><div class="card__text">$24 billones anuales en pagos digitales</div><p class="mt-2"><a href="https://www.statista.com/outlook/dmo/fintech/digital-payments/worldwide" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Economía cotidiana: IA, plataformas y pymes</h3>
+      <div class="grid grid-3 anim">
+        <div class="card"><div class="card__title">Chile-US Chamber (2025)</div><div class="card__text">Quiebras comercio minorista +100%, microempresas 52%</div></div>
+        <div class="card"><div class="card__title">Sensor Tower/IMARC (2024)</div><div class="card__text">Mercado delivery Chile USD $189M, PedidosYa 1,53M usuarios</div></div>
+        <div class="card"><div class="card__title">Society of Authors (2024)</div><div class="card__text">43% traductores con caída de ingresos por IA</div></div>
+        <div class="card"><div class="card__title">Intuit QuickBooks (2024)</div><div class="card__text">98% contadores EE.UU. usan IA</div></div>
+        <div class="card"><div class="card__title">Tech.co (2025)</div><div class="card__text">48% empresas con ChatGPT ahorraron +$50.000</div></div>
+        <div class="card"><div class="card__title">Trade.gov (2025)</div><div class="card__text">E-commerce Chile USD $14.200M, mayor per cápita en LatAm</div></div>
+        <div class="card"><div class="card__title">Bloomberg Línea (2024)</div><div class="card__text">37% pymes chilenas quiebran en 3 años, comercio 47,9%</div></div>
+        <div class="card"><div class="card__title">Brookings/Harvard (2024)</div><div class="card__text">-21% demanda freelancers, -5,2% ingresos Upwork</div></div>
+      </div>
+
+      <h3 class="anim mb-3 mt-4">Contexto chileno</h3>
+      <div class="grid grid-3 anim">
+        <div class="card"><div class="card__title">INE</div><div class="card__text">Desempleo juvenil 21,4%</div><p class="mt-2"><a href="https://www.ine.gob.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">CENIA-SOFOFA (2024)</div><div class="card__text">4,7M trabajadores expuestos a IA</div><p class="mt-2"><a href="https://cenia.cl/2024/12/16/50-de-la-fuerza-laboral-de-chile-puede-mejorar-significativamente-su-productividad-adoptando-la-ia-generativa/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">OCDE/PIAAC 2023</div><div class="card__text">55% empleos repetitivos — mayor de la OCDE</div><p class="mt-2"><a href="https://negocios.udd.cl/noticias/2025/07/barometro-udd-aafp-la-mayoria-de-los-trabajos-en-chile-corre-algun-riesgo-de-reemplazo-por-automatizacion/" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Ipsos</div><div class="card__text">81% cree que IA facilita fake news (3er país)</div><p class="mt-2"><a href="https://www.ipsos.com/es-cl/81-de-los-chilenos-cree-que-la-inteligencia-artificial-facilita-la-proliferacion-de-fake-news" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">Reuters/Oxford 2025</div><div class="card__text">Confianza en noticias: solo 36%</div><p class="mt-2"><a href="https://reutersinstitute.politics.ox.ac.uk/es/digital-news-report/2025/chile" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+        <div class="card"><div class="card__title">MINEDUC</div><div class="card__text">Plan Ciudadanía y Alfabetización Digital 2025-2026</div><p class="mt-2"><a href="https://ciudadaniadigital.mineduc.cl/wp-content/uploads/2025/05/Plan-Ciudadania-y-Alfabetizacion-Digital-2025.pdf" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:600">Acceder &rarr;</a></p></div>
+      </div>
+
+      <div class="anim mt-4" style="background:var(--color-bg-neutral);border-radius:var(--radius-lg);padding:var(--space-lg);text-align:center">
+        <p style="font-size:.9rem;color:var(--color-text-secondary);margin-bottom:.5rem"><strong>Nota metodológica:</strong> Los datos provienen exclusivamente de organismos internacionales (OCDE, WEF, UNESCO, FMI, OIT), instituciones académicas (Harvard, Stanford, Oxford, CENIA), consultoras globales (McKinsey, Goldman Sachs, PwC, Lightcast, Ipsos) e instituciones chilenas (INE, SUBTEL, MINEDUC).</p>
+        <p style="font-size:.9rem;color:var(--color-text-secondary);margin-bottom:0"><strong>Cada dato es verificable en su fuente original.</strong> No se han utilizado proyecciones especulativas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" style="text-align:center">
+    <div class="container">
+      <h2 class="anim mb-3">La evidencia es contundente. ¿Cómo respondemos?</h2>
+      <p class="anim mb-4" style="max-width:600px;margin-left:auto;margin-right:auto">Cada dato en esta página respalda lo que el Colegio Camilo Henríquez ya hace. El desafío no es convencer de que el problema existe — es actuar con la urgencia que los datos exigen.</p>
+      <div class="anim" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="modelo-educativo.html" class="btn btn--primary">Conocer el modelo &rarr;</a>
+        <a href="para-familias.html" class="btn btn--outline">Herramientas para familias &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-human anim" style="max-width:400px;margin:0 auto">
+        <p class="contact-human__name">[Nombre Apellido]</p>
+        <p class="contact-human__role">Dirección Académica</p>
+        <p class="contact-human__email">contacto@colegiocamilohenriquez.cl</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="nav.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudiantes — Tu lugar en el mundo</title>
+  <meta name="description" content="Ya no existe ningún rincón del planeta al que no puedas llegar con tus ideas. La tecnología derribó las barreras. Lo que queda es tuyo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Página estudiantes — vive en el espacio oscuro */
+    .est-page { background: var(--color-dark-deep); color: rgba(255,255,255,0.85); }
+
+    /* Hero sin etiqueta institucional */
+    .est-hero {
+      background-color: var(--color-dark-deep);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: 8rem 0 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .est-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(74,35,90,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .est-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(46,109,164,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .est-hero .container { position: relative; z-index: 1; }
+    .est-hero__title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      letter-spacing: -0.03em;
+    }
+    .est-hero__sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .btn--purple-light {
+      background: transparent;
+      color: var(--color-purple-light);
+      border: 2px solid var(--color-purple-light);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn--purple-light:hover {
+      background: var(--color-purple-light);
+      color: var(--color-purple);
+      text-decoration: none;
+    }
+
+    /* Barreras derribadas */
+    .est-barriers {
+      background: var(--color-dark-mid);
+      padding: var(--space-3xl) 0;
+    }
+    .est-barriers h2 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+    .est-barrier {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: flex-start;
+      padding: var(--space-lg);
+      border-left: 3px solid var(--color-purple);
+      background: rgba(255,255,255,0.03);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: var(--space-md);
+      transition: background 0.2s;
+    }
+    .est-barrier:hover { background: rgba(255,255,255,0.06); }
+    .est-barrier__icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
+    .est-barrier__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-purple-light);
+      margin-bottom: 0.4rem;
+    }
+    .est-barrier__text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: none;
+    }
+
+    /* Pensamiento agéntico */
+    .est-agentic {
+      background: #0F2A4A;
+      padding: var(--space-3xl) 0;
+      text-align: center;
+    }
+    .est-agentic__phrase {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+      max-width: 700px;
+      margin: 0 auto var(--space-xl);
+    }
+    .est-agentic__text {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.85;
+    }
+
+    /* Escala del impacto */
+    .est-impact {
+      background: var(--color-dark-deep);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: var(--space-3xl) 0;
+    }
+    .est-impact h2 {
+      color: #fff;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--space-xl);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    }
+    .est-impact__cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+      text-align: center;
+    }
+    .est-impact__col-num {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+    }
+    .est-impact__col-text {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+    }
+    .est-impact__cta {
+      text-align: center;
+      margin-top: var(--space-xl);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 800;
+      color: var(--color-amber);
+      line-height: 1.3;
+    }
+
+    /* Lo que construyes */
+    .est-building {
+      background: var(--color-dark-mid);
+      padding: var(--space-3xl) 0;
+    }
+    .est-building h2 {
+      color: #fff;
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto var(--space-xl);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    }
+    .est-build-item {
+      border-left: 3px solid var(--color-purple);
+      padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-md);
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .est-build-item p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Cierre */
+    .est-close {
+      background: var(--color-dark-deep);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: var(--space-3xl) 0;
+      text-align: center;
+    }
+    .est-close__question {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+    }
+    .est-close__sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .est-impact__cols { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .est-barrier { flex-direction: column; gap: var(--space-sm); }
+      .est-hero { padding: 6rem 0 4rem; }
+    }
+  </style>
+</head>
+<body class="est-page">
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 1 — HERO
+       Sin etiqueta institucional. El protagonista es el estudiante.
+       ═══════════════════════════════════════════════ -->
+  <section class="est-hero">
+    <div class="container">
+      <h1 class="est-hero__title anim">Ya no existe ningún rincón del planeta al que no puedas llegar con tus ideas.</h1>
+      <p class="est-hero__sub anim">La tecnología derribó las barreras de distancia, idioma, acceso y procesamiento. Lo que queda es lo único que siempre fue tuyo: la capacidad de pensar, crear y decidir qué mundo quieres construir.</p>
+      <a href="#barreras" class="btn--purple-light anim">Esto es lo que eso significa para ti &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 2 — LAS BARRERAS QUE YA NO EXISTEN
+       ═══════════════════════════════════════════════ -->
+  <section class="est-barriers" id="barreras">
+    <div class="container" style="max-width:800px">
+      <h2 class="anim">El mundo que te tocó ya no funciona con las reglas anteriores.</h2>
+
+      <div class="est-barrier anim">
+        <div class="est-barrier__icon">&#x1F30D;</div>
+        <div>
+          <div class="est-barrier__title">Distancia</div>
+          <p class="est-barrier__text">Un estudiante en Talca puede trabajar con una startup en Berlín, publicar investigación con una universidad en Tokio, o resolver un problema de una comunidad en Ghana. La geografía dejó de ser un límite.</p>
+        </div>
+      </div>
+
+      <div class="est-barrier anim">
+        <div class="est-barrier__icon">&#x1F5E3;</div>
+        <div>
+          <div class="est-barrier__title">Idioma</div>
+          <p class="est-barrier__text">La traducción en tiempo real elimina la última barrera de acceso. Tu idea no necesita esperar a que aprendas otro idioma. Necesita que la tengas.</p>
+        </div>
+      </div>
+
+      <div class="est-barrier anim">
+        <div class="est-barrier__icon">&#x1F4DA;</div>
+        <div>
+          <div class="est-barrier__title">Acceso al conocimiento</div>
+          <p class="est-barrier__text">Todo el saber humano está disponible ahora mismo. La ventaja ya no es tener acceso a la información. Es saber qué hacer con ella.</p>
+        </div>
+      </div>
+
+      <div class="est-barrier anim">
+        <div class="est-barrier__icon">&#x26A1;</div>
+        <div>
+          <div class="est-barrier__title">Capacidad de procesamiento</div>
+          <p class="est-barrier__text">La IA puede analizar millones de datos, simular escenarios, generar código, traducir, diseñar. Lo que no puede hacer es decidir para qué. Eso es tuyo.</p>
+        </div>
+      </div>
+
+      <div class="est-barrier anim">
+        <div class="est-barrier__icon">&#x1F52C;</div>
+        <div>
+          <div class="est-barrier__title">Simulación y experimentación</div>
+          <p class="est-barrier__text">Hoy puedes prototipar una solución, simularla, iterar y lanzarla al mundo sin necesitar un laboratorio, un edificio, ni un presupuesto millonario. Solo necesitas la pregunta correcta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 3 — EL PENSAMIENTO AGÉNTICO
+       ═══════════════════════════════════════════════ -->
+  <section class="est-agentic">
+    <div class="container" style="max-width:700px">
+      <p class="est-agentic__phrase anim">Agente no es quien espera instrucciones. Es quien se hace la pregunta que nadie hizo y decide mover el mundo un centímetro.</p>
+      <p class="est-agentic__text anim">El pensamiento agéntico no es una habilidad técnica. Es una forma de pararse frente al mundo. Ver un problema y no preguntar quién lo va a resolver. Preguntar cómo lo vas a resolver tú.</p>
+      <p class="est-agentic__text anim" style="margin-top:var(--space-md)">Con qué herramientas. Con quién. Para qué.<br>Y empezar hoy.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 4 — LA ESCALA DEL IMPACTO POSIBLE
+       ═══════════════════════════════════════════════ -->
+  <section class="est-impact">
+    <div class="container">
+      <h2 class="anim">Ya no estás convocado a mejorar tu entorno inmediato. Estás convocado a mejorar el mundo.</h2>
+
+      <div class="est-impact__cols">
+        <div class="anim">
+          <p class="est-impact__col-num">8.000M</p>
+          <p class="est-impact__col-text">de personas comparten el mismo planeta contigo. Tus soluciones pueden llegar a todas ellas.</p>
+        </div>
+        <div class="anim">
+          <p class="est-impact__col-num" style="font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:1.3;padding:0 var(--space-sm)">Clima, salud, educación, hambre</p>
+          <p class="est-impact__col-text">Los problemas más urgentes de la humanidad no esperan. Y tampoco tú deberías.</p>
+        </div>
+        <div class="anim">
+          <p class="est-impact__col-num" style="font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:1.3">Soñar ya no es un lujo</p>
+          <p class="est-impact__col-text">Soñar con un mundo mejor ya no es un lujo ideológico. Es la tarea más urgente y más práctica que existe.</p>
+        </div>
+      </div>
+
+      <p class="est-impact__cta anim" style="margin-top:var(--space-xl)">Crear un mundo mejor es una labor que ya no puede esperar.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 5 — LO QUE ESTÁS CONSTRUYENDO
+       ═══════════════════════════════════════════════ -->
+  <section class="est-building">
+    <div class="container">
+      <h2 class="anim">Cada día en este colegio estás construyendo algo que la mayoría nunca tendrá.</h2>
+
+      <div class="est-build-item anim">
+        <p>La capacidad de aprender cualquier cosa nueva cuando el mundo te exija que lo hagas.</p>
+      </div>
+      <div class="est-build-item anim">
+        <p>La habilidad de colaborar con personas que piensan distinto a ti — y crear algo que ninguno hubiera creado solo.</p>
+      </div>
+      <div class="est-build-item anim">
+        <p>El pensamiento crítico que te protege de la manipulación, la desinformación y las decisiones mal fundamentadas.</p>
+      </div>
+      <div class="est-build-item anim">
+        <p>La creatividad para generar soluciones donde otros solo ven problemas.</p>
+      </div>
+      <div class="est-build-item anim">
+        <p>La resiliencia para seguir cuando el camino no está trazado.</p>
+      </div>
+      <div class="est-build-item anim">
+        <p>Y la agencia: la certeza de que tus acciones cambian las cosas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BLOQUE 6 — CIERRE
+       ═══════════════════════════════════════════════ -->
+  <section class="est-close">
+    <div class="container">
+      <p class="est-close__question anim" id="est-question" style="transition:opacity 0.35s">¿Qué problema del mundo vas a empezar a resolver hoy?</p>
+      <p class="est-close__sub anim" id="est-sub" style="transition:opacity 0.35s">No tienes que tener la respuesta completa. Solo tienes que empezar a hacerte la pregunta.</p>
+      <div style="margin-bottom:var(--space-lg)">
+        <button onclick="nextEstQ()" class="refresh-btn refresh-btn--purple">Esta no te resonó? Hay otra esperándote →</button>
+      </div>
+      <script>
+      var _estQs = [
+        ['¿Qué problema del mundo vas a empezar a resolver hoy?','No tienes que tener la respuesta completa. Solo tienes que empezar a hacerte la pregunta.'],
+        ['¿Qué cambiarías de tu ciudad si pudieras empezar mañana?','Las mejores ideas no nacen de la teoría. Nacen de mirar tu entorno con ojos nuevos.'],
+        ['¿Qué problema ves todos los días que nadie está resolviendo?','Ahí hay una oportunidad. Y probablemente tienes más herramientas de las que crees.'],
+        ['¿Qué harías si supieras que no puedes fallar?','Ahora pregúntate: ¿y si el único fracaso real fuera no intentarlo?'],
+        ['¿Qué idea llevas semanas dándole vueltas sin contársela a nadie?','Las ideas que no se comparten mueren en silencio. Las que se comparten transforman el mundo.'],
+        ['¿A quién admiras y qué hizo esa persona que tú también podrías hacer?','La diferencia entre admirar y actuar es una sola decisión.'],
+        ['¿Qué sabes hacer que podría ayudar a alguien al otro lado del planeta?','La distancia ya no es un obstáculo. Tu talento puede llegar a donde tú quieras llevarlo.'],
+        ['¿Qué pregunta te gustaría que tu colegio te hiciera — y nunca te ha hecho?','A veces la mejor educación empieza cuando alguien se atreve a hacer la pregunta incómoda.'],
+        ['¿Qué mundo quieres que exista cuando tengas 30 años?','Ese mundo no se construye solo. Se construye con cada decisión que tomas hoy.'],
+        ['¿Qué te indigna lo suficiente como para dedicarle tu energía?','La indignación sin acción es frustración. La indignación con propósito es el motor del cambio.'],
+      ];
+      var _estIdx = -1;
+      function nextEstQ() {
+        var prev = _estIdx;
+        do { _estIdx = Math.floor(Math.random() * _estQs.length); } while (_estQs.length > 1 && _estIdx === prev);
+        var qEl = document.getElementById('est-question'), sEl = document.getElementById('est-sub');
+        qEl.style.opacity = '0'; sEl.style.opacity = '0';
+        setTimeout(function(){ qEl.textContent = _estQs[_estIdx][0]; sEl.textContent = _estQs[_estIdx][1]; qEl.style.opacity = '1'; sEl.style.opacity = '1'; }, 350);
+      }
+      nextEstQ();
+      </script>
+      <a href="visita.html" class="btn--purple-light anim">Cuéntanos tu idea &rarr;</a>
+    </div>
+  </section>
+
+  <script src="nav.js?v=3"></script>
+</body>
+</html>
