@@ -154,7 +154,7 @@ function buildFooter() {
         </div>
       </div>
       <div class="footer__bottom">
-        <p style="text-align:center">Colegio Camilo Henríquez, Talca, Chile</p>
+        <p style="text-align:center;max-width:none;margin:0 auto">Colegio Camilo Henríquez, Talca, Chile</p>
       </div>
     </div>
   `;
