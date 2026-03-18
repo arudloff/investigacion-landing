@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autodiagnóstico — Habilidades del Siglo XXI</title>
+  <meta name="description" content="¿Qué tan preparado estás para el siglo XXI? Descúbrelo en 3 minutos. Anónimo, gratuito, compartible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .dx-page { background: var(--color-dark-deep); color: rgba(255,255,255,0.85); min-height: 100vh; }
+
+    /* Hero */
+    .dx-hero {
+      background-color: var(--color-dark-deep);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: 6rem 0 3rem;
+      text-align: center;
+    }
+    .dx-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; max-width: 700px; margin: 0 auto 1rem; }
+    .dx-hero p { color: rgba(255,255,255,0.6); max-width: 550px; margin: 0 auto; line-height: 1.7; }
+    .dx-hero__badge { display: inline-block; background: rgba(245,166,35,0.15); color: var(--color-amber); font-size: .75rem; font-weight: 700; padding: .3rem .9rem; border-radius: 100px; border: 1px solid rgba(245,166,35,0.25); margin-bottom: 1.5rem; }
+
+    /* Profile cards */
+    .dx-profiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 800px; margin: 2.5rem auto 0; }
+    .dx-profile {
+      background: var(--color-dark-mid);
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dx-profile:hover { border-color: rgba(245,166,35,0.3); transform: translateY(-3px); }
+    .dx-profile--active { border-color: var(--color-amber); background: rgba(245,166,35,0.08); box-shadow: 0 0 20px rgba(245,166,35,0.1); }
+    .dx-profile__icon { font-size: 2rem; margin-bottom: .5rem; }
+    .dx-profile__name { font-size: .85rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+    .dx-profile--active .dx-profile__name { color: var(--color-amber); }
+    .dx-profile__desc { font-size: .68rem; color: rgba(255,255,255,0.4); margin-top: .3rem; line-height: 1.3; }
+
+    /* Quiz section */
+    .dx-quiz { max-width: 650px; margin: 0 auto; padding: 2.5rem 0; display: none; }
+    .dx-quiz--active { display: block; }
+    .dx-progress { height: 4px; background: rgba(255,255,255,0.08); border-radius: 100px; margin-bottom: 2rem; overflow: hidden; }
+    .dx-progress__fill { height: 100%; background: var(--color-amber); border-radius: 100px; transition: width 0.4s ease; width: 0; }
+    .dx-progress__text { font-size: .75rem; color: rgba(255,255,255,0.4); text-align: center; margin-bottom: .5rem; }
+
+    /* Question */
+    .dx-q { margin-bottom: 2rem; animation: dxFadeIn 0.4s ease; }
+    @keyframes dxFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .dx-q__text { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 1rem; line-height: 1.5; }
+    .dx-q__dimension { font-size: .7rem; color: var(--color-amber); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .5rem; }
+
+    /* Rating scale */
+    .dx-scale { display: flex; gap: 8px; justify-content: center; }
+    .dx-scale__btn {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dx-scale__btn:hover { border-color: rgba(245,166,35,0.4); color: var(--color-amber); }
+    .dx-scale__btn--selected { background: rgba(245,166,35,0.15); border-color: var(--color-amber); color: var(--color-amber); box-shadow: 0 0 12px rgba(245,166,35,0.15); }
+    .dx-scale__labels { display: flex; justify-content: space-between; margin-top: .4rem; font-size: .65rem; color: rgba(255,255,255,0.3); }
+
+    /* Navigation buttons */
+    .dx-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+    .dx-nav__btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: .6rem 1.5rem;
+      min-height: 44px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dx-nav__btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .dx-nav__btn--primary { background: var(--color-amber); border-color: var(--color-amber); color: var(--color-dark-deep); }
+    .dx-nav__btn--primary:hover { background: var(--color-amber-dark); }
+
+    /* Results dashboard */
+    .dx-results { display: none; max-width: 750px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .dx-results--active { display: block; animation: dxFadeIn 0.6s ease; }
+    .dx-results__header { text-align: center; margin-bottom: 2.5rem; }
+    .dx-results__title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: .5rem; }
+    .dx-results__subtitle { color: rgba(255,255,255,0.5); font-size: .9rem; }
+
+    /* Radar chart */
+    .dx-radar { display: flex; justify-content: center; margin-bottom: 2.5rem; }
+    .dx-radar svg { max-width: 380px; width: 100%; }
+    .dx-radar__bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 1; }
+    .dx-radar__grid { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 1; }
+    .dx-radar__shape { fill: rgba(245,166,35,0.15); stroke: var(--color-amber); stroke-width: 2.5; stroke-linejoin: round; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__dot { fill: var(--color-amber); r: 5; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__label { fill: rgba(255,255,255,0.6); font-size: 11px; font-weight: 600; text-anchor: middle; }
+
+    /* Score cards */
+    .dx-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2rem; }
+    .dx-score {
+      background: var(--color-dark-mid);
+      border-radius: 12px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border-left: 3px solid var(--color-amber);
+    }
+    .dx-score__val { font-size: 1.8rem; font-weight: 800; color: var(--color-amber); }
+    .dx-score__label { font-size: .72rem; color: rgba(255,255,255,0.5); margin-top: .2rem; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* Insight text */
+    .dx-insight {
+      background: rgba(245,166,35,0.05);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .dx-insight__title { font-size: .88rem; font-weight: 700; color: var(--color-amber); margin-bottom: .5rem; }
+    .dx-insight__text { font-size: .9rem; color: rgba(255,255,255,0.7); line-height: 1.65; margin: 0; max-width: none; }
+
+    /* Share section */
+    .dx-share { text-align: center; padding-top: 1rem; }
+    .dx-share__title { font-size: .85rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .dx-share__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    /* Dimension bars */
+    .dx-dims { margin-bottom: 2rem; }
+    .dx-dim { margin-bottom: 1rem; }
+    .dx-dim__header { display: flex; justify-content: space-between; margin-bottom: .4rem; }
+    .dx-dim__name { font-size: .82rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .dx-dim__pct { font-size: .82rem; font-weight: 800; color: var(--color-amber); }
+    .dx-dim__bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
+    .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+
+    @media (max-width: 768px) {
+      .dx-profiles { grid-template-columns: repeat(2, 1fr); }
+      .dx-scores { grid-template-columns: 1fr 1fr; }
+      .dx-scale__btn { width: 46px; height: 46px; }
+    }
+    @media (max-width: 480px) {
+      .dx-profiles { grid-template-columns: 1fr 1fr; }
+      .dx-scores { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="dx-page">
+
+  <section class="dx-hero">
+    <div class="container">
+      <div class="dx-hero__badge">Anónimo · 3 minutos · Gratuito</div>
+      <h1>¿Qué tan preparado estás para el siglo XXI?</h1>
+      <p>Un diagnóstico rápido de tus habilidades frente a los desafíos que la disrupción tecnológica, la IA y el nuevo mercado laboral ponen sobre la mesa. Sin registro. Sin datos personales.</p>
+
+      <div class="dx-profiles" id="dx-profiles">
+        <div class="dx-profile" onclick="selectProfile('persona')">
+          <div class="dx-profile__icon">🧠</div>
+          <div class="dx-profile__name">Como persona</div>
+          <div class="dx-profile__desc">Tus destrezas personales frente al mundo que viene</div>
+        </div>
+        <div class="dx-profile" onclick="selectProfile('docente')">
+          <div class="dx-profile__icon">📚</div>
+          <div class="dx-profile__name">Como docente</div>
+          <div class="dx-profile__desc">Tu práctica pedagógica y su alineación con el siglo XXI</div>
+        </div>
+        <div class="dx-profile" onclick="selectProfile('colegio')">
+          <div class="dx-profile__icon">🏫</div>
+          <div class="dx-profile__name">Como establecimiento</div>
+          <div class="dx-profile__desc">Tu escuela frente a los estándares internacionales</div>
+        </div>
+        <div class="dx-profile" onclick="selectProfile('empresa')">
+          <div class="dx-profile__icon">🏢</div>
+          <div class="dx-profile__name">Como empresa</div>
+          <div class="dx-profile__desc">Tu organización y las competencias que necesita</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <!-- Quiz area -->
+    <div class="dx-quiz" id="dx-quiz">
+      <div class="dx-progress__text" id="dx-progress-text">Pregunta 1 de 12</div>
+      <div class="dx-progress"><div class="dx-progress__fill" id="dx-progress-fill"></div></div>
+      <div id="dx-questions"></div>
+      <div class="dx-nav">
+        <button class="dx-nav__btn" onclick="prevQuestion()" id="dx-prev" style="visibility:hidden">← Anterior</button>
+        <button class="dx-nav__btn dx-nav__btn--primary" onclick="nextQuestion()" id="dx-next">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="dx-results" id="dx-results">
+      <div class="dx-results__header">
+        <div class="dx-hero__badge" id="dx-results-profile"></div>
+        <div class="dx-results__title" id="dx-results-title"></div>
+        <div class="dx-results__subtitle">Tu perfil de habilidades del siglo XXI</div>
+      </div>
+
+      <div class="dx-radar"><svg viewBox="0 0 400 400" id="dx-radar-svg"></svg></div>
+
+      <div class="dx-scores" id="dx-scores"></div>
+
+      <div class="dx-dims" id="dx-dims"></div>
+
+      <div class="dx-insight" id="dx-insight">
+        <div class="dx-insight__title">Tu mayor fortaleza</div>
+        <p class="dx-insight__text" id="dx-insight-strength"></p>
+      </div>
+      <div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">
+        <div class="dx-insight__title" style="color:var(--color-primary-mid)">Tu mayor oportunidad de crecimiento</div>
+        <p class="dx-insight__text" id="dx-insight-growth"></p>
+      </div>
+
+      <div class="dx-share">
+        <div class="dx-share__title">¿Te sorprendió el resultado? Compártelo.</div>
+        <div class="dx-share__btns">
+          <a href="#" onclick="shareWA()" class="refresh-btn" style="border-color:rgba(37,211,102,0.4);color:rgba(37,211,102,0.8)">Compartir por WhatsApp</a>
+          <button onclick="selectProfile(currentProfile)" class="refresh-btn">Repetir diagnóstico</button>
+          <button onclick="resetAll()" class="refresh-btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)">Probar otro perfil</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  // ========== DATA ==========
+  const allQuestions = {
+    persona: {
+      label: 'Como persona',
+      dimensions: ['Pensamiento crítico','Creatividad','Colaboración','Autonomía','Socioemocional','Adaptabilidad'],
+      questions: [
+        { dim: 0, text: 'Cuando leo una noticia impactante, verifico la fuente antes de compartirla.' },
+        { dim: 0, text: 'Puedo identificar cuando un argumento tiene un sesgo o una falacia lógica.' },
+        { dim: 1, text: 'Cuando enfrento un problema, busco soluciones que nadie ha probado antes.' },
+        { dim: 1, text: 'Conecto ideas de ámbitos completamente distintos para generar algo nuevo.' },
+        { dim: 2, text: 'Trabajo bien con personas que piensan muy diferente a mí.' },
+        { dim: 2, text: 'Cuando trabajo en equipo, escucho antes de proponer.' },
+        { dim: 3, text: 'Puedo aprender una habilidad nueva por mi cuenta cuando lo necesito.' },
+        { dim: 3, text: 'Gestiono mi tiempo y prioridades sin que alguien me lo indique.' },
+        { dim: 4, text: 'Puedo nombrar lo que estoy sintiendo en un momento difícil.' },
+        { dim: 4, text: 'Mantengo la calma y pienso con claridad bajo presión.' },
+        { dim: 5, text: 'Cuando algo que sé hacer deja de funcionar, busco reinventarme rápidamente.' },
+        { dim: 5, text: 'Me siento cómodo tomando decisiones con información incompleta.' },
+      ]
+    },
+    docente: {
+      label: 'Como docente',
+      dimensions: ['Pensamiento crítico en aula','Creatividad pedagógica','Colaboración profesional','Autonomía del estudiante','Socioemocional en aula','Innovación metodológica'],
+      questions: [
+        { dim: 0, text: 'Mis estudiantes argumentan con evidencia, no solo con opiniones.' },
+        { dim: 0, text: 'Diseño actividades donde no hay una sola respuesta correcta.' },
+        { dim: 1, text: 'Permito que los estudiantes propongan formas distintas de resolver un desafío.' },
+        { dim: 1, text: 'Integro el error como parte explícita del proceso de aprendizaje.' },
+        { dim: 2, text: 'Mis estudiantes trabajan en proyectos colaborativos con roles reales.' },
+        { dim: 2, text: 'Co-diseño actividades con otros docentes de distintas asignaturas.' },
+        { dim: 3, text: 'Los estudiantes pueden elegir rutas o temas dentro de mis clases.' },
+        { dim: 3, text: 'Evalúo el proceso de aprendizaje, no solo el producto final.' },
+        { dim: 4, text: 'Dedico tiempo a que los estudiantes identifiquen cómo se sienten antes de empezar.' },
+        { dim: 4, text: 'Los conflictos en mi aula se resuelven con diálogo, no con sanciones.' },
+        { dim: 5, text: 'He cambiado significativamente mi metodología en los últimos 2 años.' },
+        { dim: 5, text: 'Uso herramientas digitales o IA para enriquecer la experiencia de aprendizaje.' },
+      ]
+    },
+    colegio: {
+      label: 'Como establecimiento',
+      dimensions: ['Pensamiento crítico institucional','Cultura de innovación','Colaboración interna','Agencia del estudiante','Clima socioemocional','Conexión con el siglo XXI'],
+      questions: [
+        { dim: 0, text: 'Nuestro modelo pedagógico se basa en marcos internacionales verificables.' },
+        { dim: 0, text: 'Los docentes investigan y cuestionan sus propias prácticas de forma sistemática.' },
+        { dim: 1, text: 'Existe un espacio formal para que los docentes propongan e implementen innovaciones.' },
+        { dim: 1, text: 'La evaluación va más allá de pruebas estandarizadas.' },
+        { dim: 2, text: 'Los equipos docentes planifican de forma interdisciplinaria regularmente.' },
+        { dim: 2, text: 'Las familias participan activamente en la vida pedagógica, no solo administrativa.' },
+        { dim: 3, text: 'Los estudiantes tienen voz en decisiones que afectan su experiencia educativa.' },
+        { dim: 3, text: 'Existen instancias donde los estudiantes gestionan su propio aprendizaje.' },
+        { dim: 4, text: 'El bienestar socioemocional se trabaja transversalmente, no solo en un taller.' },
+        { dim: 4, text: 'Los docentes reciben apoyo emocional y profesional de forma regular.' },
+        { dim: 5, text: 'Nuestros egresados desarrollan destrezas que el mercado laboral valora hoy.' },
+        { dim: 5, text: 'Tenemos alianzas activas con universidades, empresas u otras escuelas.' },
+      ]
+    },
+    empresa: {
+      label: 'Como empresa',
+      dimensions: ['Pensamiento estratégico','Cultura de innovación','Trabajo colaborativo','Autonomía de equipos','Inteligencia emocional','Adaptabilidad organizacional'],
+      questions: [
+        { dim: 0, text: 'Las decisiones se toman con datos y evidencia, no solo con intuición.' },
+        { dim: 0, text: 'Cuestionamos regularmente nuestros propios supuestos de negocio.' },
+        { dim: 1, text: 'Existe un espacio real para experimentar ideas nuevas sin penalización por fracaso.' },
+        { dim: 1, text: 'Hemos implementado cambios significativos en nuestro modelo en los últimos 2 años.' },
+        { dim: 2, text: 'Los equipos se conforman por competencias diversas, no solo por jerarquía.' },
+        { dim: 2, text: 'La información fluye horizontalmente, no solo de arriba hacia abajo.' },
+        { dim: 3, text: 'Los equipos pueden tomar decisiones sin esperar aprobación de cada nivel.' },
+        { dim: 3, text: 'Cada persona entiende cómo su trabajo contribuye al propósito de la organización.' },
+        { dim: 4, text: 'Los líderes demuestran empatía y escucha activa de forma consistente.' },
+        { dim: 4, text: 'Existe un espacio seguro para expresar desacuerdo sin consecuencias negativas.' },
+        { dim: 5, text: 'Estamos preparados para que la IA transforme roles dentro de nuestra organización.' },
+        { dim: 5, text: 'Invertimos en el desarrollo de habilidades humanas, no solo técnicas.' },
+      ]
+    }
+  };
+
+  const insightPool = {
+    strength: [
+      'Esta es la base sobre la que puedes construir todo lo demás. Las personas y organizaciones que dominan esta dimensión tienen una ventaja que la IA no puede replicar.',
+      'Aquí tienes un activo que el mercado valora cada vez más. Mientras la tecnología avanza, esta destreza humana se vuelve más escasa — y más valiosa.',
+      'Tu fortaleza en esta área te posiciona en el grupo que lidera la adaptación al cambio. Cultívala y compártela.',
+    ],
+    growth: [
+      'Esta dimensión es donde más potencial de transformación tienes. Un pequeño avance aquí tiene un efecto multiplicador en todas las demás.',
+      'No es una debilidad — es una oportunidad. Las destrezas del siglo XXI se desarrollan a cualquier edad. Lo que importa es la decisión de empezar.',
+      'Aquí está tu próximo salto. Los datos muestran que las personas que trabajan esta dimensión de forma intencional ven resultados en semanas, no en años.',
+    ]
+  };
+
+  // ========== STATE ==========
+  let currentProfile = null;
+  let currentQ = 0;
+  let answers = [];
+  let questions = [];
+
+  // ========== FUNCTIONS ==========
+  function selectProfile(profile) {
+    currentProfile = profile;
+    currentQ = 0;
+    answers = [];
+    questions = allQuestions[profile].questions;
+    // UI
+    document.getElementById('dx-results').classList.remove('dx-results--active');
+    document.querySelectorAll('.dx-profile').forEach(p => p.classList.remove('dx-profile--active'));
+    event.target.closest('.dx-profile').classList.add('dx-profile--active');
+    document.getElementById('dx-quiz').classList.add('dx-quiz--active');
+    answers = new Array(questions.length).fill(0);
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = questions[currentQ];
+    const dims = allQuestions[currentProfile].dimensions;
+    const total = questions.length;
+    document.getElementById('dx-progress-text').textContent = `Pregunta ${currentQ + 1} de ${total}`;
+    document.getElementById('dx-progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
+    document.getElementById('dx-prev').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+    const nextBtn = document.getElementById('dx-next');
+    nextBtn.textContent = currentQ === total - 1 ? 'Ver resultados →' : 'Siguiente →';
+
+    const html = `<div class="dx-q">
+      <div class="dx-q__dimension">${dims[q.dim]}</div>
+      <div class="dx-q__text">${q.text}</div>
+      <div class="dx-scale">
+        ${[1,2,3,4,5].map(v => `<button class="dx-scale__btn ${answers[currentQ]===v?'dx-scale__btn--selected':''}" onclick="answer(${v})">${v}</button>`).join('')}
+      </div>
+      <div class="dx-scale__labels"><span>Nunca</span><span>Rara vez</span><span>A veces</span><span>Casi siempre</span><span>Siempre</span></div>
+    </div>`;
+    document.getElementById('dx-questions').innerHTML = html;
+  }
+
+  function answer(val) {
+    answers[currentQ] = val;
+    document.querySelectorAll('.dx-scale__btn').forEach((b,i) => {
+      b.classList.toggle('dx-scale__btn--selected', i+1 === val);
+    });
+  }
+
+  function nextQuestion() {
+    if (answers[currentQ] === 0) { answers[currentQ] = 3; } // default middle
+    if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
+    else { showResults(); }
+  }
+
+  function prevQuestion() {
+    if (currentQ > 0) { currentQ--; renderQuestion(); }
+  }
+
+  function showResults() {
+    document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
+    document.getElementById('dx-results').classList.add('dx-results--active');
+    const data = allQuestions[currentProfile];
+    const dims = data.dimensions;
+    const dimCount = dims.length;
+
+    // Calculate scores per dimension (average of 2 questions each, scaled to 100)
+    const scores = [];
+    for (let d = 0; d < dimCount; d++) {
+      const qs = questions.filter((q,i) => q.dim === d);
+      const idxs = questions.map((q,i) => q.dim === d ? i : -1).filter(i => i >= 0);
+      const avg = idxs.reduce((sum, i) => sum + answers[i], 0) / idxs.length;
+      scores.push(Math.round((avg / 5) * 100));
+    }
+    const total = Math.round(scores.reduce((a,b) => a+b, 0) / dimCount);
+
+    // Profile badge
+    document.getElementById('dx-results-profile').textContent = data.label;
+    // Title based on score
+    let title = 'Tu perfil muestra oportunidades de crecimiento importantes';
+    if (total >= 80) title = 'Tu perfil está altamente alineado con el siglo XXI';
+    else if (total >= 60) title = 'Tu perfil muestra una base sólida con espacio para crecer';
+    else if (total >= 40) title = 'Tu perfil tiene fundamentos — y un gran potencial de desarrollo';
+    document.getElementById('dx-results-title').textContent = title;
+
+    // Score cards
+    const maxDim = scores.indexOf(Math.max(...scores));
+    const minDim = scores.indexOf(Math.min(...scores));
+    document.getElementById('dx-scores').innerHTML = `
+      <div class="dx-score"><div class="dx-score__val">${total}%</div><div class="dx-score__label">Score global</div></div>
+      <div class="dx-score" style="border-left-color:var(--color-accent-green)"><div class="dx-score__val" style="color:var(--color-accent-green)">${scores[maxDim]}%</div><div class="dx-score__label">Mayor fortaleza</div></div>
+      <div class="dx-score" style="border-left-color:var(--color-primary-mid)"><div class="dx-score__val" style="color:var(--color-primary-mid)">${scores[minDim]}%</div><div class="dx-score__label">Mayor oportunidad</div></div>
+    `;
+
+    // Dimension bars
+    document.getElementById('dx-dims').innerHTML = dims.map((name, i) => `
+      <div class="dx-dim">
+        <div class="dx-dim__header"><span class="dx-dim__name">${name}</span><span class="dx-dim__pct">${scores[i]}%</span></div>
+        <div class="dx-dim__bar"><div class="dx-dim__fill" id="dx-bar-${i}"></div></div>
+      </div>
+    `).join('');
+    // Animate bars
+    setTimeout(() => {
+      dims.forEach((_, i) => { document.getElementById('dx-bar-' + i).style.width = scores[i] + '%'; });
+    }, 200);
+
+    // Radar chart
+    drawRadar(dims, scores);
+
+    // Insights
+    const sp = insightPool.strength;
+    const gp = insightPool.growth;
+    document.getElementById('dx-insight-strength').innerHTML = `<strong>${dims[maxDim]} (${scores[maxDim]}%):</strong> ${sp[Math.floor(Math.random()*sp.length)]}`;
+    document.getElementById('dx-insight-growth').innerHTML = `<strong>${dims[minDim]} (${scores[minDim]}%):</strong> ${gp[Math.floor(Math.random()*gp.length)]}`;
+
+    // Scroll to results
+    document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function drawRadar(labels, scores) {
+    const svg = document.getElementById('dx-radar-svg');
+    const cx = 200, cy = 200, r = 140;
+    const n = labels.length;
+    const angleStep = (2 * Math.PI) / n;
+    const offset = -Math.PI / 2;
+
+    function polarToXY(angle, radius) {
+      return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+    }
+
+    let gridHTML = '';
+    // Grid rings
+    [0.2, 0.4, 0.6, 0.8, 1.0].forEach(pct => {
+      const pts = [];
+      for (let i = 0; i < n; i++) pts.push(polarToXY(offset + i * angleStep, r * pct).join(','));
+      gridHTML += `<polygon points="${pts.join(' ')}" class="${pct===1?'dx-radar__bg':'dx-radar__grid'}"/>`;
+    });
+    // Axis lines
+    for (let i = 0; i < n; i++) {
+      const [x, y] = polarToXY(offset + i * angleStep, r);
+      gridHTML += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+    }
+    // Labels
+    for (let i = 0; i < n; i++) {
+      const [x, y] = polarToXY(offset + i * angleStep, r + 25);
+      // Split long labels
+      const parts = labels[i].split(' ');
+      const mid = Math.ceil(parts.length / 2);
+      const l1 = parts.slice(0, mid).join(' ');
+      const l2 = parts.slice(mid).join(' ');
+      gridHTML += `<text x="${x}" y="${y-6}" class="dx-radar__label">${l1}</text>`;
+      if (l2) gridHTML += `<text x="${x}" y="${y+7}" class="dx-radar__label">${l2}</text>`;
+    }
+    // Data shape (starts at center, animates out)
+    const dataPts = [];
+    const dots = [];
+    for (let i = 0; i < n; i++) {
+      const val = scores[i] / 100;
+      const [x, y] = polarToXY(offset + i * angleStep, r * val);
+      dataPts.push(`${x},${y}`);
+      dots.push(`<circle cx="${x}" cy="${y}" class="dx-radar__dot"/>`);
+    }
+    gridHTML += `<polygon points="${dataPts.join(' ')}" class="dx-radar__shape"/>`;
+    gridHTML += dots.join('');
+
+    svg.innerHTML = gridHTML;
+  }
+
+  function resetAll() {
+    document.getElementById('dx-results').classList.remove('dx-results--active');
+    document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
+    document.querySelectorAll('.dx-profile').forEach(p => p.classList.remove('dx-profile--active'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function shareWA() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Acabo de hacer el autodiagnóstico de habilidades del siglo XXI. ¿Qué tan preparado estás tú?');
+    window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+  }
+  </script>
+
+  <script src="nav.js?v=3"></script>
+</body>
+</html>

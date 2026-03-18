@@ -27,6 +27,8 @@ const NAV_ITEMS = [
       { href: 'equipo.html', label: 'Nuestro equipo' },
       { href: 'visita.html', label: 'Solicita una visita guiada' },
       { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
+      { isSeparator: true },
+      { href: 'autodiagnostico.html', label: '🧭 Autodiagnóstico siglo XXI' },
     ]
   },
 ];
@@ -52,6 +54,7 @@ const MOBILE_LINKS = [
   { href: 'equipo.html', label: 'Nuestro equipo' },
   { href: 'visita.html', label: 'Solicita una visita guiada' },
   { href: 'trabaja-con-nosotros.html', label: 'Trabaja con nosotros' },
+  { href: 'autodiagnostico.html', label: '🧭 Autodiagnóstico siglo XXI' },
 ];
 
 const FOOTER_COLS = {
