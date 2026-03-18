@@ -344,7 +344,7 @@ strong { font-weight: 600; color: var(--color-text); }
 }
 .hero__correct {
   font-weight: 800;
-  color: var(--color-white);
+  color: var(--color-amber);
   text-transform: uppercase;
   letter-spacing: .02em;
   font-size: .7em;
