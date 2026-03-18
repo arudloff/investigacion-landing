@@ -222,17 +222,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 var _lastDyk = -1;
+var _dykFirstLoad = true;
 function refreshDyk() {
   var el = document.getElementById('footer-dyk');
   if (!el) return;
   var idx;
   do { idx = Math.floor(Math.random() * dykData.length); } while (dykData.length > 1 && idx === _lastDyk);
   _lastDyk = idx;
-  el.style.opacity = '0';
-  setTimeout(function(){ el.textContent = dykData[idx]; el.style.opacity = '1'; }, 250);
+  if (_dykFirstLoad) {
+    el.textContent = dykData[idx];
+    el.style.transition = 'opacity 0.25s ease';
+    _dykFirstLoad = false;
+  } else {
+    el.style.opacity = '0';
+    setTimeout(function(){ el.textContent = dykData[idx]; el.style.opacity = '1'; }, 250);
+  }
 }
-// Add transition to dyk element
-document.addEventListener('DOMContentLoaded', function(){
-  var el = document.getElementById('footer-dyk');
-  if (el) el.style.transition = 'opacity 0.25s ease';
-});
