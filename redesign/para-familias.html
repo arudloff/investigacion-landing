@@ -79,62 +79,27 @@
 
   <section class="section section--alt">
     <div class="container">
-      <h2 class="text-center anim mb-4">4 herramientas para elegir el colegio de continuidad</h2>
-      <div class="grid grid-2">
-        <details class="card card--blue anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x2705;</span>
-            <span class="card__title">Rúbrica para evaluar colegios de continuidad</span>
-            <span class="card__text">16 criterios en 4 dimensiones. Llevála a la visita y sabrás en 15 minutos si ese colegio prepara para el futuro.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p><strong>Dimensión 1 — Pensamiento crítico:</strong> ¿Los estudiantes argumentan con evidencia? ¿Se fomenta el debate respetuoso? ¿Se evalúa la capacidad de análisis, no solo la memorización?</p>
-            <p><strong>Dimensión 2 — Colaboración y comunicación:</strong> ¿Hay proyectos grupales reales? ¿Los estudiantes presentan ante otros? ¿Se evalúa el trabajo en equipo?</p>
-            <p><strong>Dimensión 3 — Creatividad y resolución:</strong> ¿Hay espacio para soluciones originales? ¿Se permite el error como aprendizaje? ¿Se trabaja con problemas abiertos?</p>
-            <p><strong>Dimensión 4 — Autonomía y socioemocional:</strong> ¿Los estudiantes gestionan su propio aprendizaje? ¿Hay instancias de regulación emocional? ¿Se nombran y trabajan las emociones?</p>
-          </div>
-        </details>
-        <details class="card card--blue anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F4CB;</span>
-            <span class="card__title">Guía de preguntas para directivos</span>
-            <span class="card__text">Preguntas específicas para llevar a la reunión con el colegio de continuidad. No como arma, sino como base para un diálogo informado.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p>&#x2022; «¿Qué marcos internacionales respaldan su modelo pedagógico?»</p>
-            <p>&#x2022; «¿Cómo desarrollan el pensamiento crítico más allá de repetir contenido?»</p>
-            <p>&#x2022; «¿Los estudiantes trabajan en proyectos colaborativos reales?»</p>
-            <p>&#x2022; «¿Cómo preparan para un mercado donde la IA ya reemplaza tareas rutinarias?»</p>
-            <p>&#x2022; «¿Qué espacio hay para la creatividad y el error como aprendizaje?»</p>
-            <p>&#x2022; «¿Cómo trabajan las habilidades socioemocionales de manera transversal?»</p>
-          </div>
-        </details>
-        <details class="card card--blue anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F4D6;</span>
-            <span class="card__title">Cuadernillo del modelo educativo</span>
-            <span class="card__text">Los 6 ejes en lenguaje accesible con ejemplos concretos.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p><strong>1. Aprendizaje colaborativo:</strong> Construir conocimiento juntos. No escuchar clases — co-crear proyectos.</p>
-            <p><strong>2. Autonomía:</strong> Gestionar su propio proceso de aprendizaje. Elegir rutas, evaluar su progreso.</p>
-            <p><strong>3. Pensamiento complejo:</strong> Analizar desde múltiples perspectivas. La duda como herramienta, no como debilidad.</p>
-            <p><strong>4. Creatividad:</strong> Proponer soluciones originales. Fallar y mejorar. Conectar ideas.</p>
-            <p><strong>5. Socioemocional:</strong> Nombrar emociones, regular reacciones, resolver conflictos con diálogo.</p>
-            <p><strong>6. Empleabilidad:</strong> Gestionar proyectos reales, adaptarse, aprender continuamente.</p>
-          </div>
-        </details>
-        <details class="card card--blue anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F91D;</span>
-            <span class="card__title">Red de Familias para el Siglo XXI</span>
-            <span class="card__text">Conecta con otras familias que ya pasaron por esto. Cada familia empoderada es una voz que exige calidad.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p>Una comunidad de familias que comparten experiencias sobre cómo elegir colegios de continuidad, dialogar con directivos y acompañar la formación de sus hijos con criterio informado.</p>
-            <p style="margin-top:.5rem;font-weight:600;color:var(--color-primary-mid)">Próximamente — estamos construyendo este espacio.</p>
-          </div>
-        </details>
+      <h2 class="text-center anim mb-3">4 herramientas para elegir el colegio de continuidad</h2>
+      <p class="text-center anim mb-4" style="max-width:600px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">Selecciona una herramienta para ver su contenido.</p>
+      <div class="tabs anim">
+        <button class="tab tab--active" onclick="switchToolTab(0,this,'tools1')">Rúbrica</button>
+        <button class="tab" onclick="switchToolTab(1,this,'tools1')">Preguntas</button>
+        <button class="tab" onclick="switchToolTab(2,this,'tools1')">6 ejes</button>
+        <button class="tab" onclick="switchToolTab(3,this,'tools1')">Red de familias</button>
+      </div>
+      <div class="tab-panels" id="tools1">
+        <div class="tab-panel tab-panel--active">
+          <div class="tp-grid"><div class="tp-main"><h3>Rúbrica para evaluar colegios</h3><p>16 criterios en 4 dimensiones. Llevála a la visita y sabrás en 15 minutos si ese colegio prepara para el futuro.</p><div class="tp-tags"><span>16 criterios</span><span>4 dimensiones</span><span>15 minutos</span></div></div><div class="tp-detail"><h4>Dimensiones</h4><ul><li><strong>Pensamiento crítico:</strong> ¿Argumentan con evidencia? ¿Se fomenta el debate?</li><li><strong>Colaboración:</strong> ¿Hay proyectos grupales reales? ¿Se evalúa trabajo en equipo?</li><li><strong>Creatividad:</strong> ¿Se permite el error? ¿Se trabaja con problemas abiertos?</li><li><strong>Autonomía:</strong> ¿Los estudiantes gestionan su aprendizaje? ¿Se trabajan emociones?</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid"><div class="tp-main"><h3>Guía de preguntas para directivos</h3><p>Preguntas específicas para la reunión con el colegio de continuidad. No como arma — como base para un diálogo informado.</p><div class="tp-tags"><span>6 preguntas</span><span>Basadas en evidencia</span></div></div><div class="tp-detail"><h4>Preguntas clave</h4><ul><li>¿Qué marcos internacionales respaldan su modelo pedagógico?</li><li>¿Cómo desarrollan pensamiento crítico más allá de repetir contenido?</li><li>¿Los estudiantes trabajan en proyectos colaborativos reales?</li><li>¿Cómo preparan para un mercado donde la IA ya reemplaza tareas rutinarias?</li><li>¿Qué espacio hay para la creatividad y el error como aprendizaje?</li><li>¿Cómo trabajan habilidades socioemocionales de manera transversal?</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid"><div class="tp-main"><h3>Los 6 ejes del modelo</h3><p>Lo que tu hijo desarrolla cada día, explicado de forma accesible.</p><div class="tp-tags"><span>6 ejes</span><span>10 marcos internacionales</span></div></div><div class="tp-detail"><h4>Ejes formativos</h4><ul><li><strong>Colaborativo:</strong> Construir conocimiento juntos, no escuchar clases</li><li><strong>Autonomía:</strong> Gestionar su propio aprendizaje, elegir rutas</li><li><strong>Pensamiento complejo:</strong> Analizar desde múltiples perspectivas</li><li><strong>Creatividad:</strong> Proponer soluciones originales, fallar y mejorar</li><li><strong>Socioemocional:</strong> Nombrar emociones, resolver conflictos con diálogo</li><li><strong>Empleabilidad:</strong> Gestionar proyectos reales, adaptarse</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid"><div class="tp-main"><h3>Red de Familias para el Siglo XXI</h3><p>Conecta con otras familias que ya pasaron por esto. Cada familia empoderada es una voz que exige calidad.</p><div class="tp-tags"><span>Comunidad</span><span>Experiencias compartidas</span></div></div><div class="tp-detail"><h4>¿Qué es?</h4><p>Una comunidad de familias que comparten experiencias sobre cómo elegir colegios de continuidad, dialogar con directivos y acompañar la formación de sus hijos con criterio informado.</p><p style="margin-top:.5rem;font-weight:600;color:var(--color-primary-mid)">Próximamente</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -244,63 +209,27 @@
 
   <section class="section">
     <div class="container">
-      <h2 class="text-center anim mb-4">4 herramientas para el diálogo con el colegio de tu hijo</h2>
-      <div class="grid grid-2">
-        <details class="card card--green anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F4AC;</span>
-            <span class="card__title">Guía de conversación con el colegio</span>
-            <span class="card__text">Cómo pedir una reunión, qué preguntar, cómo escuchar. Paso a paso para un diálogo constructivo.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p><strong>Paso 1:</strong> Solicita una reunión con el jefe de UTP o el director. Sé específico: «quiero conversar sobre el modelo pedagógico y las competencias que desarrollan.»</p>
-            <p><strong>Paso 2:</strong> Lleva la rúbrica y el argumentario. No como arma, sino como base para un diálogo informado.</p>
-            <p><strong>Paso 3:</strong> Usa las preguntas de esta guía. Escucha con genuino interés. Toma notas.</p>
-            <p><strong>Paso 4:</strong> Propone un camino: «me gustaría que exploráramos juntos cómo fortalecer esto.»</p>
-          </div>
-        </details>
-        <details class="card card--green anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x2705;</span>
-            <span class="card__title">Rúbrica de evaluación educativa</span>
-            <span class="card__text">16 criterios para evaluar si un colegio desarrolla competencias del siglo XXI.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p>&#x2022; ¿Se fomenta el pensamiento crítico o solo la memorización?</p>
-            <p>&#x2022; ¿Hay proyectos colaborativos reales entre estudiantes?</p>
-            <p>&#x2022; ¿Se permite el error como parte del aprendizaje?</p>
-            <p>&#x2022; ¿Los estudiantes gestionan parte de su propio proceso?</p>
-            <p>&#x2022; ¿Se trabajan habilidades socioemocionales de manera transversal?</p>
-            <p>&#x2022; ¿Hay conexión explícita entre lo que enseñan y el mundo laboral real?</p>
-            <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-top:.5rem">Basada en OCDE, WEF, UNESCO y Harvard Project Zero</p>
-          </div>
-        </details>
-        <details class="card card--green anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F4CA;</span>
-            <span class="card__title">Argumentario basado en evidencia</span>
-            <span class="card__text">Datos verificados para respaldar tu conversación con hechos que nadie puede ignorar.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p>&#x2022; <strong>300M</strong> empleos expuestos a IA generativa (Goldman Sachs, 2023)</p>
-            <p>&#x2022; <strong>65%</strong> de los niños trabajarán en empleos que no existen (WEF, 2025)</p>
-            <p>&#x2022; <strong>55%</strong> empleos en Chile son tareas repetitivas — mayor % OCDE</p>
-            <p>&#x2022; <strong>+56%</strong> empleabilidad con destrezas complementarias a IA (PwC, 2025)</p>
-            <p>&#x2022; <strong>900%</strong> crecimiento anual de contenido falso por IA (WEF/Sumsub)</p>
-            <p>&#x2022; <strong>10/10</strong> marcos internacionales coinciden en pensamiento crítico y colaboración</p>
-          </div>
-        </details>
-        <details class="card card--green anim tool-expand">
-          <summary class="tool-expand__header">
-            <span class="card__icon">&#x1F91D;</span>
-            <span class="card__title">Red de Familias Activas</span>
-            <span class="card__text">Conecta con otras familias que ya tuvieron esta conversación. El cambio nace desde las familias.</span>
-          </summary>
-          <div class="tool-expand__content">
-            <p>Una comunidad de familias que comparten experiencias sobre cómo dialogar con colegios, evaluar modelos pedagógicos y acompañar la educación de sus hijos con criterio informado.</p>
-            <p style="margin-top:.5rem;font-weight:600;color:var(--color-accent-green)">Próximamente — estamos construyendo este espacio.</p>
-          </div>
-        </details>
+      <h2 class="text-center anim mb-3">4 herramientas para el diálogo con el colegio de tu hijo</h2>
+      <p class="text-center anim mb-4" style="max-width:600px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">Selecciona una herramienta para ver su contenido.</p>
+      <div class="tabs anim">
+        <button class="tab tab--active tab--green" onclick="switchToolTab(0,this,'tools2')">Guía de conversación</button>
+        <button class="tab tab--green" onclick="switchToolTab(1,this,'tools2')">Rúbrica</button>
+        <button class="tab tab--green" onclick="switchToolTab(2,this,'tools2')">Argumentario</button>
+        <button class="tab tab--green" onclick="switchToolTab(3,this,'tools2')">Red de familias</button>
+      </div>
+      <div class="tab-panels" id="tools2">
+        <div class="tab-panel tab-panel--active">
+          <div class="tp-grid tp-grid--green"><div class="tp-main"><h3>Guía de conversación con el colegio</h3><p>Cómo pedir una reunión, qué preguntar, cómo escuchar. Paso a paso para un diálogo constructivo.</p><div class="tp-tags tp-tags--green"><span>4 pasos</span><span>Respetuoso</span><span>Basado en evidencia</span></div></div><div class="tp-detail tp-detail--green"><h4>Paso a paso</h4><ul><li><strong>1. Solicita:</strong> Pide reunión con el jefe de UTP o director. Sé específico.</li><li><strong>2. Prepárate:</strong> Lleva la rúbrica y el argumentario como base para el diálogo.</li><li><strong>3. Pregunta:</strong> Escucha con genuino interés. Toma notas. No confrontes.</li><li><strong>4. Propone:</strong> «Me gustaría que exploráramos juntos cómo fortalecer esto.»</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid tp-grid--green"><div class="tp-main"><h3>Rúbrica de evaluación educativa</h3><p>16 criterios para evaluar si un colegio desarrolla competencias del siglo XXI. Funciona para cualquier establecimiento.</p><div class="tp-tags tp-tags--green"><span>16 criterios</span><span>OCDE · WEF · UNESCO · Harvard</span></div></div><div class="tp-detail tp-detail--green"><h4>Criterios clave</h4><ul><li>¿Se fomenta pensamiento crítico o solo memorización?</li><li>¿Hay proyectos colaborativos reales entre estudiantes?</li><li>¿Se permite el error como parte del aprendizaje?</li><li>¿Los estudiantes gestionan parte de su propio proceso?</li><li>¿Se trabajan habilidades socioemocionales de manera transversal?</li><li>¿Hay conexión entre lo que enseñan y el mundo laboral real?</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid tp-grid--green"><div class="tp-main"><h3>Argumentario basado en evidencia</h3><p>Datos verificados para respaldar tu conversación con hechos que nadie puede ignorar.</p><div class="tp-tags tp-tags--green"><span>6 datos clave</span><span>Fuentes verificables</span></div></div><div class="tp-detail tp-detail--green"><h4>Datos</h4><ul><li><strong>300M</strong> empleos expuestos a IA generativa (Goldman Sachs, 2023)</li><li><strong>65%</strong> de los niños trabajarán en empleos que no existen (WEF)</li><li><strong>55%</strong> empleos en Chile son tareas repetitivas — mayor % OCDE</li><li><strong>+56%</strong> empleabilidad con destrezas complementarias a IA (PwC)</li><li><strong>900%</strong> crecimiento anual contenido falso por IA (WEF/Sumsub)</li><li><strong>10/10</strong> marcos coinciden en pensamiento crítico y colaboración</li></ul></div></div>
+        </div>
+        <div class="tab-panel">
+          <div class="tp-grid tp-grid--green"><div class="tp-main"><h3>Red de Familias Activas</h3><p>Conecta con otras familias que ya tuvieron esta conversación. El cambio nace desde las familias — juntas.</p><div class="tp-tags tp-tags--green"><span>Comunidad</span><span>Experiencias compartidas</span></div></div><div class="tp-detail tp-detail--green"><h4>¿Qué es?</h4><p>Una comunidad de familias que comparten experiencias sobre cómo dialogar con colegios, evaluar modelos pedagógicos y acompañar con criterio informado.</p><p style="margin-top:.5rem;font-weight:600;color:var(--color-accent-green)">Próximamente</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -359,6 +288,18 @@
     </div>
   </section>
 
+  <script>
+  function switchToolTab(idx, btn, panelId) {
+    const container = document.getElementById(panelId);
+    const tabs = btn.parentElement.querySelectorAll('.tab');
+    const panels = container.querySelectorAll('.tab-panel');
+    tabs.forEach(t => t.classList.remove('tab--active'));
+    btn.classList.add('tab--active');
+    panels.forEach((p, i) => {
+      p.classList.toggle('tab-panel--active', i === idx);
+    });
+  }
+  </script>
   <script src="nav.js"></script>
 </body>
 </html>
