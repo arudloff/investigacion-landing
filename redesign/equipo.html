@@ -54,30 +54,27 @@
       transform: translate(-50%, -50%);
       line-height: 1.3;
     }
-    /* Cards posicionadas en círculo */
+    /* Cards posicionadas en círculo perfecto con trigonometría CSS */
     .roundtable__seat {
       position: absolute;
-      width: 195px;
+      width: 185px;
       padding: 1rem 1.1rem 0.8rem;
       z-index: 3;
+      /* Centro del contenedor menos la mitad del ancho/alto de la card */
+      --cx: 410px;
+      --cy: 410px;
+      --r: 305px;
+      --hw: 92px;
+      --hh: 70px;
     }
-    /* 7 posiciones equidistantes en un círculo de ~300px radio */
-    .roundtable__seat--0 { top: 2%;   left: 50%;  transform: translateX(-50%); }
-    .roundtable__seat--1 { top: 12%;  right: 3%; }
-    .roundtable__seat--2 { top: 42%;  right: -2%; }
-    .roundtable__seat--3 { bottom: 8%; right: 10%; }
-    .roundtable__seat--4 { bottom: 2%; left: 50%; transform: translateX(-50%); }
-    .roundtable__seat--5 { bottom: 15%; left: 5%; }
-    .roundtable__seat--6 { top: 35%;  left: -2%; }
-
-    /* Línea conectora de cada card al centro */
-    .roundtable__seat::after {
-      content: '';
-      position: absolute;
-      width: 1px;
-      background: rgba(46,109,164,0.15);
-      z-index: -1;
-    }
+    /* 7 posiciones: 360/7 ≈ 51.43° — empezando desde arriba (-90°) */
+    .roundtable__seat--0 { left: calc(var(--cx) + var(--r) * 0.000 - var(--hw)); top: calc(var(--cy) + var(--r) * -1.000 - var(--hh)); }  /* 0° → arriba */
+    .roundtable__seat--1 { left: calc(var(--cx) + var(--r) * 0.782 - var(--hw)); top: calc(var(--cy) + var(--r) * -0.623 - var(--hh)); }  /* 51.4° */
+    .roundtable__seat--2 { left: calc(var(--cx) + var(--r) * 0.975 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.223 - var(--hh)); }   /* 102.9° */
+    .roundtable__seat--3 { left: calc(var(--cx) + var(--r) * 0.434 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.901 - var(--hh)); }   /* 154.3° */
+    .roundtable__seat--4 { left: calc(var(--cx) + var(--r) * -0.434 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.901 - var(--hh)); }  /* 205.7° */
+    .roundtable__seat--5 { left: calc(var(--cx) + var(--r) * -0.975 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.223 - var(--hh)); }  /* 257.1° */
+    .roundtable__seat--6 { left: calc(var(--cx) + var(--r) * -0.782 - var(--hw)); top: calc(var(--cy) + var(--r) * -0.623 - var(--hh)); } /* 308.6° */
 
     /* Mobile: colapsa a grid normal */
     @media (max-width: 900px) {
