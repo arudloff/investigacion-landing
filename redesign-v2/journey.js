@@ -212,7 +212,12 @@ function updateNotebook() {
     });
   });
 
+  // Acciones: copiar + compartir + borrar
   html += '<div class="nb-actions">' +
+    '<button onclick="copyNotebook()" class="nb-action-btn">📋 Copiar todo</button>' +
+    '<button onclick="shareNotebook()" class="nb-action-btn">📤 Compartir</button>' +
+    '</div>' +
+    '<div class="nb-actions" style="margin-top:.5rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
     '</div>';
 
@@ -221,6 +226,42 @@ function updateNotebook() {
 
 function toggleNotebook() {
   document.getElementById('nb-panel').classList.toggle('nb-panel--open');
+}
+
+function copyNotebook() {
+  var s = getS();
+  var keys = Object.keys(s.reactions);
+  if (!keys.length) return;
+
+  // Agrupar por página
+  var byPage = {};
+  keys.forEach(function(k) {
+    var r = s.reactions[k];
+    var pageName = PAGE_NAMES[r.page] || r.page;
+    if (!byPage[pageName]) byPage[pageName] = [];
+    byPage[pageName].push(r.text);
+  });
+
+  var text = '📖 Mi cuaderno de ideas — Colegio Camilo Henríquez\n\n';
+  Object.keys(byPage).forEach(function(page) {
+    text += '— ' + page + ' —\n';
+    byPage[page].forEach(function(t) { text += '✓ ' + t + '\n'; });
+    text += '\n';
+  });
+  text += 'Explora más: ' + window.location.origin + window.location.pathname;
+
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector('.nb-action-btn');
+    if (btn) { btn.textContent = '✓ Copiado'; setTimeout(function() { btn.textContent = '📋 Copiar todo'; }, 2000); }
+  });
+}
+
+function shareNotebook() {
+  var s = getS();
+  var count = Object.keys(s.reactions).length;
+  var url = encodeURIComponent(window.location.origin + '/redesign-v2/index.html');
+  var text = encodeURIComponent('Marqué ' + count + ' ideas que me resonaron sobre educación del siglo XXI. ¿Cuáles te resuenan a ti?');
+  window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
 }
 
 function clearNotebook() {

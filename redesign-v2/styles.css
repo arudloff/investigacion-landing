@@ -1615,9 +1615,16 @@ p > .btn { display: inline-flex; }
 .nb-item__check { font-size: .75rem; flex-shrink: 0; margin-top: 2px; color: var(--color-amber); }
 .nb-item__text { font-size: .78rem; color: rgba(255,255,255,0.6); line-height: 1.45; }
 
-.nb-actions { margin-top: 1rem; text-align: center; }
-.nb-clear { background: none; border: none; color: rgba(255,255,255,0.25); font-size: .7rem; cursor: pointer; font-family: inherit; text-decoration: underline; }
-.nb-clear:hover { color: rgba(255,255,255,0.5); }
+.nb-actions { margin-top: 1rem; display: flex; gap: 8px; justify-content: center; }
+.nb-action-btn {
+  background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.25);
+  color: var(--color-amber); font-size: .75rem; font-weight: 600;
+  padding: .45rem .9rem; border-radius: 8px; cursor: pointer;
+  font-family: inherit; transition: all 0.2s; min-height: 36px;
+}
+.nb-action-btn:hover { background: rgba(245,166,35,0.2); border-color: var(--color-amber); }
+.nb-clear { background: none; border: none; color: rgba(255,255,255,0.2); font-size: .65rem; cursor: pointer; font-family: inherit; }
+.nb-clear:hover { color: rgba(255,255,255,0.45); }
 
 /* CTA banner */
 .nb-cta-banner {
@@ -1643,14 +1650,14 @@ p > .btn { display: inline-flex; }
    REACTION SYSTEM
    ========================================== */
 .rx-trigger {
-  position: absolute; left: -16px; top: 50%; transform: translateY(-50%);
-  width: 24px; height: 24px; border-radius: 50%;
-  background: rgba(245,166,35,0.15); border: 1.5px solid rgba(245,166,35,0.35);
-  color: var(--color-amber); font-size: .85rem; font-weight: 700;
+  position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(245,166,35,0.25); border: 2px solid var(--color-amber);
+  color: var(--color-amber); font-size: .9rem; font-weight: 800;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-family: inherit; transition: all 0.2s; opacity: 0.7; z-index: 5; padding: 0;
+  font-family: inherit; transition: all 0.2s; opacity: 0.85; z-index: 5; padding: 0;
 }
-.rx-trigger:hover { opacity: 1; background: rgba(245,166,35,0.3); border-color: var(--color-amber); transform: translateY(-50%) scale(1.2); }
+.rx-trigger:hover { opacity: 1; background: var(--color-amber); color: var(--color-dark-deep); transform: translateY(-50%) scale(1.15); }
 
 .rx-picker {
   position: absolute; top: -58px; left: 50%; transform: translateX(-50%);
