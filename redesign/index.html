@@ -95,33 +95,38 @@
   <section class="section" style="background:var(--color-bg-neutral)">
     <div class="container">
 
+      <!-- Título de la comparación -->
+      <h2 class="text-center anim mb-2" style="font-size:clamp(1.3rem,2.5vw,1.8rem)">Dos futuros posibles. Una diferencia: la educación.</h2>
+      <p class="text-center anim mb-4" style="max-width:650px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary);font-size:.9rem">El mismo mundo tecnológico genera dos escenarios opuestos. Lo que determina en cuál termina un joven es la calidad de la educación que recibe.</p>
+
       <!-- Split visual: 2 donuts + data -->
       <div class="ig-split anim">
 
-        <!-- LEFT: El desafío -->
+        <!-- LEFT: Sin educación de vanguardia -->
         <div class="ig-split__side ig-split__side--left">
           <div class="ig-donut ig-donut--red" style="--pct:0" data-pct="55">
             <div class="ig-donut__inner">
               <span class="ig-donut__num" data-count="55" data-suffix="%">0</span>
-              <span class="ig-donut__label">empleos<br>repetitivos</span>
+              <span class="ig-donut__label">empleos<br>en riesgo</span>
             </div>
           </div>
-          <h3 style="color:#C92A2A;margin:var(--space-md) 0 var(--space-sm);font-size:1.1rem">El desafío</h3>
+          <h3 style="color:#C92A2A;margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Sin educación de vanguardia</h3>
+          <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela solo enseña a memorizar, calcular y seguir instrucciones</p>
           <ul class="ig-list">
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>92M</strong> empleos desplazados para 2030 <span class="ig-list__detail">Pero también 170M nuevos — los nuevos requieren destrezas distintas.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>21%</strong> desempleo juvenil en Chile <span class="ig-list__detail">Uno de cada cinco jóvenes sin trabajo. PISA: Chile lidera Latam pero bajo OCDE.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>900%</strong> crecimiento contenido falso por IA <span class="ig-list__detail">Sin pensamiento crítico → vulnerable a estafas, manipulación y decisiones basadas en desinformación.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>+100%</strong> quiebras comercio minorista 2025 <span class="ig-list__detail">Las microempresas representan el 52% de todas las quiebras en Chile.</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>92M</strong> empleos desplazados — contabilidad, atención al cliente, logística, traducción: la IA ya los hace más rápido y más barato <span class="ig-list__detail">Un joven formado solo en tareas rutinarias compite directamente contra la IA — y pierde. Los 170M empleos nuevos que se crean requieren destrezas que la escuela tradicional no desarrolla. (WEF, 2025)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>21%</strong> desempleo juvenil — porque egresan con destrezas que el mercado ya no necesita <span class="ig-list__detail">Uno de cada cinco jóvenes en Chile no encuentra trabajo. No es falta de esfuerzo: es que la escuela los preparó para un mercado que ya no existe. En UK, 1,2 millones de graduados compitieron por solo 17.000 posiciones de entrada en 2024. (INE, 2024)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>900%</strong> más contenido falso — y sin pensamiento crítico, no hay defensa <span class="ig-list__detail">Videos, audios e imágenes falsos generados por IA crecen exponencialmente. Sin la capacidad de evaluar fuentes y detectar manipulación, un joven es vulnerable a estafas financieras, manipulación política y decisiones de vida basadas en mentiras. (WEF/Sumsub, 2024)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>47,9%</strong> mortalidad de comercio en Chile — porque competir sin adaptabilidad es perder <span class="ig-list__detail">El sector comercio tiene la mayor tasa de mortalidad empresarial en Chile. Las pymes son el 99% de las empresas y generan el 63% del empleo, pero el 37% quiebra en los primeros 3 años. Sin capacidad de adaptación, innovación y pensamiento estratégico, el futuro económico se cierra. (Bloomberg Línea, 2024)</span></li>
           </ul>
         </div>
 
         <!-- CENTER: arrow/divider -->
         <div class="ig-split__center">
           <div class="ig-split__arrow">→</div>
-          <p style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-tertiary);writing-mode:vertical-lr;transform:rotate(180deg)">La educación es el puente</p>
+          <p style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-tertiary);writing-mode:vertical-lr;transform:rotate(180deg)">Educación de vanguardia</p>
         </div>
 
-        <!-- RIGHT: La oportunidad -->
+        <!-- RIGHT: Con educación de vanguardia -->
         <div class="ig-split__side ig-split__side--right">
           <div class="ig-donut ig-donut--green" style="--pct:0" data-pct="56">
             <div class="ig-donut__inner">
@@ -129,12 +134,13 @@
               <span class="ig-donut__label">más<br>empleabilidad</span>
             </div>
           </div>
-          <h3 style="color:var(--color-accent-green);margin:var(--space-md) 0 var(--space-sm);font-size:1.1rem">La oportunidad</h3>
+          <h3 style="color:var(--color-accent-green);margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Con educación de vanguardia</h3>
+          <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela desarrolla pensamiento crítico, creatividad y colaboración</p>
           <ul class="ig-list ig-list--green">
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>+28%</strong> prima salarial con habilidades IA <span class="ig-list__detail">~USD 18.000/año extra. El 51% de estas ofertas están fuera de TI.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>90M</strong> posiciones remotas para 2030 <span class="ig-list__detail">Trabajar para cualquier empresa del mundo sin emigrar.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>12.4x</strong> productividad startups con IA <span class="ig-list__detail">Midjourney: $500M/año con ~40 empleados. Una persona con IA hace el trabajo de 5.</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>4ª</strong> creatividad entre top habilidades 2030 <span class="ig-list__detail">Resiliencia, empatía y aprendizaje continuo completan el top 10.</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>+28%</strong> prima salarial — porque las destrezas humanas son las más escasas y valiosas <span class="ig-list__detail">~USD 18.000/año adicionales en ofertas que requieren habilidades complementarias a IA. Y el 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura. El mercado paga más por lo que la IA no puede hacer. (Lightcast, 2025)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>90M</strong> posiciones remotas — porque el talento con destrezas del siglo XXI trabaja para el mundo <span class="ig-list__detail">Un joven que sabe colaborar, comunicar y resolver problemas complejos puede trabajar para cualquier empresa del mundo sin emigrar. Las oportunidades son globales para quien tiene las destrezas. (WEF, 2025)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>12.4x</strong> productividad — porque la IA amplifica a quien sabe crear, no a quien solo repite <span class="ig-list__detail">Midjourney genera $500M/año con ~40 empleados. Las startups de un solo fundador pasaron del 22% al 38%. Quien combina creatividad + IA multiplica su impacto. Quien solo sabe seguir instrucciones es reemplazado por ella. (PwC, 2025)</span></li>
+            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>4ª</strong> creatividad entre las habilidades más demandadas al 2030 — porque es lo que la IA no replica <span class="ig-list__detail">Resiliencia, empatía, liderazgo y aprendizaje continuo completan el top 10 del WEF. Son exactamente las destrezas que se desarrollan con una educación diseñada para el siglo XXI — no con un modelo del siglo XX. (WEF, 2025)</span></li>
           </ul>
         </div>
 
@@ -142,7 +148,7 @@
 
       <!-- Pregunta entre secciones -->
       <div class="anim" style="text-align:center;margin:var(--space-xl) 0 var(--space-lg)">
-        <p class="ig-question" style="font-size:clamp(1rem,2vw,1.3rem)">¿El colegio de tu hijo prepara para el mundo de la izquierda o le da acceso al de la derecha?</p>
+        <p class="ig-question" style="font-size:clamp(1rem,2vw,1.3rem)">¿En cuál de estos dos escenarios está tu hijo hoy?</p>
       </div>
 
       <!-- Mini quiz — ¿Sabías que...? -->
