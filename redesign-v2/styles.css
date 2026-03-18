@@ -1541,177 +1541,150 @@ p > .btn { display: inline-flex; }
 }
 
 /* ==========================================
-   JOURNEY v2 — Mapa de viaje + Checkpoints
+   TURBINA DE CONVICCIÓN v2
    ========================================== */
 
-/* Floating button */
-.jy-btn {
+/* Turbine floating button */
+.tb-btn {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 900;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   background: var(--color-dark-mid);
-  border: 2px solid rgba(245,166,35,0.3);
-  border-radius: 50px;
-  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-family: inherit;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   transition: all 0.3s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  padding: 0;
+  font-family: inherit;
 }
-.jy-btn:hover { border-color: var(--color-amber); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0,0,0,0.5); }
-.jy-btn__icon { font-size: 1.2rem; }
-.jy-btn__count { font-size: .78rem; font-weight: 700; color: var(--color-amber); }
+.tb-btn:hover { transform: scale(1.08); box-shadow: 0 6px 30px rgba(0,0,0,0.6); }
+.tb-btn__ring { width: 52px; height: 52px; position: absolute; }
+.tb-btn__pct {
+  font-size: .75rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.8);
+  position: relative;
+  z-index: 1;
+}
+/* Pulse animations */
+.tb-btn--pulse { animation: tbPulse 3s ease-in-out infinite; }
+.tb-btn--pulse-strong { animation: tbPulseStrong 1.5s ease-in-out infinite; }
+@keyframes tbPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  50% { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(245,166,35,0.15); }
+}
+@keyframes tbPulseStrong {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  50% { box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 25px rgba(245,166,35,0.3); }
+}
 
-/* Panel */
-.jy-panel {
+/* Turbine panel */
+.tb-panel {
   position: fixed;
-  bottom: 80px;
+  bottom: 90px;
   right: 24px;
   z-index: 901;
-  width: 280px;
-  max-height: 70vh;
+  width: 260px;
   background: var(--color-dark-mid);
   border: 1px solid rgba(46,109,164,0.2);
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-  overflow-y: auto;
   padding: 1.25rem;
-  transform: translateY(20px) scale(0.95);
+  transform: translateY(15px) scale(0.95);
   opacity: 0;
   pointer-events: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.jy-panel--open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
-.jy-panel__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.jy-panel__title { font-size: 1rem; font-weight: 700; color: #fff; }
-.jy-panel__close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.3rem; cursor: pointer; padding: 4px; }
-.jy-panel__close:hover { color: #fff; }
-
-/* Progress ring */
-.jy-panel__progress { display: flex; justify-content: center; margin-bottom: .5rem; }
-.jy-ring { width: 80px; height: 80px; }
-.jy-ring__text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--color-amber);
-}
-.jy-panel__progress { position: relative; }
-.jy-panel__subtitle { text-align: center; font-size: .75rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
-
-/* Group labels */
-.jy-group {
-  font-size: .65rem;
+.tb-panel--open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+.tb-panel__header { text-align: right; margin-bottom: .25rem; }
+.tb-panel__close { background: none; border: none; color: rgba(255,255,255,0.3); font-size: 1.2rem; cursor: pointer; }
+.tb-panel__close:hover { color: #fff; }
+.tb-panel__level {
+  font-size: .7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-top: .75rem;
-  margin-bottom: .3rem;
-  padding-bottom: .2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-/* Station links */
-.jy-station {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .4rem .5rem;
-  font-size: .82rem;
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  border-radius: 6px;
-  transition: all 0.15s;
-}
-.jy-station:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); text-decoration: none; }
-.jy-station--visited { color: rgba(255,255,255,0.7); }
-.jy-station--current { color: var(--color-amber); font-weight: 600; background: rgba(245,166,35,0.06); }
-.jy-station__dot { font-size: .6rem; flex-shrink: 0; }
-.jy-station__emotion { font-size: .75rem; margin-left: auto; }
-
-/* Mirror phrase in panel */
-.jy-mirror {
-  margin-top: 1rem;
-  padding: .75rem;
-  background: rgba(245,166,35,0.05);
-  border-radius: 8px;
-  font-size: .78rem;
-  color: rgba(245,166,35,0.7);
-  line-height: 1.5;
-  font-style: italic;
-}
-
-/* Mirror phrase inline (in page) */
-.jy-mirror-inline {
+  letter-spacing: .1em;
   text-align: center;
-  padding: var(--space-lg) var(--space-lg);
-  margin: 0;
 }
-.jy-mirror-inline p {
-  font-size: 1rem;
-  color: rgba(245,166,35,0.6);
-  font-style: italic;
-  font-weight: 500;
-  max-width: 550px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* Checkpoint emocional */
-.jy-checkpoint {
-  padding: var(--space-xl) 0;
-  background: rgba(245,166,35,0.03);
-  border-top: 1px solid rgba(245,166,35,0.08);
-  border-bottom: 1px solid rgba(245,166,35,0.08);
-}
-.jy-checkpoint__text {
+.tb-panel__verb {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: .4rem 0 1rem;
+  line-height: 1.3;
 }
-.jy-checkpoint__emotions {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+/* Meter bar */
+.tb-panel__meter {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 1rem;
 }
-.jy-checkpoint__emo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: .75rem .6rem;
-  min-width: 72px;
-  min-height: 44px;
-  cursor: pointer;
+.tb-panel__meter-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1), background 0.5s;
+}
+/* Stats row */
+.tb-panel__stats { display: flex; justify-content: space-around; margin-bottom: 1rem; }
+.tb-stat { text-align: center; }
+.tb-stat__val { display: block; font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.8); }
+.tb-stat__label { font-size: .6rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: .05em; }
+/* Mirror phrase */
+.tb-mirror {
+  font-size: .82rem;
+  color: rgba(245,166,35,0.7);
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: .75rem;
+  background: rgba(245,166,35,0.04);
+  border-radius: 8px;
+}
+/* CTA */
+.tb-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: .65rem 1rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 700;
   font-family: inherit;
+  cursor: pointer;
   transition: all 0.2s;
+  text-decoration: none;
+  background: var(--color-amber);
+  color: var(--color-dark-deep);
+  border: none;
+  margin-bottom: .5rem;
+}
+.tb-cta:hover { background: var(--color-amber-dark); text-decoration: none; }
+.tb-cta--muted {
+  background: rgba(255,255,255,0.06);
   color: rgba(255,255,255,0.5);
-  font-size: 1.5rem;
+  cursor: default;
 }
-.jy-checkpoint__emo span { font-size: .65rem; font-weight: 600; }
-.jy-checkpoint__emo:hover {
-  border-color: rgba(245,166,35,0.4);
-  background: rgba(245,166,35,0.08);
-  transform: translateY(-2px);
-}
-.jy-checkpoint__emo:active {
-  border-color: var(--color-amber);
-  background: rgba(245,166,35,0.15);
+.tb-cta--muted:hover { background: rgba(255,255,255,0.06); }
+.tb-tip {
+  text-align: center;
+  font-size: .65rem;
+  color: rgba(255,255,255,0.25);
+  margin-top: .25rem;
 }
 
 @media (max-width: 480px) {
-  .jy-panel { right: 12px; left: 12px; width: auto; bottom: 70px; }
-  .jy-btn { bottom: 16px; right: 16px; }
+  .tb-panel { right: 12px; left: 12px; width: auto; bottom: 80px; }
+  .tb-btn { bottom: 16px; right: 16px; width: 50px; height: 50px; }
+  .tb-btn__ring { width: 46px; height: 46px; }
 }

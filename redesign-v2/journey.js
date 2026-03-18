@@ -1,281 +1,309 @@
-// journey.js — Escalera de Compromiso Emocional v2
-// Mapa de viaje + checkpoints emocionales + efecto espejo + resumen personal
-// Todo anónimo, localStorage, sin backend
+// journey.js v2 — Turbina de Convicción
+// Acumula energía con cada comportamiento del visitante hasta que
+// tomar acción se vuelve inminente. No manipula — acompaña.
 
 // ==========================================
-// ESTACIONES DEL VIAJE
+// CONFIGURACIÓN DE SEÑALES
 // ==========================================
-const STATIONS = [
-  { id: 'inicio',       page: 'index.html',              name: 'El mundo cambió',           group: 'descubrir' },
-  { id: 'contexto',     page: 'contexto-global.html',     name: 'La evidencia',              group: 'descubrir' },
-  { id: 'modelo',       page: 'modelo-educativo.html',    name: 'Nuestra respuesta',         group: 'descubrir' },
-  { id: 'familias',     page: 'para-familias.html',       name: 'Familias',                  group: 'conectar' },
-  { id: 'estudiantes',  page: 'estudiantes.html',         name: 'Estudiantes',               group: 'conectar' },
-  { id: 'profesores',   page: 'profesores.html',          name: 'Profesores',                group: 'conectar' },
-  { id: 'industria',    page: 'industria.html',           name: 'Industria',                 group: 'conectar' },
-  { id: 'colegios',     page: 'colegios.html',            name: 'Colegios',                  group: 'conectar' },
-  { id: 'universidades',page: 'universidades.html',       name: 'Universidades',             group: 'conectar' },
-  { id: 'cepah',        page: 'cepah.html',               name: 'CEPAH',                     group: 'profundizar' },
-  { id: 'diagnostico',  page: 'autodiagnostico.html',     name: 'Autodiagnóstico',           group: 'profundizar' },
-  { id: 'equipo',       page: 'equipo.html',              name: 'Nuestro equipo',            group: 'conocer' },
-  { id: 'nosotros',     page: 'nosotros.html',            name: 'Quiénes somos',             group: 'conocer' },
-  { id: 'visita',       page: 'visita.html',              name: 'Agenda tu visita',          group: 'actuar' },
-];
-
-const GROUP_LABELS = {
-  descubrir: 'Descubrir',
-  conectar: 'Conectar',
-  profundizar: 'Profundizar',
-  conocer: 'Conocer',
-  actuar: 'Actuar',
+// Cada comportamiento suma puntos de momentum
+const SIGNAL_WEIGHTS = {
+  pageVisit:      5,    // visitar una página nueva
+  revisit:        8,    // volver a una página ya visitada (reflexión)
+  timeOnPage:     1,    // por cada 15 segundos en una página
+  scrollDepth:    3,    // al llegar al 70% de scroll
+  interaction:    4,    // click en contenido interactivo (tabs, expand, etc)
+  like:          10,    // marcar un párrafo como destacado
 };
 
-const GROUP_COLORS = {
-  descubrir: 'rgba(245,166,35,0.8)',
-  conectar: 'rgba(46,109,164,0.8)',
-  profundizar: 'rgba(74,35,90,0.8)',
-  conocer: 'rgba(31,107,59,0.8)',
-  actuar: 'rgba(245,166,35,1)',
-};
-
-// ==========================================
-// CHECKPOINTS EMOCIONALES
-// ==========================================
-const CHECKPOINTS = [
-  { after: 'inicio',    text: '¿Cómo te hace sentir lo que acabas de leer?' },
-  { after: 'contexto',  text: 'Después de ver esta evidencia, ¿qué sientes?' },
-  { after: 'modelo',    text: '¿Qué provocó en ti conocer este modelo?' },
-  { after: 'estudiantes', text: '¿Cómo te sentiste leyendo esto?' },
-  { after: 'profesores',  text: '¿Qué te provocó este manifiesto?' },
-  { after: 'diagnostico', text: '¿Cómo te dejó tu resultado?' },
+// Niveles de la turbina
+const LEVELS = [
+  { min: 0,   label: 'Curiosidad',    verb: 'Algo llamó tu atención',            color: 'rgba(255,255,255,0.4)' },
+  { min: 15,  label: 'Exploración',   verb: 'Estás descubriendo algo',           color: 'rgba(46,109,164,0.8)' },
+  { min: 35,  label: 'Reflexión',     verb: 'Esto te está haciendo pensar',      color: 'rgba(74,35,90,0.8)' },
+  { min: 55,  label: 'Conexión',      verb: 'Algo resonó contigo',               color: 'rgba(31,107,59,0.8)' },
+  { min: 75,  label: 'Convicción',    verb: 'Una idea se está formando',         color: 'rgba(245,166,35,0.8)' },
+  { min: 90,  label: 'Despegue',      verb: 'Estás listo para actuar',           color: 'rgba(245,166,35,1)' },
 ];
 
-const EMOTIONS = [
-  { emoji: '🤔', label: 'Reflexivo' },
-  { emoji: '💡', label: 'Inspirado' },
-  { emoji: '😮', label: 'Sorprendido' },
-  { emoji: '🔥', label: 'Motivado' },
-  { emoji: '😟', label: 'Preocupado' },
-  { emoji: '✊', label: 'Comprometido' },
+// CTAs por nivel (lo que el botón invita a hacer)
+const LEVEL_CTAS = [
+  { min: 0,  text: 'Sigue explorando', href: null },
+  { min: 35, text: 'Hay más por descubrir', href: null },
+  { min: 55, text: 'Haz el autodiagnóstico', href: 'autodiagnostico.html' },
+  { min: 75, text: '¿Quién necesita saber esto?', href: null, action: 'share' },
+  { min: 90, text: 'Da el paso →', href: 'visita.html' },
+];
+
+// Frases espejo por nivel
+const MIRROR = [
+  { min: 0,  text: '' },
+  { min: 15, text: 'Ya diste el primer paso. La mayoría nunca llega hasta aquí.' },
+  { min: 35, text: 'Estás invirtiendo tiempo en algo que importa. Eso dice mucho de ti.' },
+  { min: 55, text: 'Pocas personas reflexionan con esta profundidad sobre la educación.' },
+  { min: 75, text: 'Algo cambió desde que empezaste a explorar. ¿Lo sientes?' },
+  { min: 90, text: 'Ya tienes la información. Ya tienes la convicción. Solo falta la acción.' },
 ];
 
 // ==========================================
-// FRASES ESPEJO (por nivel de profundidad)
+// STATE
 // ==========================================
-const MIRROR_PHRASES = {
-  2:  'Si llegaste hasta aquí, algo de lo que leíste resonó contigo.',
-  4:  'Ya has explorado varias estaciones. Eso dice algo sobre ti: te importa.',
-  6:  'Has recorrido más que la mayoría. Quienes llegan hasta aquí suelen convertirse en agentes de cambio.',
-  8:  'Pocas personas exploran un sitio con esta profundidad. Probablemente ya estás pensando en cómo actuar.',
-  10: 'Has recorrido casi todo el viaje. Lo que queda es decidir qué haces con lo que descubriste.',
-};
+const STORE_KEY = 'cch_turbine';
 
-// ==========================================
-// STATE (localStorage)
-// ==========================================
-const STORAGE_KEY = 'cch_journey';
-
-function getJourney() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-  catch(e) { return {}; }
+function getState() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || initState(); }
+  catch(e) { return initState(); }
 }
 
-function saveJourney(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+function initState() {
+  return { momentum: 0, pages: {}, likes: [], totalTime: 0, interactions: 0, firstVisit: Date.now() };
 }
 
-function markVisited(stationId) {
-  const j = getJourney();
-  if (!j.visited) j.visited = {};
-  if (!j.visited[stationId]) {
-    j.visited[stationId] = Date.now();
+function saveState(s) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(s));
+}
+
+function addMomentum(points) {
+  const s = getState();
+  s.momentum = Math.min(100, s.momentum + points);
+  saveState(s);
+  updateUI();
+}
+
+function getLevel() {
+  const m = getState().momentum;
+  let level = LEVELS[0];
+  for (const l of LEVELS) { if (m >= l.min) level = l; }
+  return level;
+}
+
+function getCTA() {
+  const m = getState().momentum;
+  let cta = LEVEL_CTAS[0];
+  for (const c of LEVEL_CTAS) { if (m >= c.min) cta = c; }
+  return cta;
+}
+
+function getMirror() {
+  const m = getState().momentum;
+  let mirror = MIRROR[0];
+  for (const mi of MIRROR) { if (m >= mi.min) mirror = mi; }
+  return mirror;
+}
+
+// ==========================================
+// SIGNAL TRACKING
+// ==========================================
+function trackPageVisit() {
+  const page = getCurrentPage();
+  const s = getState();
+  if (!s.pages[page]) {
+    s.pages[page] = { visits: 1, time: 0 };
+    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.pageVisit);
+  } else {
+    s.pages[page].visits++;
+    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.revisit);
   }
-  j.lastPage = stationId;
-  saveJourney(j);
+  saveState(s);
 }
 
-function saveEmotion(stationId, emotion) {
-  const j = getJourney();
-  if (!j.emotions) j.emotions = {};
-  j.emotions[stationId] = emotion;
-  saveJourney(j);
+function trackTime() {
+  setInterval(function() {
+    const s = getState();
+    const page = getCurrentPage();
+    if (s.pages[page]) s.pages[page].time += 15;
+    s.totalTime += 15;
+    s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.timeOnPage);
+    saveState(s);
+    updateUI();
+  }, 15000); // cada 15 segundos
 }
 
-function getVisitedCount() {
-  const j = getJourney();
-  return j.visited ? Object.keys(j.visited).length : 0;
+function trackScroll() {
+  let scrollTracked = false;
+  window.addEventListener('scroll', function() {
+    if (scrollTracked) return;
+    const scrollPct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+    if (scrollPct > 0.7) {
+      scrollTracked = true;
+      addMomentum(SIGNAL_WEIGHTS.scrollDepth);
+    }
+  });
+}
+
+function trackInteractions() {
+  document.addEventListener('click', function(e) {
+    const interactive = e.target.closest('.stat-card, .mg-eje, .ig-quiz__prompt, .infog-card, .ig-list li, .tab, .ig-item');
+    if (interactive) {
+      const s = getState();
+      s.interactions++;
+      s.momentum = Math.min(100, s.momentum + SIGNAL_WEIGHTS.interaction);
+      saveState(s);
+      updateUI();
+    }
+  });
 }
 
 // ==========================================
-// JOURNEY MAP (floating panel)
+// LIKE SYSTEM (double-tap or long-press on paragraphs)
 // ==========================================
-function buildJourneyMap() {
-  const j = getJourney();
-  const visited = j.visited || {};
-  const visitedCount = Object.keys(visited).length;
-  const totalStations = STATIONS.length;
+function initLikes() {
+  document.querySelectorAll('main p, main .card__text, main .est-barrier__text, main .prof-reality__card p, main .col-card__text').forEach(function(p) {
+    if (p.textContent.trim().length < 30) return; // skip short paragraphs
 
-  // Floating button
+    let tapCount = 0;
+    let tapTimer = null;
+
+    p.style.cursor = 'default';
+    p.style.transition = 'background 0.3s';
+    p.style.borderRadius = '4px';
+
+    p.addEventListener('click', function() {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
+      } else if (tapCount === 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        toggleLike(p);
+      }
+    });
+  });
+}
+
+function toggleLike(el) {
+  if (el.dataset.liked === 'true') {
+    el.dataset.liked = 'false';
+    el.style.background = '';
+    el.style.padding = '';
+  } else {
+    el.dataset.liked = 'true';
+    el.style.background = 'rgba(245,166,35,0.08)';
+    el.style.padding = '4px 8px';
+    addMomentum(SIGNAL_WEIGHTS.like);
+    // Brief flash
+    el.style.background = 'rgba(245,166,35,0.2)';
+    setTimeout(function() { el.style.background = 'rgba(245,166,35,0.08)'; }, 300);
+  }
+}
+
+// ==========================================
+// UI — Turbina flotante
+// ==========================================
+function buildTurbine() {
+  const s = getState();
+  const level = getLevel();
+  const m = s.momentum;
+
+  // Botón flotante
   const btn = document.createElement('button');
-  btn.className = 'jy-btn';
-  btn.innerHTML = `<span class="jy-btn__icon">🧭</span><span class="jy-btn__count">${visitedCount}/${totalStations}</span>`;
-  btn.onclick = toggleJourneyPanel;
+  btn.className = 'tb-btn';
+  btn.id = 'tb-btn';
+  btn.onclick = toggleTurbinePanel;
 
   // Panel
   const panel = document.createElement('div');
-  panel.className = 'jy-panel';
-  panel.id = 'jy-panel';
-
-  // Progress ring
-  const pct = Math.round((visitedCount / totalStations) * 100);
-
-  let html = `
-    <div class="jy-panel__header">
-      <div class="jy-panel__title">Tu viaje</div>
-      <button class="jy-panel__close" onclick="toggleJourneyPanel()">×</button>
-    </div>
-    <div class="jy-panel__progress">
-      <svg viewBox="0 0 80 80" class="jy-ring">
-        <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
-        <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-amber)" stroke-width="5"
-          stroke-dasharray="${(pct/100)*213.6} 213.6" stroke-linecap="round" transform="rotate(-90 40 40)"
-          style="transition:stroke-dasharray 1s ease"/>
-      </svg>
-      <div class="jy-ring__text">${pct}%</div>
-    </div>
-    <div class="jy-panel__subtitle">${visitedCount} de ${totalStations} estaciones exploradas</div>
-  `;
-
-  // Stations grouped
-  let currentGroup = '';
-  STATIONS.forEach(st => {
-    if (st.group !== currentGroup) {
-      currentGroup = st.group;
-      const color = GROUP_COLORS[st.group];
-      html += `<div class="jy-group" style="color:${color}">${GROUP_LABELS[st.group]}</div>`;
-    }
-    const isVisited = !!visited[st.id];
-    const isCurrent = getCurrentStationId() === st.id;
-    const cls = isCurrent ? 'jy-station jy-station--current' : isVisited ? 'jy-station jy-station--visited' : 'jy-station';
-    const dot = isVisited ? '●' : '○';
-    const emotionBadge = j.emotions && j.emotions[st.id] ? `<span class="jy-station__emotion">${EMOTIONS.find(e => e.label === j.emotions[st.id])?.emoji || ''}</span>` : '';
-    html += `<a href="${st.page}" class="${cls}"><span class="jy-station__dot" style="color:${GROUP_COLORS[st.group]}">${dot}</span> ${st.name} ${emotionBadge}</a>`;
-  });
-
-  // Mirror phrase
-  const mirrorKeys = Object.keys(MIRROR_PHRASES).map(Number).sort((a,b) => b-a);
-  const mirrorKey = mirrorKeys.find(k => visitedCount >= k);
-  if (mirrorKey) {
-    html += `<div class="jy-mirror">${MIRROR_PHRASES[mirrorKey]}</div>`;
-  }
-
-  panel.innerHTML = html;
+  panel.className = 'tb-panel';
+  panel.id = 'tb-panel';
 
   document.body.appendChild(btn);
   document.body.appendChild(panel);
+
+  updateUI();
 }
 
-function getCurrentStationId() {
-  const page = window.location.pathname.split('/').pop() || 'index.html';
-  const st = STATIONS.find(s => s.page === page);
-  return st ? st.id : null;
-}
+function updateUI() {
+  const s = getState();
+  const m = s.momentum;
+  const level = getLevel();
+  const cta = getCTA();
+  const mirror = getMirror();
+  const pageCount = Object.keys(s.pages).length;
 
-function toggleJourneyPanel() {
-  const panel = document.getElementById('jy-panel');
-  panel.classList.toggle('jy-panel--open');
-}
+  // Button
+  const btn = document.getElementById('tb-btn');
+  if (!btn) return;
 
-// ==========================================
-// CHECKPOINT EMOCIONAL
-// ==========================================
-function insertCheckpoint() {
-  const stationId = getCurrentStationId();
-  if (!stationId) return;
+  // Pulse animation intensity based on momentum
+  const pulseIntensity = m > 75 ? 'tb-btn--pulse-strong' : m > 40 ? 'tb-btn--pulse' : '';
+  btn.className = `tb-btn ${pulseIntensity}`;
 
-  const cp = CHECKPOINTS.find(c => c.after === stationId);
-  if (!cp) return;
+  // Ring arc
+  const circumference = 2 * Math.PI * 22;
+  const dashArray = (m / 100) * circumference;
 
-  const j = getJourney();
-  if (j.emotions && j.emotions[stationId]) return; // ya respondió
-
-  // Find sections — try main first, then body, then any section
-  let sections = document.querySelectorAll('main > section');
-  if (!sections.length) sections = document.querySelectorAll('section');
-  if (sections.length < 1) return;
-
-  // Insert before the last section (usually footer or CTA)
-  const targetSection = sections[sections.length - 1];
-
-  const cpDiv = document.createElement('section');
-  cpDiv.className = 'jy-checkpoint anim';
-  cpDiv.innerHTML = `
-    <div class="container" style="max-width:550px;text-align:center">
-      <p class="jy-checkpoint__text">${cp.text}</p>
-      <div class="jy-checkpoint__emotions">
-        ${EMOTIONS.map(e =>
-          `<button class="jy-checkpoint__emo" onclick="respondCheckpoint('${stationId}','${e.label}',this)">${e.emoji}<span>${e.label}</span></button>`
-        ).join('')}
-      </div>
-    </div>
+  btn.innerHTML = `
+    <svg viewBox="0 0 52 52" class="tb-btn__ring">
+      <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/>
+      <circle cx="26" cy="26" r="22" fill="none" stroke="${level.color}" stroke-width="3"
+        stroke-dasharray="${dashArray} ${circumference}" stroke-linecap="round" transform="rotate(-90 26 26)"
+        style="transition:stroke-dasharray 1s ease,stroke 0.5s"/>
+    </svg>
+    <span class="tb-btn__pct">${m}%</span>
   `;
 
-  targetSection.parentNode.insertBefore(cpDiv, targetSection);
-}
+  // Panel content
+  const panel = document.getElementById('tb-panel');
+  if (!panel) return;
 
-function respondCheckpoint(stationId, emotion, btn) {
-  saveEmotion(stationId, emotion);
-  const container = btn.closest('.jy-checkpoint');
-  container.innerHTML = `
-    <div class="container" style="max-width:550px;text-align:center">
-      <p style="color:var(--color-amber);font-size:1.1rem;font-weight:600;margin:0">Gracias. Tu reflexión queda contigo.</p>
-      <p style="color:rgba(255,255,255,0.5);font-size:.85rem;margin-top:.5rem">Este momento de pausa es parte del viaje.</p>
+  let ctaHTML = '';
+  if (cta.href) {
+    ctaHTML = `<a href="${cta.href}" class="tb-cta">${cta.text}</a>`;
+  } else if (cta.action === 'share') {
+    ctaHTML = `<button onclick="shareTurbine()" class="tb-cta">${cta.text}</button>`;
+  } else {
+    ctaHTML = `<div class="tb-cta tb-cta--muted">${cta.text}</div>`;
+  }
+
+  panel.innerHTML = `
+    <div class="tb-panel__header">
+      <button class="tb-panel__close" onclick="toggleTurbinePanel()">×</button>
     </div>
+    <div class="tb-panel__level" style="color:${level.color}">${level.label}</div>
+    <div class="tb-panel__verb">${level.verb}</div>
+    <div class="tb-panel__meter">
+      <div class="tb-panel__meter-fill" style="width:${m}%;background:${level.color}"></div>
+    </div>
+    <div class="tb-panel__stats">
+      <div class="tb-stat"><span class="tb-stat__val">${pageCount}</span><span class="tb-stat__label">páginas</span></div>
+      <div class="tb-stat"><span class="tb-stat__val">${Math.round(s.totalTime/60)}m</span><span class="tb-stat__label">explorando</span></div>
+      <div class="tb-stat"><span class="tb-stat__val">${s.interactions}</span><span class="tb-stat__label">interacciones</span></div>
+    </div>
+    ${mirror.text ? `<div class="tb-mirror">${mirror.text}</div>` : ''}
+    ${ctaHTML}
+    <div class="tb-tip">Doble click en cualquier párrafo = destacar</div>
   `;
 }
 
-// ==========================================
-// EFECTO ESPEJO (inline)
-// ==========================================
-function insertMirrorPhrase() {
-  const count = getVisitedCount();
-  if (count < 2) return;
+function toggleTurbinePanel() {
+  document.getElementById('tb-panel').classList.toggle('tb-panel--open');
+}
 
-  const mirrorKeys = Object.keys(MIRROR_PHRASES).map(Number).sort((a,b) => b-a);
-  const key = mirrorKeys.find(k => count >= k);
-  if (!key) return;
+function shareTurbine() {
+  const url = encodeURIComponent(window.location.origin + window.location.pathname);
+  const text = encodeURIComponent('Descubrí algo sobre educación que necesitas ver. Haz el autodiagnóstico de habilidades del siglo XXI.');
+  window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+}
 
-  // Insert before the last section of the page
-  const main = document.querySelector('main');
-  if (!main) return;
-  const sections = main.querySelectorAll('section');
-  if (sections.length < 2) return;
-
-  const mirror = document.createElement('div');
-  mirror.className = 'jy-mirror-inline anim';
-  mirror.innerHTML = `<p>${MIRROR_PHRASES[key]}</p>`;
-  sections[sections.length - 1].parentNode.insertBefore(mirror, sections[sections.length - 1]);
+function getCurrentPage() {
+  return window.location.pathname.split('/').pop() || 'index.html';
 }
 
 // ==========================================
-// INIT — runs after nav.js has built the DOM
+// INIT
 // ==========================================
-(function initJourney() {
-  // If main exists, nav.js already ran — go immediately
-  // If not, wait for DOMContentLoaded + small delay
+(function() {
   function run() {
-    const stationId = getCurrentStationId();
-    if (stationId) markVisited(stationId);
-    buildJourneyMap();
-    insertCheckpoint();
-    insertMirrorPhrase();
+    trackPageVisit();
+    buildTurbine();
+    trackTime();
+    trackScroll();
+    trackInteractions();
+    initLikes();
   }
 
   if (document.querySelector('main')) {
-    // nav.js already built the DOM
-    setTimeout(run, 100);
+    setTimeout(run, 200);
   } else {
-    // Wait for nav.js
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(run, 600);
     });
