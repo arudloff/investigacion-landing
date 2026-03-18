@@ -9,102 +9,207 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* --- MESA REDONDA — circle layout --- */
-    .roundtable {
+    /* --- MINDLY — mind map circular --- */
+    .mindly {
       position: relative;
-      width: 100%;
-      max-width: 820px;
-      height: 820px;
+      width: 700px;
+      height: 700px;
       margin: 0 auto;
     }
-    .roundtable__lines {
+    /* SVG connections */
+    .mindly__svg {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
+      z-index: 1;
     }
-    .roundtable__center {
+    .mindly__line {
+      stroke: rgba(46,109,164,0.2);
+      stroke-width: 1.5;
+      transition: stroke 0.3s;
+    }
+    /* Centro */
+    .mindly__core {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 2;
-      text-align: center;
-    }
-    .roundtable__center-ring {
-      width: 110px;
-      height: 110px;
+      width: 130px; height: 130px;
       border-radius: 50%;
-      border: 2px solid rgba(46,109,164,0.25);
-      background: radial-gradient(circle, rgba(46,109,164,0.1) 0%, transparent 70%);
-      margin: 0 auto 0.5rem;
-      animation: pulseRing 4s ease-in-out infinite;
+      background: linear-gradient(135deg, rgba(46,109,164,0.2), rgba(13,92,99,0.2));
+      border: 2px solid rgba(46,109,164,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 5;
+      animation: corePulse 5s ease-in-out infinite;
     }
-    @keyframes pulseRing {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(46,109,164,0.15); }
-      50% { box-shadow: 0 0 0 20px rgba(46,109,164,0); }
+    @keyframes corePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(46,109,164,0.12), 0 0 30px rgba(46,109,164,0.05); }
+      50% { box-shadow: 0 0 0 15px rgba(46,109,164,0), 0 0 50px rgba(46,109,164,0.08); }
     }
-    .roundtable__center-text {
-      font-size: 0.75rem;
+    .mindly__core-text {
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      line-height: 1.3;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
     }
-    /* Cards posicionadas en círculo perfecto con trigonometría CSS */
-    .roundtable__seat {
+    /* Nodos (burbujas) */
+    .mindly__node {
       position: absolute;
-      width: 185px;
-      padding: 1rem 1.1rem 0.8rem;
-      z-index: 3;
-      /* Centro del contenedor menos la mitad del ancho/alto de la card */
-      --cx: 410px;
-      --cy: 410px;
-      --r: 305px;
-      --hw: 92px;
-      --hh: 70px;
+      z-index: 4;
+      cursor: pointer;
+      /* Tamaño de la burbuja */
+      --size: 100px;
+      width: var(--size);
+      height: var(--size);
+      /* Posicionamiento trigonométrico */
+      --cx: 350px;
+      --cy: 350px;
+      --r: 260px;
     }
-    /* 7 posiciones: 360/7 ≈ 51.43° — empezando desde arriba (-90°) */
-    .roundtable__seat--0 { left: calc(var(--cx) + var(--r) * 0.000 - var(--hw)); top: calc(var(--cy) + var(--r) * -1.000 - var(--hh)); }  /* 0° → arriba */
-    .roundtable__seat--1 { left: calc(var(--cx) + var(--r) * 0.782 - var(--hw)); top: calc(var(--cy) + var(--r) * -0.623 - var(--hh)); }  /* 51.4° */
-    .roundtable__seat--2 { left: calc(var(--cx) + var(--r) * 0.975 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.223 - var(--hh)); }   /* 102.9° */
-    .roundtable__seat--3 { left: calc(var(--cx) + var(--r) * 0.434 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.901 - var(--hh)); }   /* 154.3° */
-    .roundtable__seat--4 { left: calc(var(--cx) + var(--r) * -0.434 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.901 - var(--hh)); }  /* 205.7° */
-    .roundtable__seat--5 { left: calc(var(--cx) + var(--r) * -0.975 - var(--hw)); top: calc(var(--cy) + var(--r) * 0.223 - var(--hh)); }  /* 257.1° */
-    .roundtable__seat--6 { left: calc(var(--cx) + var(--r) * -0.782 - var(--hw)); top: calc(var(--cy) + var(--r) * -0.623 - var(--hh)); } /* 308.6° */
+    .mindly__bubble {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--color-dark-mid);
+      border: 2px solid rgba(46,109,164,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .mindly__bubble::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(46,109,164,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .mindly__node:hover .mindly__bubble {
+      border-color: rgba(46,109,164,0.5);
+      transform: scale(1.12);
+      box-shadow: 0 0 30px rgba(46,109,164,0.2), 0 0 60px rgba(46,109,164,0.05);
+    }
+    .mindly__initials {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--color-primary-mid);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .mindly__name-short {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.3rem;
+      line-height: 1.2;
+      max-width: 80px;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    /* Tooltip al hover */
+    .mindly__tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--color-dark-mid);
+      border: 1px solid rgba(46,109,164,0.3);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .mindly__tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(46,109,164,0.3);
+    }
+    .mindly__node:hover .mindly__tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .mindly__tooltip-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.88rem;
+    }
+    .mindly__tooltip-role {
+      font-size: 0.7rem;
+      color: var(--color-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.15rem;
+    }
+    .mindly__tooltip-email {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.3rem;
+    }
+    .mindly__tooltip-email a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    .mindly__tooltip-email a:hover { color: var(--color-amber); }
 
-    /* Mobile: colapsa a grid normal */
-    @media (max-width: 900px) {
-      .roundtable {
+    /* 7 posiciones equidistantes */
+    .mindly__node--0 { left: calc(var(--cx) + var(--r) *  0.000 - var(--size)/2); top: calc(var(--cy) + var(--r) * -1.000 - var(--size)/2); }
+    .mindly__node--1 { left: calc(var(--cx) + var(--r) *  0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
+    .mindly__node--2 { left: calc(var(--cx) + var(--r) *  0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
+    .mindly__node--3 { left: calc(var(--cx) + var(--r) *  0.434 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.901 - var(--size)/2); }
+    .mindly__node--4 { left: calc(var(--cx) + var(--r) * -0.434 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.901 - var(--size)/2); }
+    .mindly__node--5 { left: calc(var(--cx) + var(--r) * -0.975 - var(--size)/2); top: calc(var(--cy) + var(--r) *  0.223 - var(--size)/2); }
+    .mindly__node--6 { left: calc(var(--cx) + var(--r) * -0.782 - var(--size)/2); top: calc(var(--cy) + var(--r) * -0.623 - var(--size)/2); }
+
+    /* Hover highlights the SVG line */
+    .mindly__node:hover ~ .mindly__svg .mindly__line,
+    .mindly__node:hover + .mindly__svg .mindly__line { stroke: rgba(46,109,164,0.4); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mindly {
+        width: 100%;
         height: auto;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
         gap: var(--space-md);
+        justify-content: center;
       }
-      .roundtable__seat {
+      .mindly__node {
         position: static;
-        width: auto;
-        transform: none !important;
-        padding: var(--space-lg);
+        --size: 110px;
       }
-      .roundtable__center {
+      .mindly__core {
         position: static;
         transform: none;
-        grid-column: 1 / -1;
-        margin-bottom: var(--space-md);
+        width: 100px; height: 100px;
+        margin: 0 auto var(--space-md);
+        flex-basis: 100%;
       }
-      .roundtable__center-ring {
-        width: 80px;
-        height: 80px;
+      .mindly__svg { display: none; }
+      .mindly__tooltip {
+        bottom: auto;
+        top: calc(100% + 8px);
       }
-      .roundtable__lines { display: none; }
-      .roundtable__seat::after { display: none; }
-    }
-    @media (max-width: 520px) {
-      .roundtable { grid-template-columns: 1fr; }
+      .mindly__tooltip::after {
+        top: auto;
+        bottom: 100%;
+        border-top-color: transparent;
+        border-bottom-color: rgba(46,109,164,0.3);
+      }
     }
   </style>
 </head>
@@ -123,60 +228,109 @@
       <h2 class="anim mb-2" style="color:#fff;text-align:center">Equipo de Gestión Escolar</h2>
       <p class="anim" style="color:rgba(255,255,255,0.5);text-align:center;font-size:.9rem;margin-bottom:var(--space-xl);max-width:500px;margin-left:auto;margin-right:auto">Liderazgo distribuido y situacional. Cada desafío convoca al mejor equipo para resolverlo.</p>
 
-      <!-- Mesa redonda: circle layout desktop, grid mobile -->
-      <div class="roundtable anim">
-        <!-- Centro conceptual -->
-        <div class="roundtable__center">
-          <div class="roundtable__center-ring"></div>
-          <span class="roundtable__center-text">Gestión<br>Escolar</span>
+      <!-- Mind map Mindly style -->
+      <div class="mindly anim">
+        <!-- Centro -->
+        <div class="mindly__core">
+          <span class="mindly__core-text">Gestión<br>Escolar</span>
         </div>
-        <!-- Líneas conectoras (SVG) -->
-        <svg class="roundtable__lines" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="400" cy="400" r="280" stroke="rgba(46,109,164,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
-          <circle cx="400" cy="400" r="180" stroke="rgba(46,109,164,0.08)" stroke-width="1" stroke-dasharray="2 8"/>
+
+        <!-- Líneas SVG del centro a cada nodo -->
+        <svg class="mindly__svg" viewBox="0 0 700 700">
+          <line class="mindly__line" x1="350" y1="350" x2="350" y2="90"/>
+          <line class="mindly__line" x1="350" y1="350" x2="553" y2="188"/>
+          <line class="mindly__line" x1="350" y1="350" x2="604" y2="408"/>
+          <line class="mindly__line" x1="350" y1="350" x2="463" y2="584"/>
+          <line class="mindly__line" x1="350" y1="350" x2="237" y2="584"/>
+          <line class="mindly__line" x1="350" y1="350" x2="96"  y2="408"/>
+          <line class="mindly__line" x1="350" y1="350" x2="147" y2="188"/>
+          <!-- Órbita punteada -->
+          <circle cx="350" cy="350" r="260" stroke="rgba(46,109,164,0.08)" stroke-width="1" stroke-dasharray="3 8" fill="none"/>
         </svg>
-        <!-- 7 miembros posicionados en círculo -->
-        <div class="roundtable__seat roundtable__seat--0 contact-human">
-          <div class="contact-human__initials">AR</div>
-          <p class="contact-human__name">Alejandro Rudloff Muñoz</p>
-          <p class="contact-human__role">Sostenedor</p>
-          <p class="contact-human__email"><a href="mailto:alejandro@colegiocamilohenriquez.cl">alejandro@cch.cl</a></p>
+
+        <!-- 7 nodos -->
+        <div class="mindly__node mindly__node--0">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">AR</span>
+            <span class="mindly__name-short">Alejandro<br>Rudloff</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Alejandro Rudloff Muñoz</div>
+            <div class="mindly__tooltip-role">Sostenedor</div>
+            <div class="mindly__tooltip-email"><a href="mailto:alejandro@colegiocamilohenriquez.cl">alejandro@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--1 contact-human">
-          <div class="contact-human__initials">LM</div>
-          <p class="contact-human__name">Lina Muñoz Hernández</p>
-          <p class="contact-human__role">Directora</p>
-          <p class="contact-human__email"><a href="mailto:lina.munoz@colegiocamilohenriquez.cl">lina.munoz@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--1">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">LM</span>
+            <span class="mindly__name-short">Lina<br>Muñoz</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Lina Muñoz Hernández</div>
+            <div class="mindly__tooltip-role">Directora</div>
+            <div class="mindly__tooltip-email"><a href="mailto:lina.munoz@colegiocamilohenriquez.cl">lina.munoz@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--2 contact-human">
-          <div class="contact-human__initials">RV</div>
-          <p class="contact-human__name">Rodrigo Villarroel</p>
-          <p class="contact-human__role">Director Académico</p>
-          <p class="contact-human__email"><a href="mailto:rodrigo.villarroel@colegiocamilohenriquez.cl">rodrigo.villarroel@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--2">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">RV</span>
+            <span class="mindly__name-short">Rodrigo<br>Villarroel</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Rodrigo Villarroel</div>
+            <div class="mindly__tooltip-role">Director Académico</div>
+            <div class="mindly__tooltip-email"><a href="mailto:rodrigo.villarroel@colegiocamilohenriquez.cl">rodrigo.villarroel@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--3 contact-human">
-          <div class="contact-human__initials">XR</div>
-          <p class="contact-human__name">Ximena Rudloff Muñoz</p>
-          <p class="contact-human__role">Directora Administrativa</p>
-          <p class="contact-human__email"><a href="mailto:ximena.rudloff@colegiocamilohenriquez.cl">ximena.rudloff@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--3">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">XR</span>
+            <span class="mindly__name-short">Ximena<br>Rudloff</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Ximena Rudloff Muñoz</div>
+            <div class="mindly__tooltip-role">Directora Administrativa</div>
+            <div class="mindly__tooltip-email"><a href="mailto:ximena.rudloff@colegiocamilohenriquez.cl">ximena.rudloff@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--4 contact-human">
-          <div class="contact-human__initials">FM</div>
-          <p class="contact-human__name">Fernanda Maturana Aguirre</p>
-          <p class="contact-human__role">Dinámicas de Grupo</p>
-          <p class="contact-human__email"><a href="mailto:fernanda.maturana@colegiocamilohenriquez.cl">fernanda.maturana@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--4">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">FM</span>
+            <span class="mindly__name-short">Fernanda<br>Maturana</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Fernanda Maturana Aguirre</div>
+            <div class="mindly__tooltip-role">Dinámicas de Grupo</div>
+            <div class="mindly__tooltip-email"><a href="mailto:fernanda.maturana@colegiocamilohenriquez.cl">fernanda.maturana@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--5 contact-human">
-          <div class="contact-human__initials">RM</div>
-          <p class="contact-human__name">Rodrigo Morales Yévenes</p>
-          <p class="contact-human__role">Procesos y TI</p>
-          <p class="contact-human__email"><a href="mailto:rodrigo.morales@colegiocamilohenriquez.cl">rodrigo.morales@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--5">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">RM</span>
+            <span class="mindly__name-short">Rodrigo<br>Morales</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Rodrigo Morales Yévenes</div>
+            <div class="mindly__tooltip-role">Procesos y TI</div>
+            <div class="mindly__tooltip-email"><a href="mailto:rodrigo.morales@colegiocamilohenriquez.cl">rodrigo.morales@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
-        <div class="roundtable__seat roundtable__seat--6 contact-human">
-          <div class="contact-human__initials">JL</div>
-          <p class="contact-human__name">Julia León González</p>
-          <p class="contact-human__role">Convivencia Escolar</p>
-          <p class="contact-human__email"><a href="mailto:julia.leon@colegiocamilohenriquez.cl">julia.leon@cch.cl</a></p>
+
+        <div class="mindly__node mindly__node--6">
+          <div class="mindly__bubble">
+            <span class="mindly__initials">JL</span>
+            <span class="mindly__name-short">Julia<br>León</span>
+          </div>
+          <div class="mindly__tooltip">
+            <div class="mindly__tooltip-name">Julia León González</div>
+            <div class="mindly__tooltip-role">Convivencia Escolar</div>
+            <div class="mindly__tooltip-email"><a href="mailto:julia.leon@colegiocamilohenriquez.cl">julia.leon@colegiocamilohenriquez.cl</a></div>
+          </div>
         </div>
       </div>
     </div>
