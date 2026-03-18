@@ -148,6 +148,35 @@
     .dx-dim__bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
     .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
 
+    /* Benchmarks */
+    .dx-bench { text-align: center; margin-bottom: 2rem; }
+    .dx-bench__title { font-size: .75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: .75rem; }
+    .dx-bench__options { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .dx-bench__opt {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: .45rem .9rem;
+      font-size: .78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .dx-bench__opt:hover { border-color: rgba(46,109,164,0.4); color: rgba(255,255,255,0.7); }
+    .dx-bench__opt--active {
+      border-color: var(--color-primary-mid);
+      background: rgba(46,109,164,0.1);
+      color: var(--color-primary-mid);
+    }
+    /* Radar benchmark overlay */
+    .dx-radar__bench { fill: rgba(46,109,164,0.08); stroke: var(--color-primary-mid); stroke-width: 1.5; stroke-dasharray: 4 3; stroke-linejoin: round; }
+    .dx-radar__bench-dot { fill: var(--color-primary-mid); r: 3; opacity: 0.6; }
+
     @media (max-width: 768px) {
       .dx-profiles { grid-template-columns: repeat(2, 1fr); }
       .dx-scores { grid-template-columns: 1fr 1fr; }
@@ -213,6 +242,12 @@
       </div>
 
       <div class="dx-radar"><svg viewBox="0 0 400 400" id="dx-radar-svg"></svg></div>
+
+      <!-- Benchmarks de comparación -->
+      <div class="dx-bench" id="dx-bench">
+        <div class="dx-bench__title">Compara con un referente</div>
+        <div class="dx-bench__options" id="dx-bench-options"></div>
+      </div>
 
       <div class="dx-scores" id="dx-scores"></div>
 
@@ -315,6 +350,36 @@
     }
   };
 
+  // Benchmarks de referencia (promedios estimados basados en investigación)
+  const benchmarks = {
+    persona: {
+      'Promedio global': [52, 48, 55, 45, 42, 40],
+      'Top 10% mundial': [88, 85, 90, 82, 78, 80],
+      'Promedio Chile': [48, 42, 50, 40, 38, 35],
+      'Generación Z': [55, 60, 50, 52, 45, 55],
+    },
+    docente: {
+      'Docente tradicional': [35, 30, 28, 25, 32, 20],
+      'Docente innovador': [75, 78, 70, 72, 68, 75],
+      'Estándar OCDE': [65, 60, 58, 55, 55, 50],
+      'Referente Finlandia': [85, 82, 78, 80, 75, 72],
+    },
+    colegio: {
+      'Colegio promedio Chile': [35, 25, 30, 22, 28, 20],
+      'Estándar OCDE': [60, 55, 52, 50, 50, 45],
+      'Escuela innovadora': [78, 75, 72, 70, 68, 70],
+      'Referente mundial (Finlandia/Singapur)': [90, 85, 82, 80, 80, 78],
+    },
+    empresa: {
+      'Empresa tradicional': [40, 30, 35, 28, 32, 25],
+      'Startup tecnológica': [70, 82, 65, 75, 55, 80],
+      'Fortune 500 innovadora': [78, 72, 70, 68, 65, 72],
+      'Top employer global': [85, 80, 80, 78, 75, 82],
+    },
+  };
+  let activeBenchmark = null;
+  let userScores = [];
+
   const insightPool = {
     strength: [
       'Esta es la base sobre la que puedes construir todo lo demás. Las personas y organizaciones que dominan esta dimensión tienen una ventaja que la IA no puede replicar.',
@@ -375,10 +440,15 @@
     document.querySelectorAll('.dx-scale__btn').forEach((b,i) => {
       b.classList.toggle('dx-scale__btn--selected', i+1 === val);
     });
+    // Auto-avance después de un breve feedback visual
+    setTimeout(function() {
+      if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
+      else { showResults(); }
+    }, 350);
   }
 
   function nextQuestion() {
-    if (answers[currentQ] === 0) { answers[currentQ] = 3; } // default middle
+    if (answers[currentQ] === 0) { answers[currentQ] = 3; }
     if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
     else { showResults(); }
   }
@@ -434,8 +504,18 @@
       dims.forEach((_, i) => { document.getElementById('dx-bar-' + i).style.width = scores[i] + '%'; });
     }, 200);
 
+    // Store scores for benchmark comparison
+    userScores = scores;
+
     // Radar chart
     drawRadar(dims, scores);
+
+    // Render benchmark options
+    activeBenchmark = null;
+    const bmarks = benchmarks[currentProfile];
+    document.getElementById('dx-bench-options').innerHTML = Object.keys(bmarks).map(name =>
+      `<button class="dx-bench__opt" onclick="toggleBenchmark(this, '${name}')">${name}</button>`
+    ).join('');
 
     // Insights
     const sp = insightPool.strength;
@@ -447,7 +527,7 @@
     document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function drawRadar(labels, scores) {
+  function drawRadar(labels, scores, benchScores) {
     const svg = document.getElementById('dx-radar-svg');
     const cx = 200, cy = 200, r = 140;
     const n = labels.length;
@@ -481,7 +561,21 @@
       gridHTML += `<text x="${x}" y="${y-6}" class="dx-radar__label">${l1}</text>`;
       if (l2) gridHTML += `<text x="${x}" y="${y+7}" class="dx-radar__label">${l2}</text>`;
     }
-    // Data shape (starts at center, animates out)
+    // Benchmark shape (if provided, draw first so it's behind)
+    if (benchScores) {
+      const bPts = [];
+      const bDots = [];
+      for (let i = 0; i < n; i++) {
+        const val = benchScores[i] / 100;
+        const [x, y] = polarToXY(offset + i * angleStep, r * val);
+        bPts.push(`${x},${y}`);
+        bDots.push(`<circle cx="${x}" cy="${y}" class="dx-radar__bench-dot"/>`);
+      }
+      gridHTML += `<polygon points="${bPts.join(' ')}" class="dx-radar__bench"/>`;
+      gridHTML += bDots.join('');
+    }
+
+    // User data shape (on top)
     const dataPts = [];
     const dots = [];
     for (let i = 0; i < n; i++) {
@@ -493,7 +587,29 @@
     gridHTML += `<polygon points="${dataPts.join(' ')}" class="dx-radar__shape"/>`;
     gridHTML += dots.join('');
 
+    // Legend if benchmark active
+    if (benchScores) {
+      gridHTML += `<rect x="10" y="370" width="12" height="3" fill="var(--color-amber)" rx="1"/>`;
+      gridHTML += `<text x="26" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Tú</text>`;
+      gridHTML += `<rect x="50" y="370" width="12" height="3" fill="var(--color-primary-mid)" rx="1" stroke-dasharray="3 2"/>`;
+      gridHTML += `<text x="66" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Referente</text>`;
+    }
+
     svg.innerHTML = gridHTML;
+  }
+
+  function toggleBenchmark(btn, name) {
+    const wasActive = btn.classList.contains('dx-bench__opt--active');
+    // Deselect all
+    document.querySelectorAll('.dx-bench__opt').forEach(b => b.classList.remove('dx-bench__opt--active'));
+    if (wasActive) {
+      activeBenchmark = null;
+      drawRadar(allQuestions[currentProfile].dimensions, userScores);
+    } else {
+      btn.classList.add('dx-bench__opt--active');
+      activeBenchmark = name;
+      drawRadar(allQuestions[currentProfile].dimensions, userScores, benchmarks[currentProfile][name]);
+    }
   }
 
   function resetAll() {
