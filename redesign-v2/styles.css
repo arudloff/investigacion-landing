@@ -1466,6 +1466,10 @@ p > .btn { display: inline-flex; }
   .tabs { gap: 0.35rem; }
   /* Container padding para pantallas pequeñas */
   .container { padding: 0 var(--space-md); }
+  /* ig-split donut comparison collapse */
+  .ig-split { grid-template-columns: 1fr !important; }
+  .ig-split__center { display: flex; flex-direction: row; padding-top: 0; justify-content: center; }
+  .ig-split__center p { writing-mode: horizontal-tb !important; transform: none !important; }
 }
 @media (max-width: 480px) {
   .grid-6 { grid-template-columns: 1fr; }
@@ -1473,6 +1477,8 @@ p > .btn { display: inline-flex; }
   .hero__cta-group .btn { width: 100%; justify-content: center; }
   .hero { padding: 4rem 0 3rem; }
   .container { padding: 0 1rem; }
+  /* Minimum font sizes for mobile */
+  .card__text, .card__title, p, li { font-size: max(0.875rem, 14px); }
 }
 
 /* --- REFRESH BUTTONS — compartido en todas las páginas --- */

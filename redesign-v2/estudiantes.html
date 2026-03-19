@@ -232,7 +232,14 @@
     @media (max-width: 768px) {
       .est-impact__cols { grid-template-columns: 1fr; gap: var(--space-lg); }
       .est-barrier { flex-direction: column; gap: var(--space-sm); }
-      .est-hero { padding: 6rem 0 4rem; }
+      .est-hero { padding: 5rem 0 3rem; }
+      .est-hero__title { font-size: clamp(1.8rem, 5vw, 3rem); }
+    }
+    @media (max-width: 480px) {
+      .est-barrier { padding: var(--space-md); }
+      .est-barrier__text { font-size: .85rem; }
+      .est-build-item p { font-size: .95rem; }
+      .est-close__question { font-size: clamp(1.4rem, 4vw, 2rem); }
     }
   </style>
 </head>

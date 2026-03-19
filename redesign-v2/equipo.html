@@ -243,7 +243,7 @@
       }
       .mindly__node {
         position: static;
-        --size: 100px;
+        --size: 80px;
         animation: none;
         opacity: 1;
       }
@@ -258,6 +258,13 @@
       .mindly__svg { display: none; }
       .mindly__tooltip { bottom: auto; top: calc(100% + 8px); }
       .mindly__tooltip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: rgba(245,166,35,0.25); }
+    }
+    @media (max-width: 480px) {
+      .mindly { gap: var(--space-sm); }
+      .mindly__node { --size: 75px; }
+      .mindly__bubble { border-width: 1px; }
+      .mindly__initials { font-size: 1.1rem; }
+      .mindly__name-short { font-size: .5rem; }
     }
   </style>
 </head>
