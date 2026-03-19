@@ -36,7 +36,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sh h1{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;line-height:1.2;margin-bottom:6px}
 .sh h1 span{color:var(--amber)}
 .sh p{font-size:.95rem;color:var(--tm);line-height:1.65;max-width:680px}
-.src{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--td);background:rgba(46,109,164,.1);border:1px solid var(--border);border-radius:20px;padding:3px 10px;margin-top:10px}
+.src{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--td);background:rgba(46,109,164,.1);border:1px solid var(--border);border-radius:20px;padding:3px 10px;margin-top:10px}
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px}
@@ -46,20 +46,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* CARD */
 .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:0}
 .card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--td);margin-bottom:14px}
-.src-card{font-size:10px;color:var(--td);margin-top:14px;font-style:italic}
+.src-card{font-size:12px;color:var(--td);margin-top:14px;font-style:italic}
 /* KPI */
 .kpi{text-align:center}
 .kpi .num{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1;margin-bottom:4px}
 .kpi-bar{width:28px;height:3px;border-radius:2px;margin:7px auto 9px}
 .kpi .lbl{font-size:12px;color:var(--tm);line-height:1.4}
-.kpi .sub{font-size:10px;color:var(--td);margin-top:3px}
+.kpi .sub{font-size:12px;color:var(--td);margin-top:3px}
 .a{color:var(--amber)}.r{color:#E85D24}.g{color:#5DCAA5}.b{color:#7EC8E3}.p{color:#C4A8F0}
 .ba{background:var(--amber)}.br{background:#E85D24}.bg{background:#5DCAA5}.bb{background:#7EC8E3}.bp{background:#C4A8F0}
 /* PROGRESS */
 .pi{margin-bottom:12px}
 .ph{display:flex;justify-content:space-between;margin-bottom:5px}
-.pl{font-size:12px;color:var(--text)}
-.pv{font-size:12px;font-weight:700}
+.pl{font-size:14px;color:var(--text)}
+.pv{font-size:14px;font-weight:700}
 .pt{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
 .pf{height:100%;border-radius:3px;transition:width 1.2s ease}
 /* FILTERS */
@@ -74,8 +74,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* COMPARE ROW */
 .cr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
 .cr:last-child{border-bottom:none}
-.cl{font-size:13px;color:var(--text);flex:1}
-.ct{font-size:11px;padding:3px 10px;border-radius:10px;font-weight:600;white-space:nowrap}
+.cl{font-size:14px;color:var(--text);flex:1}
+.ct{font-size:13px;padding:3px 10px;border-radius:10px;font-weight:600;white-space:nowrap}
 .can{background:rgba(166,50,40,.2);color:#E85D24}
 .cannot{background:rgba(31,107,59,.2);color:#5DCAA5}
 /* HIGHLIGHT */
@@ -123,9 +123,11 @@ select:focus{border-color:rgba(245,166,35,.5)}
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-logo">📊 El mundo que cambia</div>
+    <div id="change-role-btn" onclick="resetPerspective()" style="font-size:11px;font-weight:600;color:var(--tm);border:1px solid var(--border);border-radius:12px;padding:4px 12px;cursor:pointer;white-space:nowrap;margin-left:8px;flex-shrink:0;transition:all .2s;display:none">Cambiar perspectiva ↺</div>
     <div class="nav-tab active" data-sec="empleos" onclick="showSec('empleos',this)">Empleos</div>
     <div class="nav-tab" data-sec="sectores" onclick="showSec('sectores',this)">Sectores</div>
     <div class="nav-tab" data-sec="destrezas" onclick="showSec('destrezas',this)">Destrezas</div>
+    <div class="nav-tab" data-sec="oportunidades" onclick="showSec('oportunidades',this)">Oportunidades</div>
     <div class="nav-tab" data-sec="chile" onclick="showSec('chile',this)">Chile</div>
     <div class="nav-tab" data-sec="digital" onclick="showSec('digital',this)">Economía digital</div>
     <div class="nav-tab" data-sec="desinfo" onclick="showSec('desinformacion',this)">Desinformación</div>
@@ -142,6 +144,7 @@ select:focus{border-color:rgba(245,166,35,.5)}
     <button onclick="setPerspective('familia')" class="entry-btn">👪 Soy padre o madre</button>
     <button onclick="setPerspective('docente')" class="entry-btn">📚 Soy docente o directivo</button>
     <button onclick="setPerspective('empresa')" class="entry-btn">💼 Trabajo en una empresa</button>
+    <button onclick="setPerspective('estudiante')" class="entry-btn">🎓 Soy estudiante</button>
   </div>
   <p style="font-size:11px;color:var(--td);margin-top:20px;cursor:pointer" onclick="setPerspective('all')">Ver todo sin filtro →</p>
 </div>
@@ -319,6 +322,49 @@ select:focus{border-color:rgba(245,166,35,.5)}
 </div>
 
 <!-- ══════════════════════════════════════════════════
+     OPORTUNIDADES
+══════════════════════════════════════════════════ -->
+<div class="section" id="oportunidades">
+  <div class="sh rv">
+    <h1>Ya no existe ningún rincón del planeta <span>al que no puedas llegar</span> con tus ideas.</h1>
+    <p>La tecnología derribó las barreras de distancia, idioma, acceso y procesamiento. Lo que queda es lo único que siempre fue tuyo: la capacidad de pensar, crear y decidir qué mundo quieres construir.</p>
+    <span class="src">WEF 2025 · OIT 2025 · Deel 2026 · Lightcast 2023</span>
+  </div>
+  <div class="g4 rv">
+    <div class="card kpi"><div class="num g">90M</div><div class="kpi-bar bg"></div><div class="lbl">Posiciones remotas disponibles para 2030</div><div class="sub">WEF, 2025</div></div>
+    <div class="card kpi"><div class="num b">45%</div><div class="kpi-bar bb"></div><div class="lbl">De la fuerza laboral remota tiene entre 18 y 30 años</div><div class="sub">Deel, 2026</div></div>
+    <div class="card kpi"><div class="num a">31%</div><div class="kpi-bar ba"></div><div class="lbl">De las ofertas laborales ya no exigen título universitario</div><div class="sub">Lightcast, 2023</div></div>
+    <div class="card kpi"><div class="num g">+38%</div><div class="kpi-bar bg"></div><div class="lbl">Crecimiento anual de contratación transfronteriza</div><div class="sub">OIT, 2025</div></div>
+  </div>
+  <div class="card rv" style="margin-bottom:18px">
+    <h3>Lo que la tecnología eliminó para siempre</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+      <div class="cr"><span class="cl">🌍 Distancia geográfica</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">🗣️ Barrera del idioma</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">📚 Acceso al conocimiento</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">⚡ Capacidad de procesamiento</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">🔬 Laboratorio para experimentar</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">💰 Capital inicial para publicar</span><span class="ct cannot">Derribada</span></div>
+      <div class="cr"><span class="cl">🧠 Pensamiento crítico y criterio</span><span class="ct can">Aún tuya</span></div>
+      <div class="cr"><span class="cl">❤️ Creatividad y propósito</span><span class="ct can">Aún tuya</span></div>
+    </div>
+    <p class="src-card">Fuente: WEF 2025 · análisis basado en tendencias documentadas</p>
+  </div>
+  <div class="card rv" style="margin-bottom:18px">
+    <h3>Los empleos que más crecen requieren exactamente lo que estás aprendiendo a desarrollar</h3>
+    <div class="cw" style="height:280px"><canvas id="chartOpportunity"></canvas></div>
+    <p class="src-card">Fuente: WEF Future of Jobs Report 2025</p>
+  </div>
+  <div class="g3 rv">
+    <div class="card"><div style="font-size:22px;margin-bottom:10px">🌐</div><h3 style="font-size:14px;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:8px;font-weight:700">Colaborar sin fronteras</h3><p style="font-size:14px;color:var(--tm);line-height:1.6">Puedes trabajar con equipos en cualquier país sin salir de tu ciudad. La geografía dejó de definir con quién puedes crear.</p></div>
+    <div class="card"><div style="font-size:22px;margin-bottom:10px">🚀</div><h3 style="font-size:14px;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:8px;font-weight:700">Publicar con alcance global</h3><p style="font-size:14px;color:var(--tm);line-height:1.6">Investigación, arte, código, ideas. Desde tu computador puedes llegar a quien necesita lo que tú puedes crear.</p></div>
+    <div class="card"><div style="font-size:22px;margin-bottom:10px">🔧</div><h3 style="font-size:14px;color:var(--text);text-transform:none;letter-spacing:0;margin-bottom:8px;font-weight:700">Resolver problemas reales</h3><p style="font-size:14px;color:var(--tm);line-height:1.6">Puedes construir una solución para un problema real y llevarla a quien la necesita — sin necesitar permiso ni capital inicial.</p></div>
+  </div>
+  <div style="text-align:center;padding:32px 20px;margin:8px 0 18px"><p style="font-size:clamp(1.2rem,3vw,1.8rem);font-weight:800;color:var(--amber);line-height:1.3;max-width:680px;margin:0 auto">"Crear un mundo mejor es una labor que ya no puede esperar."</p></div>
+  <div style="border-left:3px solid var(--amber);padding:16px 20px;background:rgba(245,166,35,.06);border-radius:0 10px 10px 0;margin-bottom:18px"><p style="font-size:14px;color:var(--tm);line-height:1.6;margin-bottom:10px">Estas oportunidades existen hoy. La pregunta es si tienes las destrezas para aprovecharlas. Eso es exactamente lo que este colegio pone en el centro.</p><a href="estudiantes.html" style="font-size:14px;font-weight:700;color:var(--amber);text-decoration:none">Ver qué estás desarrollando aquí →</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
      CHILE
 ══════════════════════════════════════════════════ -->
 <div class="section" id="chile">
@@ -329,7 +375,7 @@ select:focus{border-color:rgba(245,166,35,.5)}
   </div>
 
   <div class="card rv" style="margin-bottom:18px">
-    <h3>¿En qué mundo va a trabajar tu hijo?</h3>
+    <h3>¿En qué mundo va a empezar a trabajar tu hijo?</h3>
     <div class="slider-row">
       <label>Año de nacimiento</label>
       <input type="range" min="2010" max="2022" value="2015" id="birthSlider" step="1" oninput="updateChildSim()">
@@ -513,17 +559,35 @@ select:focus{border-color:rgba(245,166,35,.5)}
 <script>
 const C={amber:'#F5A623',amberD:'#C86400',green:'#5DCAA5',greenD:'#1F6B3B',blue:'#7EC8E3',blueD:'#2E6DA4',red:'#E85D24',redD:'#8B2020',purple:'#C4A8F0',purpleD:'#4A235A',tm:'rgba(232,237,245,.6)',td:'rgba(232,237,245,.28)',border:'rgba(46,109,164,.15)'};
 const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(13,31,60,.95)',borderColor:'rgba(46,109,164,.3)',borderWidth:1,titleColor:'#E8EDF5',bodyColor:C.tm,padding:10}}};
-const scalesXY={x:{ticks:{color:C.tm,font:{size:11}},grid:{color:C.border}},y:{ticks:{color:C.tm,font:{size:11}},grid:{color:C.border}}};
-const scalesYX={y:{ticks:{color:C.tm,font:{size:10}},grid:{color:C.border}},x:{ticks:{color:C.tm,font:{size:11}},grid:{color:C.border}}};
+const scalesXY={x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}},y:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}}};
+const scalesYX={y:{ticks:{color:C.tm,font:{size:12}},grid:{color:C.border}},x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}}};
 
 // ── NAV ──────────────────────────────────────────────────────────────────────
-function showSec(id,el){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+function showSec(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   el.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(revealAll,100);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => {
+    if (id === 'sectores') {
+      const selected = document.querySelector('.sector-card.selected');
+      if (selected) selectSector('salud', selected);
+    }
+    if (id === 'chile') {
+      if (typeof updateCountryChart === 'function') updateCountryChart();
+      const activeInd = document.querySelector('#indicator-filters .pill.active');
+      if (activeInd) switchIndicator('repetitivo', activeInd);
+    }
+    if (id === 'destrezas') {
+      if (typeof buildSkillChart === 'function') buildSkillChart('all');
+      if (typeof buildRadar === 'function') buildRadar('all');
+    }
+    if (id === 'oportunidades') {
+      if (typeof buildOpportunityChart === 'function') buildOpportunityChart();
+    }
+    revealAll();
+  }, 80);
 }
 function revealAll(){document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-40)el.classList.add('vis')});}
 window.addEventListener('scroll',revealAll);
@@ -665,7 +729,7 @@ function buildSkillChart(key){
   const d=skillData[key];
   const ctx=document.getElementById('chartSkills');
   if(skillChart)skillChart.destroy();
-  skillChart=new Chart(ctx,{type:'bar',data:{labels:d.labels,datasets:[{data:d.values,backgroundColor:d.types.map(t=>skillColors[t]+'BB'),borderColor:d.types.map(t=>skillColors[t]),borderWidth:1,borderRadius:4}]},options:{...baseOpts,indexAxis:'y',scales:{y:{ticks:{color:C.tm,font:{size:10}},grid:{color:C.border}},x:{ticks:{color:C.tm,font:{size:11}},grid:{color:C.border},max:100}}}});
+  skillChart=new Chart(ctx,{type:'bar',data:{labels:d.labels,datasets:[{data:d.values,backgroundColor:d.types.map(t=>skillColors[t]+'BB'),borderColor:d.types.map(t=>skillColors[t]),borderWidth:1,borderRadius:4}]},options:{...baseOpts,indexAxis:'y',scales:{y:{ticks:{color:C.tm,font:{size:12}},grid:{color:C.border}},x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border},max:100}}}});
 }
 buildSkillChart('all');
 function filterSkills(key,el){
@@ -679,7 +743,7 @@ function buildRadar(key){
   const d=frameworkData[key];
   const ctx=document.getElementById('chartRadar');
   if(radarChart)radarChart.destroy();
-  radarChart=new Chart(ctx,{type:'radar',data:{labels:d.labels,datasets:d.ds.map(ds=>({label:ds.label,data:ds.data,borderColor:ds.bc,backgroundColor:ds.bg,pointBackgroundColor:ds.bc,borderWidth:2}))},options:{...baseOpts,plugins:{...baseOpts.plugins,legend:{display:d.ds.length>1,labels:{color:C.tm,font:{size:11},padding:12}}},scales:{r:{ticks:{color:C.tm,backdropColor:'transparent',font:{size:10},stepSize:2},grid:{color:C.border},pointLabels:{color:C.tm,font:{size:10}},min:0,max:10}}}});
+  radarChart=new Chart(ctx,{type:'radar',data:{labels:d.labels,datasets:d.ds.map(ds=>({label:ds.label,data:ds.data,borderColor:ds.bc,backgroundColor:ds.bg,pointBackgroundColor:ds.bc,borderWidth:2}))},options:{...baseOpts,plugins:{...baseOpts.plugins,legend:{display:d.ds.length>1,labels:{color:C.tm,font:{size:13},padding:12}}},scales:{r:{ticks:{color:C.tm,backdropColor:'transparent',font:{size:12},stepSize:2},grid:{color:C.border},pointLabels:{color:C.tm,font:{size:12}},min:0,max:10}}}});
   document.getElementById('radar-src').textContent=key==='all'?'Convergencia de todos los marcos internacionales — escala 1-10':'Marco: '+d.ds[0].label+' — escala 1-10';
 }
 buildRadar('all');
@@ -736,12 +800,12 @@ new Chart(document.getElementById('chartImpact'),{type:'bubble',data:{datasets:[
   {label:'Instagram 2012',data:[{x:13,y:1000,r:14}],backgroundColor:C.amber+'BB',borderColor:C.amber},
   {label:'Midjourney 2025',data:[{x:130,y:500,r:21}],backgroundColor:C.purple+'BB',borderColor:C.purple},
   {label:'Cursor 2025',data:[{x:40,y:1200,r:16}],backgroundColor:C.blue+'BB',borderColor:C.blue},
-]},options:{...baseOpts,plugins:{...baseOpts.plugins,legend:{display:true,labels:{color:C.tm,font:{size:11}}}},scales:{x:{title:{display:true,text:'N° de empleados',color:C.tm,font:{size:11}},ticks:{color:C.tm},grid:{color:C.border}},y:{title:{display:true,text:'Valorización / ingresos (USD millones)',color:C.tm,font:{size:11}},ticks:{color:C.tm},grid:{color:C.border}}}}});
+]},options:{...baseOpts,plugins:{...baseOpts.plugins,legend:{display:true,labels:{color:C.tm,font:{size:13}}}},scales:{x:{title:{display:true,text:'N° de empleados',color:C.tm,font:{size:13}},ticks:{color:C.tm},grid:{color:C.border}},y:{title:{display:true,text:'Valorización / ingresos (USD millones)',color:C.tm,font:{size:13}},ticks:{color:C.tm},grid:{color:C.border}}}}});
 
 // ══════════════════════════════════════════════════════════════════════════════
 // DESINFORMACIÓN
 // ══════════════════════════════════════════════════════════════════════════════
-new Chart(document.getElementById('chartDisinfo'),{type:'doughnut',data:{labels:['Salud','Finanzas','Política','Educación','Relaciones','Seguridad'],datasets:[{data:[22,20,18,16,13,11],backgroundColor:[C.red,C.amber,C.purple,C.blue,C.green,C.blueD].map(c=>c+'CC'),borderColor:[C.red,C.amber,C.purple,C.blue,C.green,C.blueD],borderWidth:2}]},options:{...baseOpts,cutout:'60%',plugins:{...baseOpts.plugins,legend:{display:true,position:'right',labels:{color:C.tm,font:{size:11},padding:10}}}}});
+new Chart(document.getElementById('chartDisinfo'),{type:'doughnut',data:{labels:['Salud','Finanzas','Política','Educación','Relaciones','Seguridad'],datasets:[{data:[22,20,18,16,13,11],backgroundColor:[C.red,C.amber,C.purple,C.blue,C.green,C.blueD].map(c=>c+'CC'),borderColor:[C.red,C.amber,C.purple,C.blue,C.green,C.blueD],borderWidth:2}]},options:{...baseOpts,cutout:'60%',plugins:{...baseOpts.plugins,legend:{display:true,position:'right',labels:{color:C.tm,font:{size:13},padding:10}}}}});
 
 function updateDisinfoSim(){
   const exp=parseInt(document.getElementById('exposureSlider').value);
@@ -763,10 +827,13 @@ function updateDisinfoSim(){
 function setPerspective(tipo) {
   document.getElementById('entry-block').style.display = 'none';
   sessionStorage.setItem('dashboard_perspective', tipo);
+  var roleBtn = document.getElementById('change-role-btn');
+  if (roleBtn) roleBtn.style.display = 'block';
   const tabOrder = {
     familia: ['chile','destrezas','empleos','sectores','digital','desinfo'],
     docente: ['destrezas','empleos','chile','sectores','digital','desinfo'],
     empresa: ['sectores','empleos','digital','destrezas','chile','desinfo'],
+    estudiante: ['oportunidades','destrezas','digital','empleos','chile','desinfo'],
     all: null
   };
   if (tabOrder[tipo]) {
@@ -779,6 +846,15 @@ function setPerspective(tipo) {
 }
 if (sessionStorage.getItem('dashboard_perspective')) {
   document.getElementById('entry-block').style.display = 'none';
+  var roleBtn = document.getElementById('change-role-btn');
+  if (roleBtn) roleBtn.style.display = 'block';
+}
+function resetPerspective() {
+  sessionStorage.removeItem('dashboard_perspective');
+  var entry = document.getElementById('entry-block');
+  if (entry) { entry.style.display = ''; entry.scrollIntoView({ behavior: 'smooth' }); }
+  var btn = document.getElementById('change-role-btn');
+  if (btn) btn.style.display = 'none';
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -800,6 +876,34 @@ function updateChildSim(){
 // ══════════════════════════════════════════════════════════════════════════════
 // NOTEBOOK INTEGRATION
 // ══════════════════════════════════════════════════════════════════════════════
+function buildOpportunityChart() {
+  const ctx = document.getElementById('chartOpportunity');
+  if (!ctx) return;
+  if (ctx._chartInstance) ctx._chartInstance.destroy();
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Esp. IA y Big Data','Ing. Fintech','Dev. Software','Esp. Ciberseguridad','Enfermería','Ing. Energía Verde','Trabajo Social','UX/Diseño IA'],
+      datasets: [{data:[30,25,22,19,18,17,15,14],backgroundColor:'#5DCAA5BB',borderColor:'#5DCAA5',borderWidth:1,borderRadius:4}]
+    },
+    options: {...baseOpts, indexAxis:'y',
+      scales:{
+        y:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}},
+        x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border},title:{display:true,text:'% crecimiento proyectado al 2030',color:C.tm,font:{size:12}}}
+      }
+    }
+  });
+  ctx._chartInstance = chart;
+}
+
+setTimeout(() => {
+  if (typeof selectSector === 'function') {
+    const sel = document.querySelector('.sector-card.selected');
+    if (sel) selectSector('salud', sel);
+  }
+  if (typeof updateChildSim === 'function') updateChildSim();
+}, 200);
+
 document.querySelectorAll('.card.kpi').forEach(card=>{
   card.style.cursor='pointer';
   card.addEventListener('click',function(){
