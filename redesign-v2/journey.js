@@ -223,15 +223,22 @@ function updateNotebook() {
     });
   });
 
-  var html = '<div class="nb-panel__scroll">' +
-    '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
+  var html = '<div class="nb-panel__scroll">';
 
-  if (hasGeneratedMsg) {
-    // Mensaje visible, párrafos en desplegable
-    html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + hasGeneratedMsg + '</textarea></div>';
+  if (generatedMessages.length > 0) {
+    // MODO MENSAJE — título cambia, 3 versiones con tabs
+    html += '<div class="nb-panel__header"><span class="nb-panel__title" style="font-size:.85rem;line-height:1.3">Comparte esta reflexión con alguien que te importe</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
+    html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + generatedMessages[activeMsg] + '</textarea></div>';
+    // 3 tabs de versiones
+    html += '<div class="nb-msg-tabs">';
+    for (var m = 0; m < generatedMessages.length; m++) {
+      html += '<button class="nb-msg-tab' + (m === activeMsg ? ' nb-msg-tab--active' : '') + '" onclick="switchMsg(' + m + ')">' + (m + 1) + '</button>';
+    }
+    html += '</div>';
     html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
   } else {
-    // Párrafos visibles, sin mensaje
+    // MODO CUADERNO — listado de párrafos
+    html += '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
     html += '<div class="nb-panel__sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
     html += itemsHTML;
     html += '<div id="nb-message"></div>';
@@ -241,7 +248,7 @@ function updateNotebook() {
 
   // Footer fijo
   html += '<div class="nb-panel__footer">';
-  if (hasGeneratedMsg) {
+  if (generatedMessages.length > 0) {
     html += '<div class="nb-actions" style="margin:0">' +
       '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
       '</div>';
@@ -296,11 +303,28 @@ function toggleItemActive(encodedKey) {
   });
 }
 
+var generatedMessages = [];
+var activeMsg = 0;
 var hasGeneratedMsg = null;
 
 function resetMessage() {
   hasGeneratedMsg = null;
+  generatedMessages = [];
+  activeMsg = 0;
   updateNotebook();
+}
+
+function switchMsg(idx) {
+  activeMsg = idx;
+  var ta = document.getElementById('nb-textarea');
+  if (ta) {
+    ta.value = generatedMessages[idx];
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+  }
+  document.querySelectorAll('.nb-msg-tab').forEach(function(t, i) {
+    t.classList.toggle('nb-msg-tab--active', i === idx);
+  });
 }
 
 function generateMessage() {
@@ -317,17 +341,23 @@ function generateMessage() {
   if (!paragraphs.length) return;
 
   var genBtn = document.querySelector('.nb-gen-btn');
-  if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
+  if (genBtn) { genBtn.textContent = '✨ Generando 3 versiones...'; genBtn.disabled = true; }
 
-  fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ paragraphs: paragraphs })
-  })
-  .then(function(res) { return res.json(); })
-  .then(function(data) {
-    if (data.message) {
-      hasGeneratedMsg = data.message;
+  var url = 'https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook';
+  var body = JSON.stringify({ paragraphs: paragraphs });
+  var headers = { 'Content-Type': 'application/json' };
+
+  // 3 llamadas paralelas para 3 versiones distintas
+  Promise.all([
+    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
+    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
+    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
+  ])
+  .then(function(results) {
+    generatedMessages = results.filter(function(d) { return d.message; }).map(function(d) { return d.message; });
+    if (generatedMessages.length > 0) {
+      activeMsg = 0;
+      hasGeneratedMsg = generatedMessages[0];
       updateNotebook();
     }
   })

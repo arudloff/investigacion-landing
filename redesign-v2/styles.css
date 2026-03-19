@@ -1906,3 +1906,34 @@ p > .btn { display: inline-flex; }
 .nb-details[open] .nb-details__summary::before { transform: rotate(90deg); }
 .nb-details__summary::-webkit-details-marker { display: none; }
 .nb-details__summary:hover { color: rgba(255,255,255,0.6); }
+
+/* Tabs de versiones de mensaje */
+.nb-msg-tabs {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: .5rem 0;
+}
+.nb-msg-tab {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.4);
+  font-size: .8rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.nb-msg-tab:hover { border-color: rgba(245,166,35,0.3); color: rgba(255,255,255,0.7); }
+.nb-msg-tab--active {
+  background: rgba(245,166,35,0.15);
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
