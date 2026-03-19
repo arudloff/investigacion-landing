@@ -19,17 +19,11 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--dark);background-image:radial-gradient(rgba(46,109,164,.28) 1px,transparent 1px);background-size:24px 24px;color:var(--text);min-height:100vh}
-/* DASHBOARD SUB-NAVBAR */
-.dashboard-subnav{background:rgba(10,22,40,.88);border-bottom:1px solid rgba(46,109,164,.15);padding:0 20px;position:sticky;top:64px;z-index:90;overflow-x:auto;scrollbar-width:none}
-.dashboard-subnav::-webkit-scrollbar{display:none}
-.dashboard-subnav__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;white-space:nowrap;gap:0}
-.dashboard-subnav__label{font-size:12px;font-weight:700;color:rgba(245,166,35,.55);padding:10px 14px 10px 0;border-right:1px solid rgba(46,109,164,.2);margin-right:8px;flex-shrink:0}
-.dtab{padding:10px 13px;font-size:13px;font-weight:600;color:rgba(232,237,245,.5);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0}
+/* SUBNAV */
+/* sub-navbar styles handled inline */
+.dtab{padding:10px 14px;font-size:12px;font-weight:600;color:rgba(232,237,245,.55);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.02em}
 .dtab:hover{color:rgba(232,237,245,.9)}
 .dtab.active{color:#F5A623;border-bottom-color:#F5A623}
-/* Botón cambiar perspectiva */
-#change-role-btn{margin-left:auto;padding:6px 14px;font-size:12px;font-weight:700;color:#F5A623;border:1px solid rgba(245,166,35,.4);border-radius:20px;background:rgba(245,166,35,.08);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:4px}
-#change-role-btn:hover{background:rgba(245,166,35,.18);border-color:rgba(245,166,35,.7)}
 /* LAYOUT */
 .container{max-width:1200px;margin:0 auto;padding:28px 20px 60px}
 .section{display:none}
@@ -128,11 +122,10 @@ select:focus{border-color:rgba(245,166,35,.5)}
 </style>
 </head>
 <body>
-
-<!-- Sub-navbar del dashboard (NO es <nav> — nav.js inyecta la navbar del sitio) -->
-<div class="dashboard-subnav" id="dashboard-subnav">
-  <div class="dashboard-subnav__inner">
-    <span class="dashboard-subnav__label">📊 Datos</span>
+<nav style="background:rgba(10,22,40,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(46,109,164,.2);padding:0 20px;position:sticky;top:0;z-index:100;overflow-x:auto;scrollbar-width:none">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;white-space:nowrap;gap:0">
+    <a href="index.html" style="font-size:12px;font-weight:700;color:rgba(232,237,245,.9);padding:14px 16px 14px 0;white-space:nowrap;border-right:1px solid rgba(46,109,164,.2);margin-right:6px;flex-shrink:0;text-decoration:none">← Volver al sitio</a>
+    <span style="font-size:11px;font-weight:700;color:rgba(245,166,35,.6);padding:10px 12px 10px 8px;border-right:1px solid rgba(46,109,164,.2);margin-right:6px;flex-shrink:0">📊 Dashboard</span>
     <div class="dtab active" data-sec="empleos" onclick="showSec('empleos',this)">Empleos</div>
     <div class="dtab" data-sec="sectores" onclick="showSec('sectores',this)">Sectores</div>
     <div class="dtab" data-sec="destrezas" onclick="showSec('destrezas',this)">Destrezas</div>
@@ -140,9 +133,9 @@ select:focus{border-color:rgba(245,166,35,.5)}
     <div class="dtab" data-sec="chile" onclick="showSec('chile',this)">Chile</div>
     <div class="dtab" data-sec="digital" onclick="showSec('digital',this)">Economía digital</div>
     <div class="dtab" data-sec="desinfo" onclick="showSec('desinfo',this)">Desinformación</div>
-    <div id="change-role-btn" onclick="resetPerspective()" style="display:none">↺ Cambiar perspectiva</div>
+    <div id="change-role-btn" onclick="resetPerspective()" style="display:none;margin-left:auto;font-size:11px;font-weight:600;color:rgba(232,237,245,.5);border:1px solid rgba(46,109,164,.2);border-radius:10px;padding:4px 12px;cursor:pointer;flex-shrink:0;white-space:nowrap">Cambiar perspectiva ↺</div>
   </div>
-</div>
+</nav>
 
 <div class="container">
 
@@ -838,9 +831,8 @@ function setPerspective(tipo){
   sessionStorage.setItem('dashboard_perspective',tipo);
   var entry=document.getElementById('entry-block');
   if(entry) entry.style.display='none';
-  var labels={familia:'padre/madre',docente:'docente',empresa:'empresa',estudiante:'estudiante'};
   var btn=document.getElementById('change-role-btn');
-  if(btn){btn.style.display='flex';btn.innerHTML='↺ Viendo como '+(labels[tipo]||'visitante');}
+  if(btn) btn.style.display='block';
   if(tipo==='familia') showSec('chile',document.querySelector('.dtab[data-sec="chile"]')||document.querySelector('.dtab'));
   else if(tipo==='docente') showSec('destrezas',document.querySelector('.dtab[data-sec="destrezas"]')||document.querySelector('.dtab'));
   else if(tipo==='empresa') showSec('sectores',document.querySelector('.dtab[data-sec="sectores"]')||document.querySelector('.dtab'));
@@ -929,6 +921,5 @@ document.querySelectorAll('.card.kpi').forEach(card=>{
   <div style="width:44px;height:44px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>
 </div>
 
-<script src="nav.js?v=3"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'dashboard.html', label: 'Dashboard' },
+  { href: 'dashboard.html', label: 'Dashboard', external: true },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -39,7 +39,7 @@ const MOBILE_LINKS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'dashboard.html', label: 'Dashboard' },
+  { href: 'dashboard.html', label: 'Dashboard', external: true },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
@@ -195,9 +195,6 @@ function initAnimations() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Guard: no inyectar si ya existe la navbar del sitio
-  if (document.querySelector('.navbar')) return;
-
   const main = document.createElement('main');
   while (document.body.firstChild) main.appendChild(document.body.firstChild);
   document.body.appendChild(main);
