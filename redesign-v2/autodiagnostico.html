@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autodiagnóstico — Habilidades del Siglo XXI</title>
+  <title>Autodiagnostico — Habilidades del Siglo XXI</title>
   <meta name="description" content="¿Qué tan preparado estás para el siglo XXI? Descúbrelo en 3 minutos. Anónimo, gratuito, compartible.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .dx-page { background: var(--color-dark-deep); color: rgba(255,255,255,0.85); min-height: 100vh; }
+    /* ===== BASE ===== */
+    .dx-page { background: var(--color-dark-deep, #0A1628); color: rgba(255,255,255,0.85); min-height: 100vh; font-family: 'Inter', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Hero */
+    /* ===== HERO ===== */
     .dx-hero {
-      background-color: var(--color-dark-deep);
+      background-color: var(--color-dark-deep, #0A1628);
       background-image: var(--texture-dots);
       background-size: var(--texture-dots-size);
       padding: 6rem 0 3rem;
@@ -22,12 +24,12 @@
     }
     .dx-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; max-width: 700px; margin: 0 auto 1rem; }
     .dx-hero p { color: rgba(255,255,255,0.6); max-width: 550px; margin: 0 auto; line-height: 1.7; }
-    .dx-hero__badge { display: inline-block; background: rgba(245,166,35,0.15); color: var(--color-amber); font-size: .75rem; font-weight: 700; padding: .3rem .9rem; border-radius: 100px; border: 1px solid rgba(245,166,35,0.25); margin-bottom: 1.5rem; }
+    .dx-hero__badge { display: inline-block; background: rgba(245,166,35,0.15); color: var(--color-amber, #F5A623); font-size: .75rem; font-weight: 700; padding: .3rem .9rem; border-radius: 100px; border: 1px solid rgba(245,166,35,0.25); margin-bottom: 1.5rem; }
 
-    /* Profile cards */
-    .dx-profiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 800px; margin: 2.5rem auto 0; }
+    /* ===== ROLE CARDS ===== */
+    .dx-profiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 900px; margin: 2.5rem auto 0; padding: 0 1rem; }
     .dx-profile {
-      background: var(--color-dark-mid);
+      background: var(--color-dark-mid, #0D1F3C);
       border: 2px solid rgba(255,255,255,0.08);
       border-radius: 14px;
       padding: 1.5rem 1rem;
@@ -36,47 +38,68 @@
       transition: all 0.3s;
     }
     .dx-profile:hover { border-color: rgba(245,166,35,0.3); transform: translateY(-3px); }
-    .dx-profile--active { border-color: var(--color-amber); background: rgba(245,166,35,0.08); box-shadow: 0 0 20px rgba(245,166,35,0.1); }
+    .dx-profile--active { border-color: var(--color-amber, #F5A623); background: rgba(245,166,35,0.08); box-shadow: 0 0 20px rgba(245,166,35,0.1); }
     .dx-profile__icon { font-size: 2rem; margin-bottom: .5rem; }
     .dx-profile__name { font-size: .85rem; font-weight: 700; color: rgba(255,255,255,0.7); }
-    .dx-profile--active .dx-profile__name { color: var(--color-amber); }
+    .dx-profile--active .dx-profile__name { color: var(--color-amber, #F5A623); }
     .dx-profile__desc { font-size: .68rem; color: rgba(255,255,255,0.4); margin-top: .3rem; line-height: 1.3; }
 
-    /* Quiz section */
-    .dx-quiz { max-width: 650px; margin: 0 auto; padding: 2.5rem 0; display: none; }
+    /* ===== QUIZ ===== */
+    .dx-quiz { max-width: 700px; margin: 0 auto; padding: 2.5rem 1rem; display: none; }
     .dx-quiz--active { display: block; }
     .dx-progress { height: 4px; background: rgba(255,255,255,0.08); border-radius: 100px; margin-bottom: 2rem; overflow: hidden; }
-    .dx-progress__fill { height: 100%; background: var(--color-amber); border-radius: 100px; transition: width 0.4s ease; width: 0; }
+    .dx-progress__fill { height: 100%; background: var(--color-amber, #F5A623); border-radius: 100px; transition: width 0.4s ease; width: 0; }
     .dx-progress__text { font-size: .75rem; color: rgba(255,255,255,0.4); text-align: center; margin-bottom: .5rem; }
 
-    /* Question */
-    .dx-q { margin-bottom: 2rem; animation: dxFadeIn 0.4s ease; }
+    /* Question card */
+    .dx-q { animation: dxFadeIn 0.4s ease; }
     @keyframes dxFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .dx-q__text { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 1rem; line-height: 1.5; }
-    .dx-q__dimension { font-size: .7rem; color: var(--color-amber); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .5rem; }
+    .dx-q__dimension { font-size: .7rem; color: var(--color-amber, #F5A623); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .5rem; }
+    .dx-q__text { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 1.5rem; line-height: 1.5; }
 
-    /* Rating scale */
-    .dx-scale { display: flex; gap: 8px; justify-content: center; }
-    .dx-scale__btn {
-      width: 52px; height: 52px;
-      border-radius: 12px;
-      border: 2px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
-      color: rgba(255,255,255,0.5);
-      font-size: 1rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
+    /* Level cards */
+    .dx-levels { display: flex; flex-direction: column; gap: 8px; }
+    .dx-level {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: .75rem;
+      min-height: 52px;
+      padding: .75rem 1rem;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+      text-align: left;
+      width: 100%;
+      color: rgba(255,255,255,0.7);
+      font-size: .88rem;
+      line-height: 1.45;
     }
-    .dx-scale__btn:hover { border-color: rgba(245,166,35,0.4); color: var(--color-amber); }
-    .dx-scale__btn--selected { background: rgba(245,166,35,0.15); border-color: var(--color-amber); color: var(--color-amber); box-shadow: 0 0 12px rgba(245,166,35,0.15); }
-    .dx-scale__labels { display: flex; justify-content: space-between; margin-top: .4rem; font-size: .65rem; color: rgba(255,255,255,0.3); }
+    .dx-level:hover { border-color: rgba(245,166,35,0.3); background: rgba(245,166,35,0.04); }
+    .dx-level--selected { border-color: var(--color-amber, #F5A623); background: rgba(245,166,35,0.1); box-shadow: 0 0 14px rgba(245,166,35,0.08); }
+    .dx-level__badge {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 800;
+      transition: all 0.25s;
+    }
+    .dx-level--selected .dx-level__badge { color: #fff; }
+    .dx-level__label {
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 2px;
+      transition: color 0.25s;
+    }
+    .dx-level__desc { font-size: .85rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+    .dx-level--selected .dx-level__desc { color: rgba(255,255,255,0.85); }
 
-    /* Navigation buttons */
+    /* Navigation */
     .dx-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
     .dx-nav__btn {
       background: none;
@@ -92,131 +115,59 @@
       transition: all 0.2s;
     }
     .dx-nav__btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-    .dx-nav__btn--primary { background: var(--color-amber); border-color: var(--color-amber); color: var(--color-dark-deep); }
-    .dx-nav__btn--primary:hover { background: var(--color-amber-dark); }
+    .dx-nav__btn--primary { background: var(--color-amber, #F5A623); border-color: var(--color-amber, #F5A623); color: var(--color-dark-deep, #0A1628); }
+    .dx-nav__btn--primary:hover { filter: brightness(1.1); }
 
-    /* Results dashboard */
-    .dx-results { display: none; max-width: 750px; margin: 0 auto; padding: 2rem 0 4rem; }
+    /* ===== RESULTS ===== */
+    .dx-results { display: none; max-width: 750px; margin: 0 auto; padding: 2rem 1rem 4rem; }
     .dx-results--active { display: block; animation: dxFadeIn 0.6s ease; }
     .dx-results__header { text-align: center; margin-bottom: 2.5rem; }
     .dx-results__title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: .5rem; }
     .dx-results__subtitle { color: rgba(255,255,255,0.5); font-size: .9rem; }
 
-    /* Radar chart */
+    /* Radar */
     .dx-radar { display: flex; justify-content: center; margin-bottom: 2.5rem; }
     .dx-radar svg { max-width: 380px; width: 100%; }
     .dx-radar__bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 1; }
     .dx-radar__grid { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 1; }
-    .dx-radar__shape { fill: rgba(245,166,35,0.15); stroke: var(--color-amber); stroke-width: 2.5; stroke-linejoin: round; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
-    .dx-radar__dot { fill: var(--color-amber); r: 5; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__shape { fill: rgba(245,166,35,0.15); stroke: var(--color-amber, #F5A623); stroke-width: 2.5; stroke-linejoin: round; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__dot { fill: var(--color-amber, #F5A623); r: 5; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
     .dx-radar__label { fill: rgba(255,255,255,0.6); font-size: 11px; font-weight: 600; text-anchor: middle; }
+    .dx-radar__bench { fill: rgba(46,109,164,0.08); stroke: var(--color-primary-mid, #2E6DA4); stroke-width: 1.5; stroke-dasharray: 4 3; stroke-linejoin: round; }
+    .dx-radar__bench-dot { fill: var(--color-primary-mid, #2E6DA4); r: 3; opacity: 0.6; }
 
     /* Score cards */
     .dx-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2rem; }
     .dx-score {
-      background: var(--color-dark-mid);
+      background: var(--color-dark-mid, #0D1F3C);
       border-radius: 12px;
       padding: 1.25rem 1rem;
       text-align: center;
-      border-left: 3px solid var(--color-amber);
+      border-left: 3px solid var(--color-amber, #F5A623);
     }
-    .dx-score__val { font-size: 1.8rem; font-weight: 800; color: var(--color-amber); }
+    .dx-score__val { font-size: 1.8rem; font-weight: 800; color: var(--color-amber, #F5A623); }
     .dx-score__label { font-size: .72rem; color: rgba(255,255,255,0.5); margin-top: .2rem; text-transform: uppercase; letter-spacing: .05em; }
-
-    /* Insight text */
-    .dx-insight {
-      background: rgba(245,166,35,0.05);
-      border: 1px solid rgba(245,166,35,0.15);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .dx-insight__title { font-size: .88rem; font-weight: 700; color: var(--color-amber); margin-bottom: .5rem; }
-    .dx-insight__text { font-size: .9rem; color: rgba(255,255,255,0.7); line-height: 1.65; margin: 0; max-width: none; }
-
-    /* Share section */
-    .dx-share { text-align: center; padding-top: 1rem; }
-    .dx-share__title { font-size: .85rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
-    .dx-share__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
     /* Dimension bars */
     .dx-dims { margin-bottom: 2rem; }
     .dx-dim { margin-bottom: 1rem; }
     .dx-dim__header { display: flex; justify-content: space-between; margin-bottom: .4rem; }
     .dx-dim__name { font-size: .82rem; font-weight: 600; color: rgba(255,255,255,0.7); }
-    .dx-dim__pct { font-size: .82rem; font-weight: 800; color: var(--color-amber); }
+    .dx-dim__level-tag { font-size: .68rem; font-weight: 600; padding: .15rem .5rem; border-radius: 4px; }
+    .dx-dim__pct { font-size: .82rem; font-weight: 800; color: var(--color-amber, #F5A623); }
     .dx-dim__bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
-    .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+    .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber, #F5A623), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
 
-    /* Tips desplegables en barras */
-    .dx-dim { cursor: pointer; }
-    .dx-dim__tip {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s ease;
-      font-size: .85rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-      background: rgba(245,166,35,0.04);
-      border-radius: 8px;
-      padding: 0;
-      margin-top: 0;
+    /* Insights */
+    .dx-insight {
+      background: rgba(245,166,35,0.05);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
     }
-    .dx-dim--open .dx-dim__tip {
-      max-height: 200px;
-      padding: .75rem 1rem;
-      margin-top: .5rem;
-    }
-    .dx-dim__expand {
-      font-size: .65rem;
-      color: rgba(245,166,35,0.5);
-      margin-left: .5rem;
-    }
-    .dx-dim--open .dx-dim__expand { display: none; }
-
-    /* Recomendaciones */
-    .dx-recs { margin-bottom: 2rem; }
-    .dx-recs__title { font-size: .8rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: .75rem; }
-    .dx-recs__list { display: flex; flex-direction: column; gap: 8px; }
-    .dx-rec {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: .75rem 1rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .dx-rec:hover { background: rgba(245,166,35,0.06); border-color: rgba(245,166,35,0.2); text-decoration: none; }
-    .dx-rec__icon { font-size: 1.2rem; flex-shrink: 0; }
-    .dx-rec__text { font-size: .85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
-    .dx-rec__text strong { color: var(--color-amber); }
-    .dx-rec__arrow { color: rgba(255,255,255,0.3); margin-left: auto; flex-shrink: 0; }
-
-    /* Tarjeta compartible */
-    .dx-card { max-width: 400px; margin: 0 auto 2rem; }
-    .dx-card__inner {
-      background: linear-gradient(145deg, #0D1F3C, #0A1628);
-      border: 2px solid rgba(245,166,35,0.2);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-    .dx-card__badge { font-size: .7rem; color: var(--color-amber); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-bottom: .75rem; }
-    .dx-card__score { font-size: 3.5rem; font-weight: 800; color: var(--color-amber); line-height: 1; }
-    .dx-card__label { font-size: .8rem; color: rgba(255,255,255,0.5); margin-top: .3rem; margin-bottom: 1.25rem; }
-    .dx-card__dims { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
-    .dx-card__dim {
-      background: rgba(255,255,255,0.06);
-      border-radius: 6px;
-      padding: .3rem .6rem;
-      font-size: .65rem;
-      color: rgba(255,255,255,0.5);
-    }
-    .dx-card__dim strong { color: var(--color-amber); margin-right: 3px; }
-    .dx-card__footer { margin-top: 1.25rem; font-size: .6rem; color: rgba(255,255,255,0.25); letter-spacing: .02em; }
+    .dx-insight__title { font-size: .88rem; font-weight: 700; color: var(--color-amber, #F5A623); margin-bottom: .5rem; }
+    .dx-insight__text { font-size: .9rem; color: rgba(255,255,255,0.7); line-height: 1.65; margin: 0; }
 
     /* Benchmarks */
     .dx-bench { text-align: center; margin-bottom: 2rem; }
@@ -238,78 +189,88 @@
       align-items: center;
     }
     .dx-bench__opt:hover { border-color: rgba(46,109,164,0.4); color: rgba(255,255,255,0.7); }
-    .dx-bench__opt--active {
-      border-color: var(--color-primary-mid);
-      background: rgba(46,109,164,0.1);
-      color: var(--color-primary-mid);
-    }
-    /* Radar benchmark overlay */
-    .dx-radar__bench { fill: rgba(46,109,164,0.08); stroke: var(--color-primary-mid); stroke-width: 1.5; stroke-dasharray: 4 3; stroke-linejoin: round; }
-    .dx-radar__bench-dot { fill: var(--color-primary-mid); r: 3; opacity: 0.6; }
+    .dx-bench__opt--active { border-color: var(--color-primary-mid, #2E6DA4); background: rgba(46,109,164,0.1); color: var(--color-primary-mid, #2E6DA4); }
 
+    /* Share */
+    .dx-share { text-align: center; padding-top: 1rem; margin-bottom: 2rem; }
+    .dx-share__title { font-size: .85rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .dx-share__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .dx-share__btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: .6rem 1.2rem;
+      min-height: 44px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .dx-share__btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+    /* Methodology */
+    .dx-methodology {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .dx-methodology__title { font-size: .78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem; }
+    .dx-methodology__text { font-size: .82rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .dx-profiles { grid-template-columns: repeat(2, 1fr); }
+      .dx-profiles .dx-profile:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
       .dx-scores { grid-template-columns: 1fr 1fr; }
-      .dx-scale__btn { width: 46px; height: 46px; }
+      .dx-radar svg { max-width: 320px; }
     }
     @media (max-width: 480px) {
-      .dx-profiles { grid-template-columns: 1fr 1fr; }
-      .dx-profile__desc { font-size: .75rem; }
-      .dx-profile__name { font-size: .8rem; }
-      .dx-scale__btn { width: 48px; height: 48px; }
-      .dx-scale { gap: 6px; }
-      .dx-bench__opt { font-size: .8rem; padding: .5rem .8rem; }
+      .dx-profiles { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .dx-profiles .dx-profile:last-child { max-width: 60%; }
+      .dx-profile { padding: 1rem .75rem; }
+      .dx-profile__desc { font-size: .65rem; }
+      .dx-level { padding: .65rem .75rem; font-size: .82rem; }
+      .dx-bench__opt { font-size: .75rem; padding: .5rem .7rem; }
       .dx-scores { grid-template-columns: 1fr; }
-      .dx-radar svg { max-width: 300px; }
+      .dx-radar svg { max-width: 280px; }
+      .dx-q__text { font-size: 1rem; }
     }
   </style>
 </head>
 <body class="dx-page">
 
+  <!-- ===== HERO ===== -->
   <section class="dx-hero">
     <div class="container">
-      <div class="dx-hero__badge">Anónimo · 3 minutos · Gratuito</div>
-      <h1>¿Qué tan preparado estás para el siglo XXI?</h1>
-      <p>Un diagnóstico rápido de tus habilidades frente a los desafíos que la disrupción tecnológica, la IA y el nuevo mercado laboral ponen sobre la mesa. Sin registro. Sin datos personales.</p>
+      <div class="dx-hero__badge">Anonimo · 3 minutos · Gratuito</div>
+      <h1>¿Que tan preparado estas para el siglo XXI?</h1>
+      <p>Un diagnostico rapido basado en rubrica de tus habilidades frente a los desafios que la disrupcion tecnologica, la IA y el nuevo mercado laboral ponen sobre la mesa. Sin registro. Sin datos personales.</p>
 
-      <div class="dx-profiles" id="dx-profiles">
-        <div class="dx-profile" onclick="selectProfile('persona')">
-          <div class="dx-profile__icon">🧠</div>
-          <div class="dx-profile__name">Como persona</div>
-          <div class="dx-profile__desc">Tus destrezas personales frente al mundo que viene</div>
-        </div>
-        <div class="dx-profile" onclick="selectProfile('docente')">
-          <div class="dx-profile__icon">📚</div>
-          <div class="dx-profile__name">Como docente</div>
-          <div class="dx-profile__desc">Tu práctica pedagógica y su alineación con el siglo XXI</div>
-        </div>
-        <div class="dx-profile" onclick="selectProfile('colegio')">
-          <div class="dx-profile__icon">🏫</div>
-          <div class="dx-profile__name">Como establecimiento</div>
-          <div class="dx-profile__desc">Tu escuela frente a los estándares internacionales</div>
-        </div>
-        <div class="dx-profile" onclick="selectProfile('empresa')">
-          <div class="dx-profile__icon">🏢</div>
-          <div class="dx-profile__name">Como empresa</div>
-          <div class="dx-profile__desc">Tu organización y las competencias que necesita</div>
-        </div>
-      </div>
+      <div class="dx-profiles" id="dx-profiles"></div>
     </div>
   </section>
 
   <section class="container">
-    <!-- Quiz area -->
+    <!-- ===== QUIZ ===== -->
     <div class="dx-quiz" id="dx-quiz">
-      <div class="dx-progress__text" id="dx-progress-text">Pregunta 1 de 12</div>
+      <div class="dx-progress__text" id="dx-progress-text"></div>
       <div class="dx-progress"><div class="dx-progress__fill" id="dx-progress-fill"></div></div>
-      <div id="dx-questions"></div>
+      <div id="dx-question-area"></div>
       <div class="dx-nav">
-        <button class="dx-nav__btn" onclick="prevQuestion()" id="dx-prev" style="visibility:hidden">← Anterior</button>
-        <button class="dx-nav__btn dx-nav__btn--primary" onclick="nextQuestion()" id="dx-next">Siguiente →</button>
+        <button class="dx-nav__btn" id="dx-prev" style="visibility:hidden">&#8592; Anterior</button>
+        <button class="dx-nav__btn dx-nav__btn--primary" id="dx-next">Siguiente &#8594;</button>
       </div>
     </div>
 
-    <!-- Results -->
+    <!-- ===== RESULTS ===== -->
     <div class="dx-results" id="dx-results">
       <div class="dx-results__header">
         <div class="dx-hero__badge" id="dx-results-profile"></div>
@@ -319,7 +280,6 @@
 
       <div class="dx-radar"><svg viewBox="0 0 400 400" id="dx-radar-svg"></svg></div>
 
-      <!-- Benchmarks de comparación -->
       <div class="dx-bench" id="dx-bench">
         <div class="dx-bench__title">Compara con un referente</div>
         <div class="dx-bench__options" id="dx-bench-options"></div>
@@ -327,450 +287,535 @@
 
       <div class="dx-scores" id="dx-scores"></div>
 
-      <!-- Barras con tips desplegables -->
       <div class="dx-dims" id="dx-dims"></div>
 
-      <div class="dx-insight" id="dx-insight">
-        <div class="dx-insight__title">Tu mayor fortaleza</div>
-        <p class="dx-insight__text" id="dx-insight-strength"></p>
-      </div>
-      <div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">
-        <div class="dx-insight__title" style="color:var(--color-primary-mid)">Tu mayor oportunidad de crecimiento</div>
-        <p class="dx-insight__text" id="dx-insight-growth"></p>
-      </div>
-
-      <!-- Recomendaciones personalizadas -->
-      <div class="dx-recs" id="dx-recs">
-        <div class="dx-recs__title">Recursos recomendados para ti</div>
-        <div class="dx-recs__list" id="dx-recs-list"></div>
-      </div>
-
-      <!-- Tarjeta compartible -->
-      <div class="dx-card" id="dx-card">
-        <div class="dx-card__inner" id="dx-card-inner">
-          <div class="dx-card__badge" id="dx-card-badge"></div>
-          <div class="dx-card__score" id="dx-card-score"></div>
-          <div class="dx-card__label">Score Siglo XXI</div>
-          <div class="dx-card__dims" id="dx-card-dims"></div>
-          <div class="dx-card__footer">colegiocamilohenriquez.cl/redesign/autodiagnostico.html</div>
-        </div>
-        <p style="text-align:center;font-size:.75rem;color:rgba(255,255,255,0.4);margin-top:.75rem">Haz screenshot de esta tarjeta y compártela</p>
-      </div>
-
-      <!-- Contador social -->
-      <div style="text-align:center;margin-bottom:1.5rem">
-        <span style="font-size:.82rem;color:rgba(255,255,255,0.4)">🧭 <strong id="dx-counter" style="color:var(--color-amber)">0</strong> personas han completado este diagnóstico</span>
-      </div>
+      <div id="dx-insights"></div>
 
       <div class="dx-share">
-        <div class="dx-share__title">¿Te sorprendió el resultado? Compártelo.</div>
+        <div class="dx-share__title">¿Te sorprendio el resultado? Compartelo.</div>
         <div class="dx-share__btns">
-          <a href="#" onclick="shareWA()" class="refresh-btn" style="border-color:rgba(37,211,102,0.4);color:rgba(37,211,102,0.8)">Compartir por WhatsApp</a>
-          <button onclick="selectProfile(currentProfile)" class="refresh-btn">Repetir diagnóstico</button>
-          <button onclick="resetAll()" class="refresh-btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)">Probar otro perfil</button>
+          <a href="#" class="dx-share__btn" style="border-color:rgba(37,211,102,0.4);color:rgba(37,211,102,0.8)" id="dx-share-wa">&#128172; Compartir por WhatsApp</a>
+          <button class="dx-share__btn" id="dx-retry">&#128260; Repetir diagnostico</button>
+          <button class="dx-share__btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)" id="dx-reset">Probar otro perfil</button>
+        </div>
+      </div>
+
+      <div class="dx-methodology">
+        <div class="dx-methodology__title">Nota metodologica</div>
+        <div class="dx-methodology__text">
+          Este autodiagnostico esta basado en una rubrica de progresion de 5 niveles (0-4) alineada con marcos internacionales
+          de habilidades del siglo XXI, incluyendo el framework de la OCDE, el P21, y la taxonomia de habilidades del World Economic Forum.
+          Cada dimension se evalua con una pregunta tipo rubrica donde tu seleccionas el descriptor que mejor te representa.
+          El puntaje se calcula como el promedio de tus niveles seleccionados, normalizado a 100%.
+          Los benchmarks de comparacion estan basados en estimaciones a partir de investigacion educativa y datos publicos.
+          Este instrumento es orientativo — no reemplaza una evaluacion profesional.
         </div>
       </div>
     </div>
   </section>
 
   <script>
-  // ========== DATA ==========
-  const allQuestions = {
+  // ========== RUBRIC DATA ==========
+  const rubrica = {
     persona: {
       label: 'Como persona',
-      dimensions: ['Pensamiento crítico','Creatividad','Colaboración','Autonomía','Socioemocional','Adaptabilidad'],
+      icon: '\u{1F9E0}',
+      desc: 'Tus destrezas personales frente al mundo que viene',
       questions: [
-        { dim: 0, text: 'Cuando leo una noticia impactante, verifico la fuente antes de compartirla.' },
-        { dim: 0, text: 'Puedo identificar cuando un argumento tiene un sesgo o una falacia lógica.' },
-        { dim: 1, text: 'Cuando enfrento un problema, busco soluciones que nadie ha probado antes.' },
-        { dim: 1, text: 'Conecto ideas de ámbitos completamente distintos para generar algo nuevo.' },
-        { dim: 2, text: 'Trabajo bien con personas que piensan muy diferente a mí.' },
-        { dim: 2, text: 'Cuando trabajo en equipo, escucho antes de proponer.' },
-        { dim: 3, text: 'Puedo aprender una habilidad nueva por mi cuenta cuando lo necesito.' },
-        { dim: 3, text: 'Gestiono mi tiempo y prioridades sin que alguien me lo indique.' },
-        { dim: 4, text: 'Puedo nombrar lo que estoy sintiendo en un momento difícil.' },
-        { dim: 4, text: 'Mantengo la calma y pienso con claridad bajo presión.' },
-        { dim: 5, text: 'Cuando algo que sé hacer deja de funcionar, busco reinventarme rápidamente.' },
-        { dim: 5, text: 'Me siento cómodo tomando decisiones con información incompleta.' },
+        {
+          dimension: 'Pensamiento critico',
+          pregunta: '¿Como evaluas la informacion que recibes?',
+          niveles: [
+            'Acepto lo que me dicen sin cuestionarlo',
+            'A veces pregunto por que, pero raramente busco evidencia',
+            'Evaluo algunas fuentes antes de creer o compartir algo',
+            'Contrasto fuentes y detecto sesgos con regularidad',
+            'Analizo desde multiples perspectivas y argumento con evidencia siempre'
+          ]
+        },
+        {
+          dimension: 'Colaboracion',
+          pregunta: '¿Como trabajas con otras personas?',
+          niveles: [
+            'Prefiero trabajar solo o espero que otros lideren',
+            'Participo en grupos pero evito el conflicto',
+            'Contribuyo activamente aunque me cuesta la diversidad de opiniones',
+            'Construyo con otros y valoro perspectivas distintas a la mia',
+            'Facilito equipos, distribuyo liderazgo, co-construyo con proposito'
+          ]
+        },
+        {
+          dimension: 'Autonomia',
+          pregunta: '¿Como tomas la iniciativa en tu vida?',
+          niveles: [
+            'Espero que me digan que hacer y como hacerlo',
+            'Actuo cuando me lo piden, raramente por iniciativa propia',
+            'Tomo iniciativa en lo conocido, me paralizo ante lo nuevo',
+            'Me propongo metas propias y gestiono mi avance',
+            'Diseno mi propio camino y aprendo sin necesitar direccion externa'
+          ]
+        },
+        {
+          dimension: 'Creatividad',
+          pregunta: '¿Como enfrentas los problemas que no tienen una sola respuesta?',
+          niveles: [
+            'Busco la respuesta correcta o me bloqueo si no la encuentro',
+            'Propongo ideas solo cuando me lo piden explicitamente',
+            'Genero alternativas pero me cuesta defenderlas si son diferentes',
+            'Innovo con regularidad y veo el error como informacion util',
+            'Conecto dominios distintos, prototipo sin miedo y mejoro iterando'
+          ]
+        },
+        {
+          dimension: 'Habilidades socioemocionales',
+          pregunta: '¿Como manejas tus emociones y relaciones?',
+          niveles: [
+            'Me cuesta identificar y manejar mis emociones bajo presion',
+            'Reconozco mis emociones pero reacciono impulsivamente',
+            'Manejo mis emociones en contextos conocidos o seguros',
+            'Regulo mis reacciones y resuelvo conflictos con dialogo',
+            'Tengo alta autoconciencia, empatizo activamente y acompano a otros'
+          ]
+        },
+        {
+          dimension: 'Adaptabilidad',
+          pregunta: '¿Como te relacionas con el cambio y lo desconocido?',
+          niveles: [
+            'Los cambios me generan resistencia y evito lo desconocido',
+            'Me adapto solo cuando no tengo otra opcion',
+            'Aprendo cosas nuevas cuando las necesito',
+            'Busco activamente aprender y me anticipo a los cambios',
+            'El cambio es mi entorno natural; aprendo antes de necesitarlo'
+          ]
+        }
       ]
     },
     docente: {
       label: 'Como docente',
-      dimensions: ['Pensamiento crítico en aula','Creatividad pedagógica','Colaboración profesional','Autonomía del estudiante','Socioemocional en aula','Innovación metodológica'],
+      icon: '\u{1F4DA}',
+      desc: 'Tu practica pedagogica y su alineacion con el siglo XXI',
       questions: [
-        { dim: 0, text: 'Mis estudiantes argumentan con evidencia, no solo con opiniones.' },
-        { dim: 0, text: 'Diseño actividades donde no hay una sola respuesta correcta.' },
-        { dim: 1, text: 'Permito que los estudiantes propongan formas distintas de resolver un desafío.' },
-        { dim: 1, text: 'Integro el error como parte explícita del proceso de aprendizaje.' },
-        { dim: 2, text: 'Mis estudiantes trabajan en proyectos colaborativos con roles reales.' },
-        { dim: 2, text: 'Co-diseño actividades con otros docentes de distintas asignaturas.' },
-        { dim: 3, text: 'Los estudiantes pueden elegir rutas o temas dentro de mis clases.' },
-        { dim: 3, text: 'Evalúo el proceso de aprendizaje, no solo el producto final.' },
-        { dim: 4, text: 'Dedico tiempo a que los estudiantes identifiquen cómo se sienten antes de empezar.' },
-        { dim: 4, text: 'Los conflictos en mi aula se resuelven con diálogo, no con sanciones.' },
-        { dim: 5, text: 'He cambiado significativamente mi metodología en los últimos 2 años.' },
-        { dim: 5, text: 'Uso herramientas digitales o IA para enriquecer la experiencia de aprendizaje.' },
+        { dimension: 'Pensamiento critico', pregunta: '¿Como fomentas el pensamiento critico en tu practica?', niveles: ['Las clases se centran en transmitir contenido, no en cuestionar','A veces planteo preguntas abiertas, pero no de forma sistematica','Diseno actividades donde los estudiantes evaluan fuentes e ideas','El pensamiento critico es una destreza que desarrollo de forma transversal','Mis estudiantes argumentan con evidencia y detectan sesgos de forma autonoma'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como disenas el trabajo colaborativo en el aula?', niveles: ['Los estudiantes trabajan principalmente de forma individual','Hago trabajo en grupo ocasionalmente, sin roles definidos','Diseno proyectos colaborativos con roles y objetivos claros','Los estudiantes co-construyen conocimiento y me incluyo como par','El aula es una comunidad que aprende junta, con liderazgo distribuido'] },
+        { dimension: 'Autonomia', pregunta: '¿Cuanta agencia tienen tus estudiantes sobre su aprendizaje?', niveles: ['Yo defino que, como y cuando aprenden mis estudiantes','Doy opciones dentro de una estructura muy definida','Los estudiantes eligen como demostrar su aprendizaje','Los estudiantes co-disenan parte del proceso formativo','Cada estudiante gestiona su propio trayecto con mi acompanamiento'] },
+        { dimension: 'Creatividad', pregunta: '¿Como abordas el error y la experimentacion en el aula?', niveles: ['El error se corrige; no hay espacio para la experimentacion','Tolero el error pero no lo uso como herramienta pedagogica','Creo espacios seguros para intentar cosas distintas','El error es informacion: lo analizamos y construimos desde ahi','El aula es un laboratorio donde prototipar, fallar y mejorar es lo normal'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Como trabajas las habilidades socioemocionales con tus estudiantes?', niveles: ['No es parte de mi rol como docente de asignatura','Las abordamos cuando hay un conflicto o problema','Integro algunas dinamicas SEL de forma ocasional','Las habilidades SEL son parte transversal de mi diseno pedagogico','Mi aula modela y practica autoconciencia, empatia y regulacion todos los dias'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como evolucionas tu practica pedagogica?', niveles: ['Enseno de la misma forma que aprendi a hacerlo','Incorporo cambios cuando me los solicita la institucion','Actualizo mi practica cuando aparece evidencia o capacitacion relevante','Busco activamente nuevas metodologias y las experimento en el aula','Investigo, innovo, comparto y retroalimento a otros en mi practica'] }
       ]
     },
-    colegio: {
+    establecimiento: {
       label: 'Como establecimiento',
-      dimensions: ['Pensamiento crítico institucional','Cultura de innovación','Colaboración interna','Agencia del estudiante','Clima socioemocional','Conexión con el siglo XXI'],
+      icon: '\u{1F3EB}',
+      desc: 'Tu escuela frente a los estandares internacionales',
       questions: [
-        { dim: 0, text: 'Nuestro modelo pedagógico se basa en marcos internacionales verificables.' },
-        { dim: 0, text: 'Los docentes investigan y cuestionan sus propias prácticas de forma sistemática.' },
-        { dim: 1, text: 'Existe un espacio formal para que los docentes propongan e implementen innovaciones.' },
-        { dim: 1, text: 'La evaluación va más allá de pruebas estandarizadas.' },
-        { dim: 2, text: 'Los equipos docentes planifican de forma interdisciplinaria regularmente.' },
-        { dim: 2, text: 'Las familias participan activamente en la vida pedagógica, no solo administrativa.' },
-        { dim: 3, text: 'Los estudiantes tienen voz en decisiones que afectan su experiencia educativa.' },
-        { dim: 3, text: 'Existen instancias donde los estudiantes gestionan su propio aprendizaje.' },
-        { dim: 4, text: 'El bienestar socioemocional se trabaja transversalmente, no solo en un taller.' },
-        { dim: 4, text: 'Los docentes reciben apoyo emocional y profesional de forma regular.' },
-        { dim: 5, text: 'Nuestros egresados desarrollan destrezas que el mercado laboral valora hoy.' },
-        { dim: 5, text: 'Tenemos alianzas activas con universidades, empresas u otras escuelas.' },
+        { dimension: 'Pensamiento critico', pregunta: '¿El colegio desarrolla pensamiento critico de forma sistematica?', niveles: ['No hay evidencia de trabajo explicito en pensamiento critico','Se menciona en el PEI pero no se refleja en el aula','Algunas asignaturas o docentes lo trabajan de forma aislada','Hay un diseno pedagogico transversal que lo incluye','Es un sello del colegio con evidencia de impacto medible'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como colabora la comunidad escolar en el diseno pedagogico?', niveles: ['Las decisiones pedagogicas las toma solo la direccion','Hay instancias de consulta pero no vinculantes','Docentes participan en el diseno de algunos proyectos','Hay una cultura de co-construccion entre docentes, familias y estudiantes','La comunidad co-disena el modelo y lo evalua en ciclos continuos'] },
+        { dimension: 'Autonomia', pregunta: '¿Cuanta agencia tienen los estudiantes en el colegio?', niveles: ['Los estudiantes son receptores de decisiones que otros toman','Hay instancias de participacion estudiantil simbolicas','Los estudiantes participan en algunas decisiones que los afectan','Los estudiantes co-disenan actividades, proyectos y evaluaciones','La voz estudiantil incide en el diseno pedagogico e institucional'] },
+        { dimension: 'Creatividad', pregunta: '¿El colegio tiene una cultura de innovacion pedagogica?', niveles: ['Se sigue el mismo modelo sin espacio para experimentar','Se toleran innovaciones individuales pero no se fomentan','Hay proyectos innovadores puntuales en algunas areas','Existe una cultura de experimentacion pedagogica respaldada','La innovacion es parte del ADN institucional con ciclos de mejora continua'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿El colegio trabaja el bienestar y las habilidades SEL de forma explicita?', niveles: ['No hay programas ni estrategias SEL en el establecimiento','Hay intervenciones reactivas ante crisis o conflictos','Existen talleres o espacios SEL de forma complementaria','Las habilidades SEL estan integradas en el curriculum de forma transversal','El bienestar y las SEL son ejes estructurales del modelo educativo con evidencia de impacto'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como responde el colegio a los cambios del entorno?', niveles: ['Los cambios externos no se reflejan en el modelo educativo','Se adapta cuando la normativa lo exige','Se actualiza ante tendencias relevantes con cierta regularidad','Monitorea activamente el entorno y ajusta su modelo de forma proactiva','Tiene un brazo de I+D que investiga, innova y difunde sus hallazgos'] }
       ]
     },
     empresa: {
       label: 'Como empresa',
-      dimensions: ['Pensamiento estratégico','Cultura de innovación','Trabajo colaborativo','Autonomía de equipos','Inteligencia emocional','Adaptabilidad organizacional'],
+      icon: '\u{1F3E2}',
+      desc: 'Tu organizacion y las competencias que necesita',
       questions: [
-        { dim: 0, text: 'Las decisiones se toman con datos y evidencia, no solo con intuición.' },
-        { dim: 0, text: 'Cuestionamos regularmente nuestros propios supuestos de negocio.' },
-        { dim: 1, text: 'Existe un espacio real para experimentar ideas nuevas sin penalización por fracaso.' },
-        { dim: 1, text: 'Hemos implementado cambios significativos en nuestro modelo en los últimos 2 años.' },
-        { dim: 2, text: 'Los equipos se conforman por competencias diversas, no solo por jerarquía.' },
-        { dim: 2, text: 'La información fluye horizontalmente, no solo de arriba hacia abajo.' },
-        { dim: 3, text: 'Los equipos pueden tomar decisiones sin esperar aprobación de cada nivel.' },
-        { dim: 3, text: 'Cada persona entiende cómo su trabajo contribuye al propósito de la organización.' },
-        { dim: 4, text: 'Los líderes demuestran empatía y escucha activa de forma consistente.' },
-        { dim: 4, text: 'Existe un espacio seguro para expresar desacuerdo sin consecuencias negativas.' },
-        { dim: 5, text: 'Estamos preparados para que la IA transforme roles dentro de nuestra organización.' },
-        { dim: 5, text: 'Invertimos en el desarrollo de habilidades humanas, no solo técnicas.' },
+        { dimension: 'Pensamiento critico', pregunta: '¿Tu organizacion fomenta el pensamiento critico en sus equipos?', niveles: ['Se ejecutan instrucciones sin cuestionamiento sistemico','El cuestionamiento ocurre solo en niveles directivos','Hay instancias de analisis critico en reuniones o proyectos','Los equipos evaluan, contrastan y proponen con evidencia regularmente','El pensamiento critico es una competencia activamente desarrollada y medida'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como trabajan los equipos en tu organizacion?', niveles: ['El trabajo es principalmente individual con reportes a la jerarquia','Hay equipos pero la colaboracion es mas formal que real','Los equipos colaboran en proyectos con objetivos compartidos','La colaboracion cross-funcional es parte de la cultura organizacional','Los equipos humano-IA y cross-disciplinarios son la norma y generan valor'] },
+        { dimension: 'Autonomia', pregunta: '¿Que nivel de autonomia tienen las personas en tu organizacion?', niveles: ['Las tareas estan prescritas y el margen de decision es minimo','Hay autonomia operativa pero no estrategica','Las personas toman decisiones en su area con respaldo','Hay cultura de ownership: las personas disenan como lograr sus objetivos','Las personas son agentes activos que proponen, experimentan y lideran cambios'] },
+        { dimension: 'Creatividad', pregunta: '¿Tu organizacion tiene espacio real para la innovacion?', niveles: ['La eficiencia operativa no deja espacio para experimentar','La innovacion se tolera si no interrumpe las operaciones','Hay proyectos de innovacion con recursos asignados','La cultura organizacional acepta el error como parte del proceso creativo','La innovacion esta en el centro del modelo de negocio y es parte del rol de todos'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Tu organizacion gestiona las habilidades humanas con la misma seriedad que las tecnicas?', niveles: ['El foco es en resultados tecnicos; las habilidades blandas no se miden','Hay capacitaciones ocasionales en liderazgo o comunicacion','Las competencias SEL se incluyen en evaluaciones de desempeno','Hay programas sistematicos de desarrollo de habilidades humanas','Las habilidades humanas son el diferenciador estrategico y se desarrollan continuamente'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como responde tu organizacion al cambio tecnologico?', niveles: ['Los cambios tecnologicos se abordan solo cuando es urgente','Se adoptan tecnologias cuando la competencia lo hace','Hay una estrategia de transformacion digital en marcha','La organizacion monitorea tendencias y se adelanta proactivamente','La adaptacion continua es parte del ADN organizacional y una ventaja competitiva'] }
+      ]
+    },
+    estudiante: {
+      label: 'Como estudiante',
+      icon: '\u{1F393}',
+      desc: 'Tus destrezas y como las estas desarrollando',
+      questions: [
+        { dimension: 'Pensamiento critico', pregunta: '¿Que haces cuando lees o escuchas algo que no sabes si es verdad?', niveles: ['Lo acepto o comparto si me parece interesante','A veces desconfio, pero no se bien como verificarlo','Busco en otra fuente antes de creer o compartir','Contrasto varias fuentes y noto cuando algo no cuadra','Evaluo con criterio propio, detecto sesgos y ayudo a otros a no propagar informacion falsa'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como trabajas cuando estas en un grupo?', niveles: ['Prefiero hacerlo solo o espero que los demas lideren','Participo pero evito el conflicto aunque algo no me parezca','Contribuyo y escucho, aunque me cuesta ceder en lo que creo','Construyo con otros y valoro que piensen distinto a mi','Facilito al grupo, distribuyo roles y co-creo algo que nadie hubiera logrado solo'] },
+        { dimension: 'Autonomia', pregunta: '¿Como aprendes cuando algo te interesa de verdad?', niveles: ['Espero que el profe me explique o no avanzo','Busco ayuda rapido si no entiendo de inmediato','Intento por mi cuenta un rato antes de pedir ayuda','Busco, pruebo, me equivoco y sigo hasta entender','Diseno mi propio camino de aprendizaje y evaluo mi propio avance'] },
+        { dimension: 'Creatividad', pregunta: '¿Como enfrentas un problema que no tiene una respuesta clara?', niveles: ['Me bloqueo o espero que alguien me diga que hacer','Intento una cosa y si no funciona, pido ayuda','Pruebo varias alternativas antes de rendirme','Exploro el problema desde varios angulos y genero soluciones distintas','Disfruto los problemas dificiles y mejoro con cada intento fallido'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Como reaccionas cuando algo te sale mal o alguien te critica?', niveles: ['Me afecta mucho y me cuesta seguir adelante','Me frustro pero eventualmente lo supero','Lo proceso con tiempo y aprendo algo de la situacion','Lo tomo como informacion y ajusto sin que me derrumbe','Lo incorporo rapido, agradezco el feedback y lo uso para mejorar'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como te preparas para un mundo que sigue cambiando?', niveles: ['No me preparo especialmente — vere cuando llegue el momento','Me preocupa pero no se que hacer al respecto','Intento estar al dia con lo que pasa en el mundo','Aprendo destrezas que se que sirven en cualquier contexto','Construyo mi capacidad de aprender continuamente como mi principal herramienta'] }
       ]
     }
   };
 
-  // Benchmarks de referencia (promedios estimados basados en investigación)
+  const LEVEL_NAMES = ['No ocurre', 'Rara vez', 'A veces', 'Con frecuencia', 'Es mi norma'];
+  const LEVEL_COLORS = ['rgba(166,50,40,.25)', 'rgba(200,100,0,.25)', 'rgba(180,160,0,.25)', 'rgba(31,107,59,.25)', 'rgba(13,92,99,.25)'];
+  const LEVEL_TEXT_COLORS = ['#E85D24', '#F5A623', '#D4C432', '#5DCAA5', '#7EC8E3'];
+
   const benchmarks = {
     persona: {
       'Promedio global': [52, 48, 55, 45, 42, 40],
       'Top 10% mundial': [88, 85, 90, 82, 78, 80],
       'Promedio Chile': [48, 42, 50, 40, 38, 35],
-      'Generación Z': [55, 60, 50, 52, 45, 55],
     },
     docente: {
       'Docente tradicional': [35, 30, 28, 25, 32, 20],
       'Docente innovador': [75, 78, 70, 72, 68, 75],
-      'Estándar OCDE': [65, 60, 58, 55, 55, 50],
-      'Referente Finlandia': [85, 82, 78, 80, 75, 72],
+      'Estandar OCDE': [65, 60, 58, 55, 55, 50],
     },
-    colegio: {
+    establecimiento: {
       'Colegio promedio Chile': [35, 25, 30, 22, 28, 20],
-      'Estándar OCDE': [60, 55, 52, 50, 50, 45],
+      'Estandar OCDE': [60, 55, 52, 50, 50, 45],
       'Escuela innovadora': [78, 75, 72, 70, 68, 70],
-      'Referente mundial (Finlandia/Singapur)': [90, 85, 82, 80, 80, 78],
     },
     empresa: {
       'Empresa tradicional': [40, 30, 35, 28, 32, 25],
-      'Startup tecnológica': [70, 82, 65, 75, 55, 80],
-      'Fortune 500 innovadora': [78, 72, 70, 68, 65, 72],
+      'Startup tecnologica': [70, 82, 65, 75, 55, 80],
       'Top employer global': [85, 80, 80, 78, 75, 82],
     },
-  };
-  let activeBenchmark = null;
-  let userScores = [];
-
-  // Tips prácticos por dimensión (genéricos, aplican a todos los perfiles)
-  const dimTips = {
-    0: ['Esta semana, antes de compartir cualquier información, pregúntate: ¿quién es la fuente? ¿Tiene algo que ganar con que yo crea esto?', 'Practica el "abogado del diablo": elige una opinión que tengas y busca 3 argumentos en contra. Fortalece tu músculo de análisis.', 'Lee un artículo sobre un tema que no dominas y escribe en una línea lo que entendiste. Si no puedes, vuelve a leerlo.'],
-    1: ['Toma un problema cotidiano y genera 10 soluciones en 5 minutos — sin filtrar. La cantidad precede a la calidad.', 'Cambia una rutina esta semana: ve por otro camino, usa otra herramienta, prueba otro orden. La creatividad nace de romper patrones.', 'Conecta dos ideas que no tienen relación aparente. ¿Qué pasa si aplicas la lógica de un restaurante a una sala de clases?'],
-    2: ['En tu próxima reunión, escucha el doble de lo que hablas. Anota lo que otros dicen antes de responder.', 'Pide feedback a alguien con quien trabajaste esta semana. Una pregunta: ¿qué podría haber hecho mejor?', 'Propón un proyecto donde cada persona aporte algo que solo ella sabe hacer. La colaboración real nace de la diversidad.'],
-    3: ['Elige una habilidad que quieras desarrollar y dedícale 20 minutos diarios esta semana — sin que nadie te lo pida.', 'Escribe 3 metas para el mes. Al final de cada semana, revisa tu avance. La autonomía se entrena con estructura propia.', 'Toma una decisión pequeña que normalmente delegas. Observa qué pasa cuando te haces cargo.'],
-    4: ['Hoy, cuando alguien te cuente algo, no respondas con un consejo. Solo escucha y pregunta: ¿cómo te sientes con eso?', 'Cuando sientas frustración, pausa 10 segundos antes de reaccionar. Nombra la emoción en silencio. Eso es regulación emocional.', 'Practica dar un cumplido genuino y específico a alguien esta semana. La empatía se construye con micro-acciones.'],
-    5: ['Identifica algo en tu trabajo o vida que cambió en el último año. ¿Cómo te adaptaste? Si no lo hiciste, ¿qué te detuvo?', 'Aprende a usar una herramienta de IA esta semana (ChatGPT, Canva AI, cualquiera). 20 minutos bastan para entender su potencial.', 'La próxima vez que algo no salga como esperabas, escribe qué aprendiste antes de frustrarte. La adaptabilidad se entrena.'],
-  };
-
-  // Recomendaciones de páginas del sitio por dimensión
-  const dimRecs = {
-    0: { icon: '🧠', text: '<strong>Pensamiento complejo</strong> — Cómo desarrollamos esta destreza en el aula', href: 'modelo-educativo.html' },
-    1: { icon: '💡', text: '<strong>Creatividad</strong> — Por qué es la 4ª habilidad más demandada al 2030', href: 'modelo-educativo.html' },
-    2: { icon: '🤝', text: '<strong>Colaboración</strong> — El 92% de los reclutadores la prioriza', href: 'modelo-educativo.html' },
-    3: { icon: '🎯', text: '<strong>Autonomía</strong> — La destreza que integra a todas las demás (OCDE)', href: 'modelo-educativo.html' },
-    4: { icon: '❤️', text: '<strong>Socioemocional</strong> — +11 puntos en rendimiento con 270.000 estudiantes', href: 'modelo-educativo.html' },
-    5: { icon: '💼', text: '<strong>Adaptabilidad</strong> — +56% de empleabilidad en la era de la IA', href: 'modelo-educativo.html' },
+    estudiante: {
+      'Promedio regional': [45, 40, 38, 42, 35, 30],
+      'Estudiante proactivo': [72, 70, 68, 75, 65, 70],
+      'Referente global': [88, 85, 82, 85, 80, 82],
+    }
   };
 
   const insightPool = {
     strength: [
-      'Esta es la base sobre la que puedes construir todo lo demás. Las personas y organizaciones que dominan esta dimensión tienen una ventaja que la IA no puede replicar.',
-      'Aquí tienes un activo que el mercado valora cada vez más. Mientras la tecnología avanza, esta destreza humana se vuelve más escasa — y más valiosa.',
-      'Tu fortaleza en esta área te posiciona en el grupo que lidera la adaptación al cambio. Cultívala y compártela.',
+      'Esta es la base sobre la que puedes construir todo lo demas. Las personas y organizaciones que dominan esta dimension tienen una ventaja que la IA no puede replicar.',
+      'Aqui tienes un activo que el mercado valora cada vez mas. Mientras la tecnologia avanza, esta destreza humana se vuelve mas escasa — y mas valiosa.',
+      'Tu fortaleza en esta area te posiciona en el grupo que lidera la adaptacion al cambio. Cultivala y compartela.',
     ],
     growth: [
-      'Esta dimensión es donde más potencial de transformación tienes. Un pequeño avance aquí tiene un efecto multiplicador en todas las demás.',
-      'No es una debilidad — es una oportunidad. Las destrezas del siglo XXI se desarrollan a cualquier edad. Lo que importa es la decisión de empezar.',
-      'Aquí está tu próximo salto. Los datos muestran que las personas que trabajan esta dimensión de forma intencional ven resultados en semanas, no en años.',
+      'Esta dimension es donde mas potencial de transformacion tienes. Un pequeno avance aqui tiene un efecto multiplicador en todas las demas.',
+      'No es una debilidad — es una oportunidad. Las destrezas del siglo XXI se desarrollan a cualquier edad. Lo que importa es la decision de empezar.',
+      'Aqui esta tu proximo salto. Los datos muestran que las personas que trabajan esta dimension de forma intencional ven resultados en semanas, no en anos.',
     ]
   };
 
   // ========== STATE ==========
-  let currentProfile = null;
+  let currentRole = null;
   let currentQ = 0;
   let answers = [];
   let questions = [];
+  let dimensions = [];
+  let userScores = [];
+  let activeBenchmark = null;
 
-  // ========== FUNCTIONS ==========
-  function selectProfile(profile) {
-    currentProfile = profile;
+  // ========== INIT: Render role cards ==========
+  (function initProfiles() {
+    const container = document.getElementById('dx-profiles');
+    const roleKeys = Object.keys(rubrica);
+    container.innerHTML = roleKeys.map(key => {
+      const r = rubrica[key];
+      return '<div class="dx-profile" data-role="' + key + '">' +
+        '<div class="dx-profile__icon">' + r.icon + '</div>' +
+        '<div class="dx-profile__name">' + r.label + '</div>' +
+        '<div class="dx-profile__desc">' + r.desc + '</div>' +
+      '</div>';
+    }).join('');
+    container.querySelectorAll('.dx-profile').forEach(function(card) {
+      card.addEventListener('click', function() { selectRole(card.dataset.role, card); });
+    });
+  })();
+
+  // ========== ROLE SELECTION ==========
+  function selectRole(role, cardEl) {
+    currentRole = role;
     currentQ = 0;
-    answers = [];
-    questions = allQuestions[profile].questions;
-    // UI
+    questions = rubrica[role].questions;
+    dimensions = questions.map(function(q) { return q.dimension; });
+    answers = new Array(questions.length).fill(-1);
+
+    // UI updates
     document.getElementById('dx-results').classList.remove('dx-results--active');
-    document.querySelectorAll('.dx-profile').forEach(p => p.classList.remove('dx-profile--active'));
-    event.target.closest('.dx-profile').classList.add('dx-profile--active');
+    document.querySelectorAll('.dx-profile').forEach(function(p) { p.classList.remove('dx-profile--active'); });
+    cardEl.classList.add('dx-profile--active');
     document.getElementById('dx-quiz').classList.add('dx-quiz--active');
-    answers = new Array(questions.length).fill(0);
     renderQuestion();
+    document.getElementById('dx-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // ========== RENDER QUESTION ==========
   function renderQuestion() {
-    const q = questions[currentQ];
-    const dims = allQuestions[currentProfile].dimensions;
-    const total = questions.length;
-    document.getElementById('dx-progress-text').textContent = `Pregunta ${currentQ + 1} de ${total}`;
+    var q = questions[currentQ];
+    var total = questions.length;
+
+    document.getElementById('dx-progress-text').textContent = 'Pregunta ' + (currentQ + 1) + ' de ' + total;
     document.getElementById('dx-progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
     document.getElementById('dx-prev').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
-    const nextBtn = document.getElementById('dx-next');
-    nextBtn.textContent = currentQ === total - 1 ? 'Ver resultados →' : 'Siguiente →';
 
-    const html = `<div class="dx-q">
-      <div class="dx-q__dimension">${dims[q.dim]}</div>
-      <div class="dx-q__text">${q.text}</div>
-      <div class="dx-scale">
-        ${[1,2,3,4,5].map(v => `<button class="dx-scale__btn ${answers[currentQ]===v?'dx-scale__btn--selected':''}" onclick="answer(${v})">${v}</button>`).join('')}
-      </div>
-      <div class="dx-scale__labels"><span>Nunca</span><span>Rara vez</span><span>A veces</span><span>Casi siempre</span><span>Siempre</span></div>
-    </div>`;
-    document.getElementById('dx-questions').innerHTML = html;
-  }
+    var nextBtn = document.getElementById('dx-next');
+    nextBtn.textContent = currentQ === total - 1 ? 'Ver resultados \u2192' : 'Siguiente \u2192';
 
-  function answer(val) {
-    answers[currentQ] = val;
-    document.querySelectorAll('.dx-scale__btn').forEach((b,i) => {
-      b.classList.toggle('dx-scale__btn--selected', i+1 === val);
+    var html = '<div class="dx-q">' +
+      '<div class="dx-q__dimension">' + q.dimension + '</div>' +
+      '<div class="dx-q__text">' + q.pregunta + '</div>' +
+      '<div class="dx-levels">';
+
+    for (var i = 0; i < 5; i++) {
+      var selected = answers[currentQ] === i;
+      html += '<button class="dx-level' + (selected ? ' dx-level--selected' : '') + '" data-level="' + i + '" style="' +
+        (selected ? 'border-color:' + LEVEL_TEXT_COLORS[i] + ';background:' + LEVEL_COLORS[i] : '') + '">' +
+        '<span class="dx-level__badge" style="background:' + LEVEL_COLORS[i] + ';color:' + LEVEL_TEXT_COLORS[i] + '">' + i + '</span>' +
+        '<span>' +
+          '<div class="dx-level__label" style="color:' + LEVEL_TEXT_COLORS[i] + '">' + LEVEL_NAMES[i] + '</div>' +
+          '<div class="dx-level__desc">' + q.niveles[i] + '</div>' +
+        '</span>' +
+      '</button>';
+    }
+
+    html += '</div></div>';
+    document.getElementById('dx-question-area').innerHTML = html;
+
+    // Attach click handlers
+    document.querySelectorAll('.dx-level').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        selectLevel(parseInt(btn.dataset.level));
+      });
     });
-    // Auto-avance después de un breve feedback visual
-    setTimeout(function() {
-      if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
-      else { showResults(); }
-    }, 350);
   }
 
-  function nextQuestion() {
-    if (answers[currentQ] === 0) { answers[currentQ] = 3; }
+  // ========== SELECT LEVEL ==========
+  function selectLevel(level) {
+    answers[currentQ] = level;
+
+    // Visual feedback
+    document.querySelectorAll('.dx-level').forEach(function(btn, idx) {
+      var isSelected = idx === level;
+      btn.classList.toggle('dx-level--selected', isSelected);
+      if (isSelected) {
+        btn.style.borderColor = LEVEL_TEXT_COLORS[idx];
+        btn.style.background = LEVEL_COLORS[idx];
+      } else {
+        btn.style.borderColor = '';
+        btn.style.background = '';
+      }
+    });
+
+    // Auto-advance after 400ms
+    setTimeout(function() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }, 400);
+  }
+
+  // ========== NAV BUTTONS ==========
+  document.getElementById('dx-prev').addEventListener('click', function() {
+    if (currentQ > 0) { currentQ--; renderQuestion(); }
+  });
+
+  document.getElementById('dx-next').addEventListener('click', function() {
+    if (answers[currentQ] === -1) { answers[currentQ] = 2; } // default middle if skipped
     if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
     else { showResults(); }
-  }
+  });
 
-  function prevQuestion() {
-    if (currentQ > 0) { currentQ--; renderQuestion(); }
-  }
-
+  // ========== SHOW RESULTS ==========
   function showResults() {
     document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
     document.getElementById('dx-results').classList.add('dx-results--active');
-    const data = allQuestions[currentProfile];
-    const dims = data.dimensions;
-    const dimCount = dims.length;
 
-    // Calculate scores per dimension (average of 2 questions each, scaled to 100)
-    const scores = [];
-    for (let d = 0; d < dimCount; d++) {
-      const qs = questions.filter((q,i) => q.dim === d);
-      const idxs = questions.map((q,i) => q.dim === d ? i : -1).filter(i => i >= 0);
-      const avg = idxs.reduce((sum, i) => sum + answers[i], 0) / idxs.length;
-      scores.push(Math.round((avg / 5) * 100));
+    var data = rubrica[currentRole];
+    var numQ = questions.length;
+
+    // Scores: each answer is 0-4, normalize to 0-100
+    var scores = [];
+    for (var i = 0; i < numQ; i++) {
+      var val = answers[i] >= 0 ? answers[i] : 2;
+      scores.push(Math.round((val / 4) * 100));
     }
-    const total = Math.round(scores.reduce((a,b) => a+b, 0) / dimCount);
+    userScores = scores;
+
+    var total = Math.round(scores.reduce(function(a, b) { return a + b; }, 0) / numQ);
 
     // Profile badge
     document.getElementById('dx-results-profile').textContent = data.label;
+
     // Title based on score
-    let title = 'Tu perfil muestra oportunidades de crecimiento importantes';
-    if (total >= 80) title = 'Tu perfil está altamente alineado con el siglo XXI';
-    else if (total >= 60) title = 'Tu perfil muestra una base sólida con espacio para crecer';
+    var title = 'Tu perfil muestra oportunidades de crecimiento importantes';
+    if (total >= 80) title = 'Tu perfil esta altamente alineado con el siglo XXI';
+    else if (total >= 60) title = 'Tu perfil muestra una base solida con espacio para crecer';
     else if (total >= 40) title = 'Tu perfil tiene fundamentos — y un gran potencial de desarrollo';
     document.getElementById('dx-results-title').textContent = title;
 
     // Score cards
-    const maxDim = scores.indexOf(Math.max(...scores));
-    const minDim = scores.indexOf(Math.min(...scores));
-    document.getElementById('dx-scores').innerHTML = `
-      <div class="dx-score"><div class="dx-score__val">${total}%</div><div class="dx-score__label">Score global</div></div>
-      <div class="dx-score" style="border-left-color:var(--color-accent-green)"><div class="dx-score__val" style="color:var(--color-accent-green)">${scores[maxDim]}%</div><div class="dx-score__label">Mayor fortaleza</div></div>
-      <div class="dx-score" style="border-left-color:var(--color-primary-mid)"><div class="dx-score__val" style="color:var(--color-primary-mid)">${scores[minDim]}%</div><div class="dx-score__label">Mayor oportunidad</div></div>
-    `;
+    var maxIdx = 0, minIdx = 0;
+    for (var i = 1; i < numQ; i++) {
+      if (scores[i] > scores[maxIdx]) maxIdx = i;
+      if (scores[i] < scores[minIdx]) minIdx = i;
+    }
 
-    // Dimension bars with tips
-    document.getElementById('dx-dims').innerHTML = dims.map((name, i) => {
-      const tip = dimTips[i][Math.floor(Math.random() * dimTips[i].length)];
-      return `<div class="dx-dim" onclick="this.classList.toggle('dx-dim--open')">
-        <div class="dx-dim__header"><span class="dx-dim__name">${name} <span class="dx-dim__expand">toca para ver un tip →</span></span><span class="dx-dim__pct">${scores[i]}%</span></div>
-        <div class="dx-dim__bar"><div class="dx-dim__fill" id="dx-bar-${i}"></div></div>
-        <div class="dx-dim__tip">💡 ${tip}</div>
-      </div>`;
-    }).join('');
+    document.getElementById('dx-scores').innerHTML =
+      '<div class="dx-score"><div class="dx-score__val">' + total + '%</div><div class="dx-score__label">Score global</div></div>' +
+      '<div class="dx-score" style="border-left-color:#5DCAA5"><div class="dx-score__val" style="color:#5DCAA5">' + scores[maxIdx] + '%</div><div class="dx-score__label">Mayor fortaleza</div></div>' +
+      '<div class="dx-score" style="border-left-color:var(--color-primary-mid,#2E6DA4)"><div class="dx-score__val" style="color:var(--color-primary-mid,#2E6DA4)">' + scores[minIdx] + '%</div><div class="dx-score__label">Mayor oportunidad</div></div>';
+
+    // Dimension bars
+    var dimsHTML = '';
+    for (var i = 0; i < numQ; i++) {
+      var levelIdx = answers[i] >= 0 ? answers[i] : 2;
+      dimsHTML += '<div class="dx-dim">' +
+        '<div class="dx-dim__header">' +
+          '<span class="dx-dim__name">' + dimensions[i] + ' <span class="dx-dim__level-tag" style="background:' + LEVEL_COLORS[levelIdx] + ';color:' + LEVEL_TEXT_COLORS[levelIdx] + '">' + LEVEL_NAMES[levelIdx] + '</span></span>' +
+          '<span class="dx-dim__pct">' + scores[i] + '%</span>' +
+        '</div>' +
+        '<div class="dx-dim__bar"><div class="dx-dim__fill" id="dx-bar-' + i + '"></div></div>' +
+      '</div>';
+    }
+    document.getElementById('dx-dims').innerHTML = dimsHTML;
+
     // Animate bars
-    setTimeout(() => {
-      dims.forEach((_, i) => { document.getElementById('dx-bar-' + i).style.width = scores[i] + '%'; });
+    setTimeout(function() {
+      for (var i = 0; i < numQ; i++) {
+        document.getElementById('dx-bar-' + i).style.width = scores[i] + '%';
+      }
     }, 200);
 
-    // Store scores for benchmark comparison
-    userScores = scores;
-
     // Radar chart
-    drawRadar(dims, scores);
+    drawRadar(dimensions, scores);
 
-    // Render benchmark options
+    // Benchmarks
     activeBenchmark = null;
-    const bmarks = benchmarks[currentProfile];
-    document.getElementById('dx-bench-options').innerHTML = Object.keys(bmarks).map(name =>
-      `<button class="dx-bench__opt" onclick="toggleBenchmark(this, '${name}')">${name}</button>`
-    ).join('');
+    var bmarks = benchmarks[currentRole];
+    var benchHTML = '';
+    Object.keys(bmarks).forEach(function(name) {
+      benchHTML += '<button class="dx-bench__opt" data-bench="' + name + '">' + name + '</button>';
+    });
+    document.getElementById('dx-bench-options').innerHTML = benchHTML;
+    document.querySelectorAll('.dx-bench__opt').forEach(function(btn) {
+      btn.addEventListener('click', function() { toggleBenchmark(btn, btn.dataset.bench); });
+    });
 
     // Insights
-    const sp = insightPool.strength;
-    const gp = insightPool.growth;
-    document.getElementById('dx-insight-strength').innerHTML = `<strong>${dims[maxDim]} (${scores[maxDim]}%):</strong> ${sp[Math.floor(Math.random()*sp.length)]}`;
-    document.getElementById('dx-insight-growth').innerHTML = `<strong>${dims[minDim]} (${scores[minDim]}%):</strong> ${gp[Math.floor(Math.random()*gp.length)]}`;
-
-    // Recomendaciones personalizadas (top 3 dimensiones más bajas)
-    const ranked = scores.map((s, i) => ({ s, i })).sort((a, b) => a.s - b.s);
-    const topRecs = ranked.slice(0, 3);
-    document.getElementById('dx-recs-list').innerHTML = topRecs.map(({ i }) => {
-      const rec = dimRecs[i];
-      return `<a href="${rec.href}" class="dx-rec">
-        <span class="dx-rec__icon">${rec.icon}</span>
-        <span class="dx-rec__text">${rec.text}</span>
-        <span class="dx-rec__arrow">→</span>
-      </a>`;
-    }).join('');
-
-    // Tarjeta compartible
-    document.getElementById('dx-card-badge').textContent = data.label.toUpperCase();
-    document.getElementById('dx-card-score').textContent = total + '%';
-    document.getElementById('dx-card-dims').innerHTML = dims.map((name, i) =>
-      `<span class="dx-card__dim"><strong>${scores[i]}%</strong> ${name}</span>`
-    ).join('');
-
-    // Contador social (localStorage)
-    var cnt = parseInt(localStorage.getItem('dx_count') || '247');
-    cnt++;
-    localStorage.setItem('dx_count', cnt);
-    document.getElementById('dx-counter').textContent = cnt;
+    var sp = insightPool.strength;
+    var gp = insightPool.growth;
+    document.getElementById('dx-insights').innerHTML =
+      '<div class="dx-insight">' +
+        '<div class="dx-insight__title">Tu mayor fortaleza</div>' +
+        '<p class="dx-insight__text"><strong>' + dimensions[maxIdx] + ' (' + scores[maxIdx] + '%):</strong> ' + sp[Math.floor(Math.random() * sp.length)] + '</p>' +
+      '</div>' +
+      '<div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">' +
+        '<div class="dx-insight__title" style="color:var(--color-primary-mid,#2E6DA4)">Tu mayor oportunidad de crecimiento</div>' +
+        '<p class="dx-insight__text"><strong>' + dimensions[minIdx] + ' (' + scores[minIdx] + '%):</strong> ' + gp[Math.floor(Math.random() * gp.length)] + '</p>' +
+      '</div>';
 
     // Scroll to results
     document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // ========== RADAR CHART ==========
   function drawRadar(labels, scores, benchScores) {
-    const svg = document.getElementById('dx-radar-svg');
-    const cx = 200, cy = 200, r = 140;
-    const n = labels.length;
-    const angleStep = (2 * Math.PI) / n;
-    const offset = -Math.PI / 2;
+    var svg = document.getElementById('dx-radar-svg');
+    var cx = 200, cy = 200, r = 140;
+    var n = labels.length;
+    var angleStep = (2 * Math.PI) / n;
+    var offset = -Math.PI / 2;
 
     function polarToXY(angle, radius) {
       return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
     }
 
-    let gridHTML = '';
+    var html = '';
+
     // Grid rings
-    [0.2, 0.4, 0.6, 0.8, 1.0].forEach(pct => {
-      const pts = [];
-      for (let i = 0; i < n; i++) pts.push(polarToXY(offset + i * angleStep, r * pct).join(','));
-      gridHTML += `<polygon points="${pts.join(' ')}" class="${pct===1?'dx-radar__bg':'dx-radar__grid'}"/>`;
+    [0.2, 0.4, 0.6, 0.8, 1.0].forEach(function(pct) {
+      var pts = [];
+      for (var i = 0; i < n; i++) pts.push(polarToXY(offset + i * angleStep, r * pct).join(','));
+      html += '<polygon points="' + pts.join(' ') + '" class="' + (pct === 1 ? 'dx-radar__bg' : 'dx-radar__grid') + '"/>';
     });
+
     // Axis lines
-    for (let i = 0; i < n; i++) {
-      const [x, y] = polarToXY(offset + i * angleStep, r);
-      gridHTML += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+    for (var i = 0; i < n; i++) {
+      var pt = polarToXY(offset + i * angleStep, r);
+      html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + pt[0] + '" y2="' + pt[1] + '" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>';
     }
+
     // Labels
-    for (let i = 0; i < n; i++) {
-      const [x, y] = polarToXY(offset + i * angleStep, r + 25);
-      // Split long labels
-      const parts = labels[i].split(' ');
-      const mid = Math.ceil(parts.length / 2);
-      const l1 = parts.slice(0, mid).join(' ');
-      const l2 = parts.slice(mid).join(' ');
-      gridHTML += `<text x="${x}" y="${y-6}" class="dx-radar__label">${l1}</text>`;
-      if (l2) gridHTML += `<text x="${x}" y="${y+7}" class="dx-radar__label">${l2}</text>`;
+    for (var i = 0; i < n; i++) {
+      var lpt = polarToXY(offset + i * angleStep, r + 28);
+      var parts = labels[i].split(' ');
+      var mid = Math.ceil(parts.length / 2);
+      var l1 = parts.slice(0, mid).join(' ');
+      var l2 = parts.slice(mid).join(' ');
+      html += '<text x="' + lpt[0] + '" y="' + (lpt[1] - 6) + '" class="dx-radar__label">' + l1 + '</text>';
+      if (l2) html += '<text x="' + lpt[0] + '" y="' + (lpt[1] + 7) + '" class="dx-radar__label">' + l2 + '</text>';
     }
-    // Benchmark shape (if provided, draw first so it's behind)
+
+    // Benchmark shape (behind)
     if (benchScores) {
-      const bPts = [];
-      const bDots = [];
-      for (let i = 0; i < n; i++) {
-        const val = benchScores[i] / 100;
-        const [x, y] = polarToXY(offset + i * angleStep, r * val);
-        bPts.push(`${x},${y}`);
-        bDots.push(`<circle cx="${x}" cy="${y}" class="dx-radar__bench-dot"/>`);
+      var bPts = [];
+      var bDots = '';
+      for (var i = 0; i < n; i++) {
+        var val = benchScores[i] / 100;
+        var bp = polarToXY(offset + i * angleStep, r * val);
+        bPts.push(bp[0] + ',' + bp[1]);
+        bDots += '<circle cx="' + bp[0] + '" cy="' + bp[1] + '" class="dx-radar__bench-dot"/>';
       }
-      gridHTML += `<polygon points="${bPts.join(' ')}" class="dx-radar__bench"/>`;
-      gridHTML += bDots.join('');
+      html += '<polygon points="' + bPts.join(' ') + '" class="dx-radar__bench"/>';
+      html += bDots;
     }
 
-    // User data shape (on top)
-    const dataPts = [];
-    const dots = [];
-    for (let i = 0; i < n; i++) {
-      const val = scores[i] / 100;
-      const [x, y] = polarToXY(offset + i * angleStep, r * val);
-      dataPts.push(`${x},${y}`);
-      dots.push(`<circle cx="${x}" cy="${y}" class="dx-radar__dot"/>`);
+    // User shape
+    var dataPts = [];
+    var dots = '';
+    for (var i = 0; i < n; i++) {
+      var val = scores[i] / 100;
+      var dp = polarToXY(offset + i * angleStep, r * val);
+      dataPts.push(dp[0] + ',' + dp[1]);
+      dots += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" class="dx-radar__dot"/>';
     }
-    gridHTML += `<polygon points="${dataPts.join(' ')}" class="dx-radar__shape"/>`;
-    gridHTML += dots.join('');
+    html += '<polygon points="' + dataPts.join(' ') + '" class="dx-radar__shape"/>';
+    html += dots;
 
-    // Legend if benchmark active
+    // Legend if benchmark
     if (benchScores) {
-      gridHTML += `<rect x="10" y="370" width="12" height="3" fill="var(--color-amber)" rx="1"/>`;
-      gridHTML += `<text x="26" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Tú</text>`;
-      gridHTML += `<rect x="50" y="370" width="12" height="3" fill="var(--color-primary-mid)" rx="1" stroke-dasharray="3 2"/>`;
-      gridHTML += `<text x="66" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Referente</text>`;
+      html += '<rect x="10" y="370" width="12" height="3" fill="var(--color-amber,#F5A623)" rx="1"/>';
+      html += '<text x="26" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Tu</text>';
+      html += '<rect x="50" y="370" width="12" height="3" fill="var(--color-primary-mid,#2E6DA4)" rx="1"/>';
+      html += '<text x="66" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Referente</text>';
     }
 
-    svg.innerHTML = gridHTML;
+    svg.innerHTML = html;
   }
 
+  // ========== BENCHMARK TOGGLE ==========
   function toggleBenchmark(btn, name) {
-    const wasActive = btn.classList.contains('dx-bench__opt--active');
-    // Deselect all
-    document.querySelectorAll('.dx-bench__opt').forEach(b => b.classList.remove('dx-bench__opt--active'));
+    var wasActive = btn.classList.contains('dx-bench__opt--active');
+    document.querySelectorAll('.dx-bench__opt').forEach(function(b) { b.classList.remove('dx-bench__opt--active'); });
+
     if (wasActive) {
       activeBenchmark = null;
-      drawRadar(allQuestions[currentProfile].dimensions, userScores);
+      drawRadar(dimensions, userScores);
     } else {
       btn.classList.add('dx-bench__opt--active');
       activeBenchmark = name;
-      drawRadar(allQuestions[currentProfile].dimensions, userScores, benchmarks[currentProfile][name]);
+      drawRadar(dimensions, userScores, benchmarks[currentRole][name]);
     }
   }
 
-  function resetAll() {
+  // ========== SHARE / RESET ==========
+  document.getElementById('dx-share-wa').addEventListener('click', function(e) {
+    e.preventDefault();
+    var url = encodeURIComponent(window.location.href);
+    var text = encodeURIComponent('Acabo de hacer el autodiagnostico de habilidades del siglo XXI. ¿Que tan preparado estas tu?');
+    window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+  });
+
+  document.getElementById('dx-retry').addEventListener('click', function() {
+    if (currentRole) {
+      var card = document.querySelector('.dx-profile[data-role="' + currentRole + '"]');
+      if (card) selectRole(currentRole, card);
+    }
+  });
+
+  document.getElementById('dx-reset').addEventListener('click', function() {
     document.getElementById('dx-results').classList.remove('dx-results--active');
     document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
-    document.querySelectorAll('.dx-profile').forEach(p => p.classList.remove('dx-profile--active'));
+    document.querySelectorAll('.dx-profile').forEach(function(p) { p.classList.remove('dx-profile--active'); });
+    currentRole = null;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function shareWA() {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent('Acabo de hacer el autodiagnóstico de habilidades del siglo XXI. ¿Qué tan preparado estás tú?');
-    window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
-  }
+  });
   </script>
 
   <script src="nav.js?v=3"></script>
