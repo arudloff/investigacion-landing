@@ -20,9 +20,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--dark);background-image:radial-gradient(rgba(46,109,164,.28) 1px,transparent 1px);background-size:24px 24px;color:var(--text);min-height:100vh}
 /* SUBNAV */
-.dashboard-subnav{background:rgba(10,22,40,.7);border-bottom:1px solid rgba(46,109,164,.15);padding:0 20px;position:sticky;top:56px;z-index:90}
-.dashboard-subnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:0}
-.dashboard-subnav-inner::-webkit-scrollbar{display:none}
+/* sub-navbar styles handled inline */
 .dtab{padding:10px 14px;font-size:12px;font-weight:600;color:rgba(232,237,245,.55);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.02em}
 .dtab:hover{color:rgba(232,237,245,.9)}
 .dtab.active{color:#F5A623;border-bottom-color:#F5A623}
@@ -124,8 +122,9 @@ select:focus{border-color:rgba(245,166,35,.5)}
 </style>
 </head>
 <body>
-<div class="dashboard-subnav">
-  <div class="dashboard-subnav-inner">
+<div style="background:rgba(10,22,40,.85);border-bottom:1px solid rgba(46,109,164,.15);padding:0 20px;position:sticky;top:60px;z-index:90;overflow-x:auto;scrollbar-width:none">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;white-space:nowrap;gap:0">
+    <span style="font-size:11px;font-weight:700;color:rgba(232,237,245,.35);padding:10px 12px 10px 0;border-right:1px solid rgba(46,109,164,.2);margin-right:8px;flex-shrink:0">📊 Datos</span>
     <div class="dtab active" data-sec="empleos" onclick="showSec('empleos',this)">Empleos</div>
     <div class="dtab" data-sec="sectores" onclick="showSec('sectores',this)">Sectores</div>
     <div class="dtab" data-sec="destrezas" onclick="showSec('destrezas',this)">Destrezas</div>
