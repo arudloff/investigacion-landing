@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
   { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
+  { href: 'dashboard.html', label: 'Dashboard' },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -40,6 +41,7 @@ const MOBILE_LINKS = [
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
   { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
+  { href: 'dashboard.html', label: 'Dashboard' },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
