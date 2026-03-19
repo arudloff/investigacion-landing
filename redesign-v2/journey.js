@@ -212,8 +212,13 @@ function updateNotebook() {
   Object.keys(byPage).forEach(function(page) {
     var pageName = PAGE_NAMES[page] || page;
     html += '<div class="nb-group">' + pageName + '</div>';
-    byPage[page].forEach(function(r) {
-      html += '<div class="nb-item"><span class="nb-item__check">✓</span><span class="nb-item__text">' + r.text + '</span></div>';
+    byPage[page].forEach(function(r, idx) {
+      // Encontrar la key real de esta reacción
+      var rKey = keys.find(function(k) { return reactions[k] === r; });
+      html += '<div class="nb-item">' +
+        '<button class="nb-item__remove" onclick="removeFromNotebook(\'' + encodeURIComponent(rKey) + '\')" title="Quitar">×</button>' +
+        '<span class="nb-item__text">' + r.text + '</span>' +
+        '</div>';
     });
   });
 
@@ -223,7 +228,9 @@ function updateNotebook() {
   // Acciones
   html += '<div class="nb-actions">' +
     '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
-    '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn" style="display:none">📋 Copiar mensaje</button>' +
+    '</div>' +
+    '<div class="nb-actions" style="display:none" id="nb-copy-area">' +
+    '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
     '</div>' +
     '<div class="nb-actions" style="margin-top:.5rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
@@ -236,7 +243,20 @@ function toggleNotebook() {
   document.getElementById('nb-panel').classList.toggle('nb-panel--open');
 }
 
-var generatedMessage = '';
+function removeFromNotebook(encodedKey) {
+  var key = decodeURIComponent(encodedKey);
+  var s = getS();
+  delete s.reactions[key];
+  saveS(s);
+  updateNotebook();
+
+  // También desmarcar visualmente si el elemento está en la página
+  document.querySelectorAll('.markable--on').forEach(function(el) {
+    if (el.dataset.markKey === key) {
+      el.classList.remove('markable--on');
+    }
+  });
+}
 
 function generateMessage() {
   var s = getS();
@@ -249,7 +269,7 @@ function generateMessage() {
   });
 
   var genBtn = document.querySelector('.nb-gen-btn');
-  var copyBtn = document.querySelector('.nb-copy-btn');
+  var copyArea = document.getElementById('nb-copy-area');
   var msgArea = document.getElementById('nb-message');
   if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
 
@@ -261,35 +281,32 @@ function generateMessage() {
   .then(function(res) { return res.json(); })
   .then(function(data) {
     if (data.message) {
-      generatedMessage = data.message;
-      // Reemplazar contenido del cuaderno por el mensaje
+      // Mostrar como textarea editable — sin encabezado, solo el texto
       if (msgArea) {
         msgArea.innerHTML =
-          '<div class="nb-generated">' +
-            '<div class="nb-generated__label">Tu mensaje para compartir</div>' +
-            '<div class="nb-generated__text">' + data.message.replace(/\n/g, '<br>') + '</div>' +
-          '</div>';
+          '<textarea class="nb-textarea" id="nb-textarea" rows="8">' + data.message + '</textarea>';
       }
-      if (copyBtn) copyBtn.style.display = '';
-      if (genBtn) genBtn.textContent = '✨ Regenerar mensaje';
+      if (copyArea) copyArea.style.display = 'flex';
+      if (genBtn) { genBtn.style.display = 'none'; }
     }
   })
   .catch(function() {
     if (msgArea) {
-      msgArea.innerHTML = '<div class="nb-generated"><div class="nb-generated__text" style="color:rgba(255,255,255,0.4)">No se pudo generar el mensaje. Intenta de nuevo.</div></div>';
+      msgArea.innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:.82rem;text-align:center">No se pudo generar. Intenta de nuevo.</p>';
     }
-    if (genBtn) genBtn.textContent = '✨ Reintentar';
   })
   .finally(function() {
-    if (genBtn) genBtn.disabled = false;
+    if (genBtn) { genBtn.disabled = false; genBtn.textContent = '✨ Generar mensaje'; }
   });
 }
 
 function copyMessage() {
-  if (!generatedMessage) return;
-  navigator.clipboard.writeText(generatedMessage).then(function() {
+  var textarea = document.getElementById('nb-textarea');
+  if (!textarea) return;
+  var text = textarea.value;
+  navigator.clipboard.writeText(text).then(function() {
     var btn = document.querySelector('.nb-copy-btn');
-    if (btn) { btn.textContent = '✓ Copiado al portapapeles'; setTimeout(function() { btn.textContent = '📋 Copiar mensaje'; }, 2500); }
+    if (btn) { btn.textContent = '✓ Copiado'; setTimeout(function() { btn.textContent = '📋 Copiar mensaje'; }, 2500); }
   });
 }
 
