@@ -230,10 +230,9 @@ function updateNotebook() {
     html += '<div class="nb-panel__header"><span class="nb-panel__title" style="font-size:.85rem;line-height:1.3">Comparte esta reflexión con alguien que te importe</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
     html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + generatedMessages[activeMsg] + '</textarea></div>';
     // 3 tabs — cada uno con un ángulo emocional
-    var tabLabels = ['Esperanza', 'Asombro', 'Acción'];
     html += '<div class="nb-msg-tabs">';
     for (var m = 0; m < generatedMessages.length; m++) {
-      html += '<button class="nb-msg-tab' + (m === activeMsg ? ' nb-msg-tab--active' : '') + '" onclick="switchMsg(' + m + ')">' + tabLabels[m] + '</button>';
+      html += '<button class="nb-msg-tab' + (m === activeMsg ? ' nb-msg-tab--active' : '') + '" onclick="switchMsg(' + m + ')">' + (m + 1) + '</button>';
     }
     html += '</div>';
     html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
@@ -251,7 +250,7 @@ function updateNotebook() {
   html += '<div class="nb-panel__footer">';
   if (generatedMessages.length > 0) {
     html += '<div class="nb-actions" style="margin:0">' +
-      '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
+      '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn nb-copy-btn--big">Copia Este Mensaje</button>' +
       '</div>';
   } else {
     html += '<div class="nb-actions" style="margin:0">' +
@@ -377,7 +376,7 @@ function copyMessage() {
   var text = textarea.value;
   navigator.clipboard.writeText(text).then(function() {
     var btn = document.querySelector('.nb-copy-btn');
-    if (btn) { btn.textContent = '✓ Copiado'; setTimeout(function() { btn.textContent = '📋 Copiar mensaje'; }, 2500); }
+    if (btn) { btn.textContent = '✓ Copiado al portapapeles'; setTimeout(function() { btn.textContent = 'Copia Este Mensaje'; }, 2500); }
   });
 }
 

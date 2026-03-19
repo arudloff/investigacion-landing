@@ -1910,19 +1910,19 @@ p > .btn { display: inline-flex; }
 /* Tabs de versiones de mensaje */
 .nb-msg-tabs {
   display: flex;
-  gap: 6px;
+  gap: 12px;
   justify-content: center;
-  margin: .5rem 0;
+  margin: .75rem 0;
 }
 .nb-msg-tab {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1.5px solid rgba(255,255,255,0.1);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.03);
-  color: rgba(255,255,255,0.4);
-  font-size: .8rem;
-  font-weight: 700;
+  color: rgba(255,255,255,0.45);
+  font-size: .9rem;
+  font-weight: 800;
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s;
@@ -1931,9 +1931,21 @@ p > .btn { display: inline-flex; }
   justify-content: center;
   padding: 0;
 }
-.nb-msg-tab:hover { border-color: rgba(245,166,35,0.3); color: rgba(255,255,255,0.7); }
+.nb-msg-tab:hover { border-color: rgba(245,166,35,0.4); color: rgba(255,255,255,0.8); transform: scale(1.08); }
 .nb-msg-tab--active {
-  background: rgba(245,166,35,0.15);
+  background: rgba(245,166,35,0.2);
   border-color: var(--color-amber);
   color: var(--color-amber);
+  box-shadow: 0 0 10px rgba(245,166,35,0.15);
 }
+/* Botón Copia Este Mensaje — grande y destacado */
+.nb-copy-btn--big {
+  font-size: .95rem !important;
+  padding: .75rem 1.25rem !important;
+  background: var(--color-amber) !important;
+  color: var(--color-dark-deep) !important;
+  border-color: var(--color-amber) !important;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.nb-copy-btn--big:hover { background: var(--color-amber-dark) !important; }
