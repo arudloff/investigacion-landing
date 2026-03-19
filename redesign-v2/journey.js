@@ -229,10 +229,11 @@ function updateNotebook() {
     // MODO MENSAJE — título cambia, 3 versiones con tabs
     html += '<div class="nb-panel__header"><span class="nb-panel__title" style="font-size:.85rem;line-height:1.3">Comparte esta reflexión con alguien que te importe</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
     html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + generatedMessages[activeMsg] + '</textarea></div>';
-    // 3 tabs de versiones
+    // 3 tabs — cada uno con un ángulo emocional
+    var tabLabels = ['Esperanza', 'Asombro', 'Acción'];
     html += '<div class="nb-msg-tabs">';
     for (var m = 0; m < generatedMessages.length; m++) {
-      html += '<button class="nb-msg-tab' + (m === activeMsg ? ' nb-msg-tab--active' : '') + '" onclick="switchMsg(' + m + ')">' + (m + 1) + '</button>';
+      html += '<button class="nb-msg-tab' + (m === activeMsg ? ' nb-msg-tab--active' : '') + '" onclick="switchMsg(' + m + ')">' + tabLabels[m] + '</button>';
     }
     html += '</div>';
     html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
@@ -347,11 +348,12 @@ function generateMessage() {
   var body = JSON.stringify({ paragraphs: paragraphs });
   var headers = { 'Content-Type': 'application/json' };
 
-  // 3 llamadas paralelas para 3 versiones distintas
+  // 3 llamadas paralelas — cada una con un ángulo emocional distinto
+  var bodyV = function(v) { return JSON.stringify({ paragraphs: paragraphs, version: v }); };
   Promise.all([
-    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
-    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
-    fetch(url, { method: 'POST', headers: headers, body: body }).then(function(r) { return r.json(); }),
+    fetch(url, { method: 'POST', headers: headers, body: bodyV(0) }).then(function(r) { return r.json(); }),
+    fetch(url, { method: 'POST', headers: headers, body: bodyV(1) }).then(function(r) { return r.json(); }),
+    fetch(url, { method: 'POST', headers: headers, body: bodyV(2) }).then(function(r) { return r.json(); }),
   ])
   .then(function(results) {
     generatedMessages = results.filter(function(d) { return d.message; }).map(function(d) { return d.message; });
