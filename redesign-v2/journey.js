@@ -228,7 +228,7 @@ function updateNotebook() {
 
   if (hasGeneratedMsg) {
     // Mensaje visible, párrafos en desplegable
-    html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea" rows="5">' + hasGeneratedMsg + '</textarea></div>';
+    html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + hasGeneratedMsg + '</textarea></div>';
     html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
   } else {
     // Párrafos visibles, sin mensaje
@@ -255,6 +255,19 @@ function updateNotebook() {
     '</div></div>';
 
   panel.innerHTML = html;
+
+  // Auto-resize textarea si existe
+  var ta = document.getElementById('nb-textarea');
+  if (ta) {
+    setTimeout(function() {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }, 50);
+    ta.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+  }
 }
 
 function toggleNotebook() {

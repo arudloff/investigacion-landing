@@ -1832,7 +1832,7 @@ p > .btn { display: inline-flex; }
   line-height: 1.6;
 }
 
-/* Textarea editable para el mensaje generado */
+/* Textarea editable — se adapta al contenido */
 .nb-textarea {
   width: 100%;
   background: rgba(255,255,255,0.04);
@@ -1840,11 +1840,12 @@ p > .btn { display: inline-flex; }
   border-radius: 8px;
   color: rgba(255,255,255,0.85);
   font-family: inherit;
-  font-size: .82rem;
-  line-height: 1.6;
+  font-size: .85rem;
+  line-height: 1.65;
   padding: .75rem;
-  resize: vertical;
-  margin: .75rem 0;
+  resize: none;
+  overflow: hidden;
+  margin: .5rem 0;
   outline: none;
 }
 .nb-textarea:focus { border-color: var(--color-amber); }
