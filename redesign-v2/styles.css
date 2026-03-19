@@ -183,6 +183,16 @@ strong { font-weight: 600; color: var(--color-text); }
   color: var(--color-white);
   font-weight: 600;
 }
+.navbar__link--special {
+  color: var(--color-amber) !important;
+  border: 1px solid rgba(245,166,35,0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+.navbar__link--special:hover {
+  background: rgba(245,166,35,0.1);
+  border-color: rgba(245,166,35,0.5);
+}
 .navbar__hamburger {
   display: none;
   background: none;

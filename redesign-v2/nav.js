@@ -1,15 +1,14 @@
 // nav.js — Navegación compartida
-// Visibles: Inicio | Contexto | Modelo Educativo | Familias | Estudiantes | I+D Colaborativo ▾
+// Visibles: Inicio | Contexto | Modelo | Familias | Estudiantes | Dashboard | I+D Colaborativo ▾
 // I+D Colaborativo contiene CEPAH como sub-sección principal
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
   { href: 'contexto-global.html', label: 'Contexto' },
-  { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
+  { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
-  { href: 'dashboard.html', label: 'Dashboard' },
+  { href: 'dashboard.html', label: 'Dashboard', special: true },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -37,10 +36,9 @@ const NAV_ITEMS = [
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
   { href: 'contexto-global.html', label: 'Contexto' },
-  { href: 'modelo-educativo.html', label: 'Modelo Educativo' },
+  { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
   { href: 'dashboard.html', label: 'Dashboard' },
 
   { label: 'I+D Colaborativo', isSection: true },
@@ -99,7 +97,8 @@ function buildNavbar() {
           <div class="dropdown__panel">${childrenHTML}</div>
         </div>`;
     } else {
-      menuHTML += `<a href="${item.href}" class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}">${item.label}</a>`;
+      var specialCls = item.special ? ' navbar__link--special' : '';
+      menuHTML += `<a href="${item.href}" class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}${specialCls}">${item.label}</a>`;
     }
   });
   nav.innerHTML = `

@@ -117,13 +117,18 @@ select:focus{border-color:rgba(245,166,35,.5)}
 .country-val{font-size:12px;font-weight:700}
 .entry-btn{background:rgba(13,31,60,.9);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;padding:14px 24px;cursor:pointer;transition:all .2s;font-family:inherit}
 .entry-btn:hover{border-color:rgba(245,166,35,.5);background:rgba(245,166,35,.08);color:var(--amber)}
+@media(max-width:640px){
+  .pl,.pv,.cl,.ct{font-size:15px}
+  .kpi .lbl{font-size:13px}
+  .kpi .num{font-size:clamp(1.8rem,8vw,2.5rem)}
+}
 </style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-logo">📊 El mundo que cambia</div>
-    <div id="change-role-btn" onclick="resetPerspective()" style="font-size:11px;font-weight:600;color:var(--tm);border:1px solid var(--border);border-radius:12px;padding:4px 12px;cursor:pointer;white-space:nowrap;margin-left:8px;flex-shrink:0;transition:all .2s;display:none">Cambiar perspectiva ↺</div>
+    <div id="change-role-btn" onclick="resetPerspective()" style="display:none;font-size:11px;font-weight:600;color:rgba(232,237,245,.6);border:1px solid rgba(46,109,164,.2);border-radius:12px;padding:5px 12px;cursor:pointer;white-space:nowrap;margin-left:6px;flex-shrink:0;transition:all .2s">Cambiar perspectiva ↺</div>
     <div class="nav-tab active" data-sec="empleos" onclick="showSec('empleos',this)">Empleos</div>
     <div class="nav-tab" data-sec="sectores" onclick="showSec('sectores',this)">Sectores</div>
     <div class="nav-tab" data-sec="destrezas" onclick="showSec('destrezas',this)">Destrezas</div>
@@ -563,31 +568,31 @@ const scalesXY={x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}},y:{t
 const scalesYX={y:{ticks:{color:C.tm,font:{size:12}},grid:{color:C.border}},x:{ticks:{color:C.tm,font:{size:13}},grid:{color:C.border}}};
 
 // ── NAV ──────────────────────────────────────────────────────────────────────
-function showSec(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+function showSec(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   el.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(() => {
-    if (id === 'sectores') {
-      const selected = document.querySelector('.sector-card.selected');
-      if (selected) selectSector('salud', selected);
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    if(id==='sectores'){
+      var sel=document.querySelector('.sector-card.selected')||document.querySelector('.sector-card');
+      if(sel) selectSector('salud',sel);
     }
-    if (id === 'chile') {
-      if (typeof updateCountryChart === 'function') updateCountryChart();
-      const activeInd = document.querySelector('#indicator-filters .pill.active');
-      if (activeInd) switchIndicator('repetitivo', activeInd);
+    if(id==='chile'){
+      if(typeof updateCountryChart==='function') updateCountryChart();
+      var indBtn=document.querySelector('#indicator-filters .pill.active')||document.querySelector('#indicator-filters .pill');
+      if(indBtn) switchIndicator('repetitivo',indBtn);
     }
-    if (id === 'destrezas') {
-      if (typeof buildSkillChart === 'function') buildSkillChart('all');
-      if (typeof buildRadar === 'function') buildRadar('all');
+    if(id==='destrezas'){
+      if(typeof buildSkillChart==='function') buildSkillChart('all');
+      if(typeof buildRadar==='function') buildRadar('all');
     }
-    if (id === 'oportunidades') {
-      if (typeof buildOpportunityChart === 'function') buildOpportunityChart();
+    if(id==='oportunidades'){
+      if(typeof buildOpportunityChart==='function') buildOpportunityChart();
     }
     revealAll();
-  }, 80);
+  },100);
 }
 function revealAll(){document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-40)el.classList.add('vis')});}
 window.addEventListener('scroll',revealAll);
@@ -824,37 +829,29 @@ function updateDisinfoSim(){
 // ══════════════════════════════════════════════════════════════════════════════
 // ENTRY BLOCK — PERSPECTIVE
 // ══════════════════════════════════════════════════════════════════════════════
-function setPerspective(tipo) {
-  document.getElementById('entry-block').style.display = 'none';
-  sessionStorage.setItem('dashboard_perspective', tipo);
-  var roleBtn = document.getElementById('change-role-btn');
-  if (roleBtn) roleBtn.style.display = 'block';
-  const tabOrder = {
-    familia: ['chile','destrezas','empleos','sectores','digital','desinfo'],
-    docente: ['destrezas','empleos','chile','sectores','digital','desinfo'],
-    empresa: ['sectores','empleos','digital','destrezas','chile','desinfo'],
-    estudiante: ['oportunidades','destrezas','digital','empleos','chile','desinfo'],
-    all: null
-  };
-  if (tabOrder[tipo]) {
-    const order = tabOrder[tipo];
-    const first = order[0];
-    document.querySelectorAll('.nav-tab').forEach(t => {
-      if (t.dataset.sec === first) t.click();
-    });
-  }
+function setPerspective(tipo){
+  sessionStorage.setItem('dashboard_perspective',tipo);
+  var entry=document.getElementById('entry-block');
+  if(entry) entry.style.display='none';
+  var btn=document.getElementById('change-role-btn');
+  if(btn) btn.style.display='block';
+  if(tipo==='familia') showSec('chile',document.querySelector('[data-sec="chile"]')||document.querySelector('.nav-tab'));
+  else if(tipo==='docente') showSec('destrezas',document.querySelector('[data-sec="destrezas"]')||document.querySelector('.nav-tab'));
+  else if(tipo==='empresa') showSec('sectores',document.querySelector('[data-sec="sectores"]')||document.querySelector('.nav-tab'));
+  else if(tipo==='estudiante') showSec('oportunidades',document.querySelector('[data-sec="oportunidades"]')||document.querySelector('.nav-tab'));
+  else showSec('empleos',document.querySelector('.nav-tab'));
 }
-if (sessionStorage.getItem('dashboard_perspective')) {
-  document.getElementById('entry-block').style.display = 'none';
-  var roleBtn = document.getElementById('change-role-btn');
-  if (roleBtn) roleBtn.style.display = 'block';
+if(sessionStorage.getItem('dashboard_perspective')){
+  document.getElementById('entry-block').style.display='none';
+  var roleBtn=document.getElementById('change-role-btn');
+  if(roleBtn) roleBtn.style.display='block';
 }
-function resetPerspective() {
+function resetPerspective(){
   sessionStorage.removeItem('dashboard_perspective');
-  var entry = document.getElementById('entry-block');
-  if (entry) { entry.style.display = ''; entry.scrollIntoView({ behavior: 'smooth' }); }
-  var btn = document.getElementById('change-role-btn');
-  if (btn) btn.style.display = 'none';
+  var entry=document.getElementById('entry-block');
+  if(entry){entry.style.display='';window.scrollTo({top:0,behavior:'smooth'});}
+  var btn=document.getElementById('change-role-btn');
+  if(btn) btn.style.display='none';
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -896,13 +893,11 @@ function buildOpportunityChart() {
   ctx._chartInstance = chart;
 }
 
-setTimeout(() => {
-  if (typeof selectSector === 'function') {
-    const sel = document.querySelector('.sector-card.selected');
-    if (sel) selectSector('salud', sel);
-  }
-  if (typeof updateChildSim === 'function') updateChildSim();
-}, 200);
+setTimeout(()=>{
+  var sel=document.querySelector('.sector-card.selected')||document.querySelector('.sector-card');
+  if(sel&&typeof selectSector==='function') selectSector('salud',sel);
+  if(typeof updateChildSim==='function') updateChildSim();
+},300);
 
 document.querySelectorAll('.card.kpi').forEach(card=>{
   card.style.cursor='pointer';
