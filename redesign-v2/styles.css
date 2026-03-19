@@ -1888,3 +1888,20 @@ p > .btn { display: inline-flex; }
   background: var(--color-dark-mid);
   flex-shrink: 0;
 }
+
+/* Details desplegable para párrafos cuando hay mensaje */
+.nb-details { margin-top: .75rem; }
+.nb-details__summary {
+  font-size: .75rem;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  padding: .4rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.nb-details__summary::before { content: '▸'; transition: transform 0.2s; }
+.nb-details[open] .nb-details__summary::before { transform: rotate(90deg); }
+.nb-details__summary::-webkit-details-marker { display: none; }
+.nb-details__summary:hover { color: rgba(255,255,255,0.6); }

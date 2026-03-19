@@ -135,7 +135,8 @@ function toggleMark(el) {
     }
   }
 
-  updateNotebook();
+  // Reset mensaje generado al cambiar selección
+  if (hasGeneratedMsg) resetMessage(); else updateNotebook();
   checkCTA();
 }
 
@@ -207,42 +208,51 @@ function updateNotebook() {
     byPage[r.page].push(r);
   });
 
-  var html = '<div class="nb-panel__scroll">' +
-    '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
-    '<div class="nb-panel__sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
-
+  // Construir listado de items
+  var itemsHTML = '';
   Object.keys(byPage).forEach(function(page) {
     var pageName = PAGE_NAMES[page] || page;
-    html += '<div class="nb-group">' + pageName + '</div>';
-    byPage[page].forEach(function(r, idx) {
-      // Encontrar la key real de esta reacción
+    itemsHTML += '<div class="nb-group">' + pageName + '</div>';
+    byPage[page].forEach(function(r) {
       var rKey = keys.find(function(k) { return reactions[k] === r; });
       var isActive = r.active !== false;
-      html += '<div class="nb-item' + (isActive ? '' : ' nb-item--dimmed') + '">' +
+      itemsHTML += '<div class="nb-item' + (isActive ? '' : ' nb-item--dimmed') + '">' +
         '<button class="nb-item__toggle' + (isActive ? '' : ' nb-item__toggle--off') + '" onclick="toggleItemActive(\'' + encodeURIComponent(rKey) + '\')">' + (isActive ? '✓' : '') + '</button>' +
         '<span class="nb-item__text">' + r.text + '</span>' +
         '</div>';
     });
   });
 
-  // Área donde aparece el mensaje generado
-  html += '<div id="nb-message"></div>';
+  var html = '<div class="nb-panel__scroll">' +
+    '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
 
-  // Cerrar zona scrollable
+  if (hasGeneratedMsg) {
+    // Mensaje visible, párrafos en desplegable
+    html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea" rows="5">' + hasGeneratedMsg + '</textarea></div>';
+    html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
+  } else {
+    // Párrafos visibles, sin mensaje
+    html += '<div class="nb-panel__sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
+    html += itemsHTML;
+    html += '<div id="nb-message"></div>';
+  }
+
   html += '</div>';
 
-  // Footer fijo con botones siempre visibles
-  html += '<div class="nb-panel__footer">' +
-    '<div class="nb-actions" style="margin:0">' +
-    '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
-    '</div>' +
-    '<div class="nb-actions" style="display:none;margin:.5rem 0 0" id="nb-copy-area">' +
-    '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
-    '</div>' +
-    '<div style="text-align:center;margin-top:.4rem">' +
+  // Footer fijo
+  html += '<div class="nb-panel__footer">';
+  if (hasGeneratedMsg) {
+    html += '<div class="nb-actions" style="margin:0">' +
+      '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
+      '</div>';
+  } else {
+    html += '<div class="nb-actions" style="margin:0">' +
+      '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
+      '</div>';
+  }
+  html += '<div style="text-align:center;margin-top:.4rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
-    '</div>' +
-    '</div>';
+    '</div></div>';
 
   panel.innerHTML = html;
 }
@@ -259,7 +269,7 @@ function toggleItemActive(encodedKey) {
   // Toggle active state
   s.reactions[key].active = s.reactions[key].active === false ? true : false;
   saveS(s);
-  updateNotebook();
+  if (hasGeneratedMsg) resetMessage(); else updateNotebook();
 
   // Actualizar visual en la página
   document.querySelectorAll('.markable').forEach(function(el) {
@@ -271,6 +281,13 @@ function toggleItemActive(encodedKey) {
       }
     }
   });
+}
+
+var hasGeneratedMsg = null;
+
+function resetMessage() {
+  hasGeneratedMsg = null;
+  updateNotebook();
 }
 
 function generateMessage() {
@@ -287,8 +304,6 @@ function generateMessage() {
   if (!paragraphs.length) return;
 
   var genBtn = document.querySelector('.nb-gen-btn');
-  var copyArea = document.getElementById('nb-copy-area');
-  var msgArea = document.getElementById('nb-message');
   if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
 
   fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook', {
@@ -299,22 +314,15 @@ function generateMessage() {
   .then(function(res) { return res.json(); })
   .then(function(data) {
     if (data.message) {
-      // Mostrar como textarea editable — sin encabezado, solo el texto
-      if (msgArea) {
-        msgArea.innerHTML =
-          '<textarea class="nb-textarea" id="nb-textarea" rows="8">' + data.message + '</textarea>';
-      }
-      if (copyArea) copyArea.style.display = 'flex';
-      if (genBtn) { genBtn.style.display = 'none'; }
+      hasGeneratedMsg = data.message;
+      updateNotebook();
     }
   })
   .catch(function() {
-    if (msgArea) {
-      msgArea.innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:.82rem;text-align:center">No se pudo generar. Intenta de nuevo.</p>';
-    }
+    if (genBtn) { genBtn.textContent = '✨ Reintentar'; }
   })
   .finally(function() {
-    if (genBtn) { genBtn.disabled = false; genBtn.textContent = '✨ Generar mensaje'; }
+    if (genBtn) { genBtn.disabled = false; }
   });
 }
 
