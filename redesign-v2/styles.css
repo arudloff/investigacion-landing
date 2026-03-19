@@ -1807,3 +1807,25 @@ p > .btn { display: inline-flex; }
   .welcome-modal { padding: 2rem 1.25rem; }
   .welcome-modal__header { font-size: 1.2rem; }
 }
+
+/* Mensaje generado en el cuaderno */
+.nb-generated {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(245,166,35,0.05);
+  border: 1px solid rgba(245,166,35,0.15);
+  border-radius: 10px;
+}
+.nb-generated__label {
+  font-size: .65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--color-amber);
+  margin-bottom: .5rem;
+}
+.nb-generated__text {
+  font-size: .85rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+}

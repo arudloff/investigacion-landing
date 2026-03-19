@@ -217,10 +217,13 @@ function updateNotebook() {
     });
   });
 
-  // Acciones: copiar + compartir + borrar
+  // Área donde aparece el mensaje generado
+  html += '<div id="nb-message"></div>';
+
+  // Acciones
   html += '<div class="nb-actions">' +
-    '<button onclick="copyNotebook()" class="nb-action-btn">📋 Copiar ideas</button>' +
-    '<button onclick="shareNotebook()" class="nb-action-btn nb-share-btn">🦋 Enviar a alguien</button>' +
+    '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
+    '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn" style="display:none">📋 Copiar mensaje</button>' +
     '</div>' +
     '<div class="nb-actions" style="margin-top:.5rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
@@ -233,50 +236,23 @@ function toggleNotebook() {
   document.getElementById('nb-panel').classList.toggle('nb-panel--open');
 }
 
-function copyNotebook() {
+var generatedMessage = '';
+
+function generateMessage() {
   var s = getS();
   var keys = Object.keys(s.reactions);
   if (!keys.length) return;
 
-  // Agrupar por página
-  var byPage = {};
-  keys.forEach(function(k) {
-    var r = s.reactions[k];
-    var pageName = PAGE_NAMES[r.page] || r.page;
-    if (!byPage[pageName]) byPage[pageName] = [];
-    byPage[pageName].push(r.text);
-  });
-
-  var text = '📖 Mi cuaderno de ideas — Colegio Camilo Henríquez\n\n';
-  Object.keys(byPage).forEach(function(page) {
-    text += '— ' + page + ' —\n';
-    byPage[page].forEach(function(t) { text += '✓ ' + t + '\n'; });
-    text += '\n';
-  });
-  text += 'Explora más: ' + window.location.origin + window.location.pathname;
-
-  navigator.clipboard.writeText(text).then(function() {
-    var btn = document.querySelector('.nb-action-btn');
-    if (btn) { btn.textContent = '✓ Copiado'; setTimeout(function() { btn.textContent = '📋 Copiar todo'; }, 2000); }
-  });
-}
-
-function shareNotebook() {
-  var s = getS();
-  var keys = Object.keys(s.reactions);
-  if (!keys.length) return;
-
-  // Preparar datos para la síntesis
   var paragraphs = keys.map(function(k) {
     var r = s.reactions[k];
     return { text: r.text, page: PAGE_NAMES[r.page] || r.page };
   });
 
-  // Mostrar estado de carga en el botón
-  var shareBtn = document.querySelector('.nb-share-btn');
-  if (shareBtn) { shareBtn.textContent = '✨ Generando mensaje...'; shareBtn.disabled = true; }
+  var genBtn = document.querySelector('.nb-gen-btn');
+  var copyBtn = document.querySelector('.nb-copy-btn');
+  var msgArea = document.getElementById('nb-message');
+  if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
 
-  // Llamar a la Edge Function
   fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -285,26 +261,36 @@ function shareNotebook() {
   .then(function(res) { return res.json(); })
   .then(function(data) {
     if (data.message) {
-      // Copiar al portapapeles y abrir WhatsApp
-      navigator.clipboard.writeText(data.message).catch(function(){});
-      window.open('https://wa.me/?text=' + encodeURIComponent(data.message), '_blank');
-    } else {
-      // Fallback si falla la IA
-      shareFallback(paragraphs);
+      generatedMessage = data.message;
+      // Reemplazar contenido del cuaderno por el mensaje
+      if (msgArea) {
+        msgArea.innerHTML =
+          '<div class="nb-generated">' +
+            '<div class="nb-generated__label">Tu mensaje para compartir</div>' +
+            '<div class="nb-generated__text">' + data.message.replace(/\n/g, '<br>') + '</div>' +
+          '</div>';
+      }
+      if (copyBtn) copyBtn.style.display = '';
+      if (genBtn) genBtn.textContent = '✨ Regenerar mensaje';
     }
   })
   .catch(function() {
-    shareFallback(paragraphs);
+    if (msgArea) {
+      msgArea.innerHTML = '<div class="nb-generated"><div class="nb-generated__text" style="color:rgba(255,255,255,0.4)">No se pudo generar el mensaje. Intenta de nuevo.</div></div>';
+    }
+    if (genBtn) genBtn.textContent = '✨ Reintentar';
   })
   .finally(function() {
-    if (shareBtn) { shareBtn.textContent = '🦋 Enviar a alguien'; shareBtn.disabled = false; }
+    if (genBtn) genBtn.disabled = false;
   });
 }
 
-function shareFallback(paragraphs) {
-  var ideas = paragraphs.slice(0, 3).map(function(p) { return '• ' + p.text.substring(0, 80); }).join('\n');
-  var text = 'Encontré estas ideas sobre educación que me hicieron pensar:\n\n' + ideas + '\n\n¿Qué opinas tú?\nhttps://investigacion-landing.vercel.app/redesign-v2/index.html';
-  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+function copyMessage() {
+  if (!generatedMessage) return;
+  navigator.clipboard.writeText(generatedMessage).then(function() {
+    var btn = document.querySelector('.nb-copy-btn');
+    if (btn) { btn.textContent = '✓ Copiado al portapapeles'; setTimeout(function() { btn.textContent = '📋 Copiar mensaje'; }, 2500); }
+  });
 }
 
 function clearNotebook() {
@@ -336,8 +322,8 @@ function checkCTA() {
     '<div class="container" style="max-width:600px;text-align:center">' +
     '<p class="nb-cta-banner__text">' + msg + '</p>' +
     '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
-    '<button onclick="shareNotebook()" class="nb-cta-banner__btn">🦋 Enviar mis ideas a alguien</button>' +
-    '<a href="visita.html" class="nb-cta-banner__btn" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15)">Quiero conversar con el colegio</a>' +
+    '<button onclick="toggleNotebook()" class="nb-cta-banner__btn">📖 Abrir mi cuaderno</button>' +
+    '<a href="visita.html" class="nb-cta-banner__btn" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15)">Conversar con el colegio</a>' +
     '</div></div>';
 
   // Insertar antes de la última sección
