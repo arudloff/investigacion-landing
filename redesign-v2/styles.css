@@ -1588,8 +1588,10 @@ p > .btn { display: inline-flex; }
   border: 1px solid rgba(46,109,164,0.2);
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-  overflow-y: auto;
-  padding: 1.25rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
   transform: translateY(15px) scale(0.95);
   opacity: 0;
   pointer-events: none;
@@ -1868,3 +1870,21 @@ p > .btn { display: inline-flex; }
   line-height: 1;
 }
 .nb-item__toggle:hover { background: var(--color-amber); color: var(--color-dark-deep); }
+/* Toggle desactivado */
+.nb-item__toggle--off {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.15);
+  color: transparent;
+}
+.nb-item__toggle--off:hover { background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.4); }
+/* Item dimmed */
+.nb-item--dimmed .nb-item__text { opacity: 0.3; text-decoration: line-through; }
+
+/* Panel scroll + botones fijos */
+.nb-panel__scroll { overflow-y: auto; flex: 1; padding: 1.25rem; }
+.nb-panel__footer {
+  padding: .75rem 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: var(--color-dark-mid);
+  flex-shrink: 0;
+}

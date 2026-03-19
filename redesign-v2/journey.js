@@ -192,8 +192,10 @@ function updateNotebook() {
 
   if (count === 0) {
     panel.innerHTML =
+      '<div class="nb-panel__scroll">' +
       '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
-      '<div class="nb-empty"><p>Mientras exploras el sitio, puedes marcar los párrafos que te resuenen tocando el <strong>+</strong> que aparece a su costado.</p><p>Aquí verás todo lo que elegiste destacar — como un cuaderno personal de ideas.</p></div>';
+      '<div class="nb-empty"><p>Toca cualquier texto que te resuene. Se guarda aquí para que puedas compartirlo después.</p></div>' +
+      '</div>';
     return;
   }
 
@@ -205,7 +207,7 @@ function updateNotebook() {
     byPage[r.page].push(r);
   });
 
-  var html =
+  var html = '<div class="nb-panel__scroll">' +
     '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
     '<div class="nb-panel__sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
 
@@ -215,8 +217,9 @@ function updateNotebook() {
     byPage[page].forEach(function(r, idx) {
       // Encontrar la key real de esta reacción
       var rKey = keys.find(function(k) { return reactions[k] === r; });
-      html += '<div class="nb-item">' +
-        '<button class="nb-item__toggle" onclick="removeFromNotebook(\'' + encodeURIComponent(rKey) + '\')" title="Desmarcar">✓</button>' +
+      var isActive = r.active !== false;
+      html += '<div class="nb-item' + (isActive ? '' : ' nb-item--dimmed') + '">' +
+        '<button class="nb-item__toggle' + (isActive ? '' : ' nb-item__toggle--off') + '" onclick="toggleItemActive(\'' + encodeURIComponent(rKey) + '\')">' + (isActive ? '✓' : '') + '</button>' +
         '<span class="nb-item__text">' + r.text + '</span>' +
         '</div>';
     });
@@ -225,15 +228,20 @@ function updateNotebook() {
   // Área donde aparece el mensaje generado
   html += '<div id="nb-message"></div>';
 
-  // Acciones
-  html += '<div class="nb-actions">' +
+  // Cerrar zona scrollable
+  html += '</div>';
+
+  // Footer fijo con botones siempre visibles
+  html += '<div class="nb-panel__footer">' +
+    '<div class="nb-actions" style="margin:0">' +
     '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
     '</div>' +
-    '<div class="nb-actions" style="display:none" id="nb-copy-area">' +
+    '<div class="nb-actions" style="display:none;margin:.5rem 0 0" id="nb-copy-area">' +
     '<button onclick="copyMessage()" class="nb-action-btn nb-copy-btn">📋 Copiar mensaje</button>' +
     '</div>' +
-    '<div class="nb-actions" style="margin-top:.5rem">' +
+    '<div style="text-align:center;margin-top:.4rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
+    '</div>' +
     '</div>';
 
   panel.innerHTML = html;
@@ -243,17 +251,24 @@ function toggleNotebook() {
   document.getElementById('nb-panel').classList.toggle('nb-panel--open');
 }
 
-function removeFromNotebook(encodedKey) {
+function toggleItemActive(encodedKey) {
   var key = decodeURIComponent(encodedKey);
   var s = getS();
-  delete s.reactions[key];
+  if (!s.reactions[key]) return;
+
+  // Toggle active state
+  s.reactions[key].active = s.reactions[key].active === false ? true : false;
   saveS(s);
   updateNotebook();
 
-  // También desmarcar visualmente si el elemento está en la página
-  document.querySelectorAll('.markable--on').forEach(function(el) {
+  // Actualizar visual en la página
+  document.querySelectorAll('.markable').forEach(function(el) {
     if (el.dataset.markKey === key) {
-      el.classList.remove('markable--on');
+      if (s.reactions[key].active === false) {
+        el.classList.remove('markable--on');
+      } else {
+        el.classList.add('markable--on');
+      }
     }
   });
 }
@@ -263,10 +278,13 @@ function generateMessage() {
   var keys = Object.keys(s.reactions);
   if (!keys.length) return;
 
-  var paragraphs = keys.map(function(k) {
-    var r = s.reactions[k];
-    return { text: r.text, page: PAGE_NAMES[r.page] || r.page };
-  });
+  var paragraphs = keys
+    .filter(function(k) { return s.reactions[k].active !== false; })
+    .map(function(k) {
+      var r = s.reactions[k];
+      return { text: r.text, page: PAGE_NAMES[r.page] || r.page };
+    });
+  if (!paragraphs.length) return;
 
   var genBtn = document.querySelector('.nb-gen-btn');
   var copyArea = document.getElementById('nb-copy-area');
