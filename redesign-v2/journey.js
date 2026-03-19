@@ -220,7 +220,7 @@ function updateNotebook() {
   // Acciones: copiar + compartir + borrar
   html += '<div class="nb-actions">' +
     '<button onclick="copyNotebook()" class="nb-action-btn">📋 Copiar ideas</button>' +
-    '<button onclick="shareNotebook()" class="nb-action-btn">🦋 Enviar a alguien</button>' +
+    '<button onclick="shareNotebook()" class="nb-action-btn nb-share-btn">🦋 Enviar a alguien</button>' +
     '</div>' +
     '<div class="nb-actions" style="margin-top:.5rem">' +
     '<button onclick="clearNotebook()" class="nb-clear">Borrar cuaderno</button>' +
@@ -266,15 +266,44 @@ function shareNotebook() {
   var keys = Object.keys(s.reactions);
   if (!keys.length) return;
 
-  // Tomar las 3 ideas más recientes para compartir
-  var recent = keys.map(function(k) { return s.reactions[k]; })
-    .sort(function(a, b) { return b.time - a.time; })
-    .slice(0, 3);
+  // Preparar datos para la síntesis
+  var paragraphs = keys.map(function(k) {
+    var r = s.reactions[k];
+    return { text: r.text, page: PAGE_NAMES[r.page] || r.page };
+  });
 
-  var ideas = recent.map(function(r) { return '• ' + r.text.substring(0, 80); }).join('\n');
-  var url = window.location.origin + '/redesign-v2/index.html';
-  var text = 'Encontré estas ideas sobre educación que me hicieron pensar:\n\n' + ideas + '\n\n¿Qué opinas tú?\n' + url;
+  // Mostrar estado de carga en el botón
+  var shareBtn = document.querySelector('.nb-share-btn');
+  if (shareBtn) { shareBtn.textContent = '✨ Generando mensaje...'; shareBtn.disabled = true; }
 
+  // Llamar a la Edge Function
+  fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ paragraphs: paragraphs })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.message) {
+      // Copiar al portapapeles y abrir WhatsApp
+      navigator.clipboard.writeText(data.message).catch(function(){});
+      window.open('https://wa.me/?text=' + encodeURIComponent(data.message), '_blank');
+    } else {
+      // Fallback si falla la IA
+      shareFallback(paragraphs);
+    }
+  })
+  .catch(function() {
+    shareFallback(paragraphs);
+  })
+  .finally(function() {
+    if (shareBtn) { shareBtn.textContent = '🦋 Enviar a alguien'; shareBtn.disabled = false; }
+  });
+}
+
+function shareFallback(paragraphs) {
+  var ideas = paragraphs.slice(0, 3).map(function(p) { return '• ' + p.text.substring(0, 80); }).join('\n');
+  var text = 'Encontré estas ideas sobre educación que me hicieron pensar:\n\n' + ideas + '\n\n¿Qué opinas tú?\nhttps://investigacion-landing.vercel.app/redesign-v2/index.html';
   window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
 }
 
