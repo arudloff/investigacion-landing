@@ -59,51 +59,48 @@ const PAGE_NAMES = {
 };
 
 // ==========================================
-// MARCADO — checkbox en cards y secciones, toggle para desmarcar
+// MARCADO ORGÁNICO — sin checkbox, click directo, borde izquierdo
 // ==========================================
+var hintShown = false;
+
 function initReactions() {
   var s = getS();
 
-  // Para CARDS: checkbox que toma el card completo
-  document.querySelectorAll('main .card, main .contact-human, main .est-barrier, main .prof-reality__card, main .col-card, main .prof-challenge, main .prof-build-item, main .est-build-item, main .col-build, main .prof-together__col, main .col-col, main .ig-item, main .mg-skill, main .mg-career').forEach(function(card) {
-    if (card.closest('.nb-panel, .nb-cta-banner, footer, nav')) return;
-    if (card.textContent.trim().length < 20) return;
-    setupMarkable(card, s);
+  // Cards completas
+  document.querySelectorAll('main .card, main .est-barrier, main .prof-reality__card, main .col-card, main .prof-challenge, main .prof-build-item, main .est-build-item, main .col-build, main .prof-together__col, main .col-col').forEach(function(el) {
+    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav')) return;
+    if (el.textContent.trim().length < 20) return;
+    setupMarkable(el, s);
   });
 
-  // Para PÁRRAFOS sueltos (no dentro de cards ya procesadas)
+  // Párrafos sueltos
   document.querySelectorAll('main p, main h2, main h3, main li').forEach(function(el) {
     if (el.textContent.trim().length < 30) return;
-    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav, .navbar, .mobile-nav, .footer, .card, .est-barrier, .prof-reality__card, .col-card, .prof-challenge, .prof-build-item, .est-build-item, .col-build, .prof-together__col, .col-col')) return;
+    if (el.closest('.nb-panel, .nb-cta-banner, footer, nav, .navbar, .mobile-nav, .footer, .card, .est-barrier, .prof-reality__card, .col-card, .prof-challenge, .prof-build-item, .est-build-item, .col-build, .prof-together__col, .col-col, .mg-eje, .mg-marco, .tabs, .tab')) return;
     if (el.querySelector('button, .btn, .tab, a.btn')) return;
     setupMarkable(el, s);
   });
+
+  // Mostrar hint una sola vez
+  if (!sessionStorage.getItem('cch_mark_hint') && getReactionCount() === 0) {
+    setTimeout(showHint, 3000);
+  }
 }
 
 function setupMarkable(el, s) {
   var key = getParaKey(el);
-  el.style.position = 'relative';
+  el.classList.add('markable');
   el.dataset.markKey = key;
 
   if (s.reactions[key]) {
-    applyMark(el, true);
-  } else {
-    applyMark(el, false);
+    el.classList.add('markable--on');
   }
 
-  // Click en el checkbox toggle
-  var existing = el.querySelector('.rx-check');
-  if (existing) return;
-
-  var check = document.createElement('button');
-  check.className = 'rx-check';
-  check.innerHTML = s.reactions[key] ? '✓' : '';
-  check.setAttribute('aria-label', 'Marcar idea');
-  check.addEventListener('click', function(evt) {
-    evt.stopPropagation();
+  el.addEventListener('click', function(evt) {
+    // No marcar si el click fue en un link o botón dentro del elemento
+    if (evt.target.closest('a, button, .btn')) return;
     toggleMark(el);
   });
-  el.appendChild(check);
 }
 
 function toggleMark(el) {
@@ -114,20 +111,20 @@ function toggleMark(el) {
     // DESMARCAR
     delete s.reactions[key];
     saveS(s);
-    applyMark(el, false);
-    var check = el.querySelector('.rx-check');
-    if (check) check.innerHTML = '';
+    el.classList.remove('markable--on');
   } else {
     // MARCAR
     s.reactions[key] = {
       page: currentPage(),
-      text: el.textContent.trim().replace(/[✓\+]/g, '').substring(0, 120).trim(),
+      text: el.textContent.trim().substring(0, 120).trim(),
       time: Date.now()
     };
     saveS(s);
-    applyMark(el, true);
-    var check = el.querySelector('.rx-check');
-    if (check) check.innerHTML = '✓';
+    el.classList.add('markable--on');
+
+    // Dismiss hint if showing
+    var hint = document.querySelector('.mark-hint');
+    if (hint) hint.remove();
 
     // Flash en botón del cuaderno
     var nbBtn = document.getElementById('nb-btn');
@@ -142,17 +139,17 @@ function toggleMark(el) {
   checkCTA();
 }
 
-function applyMark(el, isMarked) {
-  if (isMarked) {
-    el.style.transition = 'background 0.3s';
-    el.style.background = 'rgba(245,166,35,0.06)';
-    el.style.borderLeft = '3px solid rgba(245,166,35,0.35)';
-    el.style.borderRadius = '6px';
-  } else {
-    el.style.background = '';
-    el.style.borderLeft = '';
-    el.style.borderRadius = '';
-  }
+function showHint() {
+  if (sessionStorage.getItem('cch_mark_hint')) return;
+  sessionStorage.setItem('cch_mark_hint', '1');
+
+  var hint = document.createElement('div');
+  hint.className = 'mark-hint';
+  hint.innerHTML = '<strong>Toca cualquier texto</strong> que te resuene para guardarlo en tu cuaderno personal.';
+  document.body.appendChild(hint);
+
+  // Auto-dismiss after 6 seconds
+  setTimeout(function() { if (hint.parentNode) { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; setTimeout(function() { if (hint.parentNode) hint.remove(); }, 500); } }, 6000);
 }
 
 // ==========================================

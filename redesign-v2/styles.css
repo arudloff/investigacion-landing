@@ -1649,47 +1649,55 @@ p > .btn { display: inline-flex; }
 /* ==========================================
    REACTION SYSTEM
    ========================================== */
-/* Checkbox de marcado */
-.rx-check {
-  position: absolute; right: -6px; top: 4px;
-  width: 22px; height: 22px; border-radius: 4px;
-  background: rgba(255,255,255,0.04); border: 1.5px solid rgba(245,166,35,0.4);
-  color: var(--color-amber); font-size: .7rem; font-weight: 800;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-family: inherit; transition: all 0.2s; z-index: 5; padding: 0;
-  line-height: 1;
-}
-.rx-check:hover { background: rgba(245,166,35,0.15); border-color: var(--color-amber); }
-.rx-check:empty { background: rgba(255,255,255,0.03); }
-/* rx-trigger kept as alias */
-.rx-trigger { display: none; }
+/* ==========================================
+   MARCADO ORGÁNICO — integrado al lenguaje de diseño
+   ========================================== */
 
-.rx-picker {
-  position: absolute; top: -58px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; background: var(--color-dark-mid);
-  border: 1px solid rgba(245,166,35,0.25); border-radius: 14px;
-  padding: 8px 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-  z-index: 800; animation: rxPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Estado hover: borde izquierdo sutil aparece, invita al click */
+.markable {
+  cursor: pointer;
+  transition: border-left 0.25s ease, background 0.3s ease, padding-left 0.25s ease;
+  border-left: 3px solid transparent;
 }
-@keyframes rxPopIn {
-  from { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(8px); }
-  to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
+.markable:hover {
+  border-left-color: rgba(245,166,35,0.2);
+  padding-left: 10px;
 }
-.rx-pick {
-  min-width: 56px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04); cursor: pointer; transition: all 0.15s;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 8px 6px; font-family: inherit;
-}
-.rx-pick__emoji { font-size: 1.3rem; line-height: 1; }
-.rx-pick__label { font-size: .55rem; font-weight: 600; color: rgba(255,255,255,0.45); white-space: nowrap; }
-.rx-pick:hover { background: rgba(245,166,35,0.15); border-color: rgba(245,166,35,0.4); transform: scale(1.08); }
-.rx-pick:hover .rx-pick__label { color: var(--color-amber); }
 
-/* Badge ya no se usa — el check está en el botón */
+/* Estado marcado: borde ámbar sólido + fondo sutil */
+.markable--on {
+  border-left-color: rgba(245,166,35,0.5) !important;
+  background: rgba(245,166,35,0.05) !important;
+  padding-left: 12px;
+  border-radius: 0 6px 6px 0;
+}
+.markable--on:hover {
+  border-left-color: rgba(245,166,35,0.3);
+}
 
-/* Picker ya no se usa — marcado directo */
+/* Tooltip de primera vez — aparece una sola vez en la sesión */
+.mark-hint {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  background: var(--color-dark-mid);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 10px;
+  padding: .65rem 1rem;
+  font-size: .8rem;
+  color: rgba(255,255,255,0.7);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  z-index: 899;
+  max-width: 240px;
+  line-height: 1.45;
+  animation: hintFade 0.4s ease;
+}
+.mark-hint strong { color: var(--color-amber); }
+@keyframes hintFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @media (max-width: 768px) {
-  .rx-check { right: -2px; top: 2px; width: 20px; height: 20px; font-size: .65rem; }
+  .mark-hint { right: 12px; left: 12px; bottom: 70px; max-width: none; }
 }
