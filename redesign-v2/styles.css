@@ -1847,18 +1847,24 @@ p > .btn { display: inline-flex; }
 }
 .nb-textarea:focus { border-color: var(--color-amber); }
 
-/* Botón de quitar item del cuaderno */
-.nb-item__remove {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.2);
-  font-size: .85rem;
-  cursor: pointer;
-  padding: 2px 6px;
+/* Check toggle en cuaderno */
+.nb-item__toggle {
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
+  background: rgba(245,166,35,0.2);
+  border: 2px solid var(--color-amber);
+  color: var(--color-amber);
+  font-size: .65rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
-  transition: all 0.15s;
+  transition: all 0.2s;
   flex-shrink: 0;
+  padding: 0;
   line-height: 1;
 }
-.nb-item__remove:hover { color: rgba(255,100,100,0.7); background: rgba(255,100,100,0.1); }
+.nb-item__toggle:hover { background: var(--color-amber); color: var(--color-dark-deep); }

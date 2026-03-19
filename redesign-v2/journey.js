@@ -216,7 +216,7 @@ function updateNotebook() {
       // Encontrar la key real de esta reacción
       var rKey = keys.find(function(k) { return reactions[k] === r; });
       html += '<div class="nb-item">' +
-        '<button class="nb-item__remove" onclick="removeFromNotebook(\'' + encodeURIComponent(rKey) + '\')" title="Quitar">×</button>' +
+        '<button class="nb-item__toggle" onclick="removeFromNotebook(\'' + encodeURIComponent(rKey) + '\')" title="Desmarcar">✓</button>' +
         '<span class="nb-item__text">' + r.text + '</span>' +
         '</div>';
     });
