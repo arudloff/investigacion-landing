@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
+  { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
   { href: 'dashboard.html', label: 'Dashboard', external: true },
   {
     label: 'I+D Colaborativo',
@@ -39,6 +40,7 @@ const MOBILE_LINKS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
+  { href: 'autodiagnostico.html', label: 'Autodiagnóstico' },
   { href: 'dashboard.html', label: 'Dashboard', external: true },
 
   { label: 'I+D Colaborativo', isSection: true },
