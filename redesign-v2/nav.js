@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'dashboard.html', label: 'Dashboard', special: true },
+  { href: 'dashboard.html', label: 'Dashboard' },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -97,8 +97,7 @@ function buildNavbar() {
           <div class="dropdown__panel">${childrenHTML}</div>
         </div>`;
     } else {
-      var specialCls = item.special ? ' navbar__link--special' : '';
-      menuHTML += `<a href="${item.href}" class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}${specialCls}">${item.label}</a>`;
+      menuHTML += `<a href="${item.href}" class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}">${item.label}</a>`;
     }
   });
   nav.innerHTML = `
