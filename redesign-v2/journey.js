@@ -179,12 +179,12 @@ function updateNotebook() {
   var keys = Object.keys(reactions);
   var count = keys.length;
 
-  // Botón
+  // Botón con instrucción
   var btn = document.getElementById('nb-btn');
   if (!btn) return;
   btn.innerHTML = count > 0
-    ? '<span class="nb-btn__icon">📖</span><span class="nb-btn__count">' + count + '</span>'
-    : '<span class="nb-btn__icon">📖</span>';
+    ? '<span class="nb-btn__icon">📖</span><span class="nb-btn__label">Mi cuaderno</span><span class="nb-btn__count">' + count + '</span>'
+    : '<span class="nb-btn__icon">📖</span><span class="nb-btn__label">Toca textos para guardar ideas</span>';
 
   // Panel
   var panel = document.getElementById('nb-panel');
@@ -319,6 +319,56 @@ function checkCTA() {
 }
 
 // ==========================================
+// WELCOME MODAL — primera visita al sitio
+// ==========================================
+function showWelcome() {
+  if (localStorage.getItem('cch_welcome_seen')) return;
+
+  // Solo en la página de inicio
+  if (currentPage() !== 'index.html') return;
+
+  localStorage.setItem('cch_welcome_seen', '1');
+
+  var overlay = document.createElement('div');
+  overlay.className = 'welcome-overlay';
+  overlay.innerHTML =
+    '<div class="welcome-modal">' +
+      '<div class="welcome-modal__header">Bienvenido a una experiencia diferente</div>' +
+      '<p class="welcome-modal__text">Este sitio no solo informa — te invita a pensar, descubrir y actuar.</p>' +
+      '<div class="welcome-modal__features">' +
+        '<div class="welcome-modal__feat">' +
+          '<span class="welcome-modal__feat-icon">📖</span>' +
+          '<div><strong>Tu cuaderno personal</strong><br>Toca cualquier texto que te resuene. Se guarda en tu cuaderno para que puedas compartirlo después.</div>' +
+        '</div>' +
+        '<div class="welcome-modal__feat">' +
+          '<span class="welcome-modal__feat-icon">🔄</span>' +
+          '<div><strong>Contenido que cambia</strong><br>Las frases e ideas rotan con cada visita. Siempre hay algo nuevo por descubrir.</div>' +
+        '</div>' +
+        '<div class="welcome-modal__feat">' +
+          '<span class="welcome-modal__feat-icon">🧭</span>' +
+          '<div><strong>Espacios interactivos</strong><br>Autodiagnóstico, marcos de referencia, datos explorables — cada sección invita a participar.</div>' +
+        '</div>' +
+        '<div class="welcome-modal__feat">' +
+          '<span class="welcome-modal__feat-icon">🦋</span>' +
+          '<div><strong>Desafía a tu red</strong><br>Envía las ideas que te marcaron a tus contactos. Genera conversaciones. Sé un provocador de pensamiento.</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="welcome-modal__btn" onclick="dismissWelcome()">Empezar a explorar →</button>' +
+      '<p class="welcome-modal__note">Anónimo · Sin registro · Todo vive en tu navegador</p>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+}
+
+function dismissWelcome() {
+  var overlay = document.querySelector('.welcome-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    setTimeout(function() { overlay.remove(); }, 400);
+  }
+}
+
+// ==========================================
 // INIT
 // ==========================================
 (function() {
@@ -330,6 +380,9 @@ function checkCTA() {
     if (getReactionCount() >= 3) {
       setTimeout(checkCTA, 1000);
     }
+
+    // Welcome modal en primera visita
+    setTimeout(showWelcome, 1500);
   }
 
   if (document.querySelector('main')) {
