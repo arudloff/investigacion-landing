@@ -243,7 +243,11 @@
       .dx-radar svg { max-width: 280px; }
       .dx-q__text { font-size: 1rem; }
     }
+  .pf-opt{background:rgba(13,31,60,.7);border:1.5px solid rgba(46,109,164,.2);border-radius:10px;padding:12px 16px;font-size:.85rem;color:rgba(232,237,245,.7);cursor:pointer;transition:all .2s;font-family:inherit}
+  .pf-opt:hover{border-color:rgba(245,166,35,.4);color:rgba(232,237,245,.9)}
+  .pf-opt.selected{border-color:rgba(245,166,35,.8);background:rgba(245,166,35,.1);color:#F5A623}
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="dx-page">
 
@@ -298,6 +302,18 @@
           <button class="dx-share__btn" id="dx-retry">&#128260; Repetir diagnostico</button>
           <button class="dx-share__btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)" id="dx-reset">Probar otro perfil</button>
         </div>
+      </div>
+
+      <!-- Profiling form + PDF generation -->
+      <div id="profiling-form" style="display:none;margin:2rem 0;background:rgba(13,31,60,.5);border:1px solid rgba(46,109,164,.2);border-radius:14px;padding:1.5rem">
+        <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Personaliza tu informe</h3>
+        <p style="font-size:.82rem;color:rgba(232,237,245,.5);margin-bottom:1.5rem">4 preguntas · 60 segundos · El informe se adapta a ti</p>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Cómo quieres que te llamemos? <span style="font-size:.75rem;color:rgba(232,237,245,.35)">(opcional)</span></label><input type="text" id="pf-name" placeholder="Tu nombre o como prefieras" maxlength="40" style="width:100%;background:rgba(13,31,60,.7);border:1px solid rgba(46,109,164,.2);border-radius:8px;padding:10px 14px;color:#fff;font-size:.9rem;font-family:inherit;outline:none"></div>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Cuál es tu mayor motivación?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Esto define el enfoque de tus recomendaciones</p><div id="pf-motivation" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'motivation','preparar a quienes dependen de mí')">Preparar a las personas que dependen de mí</div><div class="pf-opt" onclick="selPF(this,'motivation','avanzar en mi desarrollo profesional')">Avanzar en mi desarrollo profesional</div><div class="pf-opt" onclick="selPF(this,'motivation','construir algo propio o transformar mi entorno')">Construir algo propio o transformar mi entorno</div><div class="pf-opt" onclick="selPF(this,'motivation','entender el mundo que está cambiando')">Entender el mundo que está cambiando</div></div></div>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Qué tan en marcha estás?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Sin juicio — solo para calibrar las recomendaciones</p><div id="pf-stage" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'stage','estoy empezando a pensar en esto')">Estoy empezando a pensar en esto</div><div class="pf-opt" onclick="selPF(this,'stage','tengo bases pero quiero ir más lejos')">Tengo bases, pero quiero ir más lejos</div><div class="pf-opt" onclick="selPF(this,'stage','llevo tiempo trabajando en esto')">Llevo tiempo trabajando en esto</div></div></div>
+        <div style="margin-bottom:1.5rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Qué tipo de recomendaciones te sirven más?</label><div id="pf-rectype" style="display:flex;flex-wrap:wrap;gap:8px"><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','concretas y aplicables hoy')">Concretas, para hoy</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','estratégicas a largo plazo')">Estratégicas, a largo plazo</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','recursos para profundizar')">Recursos para profundizar</div></div></div>
+        <button id="generate-btn" onclick="generateReport()" disabled style="width:100%;background:rgba(245,166,35,.15);color:rgba(245,166,35,.4);border:1px solid rgba(245,166,35,.2);border-radius:10px;padding:14px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:not-allowed;transition:all .2s">Generar mi informe personalizado →</button>
+        <div id="generating-state" style="display:none;text-align:center;padding:24px 0"><p style="font-size:.9rem;color:rgba(232,237,245,.65)">✨ Analizando tu perfil y generando recomendaciones...</p><p style="font-size:.78rem;color:rgba(232,237,245,.35);margin-top:4px">Esto toma unos segundos</p></div>
       </div>
 
       <div class="dx-methodology">
@@ -701,7 +717,168 @@
       '</div>';
 
     // Scroll to results
+    // Show profiling form
+    document.getElementById('profiling-form').style.display = 'block';
+
     document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ========== PROFILING + PDF ==========
+  var pfAnswers = {};
+  function selPF(el, field, value) {
+    el.closest('[id^="pf-"]').querySelectorAll('.pf-opt').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+    pfAnswers[field] = value;
+    var complete = pfAnswers.motivation && pfAnswers.stage && pfAnswers.rectype;
+    var btn = document.getElementById('generate-btn');
+    if (btn) {
+      btn.disabled = !complete;
+      btn.style.background = complete ? '#F5A623' : 'rgba(245,166,35,.15)';
+      btn.style.color = complete ? '#0A1628' : 'rgba(245,166,35,.4)';
+      btn.style.borderColor = complete ? '#F5A623' : 'rgba(245,166,35,.2)';
+      btn.style.cursor = complete ? 'pointer' : 'not-allowed';
+    }
+  }
+
+  async function generateReport() {
+    document.getElementById('generate-btn').style.display = 'none';
+    document.getElementById('generating-state').style.display = 'block';
+    var dims = rubrica[currentRole].questions.map(function(q) { return q.dimension; });
+    var dimScores = {};
+    dims.forEach(function(d, i) { dimScores[d] = answers[i] || 0; });
+    var totalScore = Object.values(dimScores).reduce(function(a, v) { return a + v; }, 0);
+    var maxScore = dims.length * 4;
+    var sorted = Object.entries(dimScores).sort(function(a, b) { return b[1] - a[1]; });
+    var strongestDim = sorted[0][0];
+    var weakestDim = sorted[sorted.length - 1][0];
+    var name = (document.getElementById('pf-name').value || '').trim();
+    var pct = totalScore / maxScore;
+    var scoreLabel = pct >= 0.75 ? 'Perfil consolidado' : pct >= 0.5 ? 'Perfil en desarrollo' : 'Perfil emergente';
+    var roleLabels = { persona:'Persona', docente:'Docente', establecimiento:'Establecimiento', empresa:'Empresa', estudiante:'Estudiante' };
+    var diagnosticSummary = Object.entries(dimScores).map(function(e) { return e[0]+': '+e[1]+'/4'; }).join(' · ');
+    var prompt = 'Eres un especialista en competencias del siglo XXI. Genera textos para un informe PDF. Responde SOLO con JSON válido.\n\nPERFIL:\n- Nombre: '+(name||'no indicado')+'\n- Rol: '+roleLabels[currentRole]+'\n- Resultados: '+diagnosticSummary+'\n- Fortaleza: '+strongestDim+' ('+dimScores[strongestDim]+'/4)\n- Oportunidad: '+weakestDim+' ('+dimScores[weakestDim]+'/4)\n- Score: '+totalScore+'/'+maxScore+' — '+scoreLabel+'\n- Motivación: '+pfAnswers.motivation+'\n- Punto de partida: '+pfAnswers.stage+'\n- Tipo recomendaciones: '+pfAnswers.rectype+'\n\nJSON con claves:\n"intro": 2-3 oraciones. Nombre si existe. Motivación. Fortaleza. Tono adulto.\n"lo_que_ya_tienes": 2 oraciones. Qué puede hacer AHORA con su fortaleza.\n"lo_que_puedes_lograr": 2 oraciones. Qué se abre al fortalecer su oportunidad.\n"recomendacion_1": Acción para hoy. Concreta. Max 2 oraciones.\n"recomendacion_2": Acción para este mes. Max 2 oraciones.\n"recomendacion_3": Acción para seguir creciendo. Max 2 oraciones.\n"etiquetas_recs": Array de 3 strings con etiqueta temporal.\n"cierre": 1-2 oraciones. Conecta fortaleza con lo que puede lograr.\nREGLAS: Sin mencionar instituciones. Tú/tu. Max 50 palabras por campo.';
+    var insights = null;
+    try {
+      var response = await fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/generate-report', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({prompt:prompt}) });
+      insights = await response.json();
+    } catch(err) { console.error(err); }
+    buildPDF(insights, dimScores, name, totalScore, maxScore, scoreLabel, roleLabels[currentRole]);
+  }
+
+  function buildPDF(insights, dimScores, name, totalScore, maxScore, scoreLabel, roleLabel) {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var displayName = name || 'Anónimo';
+    var pct = totalScore / maxScore;
+    var y = 0;
+    // HEADER
+    doc.setFillColor(10,22,40); doc.rect(0,0,210,48,'F');
+    doc.setFillColor(245,166,35); doc.rect(0,0,4,48,'F');
+    doc.setTextColor(200,130,20); doc.setFontSize(7); doc.setFont('helvetica','bold');
+    doc.text('INFORME DE LIDERAZGO · SIGLO XXI',12,10);
+    doc.setTextColor(245,166,35); doc.setFontSize(18);
+    doc.text('Perfil de Habilidades del Siglo XXI',12,20);
+    doc.setTextColor(255,255,255); doc.setFontSize(10); doc.setFont('helvetica','normal');
+    doc.text(displayName+'  ·  '+roleLabel+'  ·  '+new Date().toLocaleDateString('es-CL'),12,28);
+    doc.setTextColor(180,190,200); doc.setFontSize(6.5);
+    doc.text('CASEL 2017 · OCDE Learning Compass 2030 · WEF Future of Jobs 2025 · IA (Anthropic)',12,38);
+    y = 56;
+    // INTRO
+    if (insights && insights.intro) {
+      doc.setFillColor(240,247,255);
+      var il = doc.splitTextToSize(insights.intro,165); var ih = il.length*5+14;
+      doc.roundedRect(12,y,186,ih,2,2,'F');
+      doc.setDrawColor(24,95,165); doc.setLineWidth(0.8); doc.line(12,y,12,y+ih);
+      doc.setTextColor(24,95,165); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('ANÁLISIS PERSONALIZADO',18,y+6);
+      doc.setTextColor(30,40,55); doc.setFontSize(9); doc.setFont('helvetica','normal');
+      doc.text(il,18,y+12); y += ih+8;
+    }
+    // SCORE
+    doc.setFillColor(240,243,248); doc.roundedRect(12,y,186,16,2,2,'F');
+    doc.setTextColor(10,22,40); doc.setFontSize(18); doc.setFont('helvetica','bold');
+    doc.text(totalScore.toFixed(1),22,y+11);
+    doc.setTextColor(90,100,115); doc.setFontSize(10); doc.setFont('helvetica','normal');
+    doc.text('/'+maxScore,37,y+11);
+    var bc = pct>=0.75?[31,107,59]:pct>=0.5?[200,100,0]:[166,50,40];
+    doc.setTextColor(bc[0],bc[1],bc[2]); doc.setFontSize(8); doc.setFont('helvetica','bold');
+    doc.text(scoreLabel,190,y+11,{align:'right'}); y += 22;
+    // DIMENSIONES
+    doc.setTextColor(154,160,171); doc.setFontSize(7); doc.setFont('helvetica','bold');
+    doc.text('RESULTADOS POR DIMENSIÓN',12,y); y += 6;
+    Object.keys(dimScores).forEach(function(dim) {
+      var s = dimScores[dim]; var c = s>=3?[31,107,59]:s>=2?[200,100,0]:[166,50,40];
+      doc.setTextColor(30,40,55); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(dim,14,y);
+      doc.setFillColor(232,236,242); doc.roundedRect(90,y-3,85,4,1,1,'F');
+      doc.setFillColor(c[0],c[1],c[2]); doc.roundedRect(90,y-3,(s/4)*85,4,1,1,'F');
+      doc.setTextColor(c[0],c[1],c[2]); doc.setFontSize(8); doc.setFont('helvetica','bold');
+      doc.text(s.toFixed(1),180,y,{align:'right'}); y += 8;
+    }); y += 4;
+    // LO QUE YA TIENES / PUEDES LOGRAR
+    var h1=0,h2=0;
+    if (insights && insights.lo_que_ya_tienes) {
+      doc.setFillColor(234,243,222);
+      var l1 = doc.splitTextToSize(insights.lo_que_ya_tienes,82); h1=l1.length*5+12;
+      doc.roundedRect(12,y,90,h1,2,2,'F');
+      doc.setTextColor(31,107,59); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('LO QUE YA PUEDES HACER',17,y+5.5);
+      doc.setTextColor(20,80,40); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(l1,17,y+10.5);
+    }
+    if (insights && insights.lo_que_puedes_lograr) {
+      doc.setFillColor(250,238,218);
+      var l2 = doc.splitTextToSize(insights.lo_que_puedes_lograr,82); h2=l2.length*5+12;
+      doc.roundedRect(108,y,90,h2,2,2,'F');
+      doc.setTextColor(150,70,0); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('LO QUE PUEDES LOGRAR',113,y+5.5);
+      doc.setTextColor(100,50,0); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(l2,113,y+10.5);
+    }
+    y += Math.max(h1,h2)+8;
+    // RECOMENDACIONES
+    if (insights && insights.recomendacion_1) {
+      doc.setFillColor(10,22,40); doc.roundedRect(12,y,186,8,2,2,'F');
+      doc.setTextColor(245,166,35); doc.setFontSize(7.5); doc.setFont('helvetica','bold');
+      doc.text('3 ACCIONES CONCRETAS',105,y+5.5,{align:'center'}); y += 12;
+      var recs = [insights.recomendacion_1,insights.recomendacion_2,insights.recomendacion_3];
+      var etiq = insights.etiquetas_recs || ['Para hoy','Para este mes','Para seguir'];
+      recs.filter(Boolean).forEach(function(rec,i) {
+        var rl = doc.splitTextToSize(rec,155); var rh = rl.length*5+12;
+        doc.setFillColor(240,243,248); doc.roundedRect(12,y,186,rh,2,2,'F');
+        doc.setFillColor(10,22,40); doc.circle(21,y+rh/2,4,'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(8); doc.setFont('helvetica','bold');
+        doc.text(String(i+1),21,y+rh/2+1,{align:'center'});
+        doc.setTextColor(24,95,165); doc.setFontSize(6.5);
+        doc.text((etiq[i]||'').toUpperCase(),29,y+5);
+        doc.setTextColor(30,40,55); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+        doc.text(rl,29,y+10); y += rh+4;
+      });
+    }
+    // CIERRE
+    if (insights && insights.cierre) {
+      y += 2;
+      var cl = doc.splitTextToSize('"'+insights.cierre+'"',172); var ch = cl.length*5.5+10;
+      doc.setFillColor(10,22,40); doc.roundedRect(12,y,186,ch,2,2,'F');
+      doc.setTextColor(255,255,255); doc.setFontSize(9.5); doc.setFont('helvetica','italic');
+      doc.text(cl,105,y+7,{align:'center'}); y += ch+6;
+    }
+    // NOTA
+    if (y>258){doc.addPage();y=16;}
+    doc.setTextColor(154,160,171); doc.setFontSize(7); doc.setFont('helvetica','italic');
+    doc.text(doc.splitTextToSize('Basado en CASEL (2017), OCDE Learning Compass 2030, WEF Future of Jobs 2025. Textos generados con IA (Claude, Anthropic). Herramienta de reflexión, no evaluación certificada.',186),12,y);
+    // FOOTER
+    doc.setFillColor(10,22,40); doc.rect(0,282,210,15,'F');
+    doc.setFillColor(245,166,35); doc.rect(0,282,4,15,'F');
+    doc.setTextColor(245,166,35); doc.setFontSize(8); doc.setFont('helvetica','bold');
+    doc.text('Colegio Camilo Henríquez · Talca, Chile',12,290);
+    doc.setTextColor(180,190,205); doc.setFont('helvetica','normal'); doc.setFontSize(7);
+    doc.text(new Date().toLocaleDateString('es-CL'),198,290,{align:'right'});
+    // SAVE
+    doc.save('perfil-liderazgo-'+(name||'anonimo').replace(/\s+/g,'-')+'-'+new Date().toISOString().split('T')[0]+'.pdf');
+    document.getElementById('generating-state').style.display='none';
+    document.getElementById('generate-btn').style.display='block';
+    document.getElementById('generate-btn').textContent='✓ Descargado — Generar otro →';
   }
 
   // ========== RADAR CHART ==========
