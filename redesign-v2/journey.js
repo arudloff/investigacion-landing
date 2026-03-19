@@ -355,7 +355,10 @@ function generateMessage() {
     fetch(url, { method: 'POST', headers: headers, body: bodyV(2) }).then(function(r) { return r.json(); }),
   ])
   .then(function(results) {
-    generatedMessages = results.filter(function(d) { return d.message; }).map(function(d) { return d.message; });
+    generatedMessages = results.filter(function(d) { return d.message; }).map(function(d) {
+      // Limpiar encabezados que el modelo agrega por su cuenta
+      return d.message.replace(/^\*?\*?[Vv]ersi[oó]n\s*\d+:?\*?\*?\s*/gm, '').replace(/^\*?\*?[Oo]pci[oó]n\s*\d+:?\*?\*?\s*/gm, '').replace(/^\*?\*?[Mm]ensaje\s*\d+:?\*?\*?\s*/gm, '').trim();
+    });
     if (generatedMessages.length > 0) {
       activeMsg = 0;
       hasGeneratedMsg = generatedMessages[0];
