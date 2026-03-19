@@ -195,7 +195,7 @@ function updateNotebook() {
     panel.innerHTML =
       '<div class="nb-panel__scroll">' +
       '<div class="nb-panel__header"><span class="nb-panel__title">MIS NOTAS DE LECTURA</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
-      '<div class="nb-empty"><p>Toca cualquier texto que te resuene. Se guarda aquí para que puedas compartirlo después.</p></div>' +
+      '<div class="nb-empty"><p>Selecciona lo que no puedes ignorar. Y juntos lo convertiremos en una conversación que no puede esperar.</p></div>' +
       '</div>';
     return;
   }
