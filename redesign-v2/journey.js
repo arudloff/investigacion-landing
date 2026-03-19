@@ -184,7 +184,7 @@ function updateNotebook() {
   var btn = document.getElementById('nb-btn');
   if (!btn) return;
   btn.innerHTML = count > 0
-    ? '<span class="nb-btn__icon">📖</span><span class="nb-btn__label">Mi cuaderno</span><span class="nb-btn__count">' + count + '</span>'
+    ? '<span class="nb-btn__icon">📖</span><span class="nb-btn__label">Mis notas</span><span class="nb-btn__count">' + count + '</span>'
     : '<span class="nb-btn__icon">📖</span><span class="nb-btn__label">Toca textos para guardar ideas</span>';
 
   // Panel
@@ -194,7 +194,7 @@ function updateNotebook() {
   if (count === 0) {
     panel.innerHTML =
       '<div class="nb-panel__scroll">' +
-      '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
+      '<div class="nb-panel__header"><span class="nb-panel__title">MIS NOTAS DE LECTURA</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
       '<div class="nb-empty"><p>Toca cualquier texto que te resuene. Se guarda aquí para que puedas compartirlo después.</p></div>' +
       '</div>';
     return;
@@ -227,7 +227,7 @@ function updateNotebook() {
 
   if (generatedMessages.length > 0) {
     // MODO MENSAJE — título cambia, 3 versiones con tabs
-    html += '<div class="nb-panel__header"><span class="nb-panel__title" style="font-size:.85rem;line-height:1.3">Comparte esta reflexión con alguien que te importe</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
+    html += '<div class="nb-panel__header"><span class="nb-panel__title" style="font-size:.82rem;line-height:1.3"><span style="color:var(--color-amber);font-weight:800;display:block;margin-bottom:2px">EFECTO MARIPOSA</span>Comparte este mensaje con quienes te importan</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
     html += '<div id="nb-message"><textarea class="nb-textarea" id="nb-textarea">' + generatedMessages[activeMsg] + '</textarea></div>';
     // 3 tabs — cada uno con un ángulo emocional
     html += '<div class="nb-msg-tabs">';
@@ -238,7 +238,7 @@ function updateNotebook() {
     html += '<details class="nb-details"><summary class="nb-details__summary">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
   } else {
     // MODO CUADERNO — listado de párrafos
-    html += '<div class="nb-panel__header"><span class="nb-panel__title">Tu cuaderno</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
+    html += '<div class="nb-panel__header"><span class="nb-panel__title">MIS NOTAS DE LECTURA</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>';
     html += '<div class="nb-panel__sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
     html += itemsHTML;
     html += '<div id="nb-message"></div>';
@@ -341,25 +341,25 @@ function generateMessage() {
   if (!paragraphs.length) return;
 
   var genBtn = document.querySelector('.nb-gen-btn');
-  if (genBtn) { genBtn.textContent = '✨ Generando 3 versiones...'; genBtn.disabled = true; }
+  if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
 
   var url = 'https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook';
-  var body = JSON.stringify({ paragraphs: paragraphs });
-  var headers = { 'Content-Type': 'application/json' };
 
-  // 3 llamadas paralelas — cada una con un ángulo emocional distinto
-  var bodyV = function(v) { return JSON.stringify({ paragraphs: paragraphs, version: v }); };
-  Promise.all([
-    fetch(url, { method: 'POST', headers: headers, body: bodyV(0) }).then(function(r) { return r.json(); }),
-    fetch(url, { method: 'POST', headers: headers, body: bodyV(1) }).then(function(r) { return r.json(); }),
-    fetch(url, { method: 'POST', headers: headers, body: bodyV(2) }).then(function(r) { return r.json(); }),
-  ])
-  .then(function(results) {
-    generatedMessages = results.filter(function(d) { return d.message; }).map(function(d) {
-      // Limpiar encabezados que el modelo agrega por su cuenta
-      return d.message.replace(/^\*?\*?[Vv]ersi[oó]n\s*\d+:?\*?\*?\s*/gm, '').replace(/^\*?\*?[Oo]pci[oó]n\s*\d+:?\*?\*?\s*/gm, '').replace(/^\*?\*?[Mm]ensaje\s*\d+:?\*?\*?\s*/gm, '').trim();
-    });
-    if (generatedMessages.length > 0) {
+  // Una sola llamada — devuelve 3 mensajes
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ paragraphs: paragraphs })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.messages && data.messages.length > 0) {
+      generatedMessages = data.messages.map(function(m) {
+        return m.replace(/^\*?\*?[Mm]ensaje\s*\d+[^:\n]*:?\*?\*?\s*/gm, '')
+          .replace(/^\*?\*?—[^—\n]*—\*?\*?\s*/gm, '')
+          .replace(/^\*\*/gm, '').replace(/\*\*$/gm, '')
+          .trim();
+      });
       activeMsg = 0;
       hasGeneratedMsg = generatedMessages[0];
       updateNotebook();
@@ -404,7 +404,7 @@ function checkCTA() {
   var messages = [
     'Has marcado varias ideas. ¿Conoces a alguien que necesite leerlas?',
     'Las ideas que destacaste merecen salir de esta pantalla. ¿A quién se las enviarías?',
-    'Tu cuaderno muestra que esto te importa. Una conversación con la persona correcta puede cambiar todo.',
+    'MIS NOTAS DE LECTURA muestra que esto te importa. Una conversación con la persona correcta puede cambiar todo.',
   ];
   var msg = messages[Math.floor(Math.random() * messages.length)];
 
@@ -443,7 +443,7 @@ function showWelcome() {
       '<div class="welcome-modal__features">' +
         '<div class="welcome-modal__feat">' +
           '<span class="welcome-modal__feat-icon">📖</span>' +
-          '<div><strong>Tu cuaderno personal</strong><br>Toca cualquier texto que te resuene. Se guarda en tu cuaderno para que puedas compartirlo después.</div>' +
+          '<div><strong>MIS NOTAS DE LECTURA personal</strong><br>Toca cualquier texto que te resuene. Se guarda en tu cuaderno para que puedas compartirlo después.</div>' +
         '</div>' +
         '<div class="welcome-modal__feat">' +
           '<span class="welcome-modal__feat-icon">🔄</span>' +
