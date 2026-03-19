@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'dashboard.html', label: 'Dashboard' },
+  { href: 'dashboard.html', label: 'Dashboard', external: true },
   {
     label: 'I+D Colaborativo',
     children: [
@@ -39,7 +39,7 @@ const MOBILE_LINKS = [
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
-  { href: 'dashboard.html', label: 'Dashboard' },
+  { href: 'dashboard.html', label: 'Dashboard', external: true },
 
   { label: 'I+D Colaborativo', isSection: true },
   { href: 'cepah.html', label: 'CEPAH — Centro de Estudios' },
@@ -97,7 +97,8 @@ function buildNavbar() {
           <div class="dropdown__panel">${childrenHTML}</div>
         </div>`;
     } else {
-      menuHTML += `<a href="${item.href}" class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}">${item.label}</a>`;
+      var target = item.external ? ' target="_blank" rel="noopener"' : '';
+      menuHTML += `<a href="${item.href}"${target} class="navbar__link${isActive(item.href) ? ' navbar__link--active' : ''}">${item.label}</a>`;
     }
   });
   nav.innerHTML = `
