@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autodiagnostico — Habilidades del Siglo XXI</title>
+  <meta name="description" content="¿Qué tan preparado estás para el siglo XXI? Descúbrelo en 3 minutos. Anónimo, gratuito, compartible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===== BASE ===== */
+    .dx-page { background: var(--color-dark-deep, #0A1628); color: rgba(255,255,255,0.85); min-height: 100vh; font-family: 'Inter', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ===== HERO ===== */
+    .dx-hero {
+      background-color: var(--color-dark-deep, #0A1628);
+      background-image: var(--texture-dots);
+      background-size: var(--texture-dots-size);
+      padding: 6rem 0 3rem;
+      text-align: center;
+    }
+    .dx-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; max-width: 700px; margin: 0 auto 1rem; }
+    .dx-hero p { color: rgba(255,255,255,0.6); max-width: 550px; margin: 0 auto; line-height: 1.7; }
+    .dx-hero__badge { display: inline-block; background: rgba(245,166,35,0.15); color: var(--color-amber, #F5A623); font-size: .75rem; font-weight: 700; padding: .3rem .9rem; border-radius: 100px; border: 1px solid rgba(245,166,35,0.25); margin-bottom: 1.5rem; }
+
+    /* ===== ROLE CARDS ===== */
+    .dx-profiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 900px; margin: 2.5rem auto 0; padding: 0 1rem; }
+    .dx-profile {
+      background: var(--color-dark-mid, #0D1F3C);
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dx-profile:hover { border-color: rgba(245,166,35,0.3); transform: translateY(-3px); }
+    .dx-profile--active { border-color: var(--color-amber, #F5A623); background: rgba(245,166,35,0.08); box-shadow: 0 0 20px rgba(245,166,35,0.1); }
+    .dx-profile__icon { font-size: 2rem; margin-bottom: .5rem; }
+    .dx-profile__name { font-size: .85rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+    .dx-profile--active .dx-profile__name { color: var(--color-amber, #F5A623); }
+    .dx-profile__desc { font-size: .68rem; color: rgba(255,255,255,0.4); margin-top: .3rem; line-height: 1.3; }
+
+    /* ===== QUIZ ===== */
+    .dx-quiz { max-width: 700px; margin: 0 auto; padding: 2.5rem 1rem; display: none; }
+    .dx-quiz--active { display: block; }
+    .dx-progress { height: 4px; background: rgba(255,255,255,0.08); border-radius: 100px; margin-bottom: 2rem; overflow: hidden; }
+    .dx-progress__fill { height: 100%; background: var(--color-amber, #F5A623); border-radius: 100px; transition: width 0.4s ease; width: 0; }
+    .dx-progress__text { font-size: .75rem; color: rgba(255,255,255,0.4); text-align: center; margin-bottom: .5rem; }
+
+    /* Question card */
+    .dx-q { animation: dxFadeIn 0.4s ease; }
+    @keyframes dxFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .dx-q__dimension { font-size: .7rem; color: var(--color-amber, #F5A623); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .5rem; }
+    .dx-q__text { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 1.5rem; line-height: 1.5; }
+
+    /* Level cards */
+    .dx-levels { display: flex; flex-direction: column; gap: 8px; }
+    .dx-level {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      min-height: 52px;
+      padding: .75rem 1rem;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+      text-align: left;
+      width: 100%;
+      color: rgba(255,255,255,0.7);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+    .dx-level:hover { border-color: rgba(245,166,35,0.3); background: rgba(245,166,35,0.04); }
+    .dx-level--selected { border-color: var(--color-amber, #F5A623); background: rgba(245,166,35,0.1); box-shadow: 0 0 14px rgba(245,166,35,0.08); }
+    .dx-level__badge {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 800;
+      transition: all 0.25s;
+    }
+    .dx-level--selected .dx-level__badge { color: #fff; }
+    .dx-level__label {
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 2px;
+      transition: color 0.25s;
+    }
+    .dx-level__desc { font-size: .85rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+    .dx-level--selected .dx-level__desc { color: rgba(255,255,255,0.85); }
+
+    /* Navigation */
+    .dx-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+    .dx-nav__btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: .6rem 1.5rem;
+      min-height: 44px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dx-nav__btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .dx-nav__btn--primary { background: var(--color-amber, #F5A623); border-color: var(--color-amber, #F5A623); color: var(--color-dark-deep, #0A1628); }
+    .dx-nav__btn--primary:hover { filter: brightness(1.1); }
+
+    /* ===== RESULTS ===== */
+    .dx-results { display: none; max-width: 750px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .dx-results--active { display: block; animation: dxFadeIn 0.6s ease; }
+    .dx-results__header { text-align: center; margin-bottom: 2.5rem; }
+    .dx-results__title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: .5rem; }
+    .dx-results__subtitle { color: rgba(255,255,255,0.5); font-size: .9rem; }
+
+    /* Radar */
+    .dx-radar { display: flex; justify-content: center; margin-bottom: 2.5rem; }
+    .dx-radar svg { max-width: 380px; width: 100%; }
+    .dx-radar__bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 1; }
+    .dx-radar__grid { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 1; }
+    .dx-radar__shape { fill: rgba(245,166,35,0.15); stroke: var(--color-amber, #F5A623); stroke-width: 2.5; stroke-linejoin: round; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__dot { fill: var(--color-amber, #F5A623); r: 5; transition: all 1s cubic-bezier(0.16,1,0.3,1); }
+    .dx-radar__label { fill: rgba(255,255,255,0.6); font-size: 11px; font-weight: 600; text-anchor: middle; }
+    .dx-radar__bench { fill: rgba(46,109,164,0.08); stroke: var(--color-primary-mid, #2E6DA4); stroke-width: 1.5; stroke-dasharray: 4 3; stroke-linejoin: round; }
+    .dx-radar__bench-dot { fill: var(--color-primary-mid, #2E6DA4); r: 3; opacity: 0.6; }
+
+    /* Score cards */
+    .dx-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2rem; }
+    .dx-score {
+      background: var(--color-dark-mid, #0D1F3C);
+      border-radius: 12px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border-left: 3px solid var(--color-amber, #F5A623);
+    }
+    .dx-score__val { font-size: 1.8rem; font-weight: 800; color: var(--color-amber, #F5A623); }
+    .dx-score__label { font-size: .72rem; color: rgba(255,255,255,0.5); margin-top: .2rem; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* Dimension bars */
+    .dx-dims { margin-bottom: 2rem; }
+    .dx-dim { margin-bottom: 1rem; }
+    .dx-dim__header { display: flex; justify-content: space-between; margin-bottom: .4rem; }
+    .dx-dim__name { font-size: .82rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .dx-dim__level-tag { font-size: .68rem; font-weight: 600; padding: .15rem .5rem; border-radius: 4px; }
+    .dx-dim__pct { font-size: .82rem; font-weight: 800; color: var(--color-amber, #F5A623); }
+    .dx-dim__bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
+    .dx-dim__fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--color-amber, #F5A623), #F5C623); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+
+    /* Insights */
+    .dx-insight {
+      background: rgba(245,166,35,0.05);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .dx-insight__title { font-size: .88rem; font-weight: 700; color: var(--color-amber, #F5A623); margin-bottom: .5rem; }
+    .dx-insight__text { font-size: .9rem; color: rgba(255,255,255,0.7); line-height: 1.65; margin: 0; }
+
+    /* Benchmarks */
+    .dx-bench { text-align: center; margin-bottom: 2rem; }
+    .dx-bench__title { font-size: .75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: .75rem; }
+    .dx-bench__options { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .dx-bench__opt {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: .45rem .9rem;
+      font-size: .78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .dx-bench__opt:hover { border-color: rgba(46,109,164,0.4); color: rgba(255,255,255,0.7); }
+    .dx-bench__opt--active { border-color: var(--color-primary-mid, #2E6DA4); background: rgba(46,109,164,0.1); color: var(--color-primary-mid, #2E6DA4); }
+
+    /* Share */
+    .dx-share { text-align: center; padding-top: 1rem; margin-bottom: 2rem; }
+    .dx-share__title { font-size: .85rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .dx-share__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .dx-share__btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: .6rem 1.2rem;
+      min-height: 44px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .dx-share__btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+    /* Methodology */
+    .dx-methodology {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .dx-methodology__title { font-size: .78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem; }
+    .dx-methodology__text { font-size: .82rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .dx-profiles { grid-template-columns: repeat(2, 1fr); }
+      .dx-profiles .dx-profile:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
+      .dx-scores { grid-template-columns: 1fr 1fr; }
+      .dx-radar svg { max-width: 320px; }
+    }
+    @media (max-width: 480px) {
+      .dx-profiles { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .dx-profiles .dx-profile:last-child { max-width: 60%; }
+      .dx-profile { padding: 1rem .75rem; }
+      .dx-profile__desc { font-size: .65rem; }
+      .dx-level { padding: .65rem .75rem; font-size: .82rem; }
+      .dx-bench__opt { font-size: .75rem; padding: .5rem .7rem; }
+      .dx-scores { grid-template-columns: 1fr; }
+      .dx-radar svg { max-width: 280px; }
+      .dx-q__text { font-size: 1rem; }
+    }
+  .pf-opt{background:rgba(13,31,60,.7);border:1.5px solid rgba(46,109,164,.2);border-radius:10px;padding:12px 16px;font-size:.85rem;color:rgba(232,237,245,.7);cursor:pointer;transition:all .2s;font-family:inherit}
+  .pf-opt:hover{border-color:rgba(245,166,35,.4);color:rgba(232,237,245,.9)}
+  .pf-opt.selected{border-color:rgba(245,166,35,.8);background:rgba(245,166,35,.1);color:#F5A623}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="dx-page">
+
+  <!-- ===== HERO ===== -->
+  <section class="dx-hero">
+    <div class="container">
+      <div class="dx-hero__badge">Anonimo · 3 minutos · Gratuito</div>
+      <h1>¿Que tan preparado estas para el siglo XXI?</h1>
+      <p>Un diagnostico rapido basado en rubrica de tus habilidades frente a los desafios que la disrupcion tecnologica, la IA y el nuevo mercado laboral ponen sobre la mesa. Sin registro. Sin datos personales.</p>
+
+      <div class="dx-profiles" id="dx-profiles"></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <!-- ===== QUIZ ===== -->
+    <div class="dx-quiz" id="dx-quiz">
+      <div class="dx-progress__text" id="dx-progress-text"></div>
+      <div class="dx-progress"><div class="dx-progress__fill" id="dx-progress-fill"></div></div>
+      <div id="dx-question-area"></div>
+      <div class="dx-nav">
+        <button class="dx-nav__btn" id="dx-prev" style="visibility:hidden">&#8592; Anterior</button>
+        <button class="dx-nav__btn dx-nav__btn--primary" id="dx-next">Siguiente &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ===== RESULTS ===== -->
+    <div class="dx-results" id="dx-results">
+      <div class="dx-results__header">
+        <div class="dx-hero__badge" id="dx-results-profile"></div>
+        <div class="dx-results__title" id="dx-results-title"></div>
+        <div class="dx-results__subtitle">Tu perfil de habilidades del siglo XXI</div>
+      </div>
+
+      <div class="dx-radar"><svg viewBox="0 0 400 400" id="dx-radar-svg"></svg></div>
+
+      <div class="dx-bench" id="dx-bench">
+        <div class="dx-bench__title">Compara con un referente</div>
+        <div class="dx-bench__options" id="dx-bench-options"></div>
+      </div>
+
+      <div class="dx-scores" id="dx-scores"></div>
+
+      <div class="dx-dims" id="dx-dims"></div>
+
+      <div id="dx-insights"></div>
+
+      <div class="dx-share">
+        <div class="dx-share__title">¿Te sorprendio el resultado? Compartelo.</div>
+        <div class="dx-share__btns">
+          <a href="#" class="dx-share__btn" style="border-color:rgba(37,211,102,0.4);color:rgba(37,211,102,0.8)" id="dx-share-wa">&#128172; Compartir por WhatsApp</a>
+          <button class="dx-share__btn" id="dx-retry">&#128260; Repetir diagnostico</button>
+          <button class="dx-share__btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)" id="dx-reset">Probar otro perfil</button>
+        </div>
+      </div>
+
+      <!-- Profiling form + PDF generation -->
+      <div id="profiling-form" style="display:none;margin:2rem 0;background:rgba(13,31,60,.5);border:1px solid rgba(46,109,164,.2);border-radius:14px;padding:1.5rem">
+        <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Personaliza tu informe</h3>
+        <p style="font-size:.82rem;color:rgba(232,237,245,.5);margin-bottom:1.5rem">4 preguntas · 60 segundos · El informe se adapta a ti</p>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Cómo quieres que te llamemos? <span style="font-size:.75rem;color:rgba(232,237,245,.35)">(opcional)</span></label><input type="text" id="pf-name" placeholder="Tu nombre o como prefieras" maxlength="40" style="width:100%;background:rgba(13,31,60,.7);border:1px solid rgba(46,109,164,.2);border-radius:8px;padding:10px 14px;color:#fff;font-size:.9rem;font-family:inherit;outline:none"></div>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Cuál es tu mayor motivación?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Esto define el enfoque de tus recomendaciones</p><div id="pf-motivation" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'motivation','preparar a quienes dependen de mí')">Preparar a las personas que dependen de mí</div><div class="pf-opt" onclick="selPF(this,'motivation','avanzar en mi desarrollo profesional')">Avanzar en mi desarrollo profesional</div><div class="pf-opt" onclick="selPF(this,'motivation','construir algo propio o transformar mi entorno')">Construir algo propio o transformar mi entorno</div><div class="pf-opt" onclick="selPF(this,'motivation','entender el mundo que está cambiando')">Entender el mundo que está cambiando</div></div></div>
+        <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Qué tan en marcha estás?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Sin juicio — solo para calibrar las recomendaciones</p><div id="pf-stage" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'stage','estoy empezando a pensar en esto')">Estoy empezando a pensar en esto</div><div class="pf-opt" onclick="selPF(this,'stage','tengo bases pero quiero ir más lejos')">Tengo bases, pero quiero ir más lejos</div><div class="pf-opt" onclick="selPF(this,'stage','llevo tiempo trabajando en esto')">Llevo tiempo trabajando en esto</div></div></div>
+        <div style="margin-bottom:1.5rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Qué tipo de recomendaciones te sirven más?</label><div id="pf-rectype" style="display:flex;flex-wrap:wrap;gap:8px"><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','concretas y aplicables hoy')">Concretas, para hoy</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','estratégicas a largo plazo')">Estratégicas, a largo plazo</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','recursos para profundizar')">Recursos para profundizar</div></div></div>
+        <button id="generate-btn" onclick="generateReport()" disabled style="width:100%;background:rgba(245,166,35,.15);color:rgba(245,166,35,.4);border:1px solid rgba(245,166,35,.2);border-radius:10px;padding:14px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:not-allowed;transition:all .2s">Generar mi informe personalizado →</button>
+        <div id="generating-state" style="display:none;text-align:center;padding:24px 0"><p style="font-size:.9rem;color:rgba(232,237,245,.65)">✨ Analizando tu perfil y generando recomendaciones...</p><p style="font-size:.78rem;color:rgba(232,237,245,.35);margin-top:4px">Esto toma unos segundos</p></div>
+      </div>
+
+      <div class="dx-methodology">
+        <div class="dx-methodology__title">Nota metodologica</div>
+        <div class="dx-methodology__text">
+          Este autodiagnostico esta basado en una rubrica de progresion de 5 niveles (0-4) alineada con marcos internacionales
+          de habilidades del siglo XXI, incluyendo el framework de la OCDE, el P21, y la taxonomia de habilidades del World Economic Forum.
+          Cada dimension se evalua con una pregunta tipo rubrica donde tu seleccionas el descriptor que mejor te representa.
+          El puntaje se calcula como el promedio de tus niveles seleccionados, normalizado a 100%.
+          Los benchmarks de comparacion estan basados en estimaciones a partir de investigacion educativa y datos publicos.
+          Este instrumento es orientativo — no reemplaza una evaluacion profesional.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  // ========== RUBRIC DATA ==========
+  const rubrica = {
+    persona: {
+      label: 'Como persona',
+      icon: '\u{1F9E0}',
+      desc: 'Tus destrezas personales frente al mundo que viene',
+      questions: [
+        {
+          dimension: 'Pensamiento critico',
+          pregunta: '¿Como evaluas la informacion que recibes?',
+          niveles: [
+            'Acepto lo que me dicen sin cuestionarlo',
+            'A veces pregunto por que, pero raramente busco evidencia',
+            'Evaluo algunas fuentes antes de creer o compartir algo',
+            'Contrasto fuentes y detecto sesgos con regularidad',
+            'Analizo desde multiples perspectivas y argumento con evidencia siempre'
+          ]
+        },
+        {
+          dimension: 'Colaboracion',
+          pregunta: '¿Como trabajas con otras personas?',
+          niveles: [
+            'Prefiero trabajar solo o espero que otros lideren',
+            'Participo en grupos pero evito el conflicto',
+            'Contribuyo activamente aunque me cuesta la diversidad de opiniones',
+            'Construyo con otros y valoro perspectivas distintas a la mia',
+            'Facilito equipos, distribuyo liderazgo, co-construyo con proposito'
+          ]
+        },
+        {
+          dimension: 'Autonomia',
+          pregunta: '¿Como tomas la iniciativa en tu vida?',
+          niveles: [
+            'Espero que me digan que hacer y como hacerlo',
+            'Actuo cuando me lo piden, raramente por iniciativa propia',
+            'Tomo iniciativa en lo conocido, me paralizo ante lo nuevo',
+            'Me propongo metas propias y gestiono mi avance',
+            'Diseno mi propio camino y aprendo sin necesitar direccion externa'
+          ]
+        },
+        {
+          dimension: 'Creatividad',
+          pregunta: '¿Como enfrentas los problemas que no tienen una sola respuesta?',
+          niveles: [
+            'Busco la respuesta correcta o me bloqueo si no la encuentro',
+            'Propongo ideas solo cuando me lo piden explicitamente',
+            'Genero alternativas pero me cuesta defenderlas si son diferentes',
+            'Innovo con regularidad y veo el error como informacion util',
+            'Conecto dominios distintos, prototipo sin miedo y mejoro iterando'
+          ]
+        },
+        {
+          dimension: 'Habilidades socioemocionales',
+          pregunta: '¿Como manejas tus emociones y relaciones?',
+          niveles: [
+            'Me cuesta identificar y manejar mis emociones bajo presion',
+            'Reconozco mis emociones pero reacciono impulsivamente',
+            'Manejo mis emociones en contextos conocidos o seguros',
+            'Regulo mis reacciones y resuelvo conflictos con dialogo',
+            'Tengo alta autoconciencia, empatizo activamente y acompano a otros'
+          ]
+        },
+        {
+          dimension: 'Adaptabilidad',
+          pregunta: '¿Como te relacionas con el cambio y lo desconocido?',
+          niveles: [
+            'Los cambios me generan resistencia y evito lo desconocido',
+            'Me adapto solo cuando no tengo otra opcion',
+            'Aprendo cosas nuevas cuando las necesito',
+            'Busco activamente aprender y me anticipo a los cambios',
+            'El cambio es mi entorno natural; aprendo antes de necesitarlo'
+          ]
+        }
+      ]
+    },
+    docente: {
+      label: 'Como docente',
+      icon: '\u{1F4DA}',
+      desc: 'Tu practica pedagogica y su alineacion con el siglo XXI',
+      questions: [
+        { dimension: 'Pensamiento critico', pregunta: '¿Como fomentas el pensamiento critico en tu practica?', niveles: ['Las clases se centran en transmitir contenido, no en cuestionar','A veces planteo preguntas abiertas, pero no de forma sistematica','Diseno actividades donde los estudiantes evaluan fuentes e ideas','El pensamiento critico es una destreza que desarrollo de forma transversal','Mis estudiantes argumentan con evidencia y detectan sesgos de forma autonoma'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como disenas el trabajo colaborativo en el aula?', niveles: ['Los estudiantes trabajan principalmente de forma individual','Hago trabajo en grupo ocasionalmente, sin roles definidos','Diseno proyectos colaborativos con roles y objetivos claros','Los estudiantes co-construyen conocimiento y me incluyo como par','El aula es una comunidad que aprende junta, con liderazgo distribuido'] },
+        { dimension: 'Autonomia', pregunta: '¿Cuanta agencia tienen tus estudiantes sobre su aprendizaje?', niveles: ['Yo defino que, como y cuando aprenden mis estudiantes','Doy opciones dentro de una estructura muy definida','Los estudiantes eligen como demostrar su aprendizaje','Los estudiantes co-disenan parte del proceso formativo','Cada estudiante gestiona su propio trayecto con mi acompanamiento'] },
+        { dimension: 'Creatividad', pregunta: '¿Como abordas el error y la experimentacion en el aula?', niveles: ['El error se corrige; no hay espacio para la experimentacion','Tolero el error pero no lo uso como herramienta pedagogica','Creo espacios seguros para intentar cosas distintas','El error es informacion: lo analizamos y construimos desde ahi','El aula es un laboratorio donde prototipar, fallar y mejorar es lo normal'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Como trabajas las habilidades socioemocionales con tus estudiantes?', niveles: ['No es parte de mi rol como docente de asignatura','Las abordamos cuando hay un conflicto o problema','Integro algunas dinamicas SEL de forma ocasional','Las habilidades SEL son parte transversal de mi diseno pedagogico','Mi aula modela y practica autoconciencia, empatia y regulacion todos los dias'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como evolucionas tu practica pedagogica?', niveles: ['Enseno de la misma forma que aprendi a hacerlo','Incorporo cambios cuando me los solicita la institucion','Actualizo mi practica cuando aparece evidencia o capacitacion relevante','Busco activamente nuevas metodologias y las experimento en el aula','Investigo, innovo, comparto y retroalimento a otros en mi practica'] }
+      ]
+    },
+    establecimiento: {
+      label: 'Como establecimiento',
+      icon: '\u{1F3EB}',
+      desc: 'Tu escuela frente a los estandares internacionales',
+      questions: [
+        { dimension: 'Pensamiento critico', pregunta: '¿El colegio desarrolla pensamiento critico de forma sistematica?', niveles: ['No hay evidencia de trabajo explicito en pensamiento critico','Se menciona en el PEI pero no se refleja en el aula','Algunas asignaturas o docentes lo trabajan de forma aislada','Hay un diseno pedagogico transversal que lo incluye','Es un sello del colegio con evidencia de impacto medible'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como colabora la comunidad escolar en el diseno pedagogico?', niveles: ['Las decisiones pedagogicas las toma solo la direccion','Hay instancias de consulta pero no vinculantes','Docentes participan en el diseno de algunos proyectos','Hay una cultura de co-construccion entre docentes, familias y estudiantes','La comunidad co-disena el modelo y lo evalua en ciclos continuos'] },
+        { dimension: 'Autonomia', pregunta: '¿Cuanta agencia tienen los estudiantes en el colegio?', niveles: ['Los estudiantes son receptores de decisiones que otros toman','Hay instancias de participacion estudiantil simbolicas','Los estudiantes participan en algunas decisiones que los afectan','Los estudiantes co-disenan actividades, proyectos y evaluaciones','La voz estudiantil incide en el diseno pedagogico e institucional'] },
+        { dimension: 'Creatividad', pregunta: '¿El colegio tiene una cultura de innovacion pedagogica?', niveles: ['Se sigue el mismo modelo sin espacio para experimentar','Se toleran innovaciones individuales pero no se fomentan','Hay proyectos innovadores puntuales en algunas areas','Existe una cultura de experimentacion pedagogica respaldada','La innovacion es parte del ADN institucional con ciclos de mejora continua'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿El colegio trabaja el bienestar y las habilidades SEL de forma explicita?', niveles: ['No hay programas ni estrategias SEL en el establecimiento','Hay intervenciones reactivas ante crisis o conflictos','Existen talleres o espacios SEL de forma complementaria','Las habilidades SEL estan integradas en el curriculum de forma transversal','El bienestar y las SEL son ejes estructurales del modelo educativo con evidencia de impacto'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como responde el colegio a los cambios del entorno?', niveles: ['Los cambios externos no se reflejan en el modelo educativo','Se adapta cuando la normativa lo exige','Se actualiza ante tendencias relevantes con cierta regularidad','Monitorea activamente el entorno y ajusta su modelo de forma proactiva','Tiene un brazo de I+D que investiga, innova y difunde sus hallazgos'] }
+      ]
+    },
+    empresa: {
+      label: 'Como empresa',
+      icon: '\u{1F3E2}',
+      desc: 'Tu organizacion y las competencias que necesita',
+      questions: [
+        { dimension: 'Pensamiento critico', pregunta: '¿Tu organizacion fomenta el pensamiento critico en sus equipos?', niveles: ['Se ejecutan instrucciones sin cuestionamiento sistemico','El cuestionamiento ocurre solo en niveles directivos','Hay instancias de analisis critico en reuniones o proyectos','Los equipos evaluan, contrastan y proponen con evidencia regularmente','El pensamiento critico es una competencia activamente desarrollada y medida'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como trabajan los equipos en tu organizacion?', niveles: ['El trabajo es principalmente individual con reportes a la jerarquia','Hay equipos pero la colaboracion es mas formal que real','Los equipos colaboran en proyectos con objetivos compartidos','La colaboracion cross-funcional es parte de la cultura organizacional','Los equipos humano-IA y cross-disciplinarios son la norma y generan valor'] },
+        { dimension: 'Autonomia', pregunta: '¿Que nivel de autonomia tienen las personas en tu organizacion?', niveles: ['Las tareas estan prescritas y el margen de decision es minimo','Hay autonomia operativa pero no estrategica','Las personas toman decisiones en su area con respaldo','Hay cultura de ownership: las personas disenan como lograr sus objetivos','Las personas son agentes activos que proponen, experimentan y lideran cambios'] },
+        { dimension: 'Creatividad', pregunta: '¿Tu organizacion tiene espacio real para la innovacion?', niveles: ['La eficiencia operativa no deja espacio para experimentar','La innovacion se tolera si no interrumpe las operaciones','Hay proyectos de innovacion con recursos asignados','La cultura organizacional acepta el error como parte del proceso creativo','La innovacion esta en el centro del modelo de negocio y es parte del rol de todos'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Tu organizacion gestiona las habilidades humanas con la misma seriedad que las tecnicas?', niveles: ['El foco es en resultados tecnicos; las habilidades blandas no se miden','Hay capacitaciones ocasionales en liderazgo o comunicacion','Las competencias SEL se incluyen en evaluaciones de desempeno','Hay programas sistematicos de desarrollo de habilidades humanas','Las habilidades humanas son el diferenciador estrategico y se desarrollan continuamente'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como responde tu organizacion al cambio tecnologico?', niveles: ['Los cambios tecnologicos se abordan solo cuando es urgente','Se adoptan tecnologias cuando la competencia lo hace','Hay una estrategia de transformacion digital en marcha','La organizacion monitorea tendencias y se adelanta proactivamente','La adaptacion continua es parte del ADN organizacional y una ventaja competitiva'] }
+      ]
+    },
+    estudiante: {
+      label: 'Como estudiante',
+      icon: '\u{1F393}',
+      desc: 'Tus destrezas y como las estas desarrollando',
+      questions: [
+        { dimension: 'Pensamiento critico', pregunta: '¿Que haces cuando lees o escuchas algo que no sabes si es verdad?', niveles: ['Lo acepto o comparto si me parece interesante','A veces desconfio, pero no se bien como verificarlo','Busco en otra fuente antes de creer o compartir','Contrasto varias fuentes y noto cuando algo no cuadra','Evaluo con criterio propio, detecto sesgos y ayudo a otros a no propagar informacion falsa'] },
+        { dimension: 'Colaboracion', pregunta: '¿Como trabajas cuando estas en un grupo?', niveles: ['Prefiero hacerlo solo o espero que los demas lideren','Participo pero evito el conflicto aunque algo no me parezca','Contribuyo y escucho, aunque me cuesta ceder en lo que creo','Construyo con otros y valoro que piensen distinto a mi','Facilito al grupo, distribuyo roles y co-creo algo que nadie hubiera logrado solo'] },
+        { dimension: 'Autonomia', pregunta: '¿Como aprendes cuando algo te interesa de verdad?', niveles: ['Espero que el profe me explique o no avanzo','Busco ayuda rapido si no entiendo de inmediato','Intento por mi cuenta un rato antes de pedir ayuda','Busco, pruebo, me equivoco y sigo hasta entender','Diseno mi propio camino de aprendizaje y evaluo mi propio avance'] },
+        { dimension: 'Creatividad', pregunta: '¿Como enfrentas un problema que no tiene una respuesta clara?', niveles: ['Me bloqueo o espero que alguien me diga que hacer','Intento una cosa y si no funciona, pido ayuda','Pruebo varias alternativas antes de rendirme','Exploro el problema desde varios angulos y genero soluciones distintas','Disfruto los problemas dificiles y mejoro con cada intento fallido'] },
+        { dimension: 'Habilidades socioemocionales', pregunta: '¿Como reaccionas cuando algo te sale mal o alguien te critica?', niveles: ['Me afecta mucho y me cuesta seguir adelante','Me frustro pero eventualmente lo supero','Lo proceso con tiempo y aprendo algo de la situacion','Lo tomo como informacion y ajusto sin que me derrumbe','Lo incorporo rapido, agradezco el feedback y lo uso para mejorar'] },
+        { dimension: 'Adaptabilidad', pregunta: '¿Como te preparas para un mundo que sigue cambiando?', niveles: ['No me preparo especialmente — vere cuando llegue el momento','Me preocupa pero no se que hacer al respecto','Intento estar al dia con lo que pasa en el mundo','Aprendo destrezas que se que sirven en cualquier contexto','Construyo mi capacidad de aprender continuamente como mi principal herramienta'] }
+      ]
+    }
+  };
+
+  const LEVEL_NAMES = ['No ocurre', 'Rara vez', 'A veces', 'Con frecuencia', 'Es mi norma'];
+  const LEVEL_COLORS = ['rgba(166,50,40,.25)', 'rgba(200,100,0,.25)', 'rgba(180,160,0,.25)', 'rgba(31,107,59,.25)', 'rgba(13,92,99,.25)'];
+  const LEVEL_TEXT_COLORS = ['#E85D24', '#F5A623', '#D4C432', '#5DCAA5', '#7EC8E3'];
+
+  const benchmarks = {
+    persona: {
+      'Promedio global': [52, 48, 55, 45, 42, 40],
+      'Top 10% mundial': [88, 85, 90, 82, 78, 80],
+      'Promedio Chile': [48, 42, 50, 40, 38, 35],
+    },
+    docente: {
+      'Docente tradicional': [35, 30, 28, 25, 32, 20],
+      'Docente innovador': [75, 78, 70, 72, 68, 75],
+      'Estandar OCDE': [65, 60, 58, 55, 55, 50],
+    },
+    establecimiento: {
+      'Colegio promedio Chile': [35, 25, 30, 22, 28, 20],
+      'Estandar OCDE': [60, 55, 52, 50, 50, 45],
+      'Escuela innovadora': [78, 75, 72, 70, 68, 70],
+    },
+    empresa: {
+      'Empresa tradicional': [40, 30, 35, 28, 32, 25],
+      'Startup tecnologica': [70, 82, 65, 75, 55, 80],
+      'Top employer global': [85, 80, 80, 78, 75, 82],
+    },
+    estudiante: {
+      'Promedio regional': [45, 40, 38, 42, 35, 30],
+      'Estudiante proactivo': [72, 70, 68, 75, 65, 70],
+      'Referente global': [88, 85, 82, 85, 80, 82],
+    }
+  };
+
+  const insightPool = {
+    strength: [
+      'Esta es la base sobre la que puedes construir todo lo demas. Las personas y organizaciones que dominan esta dimension tienen una ventaja que la IA no puede replicar.',
+      'Aqui tienes un activo que el mercado valora cada vez mas. Mientras la tecnologia avanza, esta destreza humana se vuelve mas escasa — y mas valiosa.',
+      'Tu fortaleza en esta area te posiciona en el grupo que lidera la adaptacion al cambio. Cultivala y compartela.',
+    ],
+    growth: [
+      'Esta dimension es donde mas potencial de transformacion tienes. Un pequeno avance aqui tiene un efecto multiplicador en todas las demas.',
+      'No es una debilidad — es una oportunidad. Las destrezas del siglo XXI se desarrollan a cualquier edad. Lo que importa es la decision de empezar.',
+      'Aqui esta tu proximo salto. Los datos muestran que las personas que trabajan esta dimension de forma intencional ven resultados en semanas, no en anos.',
+    ]
+  };
+
+  // ========== STATE ==========
+  let currentRole = null;
+  let currentQ = 0;
+  let answers = [];
+  let questions = [];
+  let dimensions = [];
+  let userScores = [];
+  let activeBenchmark = null;
+
+  // ========== INIT: Render role cards ==========
+  (function initProfiles() {
+    const container = document.getElementById('dx-profiles');
+    const roleKeys = Object.keys(rubrica);
+    container.innerHTML = roleKeys.map(key => {
+      const r = rubrica[key];
+      return '<div class="dx-profile" data-role="' + key + '">' +
+        '<div class="dx-profile__icon">' + r.icon + '</div>' +
+        '<div class="dx-profile__name">' + r.label + '</div>' +
+        '<div class="dx-profile__desc">' + r.desc + '</div>' +
+      '</div>';
+    }).join('');
+    container.querySelectorAll('.dx-profile').forEach(function(card) {
+      card.addEventListener('click', function() { selectRole(card.dataset.role, card); });
+    });
+  })();
+
+  // ========== ROLE SELECTION ==========
+  function selectRole(role, cardEl) {
+    currentRole = role;
+    currentQ = 0;
+    questions = rubrica[role].questions;
+    dimensions = questions.map(function(q) { return q.dimension; });
+    answers = new Array(questions.length).fill(-1);
+
+    // UI updates
+    document.getElementById('dx-results').classList.remove('dx-results--active');
+    document.querySelectorAll('.dx-profile').forEach(function(p) { p.classList.remove('dx-profile--active'); });
+    cardEl.classList.add('dx-profile--active');
+    document.getElementById('dx-quiz').classList.add('dx-quiz--active');
+    renderQuestion();
+    document.getElementById('dx-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ========== RENDER QUESTION ==========
+  function renderQuestion() {
+    var q = questions[currentQ];
+    var total = questions.length;
+
+    document.getElementById('dx-progress-text').textContent = 'Pregunta ' + (currentQ + 1) + ' de ' + total;
+    document.getElementById('dx-progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
+    document.getElementById('dx-prev').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+
+    var nextBtn = document.getElementById('dx-next');
+    nextBtn.textContent = currentQ === total - 1 ? 'Ver resultados \u2192' : 'Siguiente \u2192';
+
+    var html = '<div class="dx-q">' +
+      '<div class="dx-q__dimension">' + q.dimension + '</div>' +
+      '<div class="dx-q__text">' + q.pregunta + '</div>' +
+      '<div class="dx-levels">';
+
+    for (var i = 0; i < 5; i++) {
+      var selected = answers[currentQ] === i;
+      html += '<button class="dx-level' + (selected ? ' dx-level--selected' : '') + '" data-level="' + i + '" style="' +
+        (selected ? 'border-color:' + LEVEL_TEXT_COLORS[i] + ';background:' + LEVEL_COLORS[i] : '') + '">' +
+        '<span class="dx-level__badge" style="background:' + LEVEL_COLORS[i] + ';color:' + LEVEL_TEXT_COLORS[i] + '">' + i + '</span>' +
+        '<span>' +
+          '<div class="dx-level__label" style="color:' + LEVEL_TEXT_COLORS[i] + '">' + LEVEL_NAMES[i] + '</div>' +
+          '<div class="dx-level__desc">' + q.niveles[i] + '</div>' +
+        '</span>' +
+      '</button>';
+    }
+
+    html += '</div></div>';
+    document.getElementById('dx-question-area').innerHTML = html;
+
+    // Attach click handlers
+    document.querySelectorAll('.dx-level').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        selectLevel(parseInt(btn.dataset.level));
+      });
+    });
+  }
+
+  // ========== SELECT LEVEL ==========
+  function selectLevel(level) {
+    answers[currentQ] = level;
+
+    // Visual feedback
+    document.querySelectorAll('.dx-level').forEach(function(btn, idx) {
+      var isSelected = idx === level;
+      btn.classList.toggle('dx-level--selected', isSelected);
+      if (isSelected) {
+        btn.style.borderColor = LEVEL_TEXT_COLORS[idx];
+        btn.style.background = LEVEL_COLORS[idx];
+      } else {
+        btn.style.borderColor = '';
+        btn.style.background = '';
+      }
+    });
+
+    // Auto-advance after 400ms
+    setTimeout(function() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }, 400);
+  }
+
+  // ========== NAV BUTTONS ==========
+  document.getElementById('dx-prev').addEventListener('click', function() {
+    if (currentQ > 0) { currentQ--; renderQuestion(); }
+  });
+
+  document.getElementById('dx-next').addEventListener('click', function() {
+    if (answers[currentQ] === -1) { answers[currentQ] = 2; } // default middle if skipped
+    if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
+    else { showResults(); }
+  });
+
+  // ========== SHOW RESULTS ==========
+  function showResults() {
+    document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
+    document.getElementById('dx-results').classList.add('dx-results--active');
+
+    var data = rubrica[currentRole];
+    var numQ = questions.length;
+
+    // Scores: each answer is 0-4, normalize to 0-100
+    var scores = [];
+    for (var i = 0; i < numQ; i++) {
+      var val = answers[i] >= 0 ? answers[i] : 2;
+      scores.push(Math.round((val / 4) * 100));
+    }
+    userScores = scores;
+
+    var total = Math.round(scores.reduce(function(a, b) { return a + b; }, 0) / numQ);
+
+    // Profile badge
+    document.getElementById('dx-results-profile').textContent = data.label;
+
+    // Title based on score
+    var title = 'Tu perfil muestra oportunidades de crecimiento importantes';
+    if (total >= 80) title = 'Tu perfil esta altamente alineado con el siglo XXI';
+    else if (total >= 60) title = 'Tu perfil muestra una base solida con espacio para crecer';
+    else if (total >= 40) title = 'Tu perfil tiene fundamentos — y un gran potencial de desarrollo';
+    document.getElementById('dx-results-title').textContent = title;
+
+    // Score cards
+    var maxIdx = 0, minIdx = 0;
+    for (var i = 1; i < numQ; i++) {
+      if (scores[i] > scores[maxIdx]) maxIdx = i;
+      if (scores[i] < scores[minIdx]) minIdx = i;
+    }
+
+    document.getElementById('dx-scores').innerHTML =
+      '<div class="dx-score"><div class="dx-score__val">' + total + '%</div><div class="dx-score__label">Score global</div></div>' +
+      '<div class="dx-score" style="border-left-color:#5DCAA5"><div class="dx-score__val" style="color:#5DCAA5">' + scores[maxIdx] + '%</div><div class="dx-score__label">Mayor fortaleza</div></div>' +
+      '<div class="dx-score" style="border-left-color:var(--color-primary-mid,#2E6DA4)"><div class="dx-score__val" style="color:var(--color-primary-mid,#2E6DA4)">' + scores[minIdx] + '%</div><div class="dx-score__label">Mayor oportunidad</div></div>';
+
+    // Dimension bars
+    var dimsHTML = '';
+    for (var i = 0; i < numQ; i++) {
+      var levelIdx = answers[i] >= 0 ? answers[i] : 2;
+      dimsHTML += '<div class="dx-dim">' +
+        '<div class="dx-dim__header">' +
+          '<span class="dx-dim__name">' + dimensions[i] + ' <span class="dx-dim__level-tag" style="background:' + LEVEL_COLORS[levelIdx] + ';color:' + LEVEL_TEXT_COLORS[levelIdx] + '">' + LEVEL_NAMES[levelIdx] + '</span></span>' +
+          '<span class="dx-dim__pct">' + scores[i] + '%</span>' +
+        '</div>' +
+        '<div class="dx-dim__bar"><div class="dx-dim__fill" id="dx-bar-' + i + '"></div></div>' +
+      '</div>';
+    }
+    document.getElementById('dx-dims').innerHTML = dimsHTML;
+
+    // Animate bars
+    setTimeout(function() {
+      for (var i = 0; i < numQ; i++) {
+        document.getElementById('dx-bar-' + i).style.width = scores[i] + '%';
+      }
+    }, 200);
+
+    // Radar chart
+    drawRadar(dimensions, scores);
+
+    // Benchmarks
+    activeBenchmark = null;
+    var bmarks = benchmarks[currentRole];
+    var benchHTML = '';
+    Object.keys(bmarks).forEach(function(name) {
+      benchHTML += '<button class="dx-bench__opt" data-bench="' + name + '">' + name + '</button>';
+    });
+    document.getElementById('dx-bench-options').innerHTML = benchHTML;
+    document.querySelectorAll('.dx-bench__opt').forEach(function(btn) {
+      btn.addEventListener('click', function() { toggleBenchmark(btn, btn.dataset.bench); });
+    });
+
+    // Insights
+    var sp = insightPool.strength;
+    var gp = insightPool.growth;
+    document.getElementById('dx-insights').innerHTML =
+      '<div class="dx-insight">' +
+        '<div class="dx-insight__title">Tu mayor fortaleza</div>' +
+        '<p class="dx-insight__text"><strong>' + dimensions[maxIdx] + ' (' + scores[maxIdx] + '%):</strong> ' + sp[Math.floor(Math.random() * sp.length)] + '</p>' +
+      '</div>' +
+      '<div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">' +
+        '<div class="dx-insight__title" style="color:var(--color-primary-mid,#2E6DA4)">Tu mayor oportunidad de crecimiento</div>' +
+        '<p class="dx-insight__text"><strong>' + dimensions[minIdx] + ' (' + scores[minIdx] + '%):</strong> ' + gp[Math.floor(Math.random() * gp.length)] + '</p>' +
+      '</div>';
+
+    // Scroll to results
+    // Show profiling form
+    document.getElementById('profiling-form').style.display = 'block';
+
+    document.getElementById('dx-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ========== PROFILING + PDF ==========
+  var pfAnswers = {};
+  function selPF(el, field, value) {
+    el.closest('[id^="pf-"]').querySelectorAll('.pf-opt').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+    pfAnswers[field] = value;
+    var complete = pfAnswers.motivation && pfAnswers.stage && pfAnswers.rectype;
+    var btn = document.getElementById('generate-btn');
+    if (btn) {
+      btn.disabled = !complete;
+      btn.style.background = complete ? '#F5A623' : 'rgba(245,166,35,.15)';
+      btn.style.color = complete ? '#0A1628' : 'rgba(245,166,35,.4)';
+      btn.style.borderColor = complete ? '#F5A623' : 'rgba(245,166,35,.2)';
+      btn.style.cursor = complete ? 'pointer' : 'not-allowed';
+    }
+  }
+
+  async function generateReport() {
+    document.getElementById('generate-btn').style.display = 'none';
+    document.getElementById('generating-state').style.display = 'block';
+    var dims = rubrica[currentRole].questions.map(function(q) { return q.dimension; });
+    var dimScores = {};
+    dims.forEach(function(d, i) { dimScores[d] = answers[i] || 0; });
+    var totalScore = Object.values(dimScores).reduce(function(a, v) { return a + v; }, 0);
+    var maxScore = dims.length * 4;
+    var sorted = Object.entries(dimScores).sort(function(a, b) { return b[1] - a[1]; });
+    var strongestDim = sorted[0][0];
+    var weakestDim = sorted[sorted.length - 1][0];
+    var name = (document.getElementById('pf-name').value || '').trim();
+    var pct = totalScore / maxScore;
+    var scoreLabel = pct >= 0.75 ? 'Perfil consolidado' : pct >= 0.5 ? 'Perfil en desarrollo' : 'Perfil emergente';
+    var roleLabels = { persona:'Persona', docente:'Docente', establecimiento:'Establecimiento', empresa:'Empresa', estudiante:'Estudiante' };
+    var diagnosticSummary = Object.entries(dimScores).map(function(e) { return e[0]+': '+e[1]+'/4'; }).join(' · ');
+    var prompt = 'Eres un especialista en competencias del siglo XXI. Genera textos para un informe PDF. Responde SOLO con JSON válido.\n\nPERFIL:\n- Nombre: '+(name||'no indicado')+'\n- Rol: '+roleLabels[currentRole]+'\n- Resultados: '+diagnosticSummary+'\n- Fortaleza: '+strongestDim+' ('+dimScores[strongestDim]+'/4)\n- Oportunidad: '+weakestDim+' ('+dimScores[weakestDim]+'/4)\n- Score: '+totalScore+'/'+maxScore+' — '+scoreLabel+'\n- Motivación: '+pfAnswers.motivation+'\n- Punto de partida: '+pfAnswers.stage+'\n- Tipo recomendaciones: '+pfAnswers.rectype+'\n\nJSON con claves:\n"intro": 2-3 oraciones. Nombre si existe. Motivación. Fortaleza. Tono adulto.\n"lo_que_ya_tienes": 2 oraciones. Qué puede hacer AHORA con su fortaleza.\n"lo_que_puedes_lograr": 2 oraciones. Qué se abre al fortalecer su oportunidad.\n"recomendacion_1": Acción para hoy. Concreta. Max 2 oraciones.\n"recomendacion_2": Acción para este mes. Max 2 oraciones.\n"recomendacion_3": Acción para seguir creciendo. Max 2 oraciones.\n"etiquetas_recs": Array de 3 strings con etiqueta temporal.\n"cierre": 1-2 oraciones. Conecta fortaleza con lo que puede lograr.\nREGLAS: Sin mencionar instituciones. Tú/tu. Max 50 palabras por campo.';
+    var insights = null;
+    try {
+      var response = await fetch('https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/generate-report', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({prompt:prompt}) });
+      insights = await response.json();
+    } catch(err) { console.error(err); }
+    buildPDF(insights, dimScores, name, totalScore, maxScore, scoreLabel, roleLabels[currentRole]);
+  }
+
+  function buildPDF(insights, dimScores, name, totalScore, maxScore, scoreLabel, roleLabel) {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var displayName = name || 'Anónimo';
+    var pct = totalScore / maxScore;
+    var y = 0;
+    // HEADER
+    doc.setFillColor(10,22,40); doc.rect(0,0,210,48,'F');
+    doc.setFillColor(245,166,35); doc.rect(0,0,4,48,'F');
+    doc.setTextColor(200,130,20); doc.setFontSize(7); doc.setFont('helvetica','bold');
+    doc.text('INFORME DE LIDERAZGO · SIGLO XXI',12,10);
+    doc.setTextColor(245,166,35); doc.setFontSize(18);
+    doc.text('Perfil de Habilidades del Siglo XXI',12,20);
+    doc.setTextColor(255,255,255); doc.setFontSize(10); doc.setFont('helvetica','normal');
+    doc.text(displayName+'  ·  '+roleLabel+'  ·  '+new Date().toLocaleDateString('es-CL'),12,28);
+    doc.setTextColor(180,190,200); doc.setFontSize(6.5);
+    doc.text('CASEL 2017 · OCDE Learning Compass 2030 · WEF Future of Jobs 2025 · IA (Anthropic)',12,38);
+    y = 56;
+    // INTRO
+    if (insights && insights.intro) {
+      doc.setFillColor(240,247,255);
+      var il = doc.splitTextToSize(insights.intro,165); var ih = il.length*5+14;
+      doc.roundedRect(12,y,186,ih,2,2,'F');
+      doc.setDrawColor(24,95,165); doc.setLineWidth(0.8); doc.line(12,y,12,y+ih);
+      doc.setTextColor(24,95,165); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('ANÁLISIS PERSONALIZADO',18,y+6);
+      doc.setTextColor(30,40,55); doc.setFontSize(9); doc.setFont('helvetica','normal');
+      doc.text(il,18,y+12); y += ih+8;
+    }
+    // SCORE
+    doc.setFillColor(240,243,248); doc.roundedRect(12,y,186,16,2,2,'F');
+    doc.setTextColor(10,22,40); doc.setFontSize(18); doc.setFont('helvetica','bold');
+    doc.text(totalScore.toFixed(1),22,y+11);
+    doc.setTextColor(90,100,115); doc.setFontSize(10); doc.setFont('helvetica','normal');
+    doc.text('/'+maxScore,37,y+11);
+    var bc = pct>=0.75?[31,107,59]:pct>=0.5?[200,100,0]:[166,50,40];
+    doc.setTextColor(bc[0],bc[1],bc[2]); doc.setFontSize(8); doc.setFont('helvetica','bold');
+    doc.text(scoreLabel,190,y+11,{align:'right'}); y += 22;
+    // DIMENSIONES
+    doc.setTextColor(154,160,171); doc.setFontSize(7); doc.setFont('helvetica','bold');
+    doc.text('RESULTADOS POR DIMENSIÓN',12,y); y += 6;
+    Object.keys(dimScores).forEach(function(dim) {
+      var s = dimScores[dim]; var c = s>=3?[31,107,59]:s>=2?[200,100,0]:[166,50,40];
+      doc.setTextColor(30,40,55); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(dim,14,y);
+      doc.setFillColor(232,236,242); doc.roundedRect(90,y-3,85,4,1,1,'F');
+      doc.setFillColor(c[0],c[1],c[2]); doc.roundedRect(90,y-3,(s/4)*85,4,1,1,'F');
+      doc.setTextColor(c[0],c[1],c[2]); doc.setFontSize(8); doc.setFont('helvetica','bold');
+      doc.text(s.toFixed(1),180,y,{align:'right'}); y += 8;
+    }); y += 4;
+    // LO QUE YA TIENES / PUEDES LOGRAR
+    var h1=0,h2=0;
+    if (insights && insights.lo_que_ya_tienes) {
+      doc.setFillColor(234,243,222);
+      var l1 = doc.splitTextToSize(insights.lo_que_ya_tienes,82); h1=l1.length*5+12;
+      doc.roundedRect(12,y,90,h1,2,2,'F');
+      doc.setTextColor(31,107,59); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('LO QUE YA PUEDES HACER',17,y+5.5);
+      doc.setTextColor(20,80,40); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(l1,17,y+10.5);
+    }
+    if (insights && insights.lo_que_puedes_lograr) {
+      doc.setFillColor(250,238,218);
+      var l2 = doc.splitTextToSize(insights.lo_que_puedes_lograr,82); h2=l2.length*5+12;
+      doc.roundedRect(108,y,90,h2,2,2,'F');
+      doc.setTextColor(150,70,0); doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+      doc.text('LO QUE PUEDES LOGRAR',113,y+5.5);
+      doc.setTextColor(100,50,0); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+      doc.text(l2,113,y+10.5);
+    }
+    y += Math.max(h1,h2)+8;
+    // RECOMENDACIONES
+    if (insights && insights.recomendacion_1) {
+      doc.setFillColor(10,22,40); doc.roundedRect(12,y,186,8,2,2,'F');
+      doc.setTextColor(245,166,35); doc.setFontSize(7.5); doc.setFont('helvetica','bold');
+      doc.text('3 ACCIONES CONCRETAS',105,y+5.5,{align:'center'}); y += 12;
+      var recs = [insights.recomendacion_1,insights.recomendacion_2,insights.recomendacion_3];
+      var etiq = insights.etiquetas_recs || ['Para hoy','Para este mes','Para seguir'];
+      recs.filter(Boolean).forEach(function(rec,i) {
+        var rl = doc.splitTextToSize(rec,155); var rh = rl.length*5+12;
+        doc.setFillColor(240,243,248); doc.roundedRect(12,y,186,rh,2,2,'F');
+        doc.setFillColor(10,22,40); doc.circle(21,y+rh/2,4,'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(8); doc.setFont('helvetica','bold');
+        doc.text(String(i+1),21,y+rh/2+1,{align:'center'});
+        doc.setTextColor(24,95,165); doc.setFontSize(6.5);
+        doc.text((etiq[i]||'').toUpperCase(),29,y+5);
+        doc.setTextColor(30,40,55); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+        doc.text(rl,29,y+10); y += rh+4;
+      });
+    }
+    // CIERRE
+    if (insights && insights.cierre) {
+      y += 2;
+      var cl = doc.splitTextToSize('"'+insights.cierre+'"',172); var ch = cl.length*5.5+10;
+      doc.setFillColor(10,22,40); doc.roundedRect(12,y,186,ch,2,2,'F');
+      doc.setTextColor(255,255,255); doc.setFontSize(9.5); doc.setFont('helvetica','italic');
+      doc.text(cl,105,y+7,{align:'center'}); y += ch+6;
+    }
+    // NOTA
+    if (y>258){doc.addPage();y=16;}
+    doc.setTextColor(154,160,171); doc.setFontSize(7); doc.setFont('helvetica','italic');
+    doc.text(doc.splitTextToSize('Basado en CASEL (2017), OCDE Learning Compass 2030, WEF Future of Jobs 2025. Textos generados con IA (Claude, Anthropic). Herramienta de reflexión, no evaluación certificada.',186),12,y);
+    // FOOTER
+    doc.setFillColor(10,22,40); doc.rect(0,282,210,15,'F');
+    doc.setFillColor(245,166,35); doc.rect(0,282,4,15,'F');
+    doc.setTextColor(245,166,35); doc.setFontSize(8); doc.setFont('helvetica','bold');
+    doc.text('Colegio Camilo Henríquez · Talca, Chile',12,290);
+    doc.setTextColor(180,190,205); doc.setFont('helvetica','normal'); doc.setFontSize(7);
+    doc.text(new Date().toLocaleDateString('es-CL'),198,290,{align:'right'});
+    // SAVE
+    doc.save('perfil-liderazgo-'+(name||'anonimo').replace(/\s+/g,'-')+'-'+new Date().toISOString().split('T')[0]+'.pdf');
+    document.getElementById('generating-state').style.display='none';
+    document.getElementById('generate-btn').style.display='block';
+    document.getElementById('generate-btn').textContent='✓ Descargado — Generar otro →';
+  }
+
+  // ========== RADAR CHART ==========
+  function drawRadar(labels, scores, benchScores) {
+    var svg = document.getElementById('dx-radar-svg');
+    var cx = 200, cy = 200, r = 140;
+    var n = labels.length;
+    var angleStep = (2 * Math.PI) / n;
+    var offset = -Math.PI / 2;
+
+    function polarToXY(angle, radius) {
+      return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+    }
+
+    var html = '';
+
+    // Grid rings
+    [0.2, 0.4, 0.6, 0.8, 1.0].forEach(function(pct) {
+      var pts = [];
+      for (var i = 0; i < n; i++) pts.push(polarToXY(offset + i * angleStep, r * pct).join(','));
+      html += '<polygon points="' + pts.join(' ') + '" class="' + (pct === 1 ? 'dx-radar__bg' : 'dx-radar__grid') + '"/>';
+    });
+
+    // Axis lines
+    for (var i = 0; i < n; i++) {
+      var pt = polarToXY(offset + i * angleStep, r);
+      html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + pt[0] + '" y2="' + pt[1] + '" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>';
+    }
+
+    // Labels
+    for (var i = 0; i < n; i++) {
+      var lpt = polarToXY(offset + i * angleStep, r + 28);
+      var parts = labels[i].split(' ');
+      var mid = Math.ceil(parts.length / 2);
+      var l1 = parts.slice(0, mid).join(' ');
+      var l2 = parts.slice(mid).join(' ');
+      html += '<text x="' + lpt[0] + '" y="' + (lpt[1] - 6) + '" class="dx-radar__label">' + l1 + '</text>';
+      if (l2) html += '<text x="' + lpt[0] + '" y="' + (lpt[1] + 7) + '" class="dx-radar__label">' + l2 + '</text>';
+    }
+
+    // Benchmark shape (behind)
+    if (benchScores) {
+      var bPts = [];
+      var bDots = '';
+      for (var i = 0; i < n; i++) {
+        var val = benchScores[i] / 100;
+        var bp = polarToXY(offset + i * angleStep, r * val);
+        bPts.push(bp[0] + ',' + bp[1]);
+        bDots += '<circle cx="' + bp[0] + '" cy="' + bp[1] + '" class="dx-radar__bench-dot"/>';
+      }
+      html += '<polygon points="' + bPts.join(' ') + '" class="dx-radar__bench"/>';
+      html += bDots;
+    }
+
+    // User shape
+    var dataPts = [];
+    var dots = '';
+    for (var i = 0; i < n; i++) {
+      var val = scores[i] / 100;
+      var dp = polarToXY(offset + i * angleStep, r * val);
+      dataPts.push(dp[0] + ',' + dp[1]);
+      dots += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" class="dx-radar__dot"/>';
+    }
+    html += '<polygon points="' + dataPts.join(' ') + '" class="dx-radar__shape"/>';
+    html += dots;
+
+    // Legend if benchmark
+    if (benchScores) {
+      html += '<rect x="10" y="370" width="12" height="3" fill="var(--color-amber,#F5A623)" rx="1"/>';
+      html += '<text x="26" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Tu</text>';
+      html += '<rect x="50" y="370" width="12" height="3" fill="var(--color-primary-mid,#2E6DA4)" rx="1"/>';
+      html += '<text x="66" y="374" fill="rgba(255,255,255,0.6)" font-size="9" font-weight="500">Referente</text>';
+    }
+
+    svg.innerHTML = html;
+  }
+
+  // ========== BENCHMARK TOGGLE ==========
+  function toggleBenchmark(btn, name) {
+    var wasActive = btn.classList.contains('dx-bench__opt--active');
+    document.querySelectorAll('.dx-bench__opt').forEach(function(b) { b.classList.remove('dx-bench__opt--active'); });
+
+    if (wasActive) {
+      activeBenchmark = null;
+      drawRadar(dimensions, userScores);
+    } else {
+      btn.classList.add('dx-bench__opt--active');
+      activeBenchmark = name;
+      drawRadar(dimensions, userScores, benchmarks[currentRole][name]);
+    }
+  }
+
+  // ========== SHARE / RESET ==========
+  document.getElementById('dx-share-wa').addEventListener('click', function(e) {
+    e.preventDefault();
+    var url = encodeURIComponent(window.location.href);
+    var text = encodeURIComponent('Acabo de hacer el autodiagnostico de habilidades del siglo XXI. ¿Que tan preparado estas tu?');
+    window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+  });
+
+  document.getElementById('dx-retry').addEventListener('click', function() {
+    if (currentRole) {
+      var card = document.querySelector('.dx-profile[data-role="' + currentRole + '"]');
+      if (card) selectRole(currentRole, card);
+    }
+  });
+
+  document.getElementById('dx-reset').addEventListener('click', function() {
+    document.getElementById('dx-results').classList.remove('dx-results--active');
+    document.getElementById('dx-quiz').classList.remove('dx-quiz--active');
+    document.querySelectorAll('.dx-profile').forEach(function(p) { p.classList.remove('dx-profile--active'); });
+    currentRole = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  </script>
+
+  <script src="nav.js?v=3"></script>
+  <script src="journey.js"></script>
+</body>
+</html>
