@@ -125,18 +125,15 @@ strong { font-weight: 600; color: var(--color-text); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
 .grid-6 { grid-template-columns: repeat(6, 1fr); }
 
-/* --- NAVBAR — oscura con glassmorphism --- */
+/* --- NAVBAR VIEJA — desactivada en v3 (layout.js maneja topbar+sidebar) --- */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(10,22,40,0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(46,109,164,0.2);
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
+  display: none !important;
+}
+.mobile-nav {
+  display: none !important;
+}
+.footer {
+  display: none !important;
 }
 .navbar__inner {
   max-width: var(--max-width);
