@@ -3,301 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colegio Camilo Henríquez · Talca — Enseñamos desde el futuro</title>
-  <meta name="description" content="300 millones de empleos expuestos a IA. 65% de los niños trabajarán en empleos que no existen. Un colegio en Talca decidió dejar de esperar.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <title>Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="layout.css">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════
-       BLOQUE 1 — EL PROBLEMA / LA OPORTUNIDAD
-       El visitante siente urgencia ANTES de saber del colegio.
-       ═══════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="container">
-      <p class="hero__label anim" style="color:rgba(255,255,255,0.5)">Colegio Camilo Henríquez · Talca, Chile</p>
-      <h1 class="anim">El futuro no está escrito.<br>Nosotros estamos aquí <span style="color:var(--color-amber)">para escribirlo.</span></h1>
-      <p class="hero__quote anim" id="hero-rotating" style="transition:opacity 0.4s ease">La tecnología cambia el tablero. Lo que jugamos en él lo decidimos nosotros — con educación, con reflexión y con la convicción de que cada persona que se mueve mueve a otras.</p>
-      <div class="anim" style="text-align:center;margin-top:.75rem">
-        <button onclick="nextHeroPhrase()" class="refresh-btn">Hay más de una razón para actuar. Descubre otra →</button>
+  <main id="v3-content">
+    <div class="v3-section" style="max-width:660px;margin:0 auto;padding-top:60px;text-align:center">
+
+      <span class="v3-tag">Colegio Camilo Henríquez · Talca, Chile</span>
+
+      <h1 class="v3-h1">
+        El futuro no está escrito.<br>
+        Nosotros estamos aquí<br>
+        <span class="amber">para escribirlo.</span>
+      </h1>
+
+      <p class="v3-lead" style="margin:0 auto 32px">
+        La tecnología cambia el tablero. Lo que jugamos en él
+        lo decidimos nosotros — con educación, con reflexión
+        y con la convicción de que cada persona que se mueve
+        mueve a otras.
+      </p>
+
+      <p style="font-size:13px;color:rgba(232,237,245,0.45);margin-bottom:16px">
+        ¿Desde qué perspectiva quieres explorar este sitio?
+      </p>
+
+      <div class="v3-grid-2" style="max-width:540px;margin:0 auto">
+
+        <div class="v3-card" onclick="selectRoleAndGo('familia')" style="text-align:left">
+          <span class="v3-card-icon">👪</span>
+          <div class="v3-card-title">Soy familia</div>
+          <div class="v3-card-sub">Apoderado, madre o padre</div>
+        </div>
+
+        <div class="v3-card" onclick="selectRoleAndGo('docente')" style="text-align:left">
+          <span class="v3-card-icon">📚</span>
+          <div class="v3-card-title">Soy docente</div>
+          <div class="v3-card-sub">Profesor o educador</div>
+        </div>
+
+        <div class="v3-card" onclick="selectRoleAndGo('estudiante')" style="text-align:left">
+          <span class="v3-card-icon">🎓</span>
+          <div class="v3-card-title">Soy estudiante</div>
+          <div class="v3-card-sub">Alumno del colegio o curioso</div>
+        </div>
+
+        <div class="v3-card" onclick="selectRoleAndGo('empresa')" style="text-align:left">
+          <span class="v3-card-icon">🏢</span>
+          <div class="v3-card-title">Represento una empresa</div>
+          <div class="v3-card-sub">Empleador, aliado o proveedor</div>
+        </div>
+
+        <div class="v3-card" onclick="selectRoleAndGo('establecimiento')" style="text-align:left;grid-column:1/-1">
+          <span class="v3-card-icon">🏫</span>
+          <div class="v3-card-title">Soy de otro establecimiento</div>
+          <div class="v3-card-sub">Director, coordinador o docente de otra escuela</div>
+        </div>
+
       </div>
-      <script>
-      var _heroPhrases = [
-        'IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes por los que podemos hacer más.',
-        'El 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen. La pregunta no es si el mundo cambió — es si la educación que reciben está a la altura de ese cambio.',
-        '300 millones de empleos expuestos a IA generativa. 92 millones desplazados para 2030. Y la única respuesta que escala al ritmo del problema es la educación.',
-        'Las habilidades cambian un 66% más rápido en empleos expuestos a IA. Lo que un joven aprende hoy puede ser obsoleto antes de que termine la carrera. La capacidad de aprender a aprender es la única destreza que no caduca.',
-        'Los contenidos falsos generados por IA crecen 900% anual. En un mundo donde cualquiera puede fabricar una mentira convincente en 3 segundos, el pensamiento crítico dejó de ser deseable — es supervivencia.',
-        'Un estudiante en Talca puede trabajar con una startup en Berlín, publicar con una universidad en Tokio, o resolver un problema en Ghana. La geografía dejó de ser un límite. La educación que recibe, no.',
-        'Klarna, IBM, UPS, Chegg: las empresas más grandes del mundo descubrieron que la IA no puede reemplazar la empatía, el juicio ni la creatividad. Exactamente lo que una educación de vanguardia desarrolla.',
-        'Las startups de un solo empleado pasaron del 22% al 38% en menos de una década. Una persona con las destrezas correctas y las herramientas de IA tiene más impacto que un departamento entero sin ellas.',
-      ];
-      var _heroIdx = parseInt(sessionStorage.getItem('cch_hero_idx') || '-1');
-      function nextHeroPhrase() {
-        _heroIdx = (_heroIdx + 1) % _heroPhrases.length;
-        sessionStorage.setItem('cch_hero_idx', _heroIdx);
-        var el = document.getElementById('hero-rotating');
-        el.style.opacity = '0';
-        setTimeout(function(){ el.textContent = _heroPhrases[_heroIdx]; el.style.opacity = '1'; }, 400);
-      }
-      nextHeroPhrase();
-      </script>
+
+      <p style="font-size:11px;color:rgba(232,237,245,0.25);margin-top:20px">
+        Puedes cambiar tu perspectiva en cualquier momento desde el menú lateral.
+      </p>
+
     </div>
-  </section>
+  </main>
 
-  <!-- ═══════════════════════════════════════════════
-       INFOGRAFÍA v4 — Gradient mesh + glass + donut + scroll reveals
-       Inspirado en: Bloomberg Visual, The Pudding, Information is Beautiful
-       ═══════════════════════════════════════════════ -->
-
-  <!-- PANEL DE DATOS — compacto, integrado con el split que sigue -->
-  <section class="section section-dark-mid" style="color:#fff;padding:var(--space-2xl) 0 var(--space-xl)">
-    <div class="container" style="max-width:950px">
-
-      <!-- Dato principal + 3 secundarios en una fila -->
-      <div class="ig-panel anim" id="ig-panel">
-        <div class="ig-panel__main">
-          <p class="ig-panel__num" id="ig-hero" data-count="300" data-suffix="M">300M</p>
-          <p class="ig-panel__desc">empleos expuestos a IA generativa en el mundo</p>
-          <p class="ig-panel__src">Goldman Sachs, 2023</p>
-          <!-- Barra proporcional -->
-          <div style="margin-top:var(--space-md)">
-            <div style="height:6px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden">
-              <div class="ig-bar" style="height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,#FF6B6B,#FFD93D);transition:width 2s cubic-bezier(.16,1,.3,1)" data-width="9%"></div>
-            </div>
-            <p style="font-size:.6rem;color:rgba(255,255,255,.25);margin-top:.2rem">9% del empleo mundial — solo con IA generativa</p>
-          </div>
-        </div>
-        <div class="ig-panel__secondary">
-          <div class="ig-panel__stat anim ig-stagger" style="--delay:0">
-            <span class="ig-panel__stat-num" data-count="92" data-suffix="M">92M</span>
-            <span class="ig-panel__stat-label">empleos desplazados para 2030</span>
-            <span class="ig-panel__stat-src">WEF, 2025</span>
-          </div>
-          <div class="ig-panel__stat anim ig-stagger" style="--delay:1">
-            <span class="ig-panel__stat-num" data-count="65" data-suffix="%">65%</span>
-            <span class="ig-panel__stat-label">niños trabajarán en empleos que no existen</span>
-            <span class="ig-panel__stat-src">WEF, 2025</span>
-          </div>
-          <div class="ig-panel__stat anim ig-stagger" style="--delay:2">
-            <span class="ig-panel__stat-num" data-count="900" data-suffix="%">900%</span>
-            <span class="ig-panel__stat-label">crecimiento de contenido falso por IA cada año</span>
-            <span class="ig-panel__stat-src">WEF/Sumsub, 2024</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pregunta puente -->
-      <p class="anim" style="text-align:center;margin-top:var(--space-xl);font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.7);font-weight:500">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
-    </div>
-  </section>
-
-  <!-- DONUT COMPARISON — desafío vs oportunidad, visual split -->
-  <section class="section section-light">
-    <div class="container">
-
-      <!-- Título de la comparación -->
-      <h2 class="text-center anim mb-2" style="font-size:clamp(1.3rem,2.5vw,1.8rem)">Dos futuros posibles. Una diferencia: la educación.</h2>
-      <p class="text-center anim mb-4" style="max-width:750px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary);font-size:clamp(1.05rem,1.8vw,1.25rem);line-height:1.7">El mismo mundo tecnológico genera dos escenarios opuestos. Lo que determina en cuál termina un joven es la calidad de la educación que recibe.</p>
-
-      <!-- Split visual: 2 donuts + data -->
-      <div class="ig-split anim">
-
-        <!-- LEFT: Sin educación de vanguardia -->
-        <div class="ig-split__side ig-split__side--left">
-          <div class="ig-donut ig-donut--red" style="--pct:0" data-pct="55">
-            <div class="ig-donut__inner">
-              <span class="ig-donut__num" data-count="55" data-suffix="%">55%</span>
-              <span class="ig-donut__label">empleos<br>en riesgo</span>
-            </div>
-          </div>
-          <h3 style="color:#C92A2A;margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Sin educación de vanguardia</h3>
-          <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela solo enseña a memorizar, calcular y seguir instrucciones</p>
-          <ul class="ig-list">
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>92M</strong> empleos desplazados — contabilidad, atención al cliente, logística, traducción: la IA ya los hace más rápido y más barato <span class="ig-list__detail">Un joven formado solo en tareas rutinarias compite directamente contra la IA — y pierde. Los 170M empleos nuevos que se crean requieren destrezas que la escuela tradicional no desarrolla. (WEF, 2025)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>21%</strong> desempleo juvenil — porque egresan con destrezas que el mercado ya no necesita <span class="ig-list__detail">Uno de cada cinco jóvenes en Chile no encuentra trabajo. No es falta de esfuerzo: es que la escuela los preparó para un mercado que ya no existe. En UK, 1,2 millones de graduados compitieron por solo 17.000 posiciones de entrada en 2024. (INE, 2024)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>900%</strong> más contenido falso — y sin pensamiento crítico, no hay defensa <span class="ig-list__detail">Videos, audios e imágenes falsos generados por IA crecen exponencialmente. Sin la capacidad de evaluar fuentes y detectar manipulación, un joven es vulnerable a estafas financieras, manipulación política y decisiones de vida basadas en mentiras. (WEF/Sumsub, 2024)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>47,9%</strong> mortalidad de comercio en Chile — porque competir sin adaptabilidad es perder <span class="ig-list__detail">El sector comercio tiene la mayor tasa de mortalidad empresarial en Chile. Las pymes son el 99% de las empresas y generan el 63% del empleo, pero el 37% quiebra en los primeros 3 años. Sin capacidad de adaptación, innovación y pensamiento estratégico, el futuro económico se cierra. (Bloomberg Línea, 2024)</span></li>
-          </ul>
-        </div>
-
-        <!-- CENTER: arrow/divider -->
-        <div class="ig-split__center">
-          <div class="ig-split__arrow">→</div>
-          <p style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--color-primary-mid);writing-mode:vertical-lr;transform:rotate(180deg);opacity:.7">Educación de vanguardia</p>
-        </div>
-
-        <!-- RIGHT: Con educación de vanguardia -->
-        <div class="ig-split__side ig-split__side--right">
-          <div class="ig-donut ig-donut--green" style="--pct:0" data-pct="56">
-            <div class="ig-donut__inner">
-              <span class="ig-donut__num" data-prefix="+" data-count="56" data-suffix="%">+56%</span>
-              <span class="ig-donut__label">más<br>empleabilidad</span>
-            </div>
-          </div>
-          <h3 style="color:var(--color-accent-green);margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Con educación de vanguardia</h3>
-          <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela desarrolla pensamiento crítico, creatividad y colaboración</p>
-          <ul class="ig-list ig-list--green">
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>+28%</strong> prima salarial — porque las destrezas humanas son las más escasas y valiosas <span class="ig-list__detail">~USD 18.000/año adicionales en ofertas que requieren habilidades complementarias a IA. Y el 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura. El mercado paga más por lo que la IA no puede hacer. (Lightcast, 2025)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>90M</strong> posiciones remotas — porque el talento con destrezas del siglo XXI trabaja para el mundo <span class="ig-list__detail">Un joven que sabe colaborar, comunicar y resolver problemas complejos puede trabajar para cualquier empresa del mundo sin emigrar. Las oportunidades son globales para quien tiene las destrezas. (WEF, 2025)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>12.4x</strong> productividad — porque la IA amplifica a quien sabe crear, no a quien solo repite <span class="ig-list__detail">Midjourney genera $500M/año con ~40 empleados. Las startups de un solo empleado pasaron del 22% al 38%. Quien combina creatividad + IA multiplica su impacto. Quien solo sabe seguir instrucciones queda en desventaja. (PwC, 2025)</span></li>
-            <li onclick="this.classList.toggle('ig-list__item--open')"><strong>4ª</strong> creatividad entre las habilidades más demandadas al 2030 — porque es lo que la IA no replica <span class="ig-list__detail">Resiliencia, empatía, liderazgo y aprendizaje continuo completan el top 10 del WEF. Son exactamente las destrezas que se desarrollan con una educación diseñada para el siglo XXI — no con un modelo del siglo XX. (WEF, 2025)</span></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- Pregunta entre secciones -->
-      <div class="anim" style="text-align:center;margin:var(--space-xl) 0 var(--space-lg)">
-        <p class="ig-question" style="font-size:clamp(1rem,2vw,1.3rem)">¿En cuál de estos dos escenarios está tu hijo hoy?</p>
-      </div>
-
-      <!-- Mini quiz — ¿Sabías que...? -->
-      <div class="ig-quiz anim">
-        <div class="ig-quiz__prompt" onclick="this.parentElement.classList.toggle('ig-quiz--revealed')">
-          <span class="ig-quiz__icon">💡</span>
-          <span>¿Sabías que una persona con IA ya hace el trabajo de 5?</span>
-          <span class="ig-quiz__cta">Toca para descubrir más →</span>
-        </div>
-        <div class="ig-quiz__answer">
-          <p>Las startups de un solo empleado pasaron del <strong>22% al 38%</strong> en menos de una década. Midjourney genera <strong>$500M/año con ~40 empleados</strong>. El 48% de empresas que usan ChatGPT ahorraron más de $50.000.</p>
-          <p style="margin-top:.5rem;font-weight:600;color:var(--color-primary-dark)">Las destrezas que la IA no puede replicar — empatía, creatividad, pensamiento crítico — son exactamente las que tu hijo necesita desarrollar en la etapa escolar.</p>
-        </div>
-      </div>
-
-      <!-- Economía digital ticker -->
-      <div class="ig-ticker anim">
-        <div class="ig-ticker__item"><strong>$14.2B</strong> e-commerce Chile</div>
-        <div class="ig-ticker__dot"></div>
-        <div class="ig-ticker__item"><strong>59%</strong> ventas desde celular</div>
-        <div class="ig-ticker__dot"></div>
-        <div class="ig-ticker__item"><strong>38%</strong> startups de 1 fundador</div>
-        <div class="ig-ticker__dot"></div>
-        <div class="ig-ticker__item"><strong>48%</strong> empresas con ChatGPT ahorraron +$50K</div>
-      </div>
-
-      <p class="text-center anim mt-4" style="font-size:.85rem;color:var(--color-text-secondary)">Toca cualquier dato para ver contexto · <a href="contexto-global.html" style="font-weight:600">Ver toda la evidencia con fuentes verificables →</a></p>
-    </div>
-  </section>
-
+  <script src="layout.js"></script>
   <script>
-  // --- COUNTERS ---
-  const counted = new Set();
-  function animCount(el) {
-    if (counted.has(el)) return; counted.add(el);
-    const t = +el.dataset.count, s = el.dataset.suffix||'', p = el.dataset.prefix||'', d = 1800, st = performance.now();
-    const ease = x => x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-    (function f(n){const pr=Math.min((n-st)/d,1);el.textContent=p+Math.round(t*ease(pr))+s;if(pr<1)requestAnimationFrame(f)})(st);
-  }
-  // Panel stats
-  const panel = document.getElementById('ig-panel');
-  if (panel) {
-    new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
-      e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
-      e.target.querySelectorAll('.ig-bar').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.width},600)});
-    })},{threshold:.2}).observe(panel);
-  }
-
-  // Stagger animations
-  document.querySelectorAll('.ig-stagger').forEach(el => {
-    const d = parseInt(el.style.getPropertyValue('--delay') || 0);
-    el.style.transitionDelay = (d * 0.2) + 's';
-  });
-  // Donut hover tooltip
-  document.querySelectorAll('.ig-donut').forEach(d => {
-    d.addEventListener('mouseenter', () => d.classList.add('ig-donut--hover'));
-    d.addEventListener('mouseleave', () => d.classList.remove('ig-donut--hover'));
-  });
-  // List items stagger
-  document.querySelectorAll('.ig-list li').forEach((li, i) => {
-    li.style.transitionDelay = (i * 0.1) + 's';
-    li.classList.add('anim');
-  });
-  // Donuts + lists
-  new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
-    e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
-    e.target.querySelectorAll('.ig-donut[data-pct]').forEach(d=>{
-      setTimeout(()=>{d.style.setProperty('--pct',d.dataset.pct)},400);
-    });
-    e.target.querySelectorAll('.ig-bar,.ig-item__fill').forEach(b=>{if(b.dataset.width)setTimeout(()=>{b.style.width=b.dataset.width},300)});
-  })},{threshold:.15}).observe(document.querySelector('.ig-split'));
+    if (localStorage.getItem('v3-role')) {
+      window.location.replace('umbral-ia.html');
+    }
+    function selectRoleAndGo(key) {
+      localStorage.setItem('v3-role', key);
+      window.location.href = 'umbral-ia.html';
+    }
   </script>
 
-  <!-- Frase ética de cierre del bloque 1 -->
-  <section class="section section-dark-deep" style="text-align:center;padding:var(--space-xl) 0;color:#fff">
-    <div class="container" style="max-width:700px">
-      <p class="anim" style="font-size:1.1rem;line-height:1.8;font-style:italic">No es marketing. No es relaciones públicas. Es el acto ético de democratizar el conocimiento que permite a una familia tomar decisiones informadas sobre el futuro de sus hijos.</p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       BLOQUE 2 — QUIÉN DETECTA EL DESAFÍO Y SE HACE CARGO
-       ═══════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container" style="max-width:850px;text-align:center">
-      <h2 class="anim mb-3">El Colegio Camilo Henríquez detecta el desafío. Y se hace cargo.</h2>
-      <p class="anim" style="font-size:1.05rem;line-height:1.8;font-style:italic;max-width:750px;margin-left:auto;margin-right:auto">«Aspiramos a ser un colegio que enseña desde el futuro, para el futuro. Sabemos que el futuro no puede conocerse con certeza, solo imaginarse con rigor y responsabilidad. Por eso construimos este proyecto en diálogo permanente con las familias, los estudiantes, otras escuelas, la industria y la academia: porque el mapa del futuro solo puede dibujarse entre todos.»</p>
-
-      <!-- Compromiso de evolución continua -->
-      <div class="anim" style="max-width:750px;margin:var(--space-xl) auto 0;text-align:left;border-left:3px solid var(--color-accent-green);padding-left:var(--space-lg)">
-        <p style="line-height:1.8;color:var(--color-text-secondary)">Ante la coyuntura global y la disrupción tecnológica, el Colegio Camilo Henríquez ha asumido el compromiso de que la <strong>evolución continua de su modelo educativo</strong> sea su constante. Para lograrlo, se vincula con diversos actores —universidades, centros de investigación, empresas, gobiernos y otras escuelas— para enriquecer su perspectiva y modelamiento del proceso educativo desde distintas experiencias de la realidad.</p>
-        <p style="line-height:1.8;color:var(--color-text-secondary);margin-top:var(--space-md)">El objetivo: ofrecer una <strong>respuesta dinámica, asertiva y oportuna</strong> a los estudiantes, a través del proceso de I+D colaborativo y su <a href="cepah.html" style="font-weight:600">Centro de Estudios para el Aprendizaje Humano (CEPAH)</a>.</p>
-      </div>
-
-      <div class="hero__cta-group anim mt-4">
-        <a href="#modelo" class="btn btn--amber">Descubre cómo lo hacemos</a>
-        <a href="cepah.html" class="btn btn--outline">Conoce el CEPAH</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       BLOQUE 3 — LO QUE HACEMOS AL RESPECTO (6 ejes)
-       ═══════════════════════════════════════════════ -->
-  <section class="section section-white" id="modelo">
-    <div class="container">
-      <h2 class="text-center anim mb-2">Nuestra respuesta: 6 ejes con respaldo de 10 marcos internacionales</h2>
-      <p class="text-center anim mb-4" style="max-width:700px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">No agregamos talleres a un modelo tradicional. El colegio está construido desde el futuro. Cada eje se revisa, se mide y se ajusta — la evolución metodológica es nuestra constante.</p>
-      <div class="grid grid-6">
-        <div class="eje anim">
-          <div class="eje__icon">&#x1F91D;</div>
-          <div class="eje__name">Aprendizaje<br>colaborativo</div>
-          <div class="eje__tooltip">Construcción de conocimiento compartido. 10/10 marcos lo respaldan. (OCDE, P21, CASEL)</div>
-        </div>
-        <div class="eje anim">
-          <div class="eje__icon">&#x1F3AF;</div>
-          <div class="eje__name">Autonomía en<br>el aprendizaje</div>
-          <div class="eje__tooltip">Agencia del estudiante; gestión propia del proceso formativo. (OCDE Learning Compass)</div>
-        </div>
-        <div class="eje anim">
-          <div class="eje__icon">&#x1F9E0;</div>
-          <div class="eje__name">Pensamiento<br>complejo</div>
-          <div class="eje__tooltip">Abordaje multidimensional; tolerancia a la ambigüedad. 10/10 marcos. (OCDE, P21, Harvard PZ)</div>
-        </div>
-        <div class="eje anim">
-          <div class="eje__icon">&#x1F4A1;</div>
-          <div class="eje__name">Creatividad</div>
-          <div class="eje__tooltip">4ª habilidad más demandada al 2030 (WEF). Soluciones originales; pensamiento divergente.</div>
-        </div>
-        <div class="eje anim">
-          <div class="eje__icon">&#x2764;</div>
-          <div class="eje__name">Habilidades<br>socioemocionales</div>
-          <div class="eje__tooltip">+11 puntos en rendimiento (CASEL, 270.000 estudiantes). Autoconciencia, empatía, regulación.</div>
-        </div>
-        <div class="eje anim">
-          <div class="eje__icon">&#x1F4BC;</div>
-          <div class="eje__name">Empleabilidad y<br>emprendimiento</div>
-          <div class="eje__tooltip">+56% empleabilidad (PwC). Adaptabilidad, liderazgo, aprendizaje continuo.</div>
-        </div>
-      </div>
-      <p class="text-center mt-4 anim"><a href="modelo-educativo.html" class="btn btn--amber">Ver el modelo completo &rarr;</a></p>
-    </div>
-  </section>
-
-  <script src="nav.js?v=3"></script>
-  <script src="journey.js"></script>
 </body>
-</html><!-- deploy trigger 1773849275 -->
+</html>
