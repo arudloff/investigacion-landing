@@ -15,9 +15,20 @@
     establecimiento: 'Establecimiento'
   };
 
+  var PAGE_NAMES = {
+    'index.html': 'Inicio',
+    'umbral-ia.html': 'Umbral IA',
+    'colegio.html': 'Colegio',
+    'recursos.html': 'Recursos',
+    'red-id.html': 'Red de I+D',
+    'nosotros.html': 'Nosotros'
+  };
+
   var currentFile = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
+  // ==========================================
   // TOPBAR
+  // ==========================================
   var topbar = document.createElement('div');
   topbar.id = 'v3-topbar';
   topbar.innerHTML =
@@ -28,7 +39,9 @@
     '';
   document.body.prepend(topbar);
 
+  // ==========================================
   // SIDEBAR
+  // ==========================================
   var sidebar = document.createElement('nav');
   sidebar.id = 'v3-sidebar';
 
@@ -54,7 +67,9 @@
 
   document.body.insertBefore(sidebar, topbar.nextSibling);
 
+  // ==========================================
   // ROL
+  // ==========================================
   function loadRole() {
     var saved = localStorage.getItem('v3-role');
     if (saved && ROLES[saved]) {
@@ -91,56 +106,368 @@
 
   loadRole();
 
-  // CUADERNO
-  window.v3AddNote = function(text, layer) {
-    var notes = JSON.parse(localStorage.getItem('v3-notes') || '[]');
-    notes.push({ text: text, layer: layer, ts: Date.now() });
-    localStorage.setItem('v3-notes', JSON.stringify(notes));
-    v3UpdateNbCount();
-  };
+  // ==========================================
+  // CUADERNO PERSONAL — sistema completo (portado de v2/journey.js)
+  // ==========================================
+  var STORE = 'v3_cuaderno';
+  var generatedMessages = [];
+  var activeMsg = 0;
+  var hasGeneratedMsg = null;
 
-  function v3UpdateNbCount() {
-    var notes = JSON.parse(localStorage.getItem('v3-notes') || '[]');
-    var el = document.getElementById('v3-nb-count');
-    if (!el) return;
-    if (notes.length > 0) {
-      el.textContent = notes.length;
-      el.style.display = 'inline-flex';
-    } else {
-      el.style.display = 'none';
+  function getS() {
+    try { return JSON.parse(localStorage.getItem(STORE)) || { reactions: {} }; }
+    catch(e) { return { reactions: {} }; }
+  }
+  function saveS(s) { localStorage.setItem(STORE, JSON.stringify(s)); }
+
+  function currentPage() {
+    return window.location.pathname.split('/').pop() || 'index.html';
+  }
+
+  function getParaKey(el) {
+    return currentPage() + '::' + el.textContent.trim().substring(0, 80);
+  }
+
+  function getReactionCount() {
+    var s = getS();
+    return Object.keys(s.reactions).length;
+  }
+
+  // ---- Marcado orgánico ----
+  function initReactions() {
+    var s = getS();
+
+    // Cards v3 (dato, v3-card, etc.)
+    document.querySelectorAll('#v3-content .dato, #v3-content .v3-card, #v3-content .eje-card, #v3-content .fuente').forEach(function(el) {
+      if (el.closest('.v3-notebook-panel, .nb-panel, footer, nav, #v3-topbar, #v3-sidebar')) return;
+      if (el.textContent.trim().length < 20) return;
+      setupMarkable(el, s);
+    });
+
+    // Párrafos sueltos
+    document.querySelectorAll('#v3-content p, #v3-content h2, #v3-content h3, #v3-content li').forEach(function(el) {
+      if (el.textContent.trim().length < 30) return;
+      if (el.closest('.v3-notebook-panel, .nb-panel, footer, nav, #v3-topbar, #v3-sidebar, .dato, .v3-card, .eje-card, .fuente')) return;
+      if (el.querySelector('button, .v3-btn, a.v3-btn')) return;
+      setupMarkable(el, s);
+    });
+
+    // Hint una sola vez
+    if (!sessionStorage.getItem('v3_mark_hint') && getReactionCount() === 0) {
+      setTimeout(showHint, 3000);
     }
   }
 
-  window.v3ToggleNotebook = function() {
-    var existing = document.getElementById('v3-notebook-panel');
-    if (existing) { existing.remove(); return; }
-    var notes = JSON.parse(localStorage.getItem('v3-notes') || '[]');
+  function setupMarkable(el, s) {
+    var key = getParaKey(el);
+    el.classList.add('v3-markable');
+    el.dataset.markKey = key;
+
+    if (s.reactions[key]) {
+      el.classList.add('v3-markable--on');
+    }
+
+    el.addEventListener('click', function(evt) {
+      if (evt.target.closest('a, button, .v3-btn')) return;
+      toggleMark(el);
+    });
+  }
+
+  function toggleMark(el) {
+    var key = el.dataset.markKey;
+    var s = getS();
+
+    if (s.reactions[key]) {
+      // DESMARCAR
+      delete s.reactions[key];
+      saveS(s);
+      el.classList.remove('v3-markable--on');
+    } else {
+      // MARCAR
+      s.reactions[key] = {
+        page: currentPage(),
+        text: el.textContent.trim().substring(0, 120).trim(),
+        time: Date.now()
+      };
+      saveS(s);
+      el.classList.add('v3-markable--on');
+
+      // Dismiss hint
+      var hint = document.querySelector('.v3-mark-hint');
+      if (hint) hint.remove();
+
+      // Flash en botón del cuaderno
+      var nbBtn = document.getElementById('v3-nb-btn');
+      if (nbBtn) {
+        nbBtn.style.transform = 'scale(1.15)';
+        nbBtn.style.borderColor = 'rgba(245,166,35,0.7)';
+        setTimeout(function() { nbBtn.style.transform = ''; nbBtn.style.borderColor = ''; }, 400);
+      }
+    }
+
+    if (hasGeneratedMsg) resetMessage(); else updateNotebook();
+    updateNbBtnCount();
+  }
+
+  function showHint() {
+    if (sessionStorage.getItem('v3_mark_hint')) return;
+    sessionStorage.setItem('v3_mark_hint', '1');
+
+    var hint = document.createElement('div');
+    hint.className = 'v3-mark-hint';
+    hint.innerHTML = '<strong>Toca cualquier texto</strong> que te resuene para guardarlo en tu cuaderno personal.';
+    document.body.appendChild(hint);
+
+    setTimeout(function() {
+      if (hint.parentNode) {
+        hint.style.opacity = '0';
+        hint.style.transition = 'opacity 0.5s';
+        setTimeout(function() { if (hint.parentNode) hint.remove(); }, 500);
+      }
+    }, 6000);
+  }
+
+  // ---- Botón flotante ----
+  function buildNotebookBtn() {
+    var btn = document.createElement('button');
+    btn.className = 'v3-notebook-btn';
+    btn.id = 'v3-nb-btn';
+    btn.onclick = toggleNotebook;
+    btn.title = 'Mi cuaderno';
+    document.body.appendChild(btn);
+
     var panel = document.createElement('div');
-    panel.id = 'v3-notebook-panel';
-    var itemsHTML = notes.length === 0
-      ? '<div class="nb-empty">Guarda lo que te mueve.<br>Conviértelo en una conversación<br>con quienes te importan.</div>'
-      : notes.map(function(n) {
-          return '<div class="nb-item"><div class="nb-dot"></div><div class="nb-text">' + n.text + '<span class="nb-layer">' + (n.layer || '') + '</span></div></div>';
-        }).join('');
-    panel.innerHTML =
-      '<div class="nb-header"><span style="font-size:16px">📋</span><div class="nb-title">Mi cuaderno</div><div class="nb-count-badge">' + notes.length + ' notas</div></div>' +
-      '<div class="nb-items">' + itemsHTML + '</div>' +
-      '<div class="nb-footer"><button class="nb-cta" onclick="window.location.href=\'recursos.html\'">Convertir en mensajes para compartir →</button></div>';
+    panel.className = 'v3-nb-panel';
+    panel.id = 'v3-nb-panel';
     document.body.appendChild(panel);
+
+    updateNbBtnCount();
+    updateNotebook();
+  }
+
+  function updateNbBtnCount() {
+    var count = getReactionCount();
+    var btn = document.getElementById('v3-nb-btn');
+    if (!btn) return;
+    btn.innerHTML = count > 0
+      ? '<span class="v3-nb-icon">📋</span><span class="v3-nb-label">Mis notas</span><span class="v3-nb-btn-count">' + count + '</span>'
+      : '<span class="v3-nb-icon">📋</span><span class="v3-nb-label">Toca textos para guardar</span>';
+  }
+
+  // ---- Panel del cuaderno ----
+  function updateNotebook() {
+    var s = getS();
+    var reactions = s.reactions;
+    var keys = Object.keys(reactions);
+    var count = keys.length;
+
+    var panel = document.getElementById('v3-nb-panel');
+    if (!panel) return;
+
+    if (count === 0) {
+      panel.innerHTML =
+        '<div class="v3-nb-scroll">' +
+        '<div class="v3-nb-header"><span class="v3-nb-title">MIS NOTAS DE LECTURA</span><button class="v3-nb-close" onclick="v3CloseNotebook()">×</button></div>' +
+        '<div class="v3-nb-empty"><p>Selecciona lo que no puedes ignorar.<br>Juntos lo convertiremos en una conversación que no puede esperar.</p></div>' +
+        '</div>';
+      return;
+    }
+
+    // Agrupar por página
+    var byPage = {};
+    keys.forEach(function(k) {
+      var r = reactions[k];
+      if (!byPage[r.page]) byPage[r.page] = [];
+      byPage[r.page].push({ key: k, data: r });
+    });
+
+    var itemsHTML = '';
+    Object.keys(byPage).forEach(function(page) {
+      var pageName = PAGE_NAMES[page] || page;
+      itemsHTML += '<div class="v3-nb-group">' + pageName + '</div>';
+      byPage[page].forEach(function(item) {
+        var isActive = item.data.active !== false;
+        itemsHTML += '<div class="v3-nb-item' + (isActive ? '' : ' v3-nb-item--dimmed') + '">' +
+          '<button class="v3-nb-toggle' + (isActive ? '' : ' v3-nb-toggle--off') + '" onclick="v3ToggleItem(\'' + encodeURIComponent(item.key) + '\')">' + (isActive ? '✓' : '') + '</button>' +
+          '<span class="v3-nb-item-text">' + item.data.text + '</span>' +
+          '</div>';
+      });
+    });
+
+    var html = '<div class="v3-nb-scroll">';
+
+    if (generatedMessages.length > 0) {
+      // MODO MENSAJE
+      html += '<div class="v3-nb-header"><span class="v3-nb-title" style="font-size:.82rem;line-height:1.3"><span style="color:var(--amber);font-weight:800;display:block;margin-bottom:2px">EFECTO MARIPOSA</span>Comparte este mensaje con quienes te importan</span><button class="v3-nb-close" onclick="v3CloseNotebook()">×</button></div>';
+      html += '<div id="v3-nb-message"><textarea class="v3-nb-textarea" id="v3-nb-textarea">' + generatedMessages[activeMsg] + '</textarea></div>';
+      html += '<div class="v3-nb-msg-tabs">';
+      for (var m = 0; m < generatedMessages.length; m++) {
+        html += '<button class="v3-nb-msg-tab' + (m === activeMsg ? ' v3-nb-msg-tab--active' : '') + '" onclick="v3SwitchMsg(' + m + ')">' + (m + 1) + '</button>';
+      }
+      html += '</div>';
+      html += '<details class="v3-nb-details"><summary class="v3-nb-details-sum">' + count + ' idea' + (count > 1 ? 's' : '') + ' seleccionadas</summary>' + itemsHTML + '</details>';
+    } else {
+      // MODO CUADERNO
+      html += '<div class="v3-nb-header"><span class="v3-nb-title">MIS NOTAS DE LECTURA</span><button class="v3-nb-close" onclick="v3CloseNotebook()">×</button></div>';
+      html += '<div class="v3-nb-sub">' + count + ' idea' + (count > 1 ? 's' : '') + ' que te resonaron</div>';
+      html += itemsHTML;
+      html += '<div id="v3-nb-message"></div>';
+    }
+
+    html += '</div>';
+
+    // Footer fijo
+    html += '<div class="v3-nb-footer">';
+    if (generatedMessages.length > 0) {
+      html += '<div class="v3-nb-actions"><button onclick="v3CopyMessage()" class="v3-nb-action-btn v3-nb-copy-big">Copia Este Mensaje</button></div>';
+    } else {
+      html += '<div class="v3-nb-actions"><button onclick="v3GenerateMessage()" class="v3-nb-action-btn v3-nb-gen-btn">✨ Generar mensaje</button></div>';
+    }
+    html += '<div style="text-align:center;margin-top:.4rem"><button onclick="v3ClearNotebook()" class="v3-nb-clear">Borrar cuaderno</button></div></div>';
+
+    panel.innerHTML = html;
+
+    // Auto-resize textarea
+    var ta = document.getElementById('v3-nb-textarea');
+    if (ta) {
+      setTimeout(function() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }, 50);
+      ta.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; });
+    }
+  }
+
+  function toggleNotebook() {
+    document.getElementById('v3-nb-panel').classList.toggle('v3-nb-panel--open');
+  }
+
+  window.v3CloseNotebook = function() {
+    document.getElementById('v3-nb-panel').classList.remove('v3-nb-panel--open');
   };
 
-  // NOTEBOOK FLOATING BUTTON (fixed, como en v2)
-  var nbBtn = document.createElement('button');
-  nbBtn.className = 'v3-notebook-btn';
-  nbBtn.id = 'v3-nb-btn';
-  nbBtn.onclick = window.v3ToggleNotebook;
-  nbBtn.title = 'Mi cuaderno';
-  nbBtn.innerHTML = '<span class="v3-nb-icon">📋</span><span class="v3-nb-count" id="v3-nb-count">0</span>';
-  document.body.appendChild(nbBtn);
+  window.v3ToggleItem = function(encodedKey) {
+    var key = decodeURIComponent(encodedKey);
+    var s = getS();
+    if (!s.reactions[key]) return;
 
-  v3UpdateNbCount();
+    s.reactions[key].active = s.reactions[key].active === false ? true : false;
+    saveS(s);
+    if (hasGeneratedMsg) resetMessage(); else updateNotebook();
 
+    // Actualizar visual en la página
+    document.querySelectorAll('.v3-markable').forEach(function(el) {
+      if (el.dataset.markKey === key) {
+        if (s.reactions[key].active === false) {
+          el.classList.remove('v3-markable--on');
+        } else {
+          el.classList.add('v3-markable--on');
+        }
+      }
+    });
+
+    updateNbBtnCount();
+  };
+
+  function resetMessage() {
+    hasGeneratedMsg = null;
+    generatedMessages = [];
+    activeMsg = 0;
+    updateNotebook();
+  }
+
+  window.v3SwitchMsg = function(idx) {
+    activeMsg = idx;
+    var ta = document.getElementById('v3-nb-textarea');
+    if (ta) {
+      ta.value = generatedMessages[idx];
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+    document.querySelectorAll('.v3-nb-msg-tab').forEach(function(t, i) {
+      t.classList.toggle('v3-nb-msg-tab--active', i === idx);
+    });
+  };
+
+  window.v3GenerateMessage = function() {
+    var s = getS();
+    var keys = Object.keys(s.reactions);
+    if (!keys.length) return;
+
+    var paragraphs = keys
+      .filter(function(k) { return s.reactions[k].active !== false; })
+      .map(function(k) {
+        var r = s.reactions[k];
+        return { text: r.text, page: PAGE_NAMES[r.page] || r.page };
+      });
+    if (!paragraphs.length) return;
+
+    var genBtn = document.querySelector('.v3-nb-gen-btn');
+    if (genBtn) { genBtn.textContent = '✨ Generando...'; genBtn.disabled = true; }
+
+    var url = 'https://cupykpcsxjihnzwyflbm.supabase.co/functions/v1/synthesize-notebook';
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paragraphs: paragraphs })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.messages && data.messages.length > 0) {
+        generatedMessages = data.messages.map(function(m) {
+          return m.replace(/^\*?\*?[Mm]ensaje\s*\d+[^:\n]*:?\*?\*?\s*/gm, '')
+            .replace(/^\*?\*?—[^—\n]*—\*?\*?\s*/gm, '')
+            .replace(/^\*\*/gm, '').replace(/\*\*$/gm, '')
+            .trim();
+        });
+        activeMsg = 0;
+        hasGeneratedMsg = generatedMessages[0];
+        updateNotebook();
+      }
+    })
+    .catch(function() {
+      if (genBtn) { genBtn.textContent = '✨ Reintentar'; }
+    })
+    .finally(function() {
+      if (genBtn) { genBtn.disabled = false; }
+    });
+  };
+
+  window.v3CopyMessage = function() {
+    var textarea = document.getElementById('v3-nb-textarea');
+    if (!textarea) return;
+    navigator.clipboard.writeText(textarea.value).then(function() {
+      var btn = document.querySelector('.v3-nb-copy-big');
+      if (btn) { btn.textContent = '✓ Copiado'; setTimeout(function() { btn.textContent = 'Copia Este Mensaje'; }, 2500); }
+    });
+  };
+
+  window.v3ClearNotebook = function() {
+    if (confirm('¿Borrar todas tus notas? Esta acción no se puede deshacer.')) {
+      localStorage.removeItem(STORE);
+      location.reload();
+    }
+  };
+
+  // Legacy: mantener compatibilidad con onclick="v3AddNote(...)" en HTML
+  window.v3AddNote = function(text, layer) {
+    var s = getS();
+    var key = currentPage() + '::' + text.substring(0, 80);
+    s.reactions[key] = { page: currentPage(), text: text.substring(0, 120), time: Date.now() };
+    saveS(s);
+    updateNbBtnCount();
+    if (hasGeneratedMsg) resetMessage(); else updateNotebook();
+    var nbBtn = document.getElementById('v3-nb-btn');
+    if (nbBtn) {
+      nbBtn.style.transform = 'scale(1.15)';
+      nbBtn.style.borderColor = 'rgba(245,166,35,0.7)';
+      setTimeout(function() { nbBtn.style.transform = ''; nbBtn.style.borderColor = ''; }, 400);
+    }
+  };
+
+  window.v3ToggleNotebook = toggleNotebook;
+
+  // ==========================================
   // Auto-wrap: si no hay #v3-content, envolver el body content
+  // ==========================================
   if (!document.getElementById('v3-content')) {
     var main = document.createElement('main');
     main.id = 'v3-content';
@@ -153,6 +480,20 @@
     }
     children.forEach(function(c) { main.appendChild(c); });
     document.body.appendChild(main);
+  }
+
+  // ==========================================
+  // INIT — construir cuaderno y activar marcado
+  // ==========================================
+  function initCuaderno() {
+    buildNotebookBtn();
+    initReactions();
+  }
+
+  if (document.getElementById('v3-content')) {
+    setTimeout(initCuaderno, 300);
+  } else {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(initCuaderno, 700); });
   }
 
 })();
