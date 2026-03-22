@@ -4,7 +4,7 @@
 
 const NAV_ITEMS = [
   { href: 'index.html', label: 'Inicio' },
-  { href: 'contexto-global.html', label: 'Contexto' },
+  { href: 'umbral-ia.html', label: 'Umbral IA' },
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },
@@ -36,7 +36,7 @@ const NAV_ITEMS = [
 // Mobile: espejo exacto de NAV_ITEMS
 const MOBILE_LINKS = [
   { href: 'index.html', label: 'Inicio' },
-  { href: 'contexto-global.html', label: 'Contexto' },
+  { href: 'umbral-ia.html', label: 'Umbral IA' },
   { href: 'modelo-educativo.html', label: 'Modelo' },
   { href: 'para-familias.html', label: 'Familias' },
   { href: 'estudiantes.html', label: 'Estudiantes' },

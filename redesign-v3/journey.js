@@ -195,7 +195,7 @@ function updateNotebook() {
     panel.innerHTML =
       '<div class="nb-panel__scroll">' +
       '<div class="nb-panel__header"><span class="nb-panel__title">MIS NOTAS DE LECTURA</span><button class="nb-panel__close" onclick="toggleNotebook()">×</button></div>' +
-      '<div class="nb-empty"><p>Selecciona lo que no puedes ignorar. Y juntos lo convertiremos en una conversación que no puede esperar.</p></div>' +
+      '<div class="nb-empty"><p>Guarda lo que te mueve. Conviértelo en una conversación con quienes te importan.</p></div>' +
       '</div>';
     return;
   }
@@ -254,7 +254,7 @@ function updateNotebook() {
       '</div>';
   } else {
     html += '<div class="nb-actions" style="margin:0">' +
-      '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">✨ Generar mensaje</button>' +
+      '<button onclick="generateMessage()" class="nb-action-btn nb-gen-btn">Convertir en mensajes para compartir →</button>' +
       '</div>';
   }
   html += '<div style="text-align:center;margin-top:.4rem">' +

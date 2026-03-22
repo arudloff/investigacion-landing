@@ -649,7 +649,7 @@
     document.getElementById('dx-results-profile').textContent = data.label;
 
     // Title based on score
-    var title = 'Tu perfil muestra oportunidades de crecimiento importantes';
+    var title = 'Tu perfil muestra un camino claro de desarrollo';
     if (total >= 80) title = 'Tu perfil esta altamente alineado con el siglo XXI';
     else if (total >= 60) title = 'Tu perfil muestra una base solida con espacio para crecer';
     else if (total >= 40) title = 'Tu perfil tiene fundamentos — y un gran potencial de desarrollo';
@@ -712,7 +712,7 @@
         '<p class="dx-insight__text"><strong>' + dimensions[maxIdx] + ' (' + scores[maxIdx] + '%):</strong> ' + sp[Math.floor(Math.random() * sp.length)] + '</p>' +
       '</div>' +
       '<div class="dx-insight" style="border-color:rgba(46,109,164,0.25);background:rgba(46,109,164,0.05)">' +
-        '<div class="dx-insight__title" style="color:var(--color-primary-mid,#2E6DA4)">Tu mayor oportunidad de crecimiento</div>' +
+        '<div class="dx-insight__title" style="color:var(--color-primary-mid,#2E6DA4)">Tu próximo movimiento</div>' +
         '<p class="dx-insight__text"><strong>' + dimensions[minIdx] + ' (' + scores[minIdx] + '%):</strong> ' + gp[Math.floor(Math.random() * gp.length)] + '</p>' +
       '</div>';
 
