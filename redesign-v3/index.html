@@ -74,9 +74,6 @@
 
   <script src="layout.js"></script>
   <script>
-    if (localStorage.getItem('v3-role')) {
-      window.location.replace('umbral-ia.html');
-    }
     function selectRoleAndGo(key) {
       localStorage.setItem('v3-role', key);
       window.location.href = 'umbral-ia.html';
