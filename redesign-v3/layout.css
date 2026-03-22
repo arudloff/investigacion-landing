@@ -154,9 +154,9 @@ body{
 .v3-nb-details-sum:hover{color:rgba(255,255,255,0.6)}
 
 /* Marcado orgánico — click en párrafos */
-.v3-markable{cursor:pointer;transition:border-left 0.25s ease,background 0.3s ease,padding-left 0.25s ease;border-left:3px solid transparent;padding-left:0}
-.v3-markable:hover{border-left-color:rgba(245,166,35,0.2);padding-left:10px}
-.v3-markable--on{border-left-color:rgba(245,166,35,0.5) !important;background:rgba(245,166,35,0.05) !important;padding-left:12px}
+.v3-markable{cursor:pointer;transition:border-left-color 0.25s ease,background 0.3s ease;border-left:3px solid transparent;padding-left:12px}
+.v3-markable:hover{border-left-color:rgba(245,166,35,0.2);background:rgba(245,166,35,0.02)}
+.v3-markable--on{border-left-color:rgba(245,166,35,0.5) !important;background:rgba(245,166,35,0.05) !important}
 .v3-markable--on:hover{border-left-color:rgba(245,166,35,0.3)}
 
 /* Hint de marcado */
