@@ -25,7 +25,7 @@
     '<div class="v3-top-spacer"></div>' +
     '<button class="v3-role-chip" id="v3-role-chip" onclick="v3OpenRoles()"><span id="v3-role-label">¿Quién eres?</span> ↓</button>' +
     '<a class="v3-visit-btn" href="colegio.html#visita">Agenda una visita</a>' +
-    '<button class="v3-notebook-btn" id="v3-nb-btn" onclick="v3ToggleNotebook()" title="Mi cuaderno"><span style="font-size:18px;line-height:1">&#x1F4CB;</span><span class="v3-nb-count" id="v3-nb-count" style="display:none">0</span></button>';
+    '';
   document.body.prepend(topbar);
 
   // SIDEBAR
@@ -128,6 +128,15 @@
       '<div class="nb-footer"><button class="nb-cta" onclick="window.location.href=\'recursos.html\'">Convertir en mensajes para compartir →</button></div>';
     document.body.appendChild(panel);
   };
+
+  // NOTEBOOK FLOATING BUTTON (fixed, como en v2)
+  var nbBtn = document.createElement('button');
+  nbBtn.className = 'v3-notebook-btn';
+  nbBtn.id = 'v3-nb-btn';
+  nbBtn.onclick = window.v3ToggleNotebook;
+  nbBtn.title = 'Mi cuaderno';
+  nbBtn.innerHTML = '<span class="v3-nb-icon">📋</span><span class="v3-nb-count" id="v3-nb-count">0</span>';
+  document.body.appendChild(nbBtn);
 
   v3UpdateNbCount();
 
