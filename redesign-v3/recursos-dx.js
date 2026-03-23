@@ -250,15 +250,15 @@ function selectRole(role, cardEl) {
     html += '<div class="dim-title">' + dim.icon + ' ' + dim.nombre + '</div>';
     html += '<div class="dim-sub">Marco: ' + dim.marco + '</div></div>';
     html += '<div class="global-progress"><div class="gp-fill" style="width:0%"></div></div>';
+    html += '<div class="scale-legend"><span class="sl-end">Nunca</span><span class="sl-mid">Rara vez</span><span class="sl-mid">A veces</span><span class="sl-mid">Frecuente</span><span class="sl-end">Siempre</span></div>';
     html += '<div class="aff-list">';
 
     for (var a = 0; a < dim.afirmaciones.length; a++) {
       html += '<div class="aff-row" data-dim="' + d + '" data-aff="' + a + '">';
       html += '<div class="aff-text">' + dim.afirmaciones[a] + '</div>';
       html += '<div class="scale-dots">';
-      var labels = ['Nunca','Rara vez','A veces','Frecuente','Siempre'];
       for (var v = 1; v <= 5; v++) {
-        html += '<button class="dot" data-val="' + v + '" onclick="setAnswer(' + d + ',' + a + ',' + v + ',this)" title="' + labels[v-1] + '"><span class="dot-label">' + labels[v-1] + '</span></button>';
+        html += '<button class="dot" data-val="' + v + '" onclick="setAnswer(' + d + ',' + a + ',' + v + ',this)" title="' + v + '"><span class="dot-num">' + v + '</span></button>';
       }
       html += '</div></div>';
     }
