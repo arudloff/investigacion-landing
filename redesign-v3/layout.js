@@ -26,16 +26,22 @@
 
   var currentFile = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
+  // Detect if we're in a subdirectory (e.g. /colegio/) and compute base path
+  var pathParts = window.location.pathname.replace(/\/[^\/]*$/, '').split('/');
+  var v3Idx = pathParts.indexOf('redesign-v3');
+  var depth = v3Idx >= 0 ? pathParts.length - v3Idx - 1 : 0;
+  var base = depth > 0 ? '../'.repeat(depth) : '';
+
   // ==========================================
   // TOPBAR
   // ==========================================
   var topbar = document.createElement('div');
   topbar.id = 'v3-topbar';
   topbar.innerHTML =
-    '<a class="v3-logo" href="index.html">CCH<em>Colegio Camilo Henríquez</em></a>' +
+    '<a class="v3-logo" href="' + base + 'index.html">CCH<em>Colegio Camilo Henríquez</em></a>' +
     '<div class="v3-top-spacer"></div>' +
     '<button class="v3-role-chip" id="v3-role-chip" onclick="v3OpenRoles()"><span id="v3-role-label">¿Quién eres?</span> ↓</button>' +
-    '<a class="v3-visit-btn" href="colegio.html#visita">Agenda una visita</a>' +
+    '<a class="v3-visit-btn" href="' + base + 'colegio/admision.html">Agenda una visita</a>' +
     '';
   document.body.prepend(topbar);
 
@@ -48,7 +54,7 @@
   var itemsHTML = LAYERS.map(function(l) {
     var pathStr = window.location.pathname;
     var active = currentFile === l.id || currentFile === l.href.replace('.html', '') || (currentFile.indexOf(l.id) === 0) || (pathStr.indexOf('/' + l.id + '/') !== -1);
-    return '<a class="v3-si ' + (active ? 'v3-si--active' : '') + '" href="' + l.href + '" data-id="' + l.id + '" data-short="' + l.short + '">' +
+    return '<a class="v3-si ' + (active ? 'v3-si--active' : '') + '" href="' + base + l.href + '" data-id="' + l.id + '" data-short="' + l.short + '">' +
       '<span class="v3-si-icon" style="background:' + l.color + '">' + l.icon + '</span>' +
       '<span><span class="v3-si-title">' + l.label + '</span><span class="v3-si-sub">' + l.sub + '</span></span>' +
       '</a>';
@@ -60,7 +66,7 @@
     '<div class="v3-sb-label">Explorar</div>' +
     itemsHTML +
     '<div class="v3-sb-foundation">' +
-      '<a class="v3-si-found ' + nosotrosActive + '" href="nosotros.html">' +
+      '<a class="v3-si-found ' + nosotrosActive + '" href="' + base + 'nosotros.html">' +
         '<span class="v3-found-icon">◎</span>' +
         '<span><span class="v3-found-title">Nosotros</span><span class="v3-found-sub">Origen · Visión · Equipo</span></span>' +
       '</a>' +
