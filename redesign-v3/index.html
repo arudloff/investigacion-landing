@@ -12,6 +12,10 @@
     .h-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,166,35,0.45);display:block;margin-bottom:12px}
     .h-h1{font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px}
     .h-h1 .a{color:#F5A623}
+    .h-subhead{font-size:clamp(16px,2.5vw,24px);font-weight:500;color:rgba(232,237,245,0.7);margin-bottom:20px;line-height:1.4}
+    .h-swap{display:inline-block;position:relative}
+    .h-strike{text-decoration:line-through;color:rgba(232,237,245,0.3);text-decoration-color:rgba(232,60,40,0.6);margin:0 .15em}
+    .h-correct{color:#F5A623;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin:0 .15em}
     .h-rotating{font-size:14px;color:rgba(232,237,245,0.55);line-height:1.75;max-width:620px;margin:0 auto 16px;transition:opacity 0.4s ease;min-height:80px}
     .h-refresh{background:none;border:1px solid rgba(245,166,35,0.25);color:rgba(245,166,35,0.6);font-size:11px;font-weight:600;padding:6px 16px;border-radius:16px;cursor:pointer;transition:all .15s;font-family:inherit}
     .h-refresh:hover{border-color:rgba(245,166,35,0.5);color:rgba(245,166,35,0.9)}
@@ -108,7 +112,8 @@
     <!-- HERO -->
     <div class="h-hero">
       <span class="h-tag">Colegio Camilo Henríquez · Talca, Chile</span>
-      <h1 class="h-h1">El mundo cambió.<br><span class="a">La educación es la respuesta.</span></h1>
+      <h1 class="h-h1">El mundo cambió</h1>
+      <p class="h-subhead">Ahora Aprender a <span class="h-swap"><span class="h-strike">APRENDER</span> <span class="h-correct">SOLUCIONAR CON IA</span></span> es la Respuesta</p>
       <p class="h-rotating" id="hero-rotating">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
       <button onclick="nextPhrase()" class="h-refresh">Hay más de una razón para actuar. Descubre otra →</button>
     </div>
