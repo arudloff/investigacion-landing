@@ -250,7 +250,7 @@ function selectRole(role, cardEl) {
     html += '<div class="dim-title">' + dim.icon + ' ' + dim.nombre + '</div>';
     html += '<div class="dim-sub">Marco: ' + dim.marco + '</div></div>';
     html += '<div class="global-progress"><div class="gp-fill" style="width:0%"></div></div>';
-    html += '<div class="scale-legend"><span class="sl-end">Nunca</span><span class="sl-mid">Rara vez</span><span class="sl-mid">A veces</span><span class="sl-mid">Frecuente</span><span class="sl-end">Siempre</span></div>';
+    html += '<div class="scale-legend"><span class="sl-label">Responde según tu frecuencia</span><div class="sl-dots"><span>Nunca</span><span>Rara vez</span><span>A veces</span><span>Frecuente</span><span>Siempre</span></div></div>';
     html += '<div class="aff-list">';
 
     for (var a = 0; a < dim.afirmaciones.length; a++) {

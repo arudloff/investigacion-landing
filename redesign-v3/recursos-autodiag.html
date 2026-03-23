@@ -45,10 +45,10 @@
     .dot-num{font-size:11px;font-weight:700;color:rgba(232,237,245,0.3);pointer-events:none}
     .dot.selected .dot-num{color:#fff}
     .dot:hover .dot-num{color:rgba(232,237,245,0.6)}
-    .scale-legend{display:flex;justify-content:space-between;padding:0 0 12px;margin-bottom:4px;border-bottom:1px solid rgba(46,109,164,0.1)}
-    .scale-legend span{font-size:12px;font-weight:600;color:rgba(232,237,245,0.4)}
-    .sl-end{color:rgba(232,237,245,0.5)}
-    .sl-mid{color:rgba(232,237,245,0.3)}
+    .scale-legend{display:grid;grid-template-columns:1fr auto;gap:16px;padding:0 18px 10px;margin-bottom:4px}
+    .sl-label{font-size:11px;color:rgba(232,237,245,0.25);align-self:center}
+    .sl-dots{display:flex;gap:6px}
+    .sl-dots span{width:36px;text-align:center;font-size:10px;font-weight:600;color:rgba(232,237,245,0.45)}
     .dot[data-val="1"]{--dot-color:rgba(232,60,40,0.6)}
     .dot[data-val="2"]{--dot-color:rgba(232,130,30,0.6)}
     .dot[data-val="3"]{--dot-color:rgba(200,190,30,0.6)}
@@ -117,7 +117,11 @@
     }
     @media(max-width:639px){
       .aff-row{grid-template-columns:1fr}
-      .scale-dots{justify-content:space-between;width:100%;padding-bottom:14px}
+      .scale-dots{justify-content:space-between;width:100%;padding-bottom:4px}
+      .scale-legend{grid-template-columns:1fr;gap:6px}
+      .sl-label{display:none}
+      .sl-dots{justify-content:space-between;width:100%}
+      .sl-dots span{width:auto;flex:1}
     }
     @media(max-width:480px){
       .dx-profiles{grid-template-columns:1fr 1fr;gap:8px}
