@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autodiagnóstico · Recursos · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="layout.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* Sub-nav */
+    .r-subnav{display:flex;gap:0;padding:0 32px;border-bottom:1px solid rgba(46,109,164,0.12);overflow-x:auto;scrollbar-width:none}
+    .r-subnav::-webkit-scrollbar{display:none}
+    .r-subnav a{display:flex;align-items:center;gap:6px;padding:12px 16px;font-size:12px;font-weight:600;color:rgba(232,237,245,0.45);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s}
+    .r-subnav a:hover{color:rgba(232,237,245,0.8)}
+    .r-subnav a.active{color:#F5A623;border-bottom-color:#F5A623}
+    .r-subnav a .r-sn-icon{font-size:14px}
+
+    /* Section */
+    .r-section{padding:36px 32px}
+    .r-section-header{margin-bottom:24px}
+    .r-section-title{font-size:22px;font-weight:800;color:rgba(232,237,245,0.95);line-height:1.2;margin-bottom:6px}
+    .r-section-sub{font-size:13px;color:rgba(232,237,245,0.45);line-height:1.6;max-width:560px}
+    .r-meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .r-meta{font-size:10px;font-weight:600;color:rgba(245,166,35,0.6);background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.15);border-radius:20px;padding:3px 10px}
+
+    /* Autodiagnóstico */
+    .dx-profiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:900px;margin:2rem auto 0;padding:0}
+    .dx-profile{background:rgba(13,31,60,0.7);border:2px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all 0.3s}
+    .dx-profile:hover{border-color:rgba(245,166,35,0.3);transform:translateY(-3px)}
+    .dx-profile--active{border-color:#F5A623;background:rgba(245,166,35,0.08);box-shadow:0 0 20px rgba(245,166,35,0.1)}
+    .dx-profile__icon{font-size:2rem;margin-bottom:.5rem}
+    .dx-profile__name{font-size:.85rem;font-weight:700;color:rgba(255,255,255,0.7)}
+    .dx-profile--active .dx-profile__name{color:#F5A623}
+    .dx-profile__desc{font-size:.68rem;color:rgba(255,255,255,0.4);margin-top:.3rem;line-height:1.3}
+    .dx-quiz{max-width:700px;margin:0 auto;padding:2.5rem 0;display:none}
+    .dx-quiz--active{display:block}
+    .dx-progress{height:4px;background:rgba(255,255,255,0.08);border-radius:100px;margin-bottom:2rem;overflow:hidden}
+    .dx-progress__fill{height:100%;background:#F5A623;border-radius:100px;transition:width 0.4s ease;width:0}
+    .dx-progress__text{font-size:.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:.5rem}
+    .dx-q{animation:dxFadeIn 0.4s ease}
+    @keyframes dxFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .dx-q__dimension{font-size:.7rem;color:#F5A623;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:.5rem}
+    .dx-q__text{font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:1.5rem;line-height:1.5}
+    .dx-levels{display:flex;flex-direction:column;gap:8px}
+    .dx-level{display:flex;align-items:center;gap:.75rem;min-height:52px;padding:.75rem 1rem;border-radius:10px;border:2px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);cursor:pointer;transition:all 0.25s;font-family:inherit;text-align:left;width:100%;color:rgba(255,255,255,0.7);font-size:.88rem;line-height:1.45}
+    .dx-level:hover{border-color:rgba(245,166,35,0.3);background:rgba(245,166,35,0.04)}
+    .dx-level--selected{border-color:#F5A623;background:rgba(245,166,35,0.1);box-shadow:0 0 14px rgba(245,166,35,0.08)}
+    .dx-level__badge{flex-shrink:0;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;transition:all 0.25s}
+    .dx-level--selected .dx-level__badge{color:#fff}
+    .dx-level__label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;transition:color 0.25s}
+    .dx-level__desc{font-size:.85rem;color:rgba(255,255,255,0.65);line-height:1.4}
+    .dx-level--selected .dx-level__desc{color:rgba(255,255,255,0.85)}
+    .dx-nav{display:flex;justify-content:space-between;margin-top:2rem}
+    .dx-nav__btn{background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:.6rem 1.5rem;min-height:44px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer;transition:all 0.2s}
+    .dx-nav__btn:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+    .dx-nav__btn--primary{background:#F5A623;border-color:#F5A623;color:#0A1628}
+    .dx-nav__btn--primary:hover{filter:brightness(1.1)}
+    .dx-results{display:none;max-width:750px;margin:0 auto;padding:2rem 0 4rem}
+    .dx-results--active{display:block;animation:dxFadeIn 0.6s ease}
+    .dx-results__header{text-align:center;margin-bottom:2.5rem}
+    .dx-results__title{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;margin-bottom:.5rem}
+    .dx-results__subtitle{color:rgba(255,255,255,0.5);font-size:.9rem}
+    .dx-radar{display:flex;justify-content:center;margin-bottom:2.5rem}
+    .dx-radar svg{max-width:380px;width:100%}
+    .dx-radar__bg{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:1}
+    .dx-radar__grid{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:1}
+    .dx-radar__shape{fill:rgba(245,166,35,0.15);stroke:#F5A623;stroke-width:2.5;stroke-linejoin:round;transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .dx-radar__dot{fill:#F5A623;r:5;transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+    .dx-radar__label{fill:rgba(255,255,255,0.6);font-size:11px;font-weight:600;text-anchor:middle}
+    .dx-radar__bench{fill:rgba(46,109,164,0.08);stroke:#2E6DA4;stroke-width:1.5;stroke-dasharray:4 3;stroke-linejoin:round}
+    .dx-radar__bench-dot{fill:#2E6DA4;r:3;opacity:0.6}
+    .dx-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2rem}
+    .dx-score{background:rgba(13,31,60,0.7);border-radius:12px;padding:1.25rem 1rem;text-align:center;border-left:3px solid #F5A623}
+    .dx-score__val{font-size:1.8rem;font-weight:800;color:#F5A623}
+    .dx-score__label{font-size:.72rem;color:rgba(255,255,255,0.5);margin-top:.2rem;text-transform:uppercase;letter-spacing:.05em}
+    .dx-dims{margin-bottom:2rem}
+    .dx-dim{margin-bottom:1rem}
+    .dx-dim__header{display:flex;justify-content:space-between;margin-bottom:.4rem}
+    .dx-dim__name{font-size:.82rem;font-weight:600;color:rgba(255,255,255,0.7)}
+    .dx-dim__level-tag{font-size:.68rem;font-weight:600;padding:.15rem .5rem;border-radius:4px}
+    .dx-dim__pct{font-size:.82rem;font-weight:800;color:#F5A623}
+    .dx-dim__bar{height:8px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+    .dx-dim__fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#F5A623,#F5C623);transition:width 1.2s cubic-bezier(0.16,1,0.3,1);width:0}
+    .dx-insight{background:rgba(245,166,35,0.05);border:1px solid rgba(245,166,35,0.15);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+    .dx-insight__title{font-size:.88rem;font-weight:700;color:#F5A623;margin-bottom:.5rem}
+    .dx-insight__text{font-size:.9rem;color:rgba(255,255,255,0.7);line-height:1.65;margin:0}
+    .dx-bench{text-align:center;margin-bottom:2rem}
+    .dx-bench__title{font-size:.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:.75rem}
+    .dx-bench__options{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+    .dx-bench__opt{background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:.45rem .9rem;font-size:.78rem;font-weight:500;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;min-height:44px;display:inline-flex;align-items:center}
+    .dx-bench__opt:hover{border-color:rgba(46,109,164,0.4);color:rgba(255,255,255,0.7)}
+    .dx-bench__opt--active{border-color:#2E6DA4;background:rgba(46,109,164,0.1);color:#2E6DA4}
+    .dx-share{text-align:center;padding-top:1rem;margin-bottom:2rem}
+    .dx-share__title{font-size:.85rem;color:rgba(255,255,255,0.5);margin-bottom:1rem}
+    .dx-share__btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .dx-share__btn{background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:.6rem 1.2rem;min-height:44px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+    .dx-share__btn:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+    .dx-methodology{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1.5rem;margin-top:2rem}
+    .dx-methodology__title{font-size:.78rem;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+    .dx-methodology__text{font-size:.82rem;color:rgba(255,255,255,0.45);line-height:1.7}
+    .pf-opt{background:rgba(13,31,60,.7);border:1.5px solid rgba(46,109,164,.2);border-radius:10px;padding:12px 16px;font-size:.85rem;color:rgba(232,237,245,.7);cursor:pointer;transition:all .2s;font-family:inherit}
+    .pf-opt:hover{border-color:rgba(245,166,35,.4);color:rgba(232,237,245,.9)}
+    .pf-opt.selected{border-color:rgba(245,166,35,.8);background:rgba(245,166,35,.1);color:#F5A623}
+
+    @media(max-width:768px){
+      .dx-profiles{grid-template-columns:repeat(2,1fr)}
+      .dx-profiles .dx-profile:last-child{grid-column:1/-1;max-width:50%;margin:0 auto}
+      .dx-scores{grid-template-columns:1fr 1fr}
+      .dx-radar svg{max-width:320px}
+      .r-subnav{padding:0 16px}
+    }
+    @media(max-width:480px){
+      .dx-profiles{grid-template-columns:1fr 1fr;gap:8px}
+      .dx-profiles .dx-profile:last-child{max-width:60%}
+      .dx-profile{padding:1rem .75rem}
+      .dx-scores{grid-template-columns:1fr}
+      .dx-radar svg{max-width:280px}
+      .r-section{padding:28px 16px}
+    }
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+
+    <!-- Sub-nav -->
+    <div class="r-subnav">
+      <a href="recursos.html"><span class="r-sn-icon">←</span> Recursos</a>
+      <a href="recursos-autodiag.html" class="active"><span class="r-sn-icon">🧭</span> Autodiagnóstico</a>
+      <a href="recursos-dashboard.html"><span class="r-sn-icon">📊</span> Dashboard</a>
+      <a href="recursos-mensajes.html"><span class="r-sn-icon">✉️</span> Mensajes</a>
+    </div>
+
+    <!-- Content -->
+    <div class="r-section">
+      <div class="r-section-header">
+        <span class="v3-tag">Autodiagnóstico</span>
+        <h2 class="r-section-title">¿Qué tan preparado estoy para liderar en este momento?</h2>
+        <p class="r-section-sub">Un mapa de tus fortalezas actuales y tu próximo movimiento. Sin juicio — con dirección.</p>
+        <div class="r-meta-row">
+          <span class="r-meta">Anónimo</span>
+          <span class="r-meta">4–5 minutos</span>
+          <span class="r-meta">Gratuito</span>
+          <span class="r-meta">Basado en CASEL · OCDE · WEF</span>
+        </div>
+      </div>
+
+      <div class="dx-profiles" id="dx-profiles"></div>
+
+      <div class="dx-quiz" id="dx-quiz">
+        <div class="dx-progress__text" id="dx-progress-text"></div>
+        <div class="dx-progress"><div class="dx-progress__fill" id="dx-progress-fill"></div></div>
+        <div id="dx-question-area"></div>
+        <div class="dx-nav">
+          <button class="dx-nav__btn" id="dx-prev" style="visibility:hidden">← Anterior</button>
+          <button class="dx-nav__btn dx-nav__btn--primary" id="dx-next">Siguiente →</button>
+        </div>
+      </div>
+
+      <div class="dx-results" id="dx-results">
+        <div class="dx-results__header">
+          <div style="display:inline-block;background:rgba(245,166,35,0.15);color:#F5A623;font-size:.75rem;font-weight:700;padding:.3rem .9rem;border-radius:100px;border:1px solid rgba(245,166,35,0.25);margin-bottom:1.5rem" id="dx-results-profile"></div>
+          <div class="dx-results__title" id="dx-results-title"></div>
+          <div class="dx-results__subtitle">Tu perfil de habilidades del siglo XXI</div>
+        </div>
+        <div class="dx-radar"><svg viewBox="0 0 400 400" id="dx-radar-svg"></svg></div>
+        <div class="dx-bench" id="dx-bench">
+          <div class="dx-bench__title">Compara con un referente</div>
+          <div class="dx-bench__options" id="dx-bench-options"></div>
+        </div>
+        <div class="dx-scores" id="dx-scores"></div>
+        <div class="dx-dims" id="dx-dims"></div>
+        <div id="dx-insights"></div>
+
+        <div class="dx-share">
+          <div class="dx-share__title">Basado en CASEL · OCDE · WEF 2025</div>
+          <div class="dx-share__btns">
+            <button class="dx-share__btn" id="dx-retry">🔄 Repetir diagnóstico</button>
+            <button class="dx-share__btn" style="border-color:rgba(245,166,35,0.3);color:rgba(245,166,35,0.7)" id="dx-reset">Probar otro perfil</button>
+          </div>
+        </div>
+
+        <div id="profiling-form" style="display:none;margin:2rem 0;background:rgba(13,31,60,.5);border:1px solid rgba(46,109,164,.2);border-radius:14px;padding:1.5rem">
+          <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Personaliza tu informe</h3>
+          <p style="font-size:.82rem;color:rgba(232,237,245,.5);margin-bottom:1.5rem">4 preguntas · 60 segundos · El informe se adapta a ti</p>
+          <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Cómo quieres que te llamemos? <span style="font-size:.75rem;color:rgba(232,237,245,.35)">(opcional)</span></label><input type="text" id="pf-name" placeholder="Tu nombre o como prefieras" maxlength="40" style="width:100%;background:rgba(13,31,60,.7);border:1px solid rgba(46,109,164,.2);border-radius:8px;padding:10px 14px;color:#fff;font-size:.9rem;font-family:inherit;outline:none"></div>
+          <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Cuál es tu mayor motivación?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Esto define el enfoque de tus recomendaciones</p><div id="pf-motivation" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'motivation','preparar a quienes dependen de mí')">Preparar a las personas que dependen de mí</div><div class="pf-opt" onclick="selPF(this,'motivation','avanzar en mi desarrollo profesional')">Avanzar en mi desarrollo profesional</div><div class="pf-opt" onclick="selPF(this,'motivation','construir algo propio o transformar mi entorno')">Construir algo propio o transformar mi entorno</div><div class="pf-opt" onclick="selPF(this,'motivation','entender el mundo que está cambiando')">Entender el mundo que está cambiando</div></div></div>
+          <div style="margin-bottom:1.25rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.3rem">¿Qué tan en marcha estás?</label><p style="font-size:.75rem;color:rgba(232,237,245,.35);font-style:italic;margin-bottom:.5rem">Sin juicio — solo para calibrar las recomendaciones</p><div id="pf-stage" style="display:flex;flex-direction:column;gap:8px"><div class="pf-opt" onclick="selPF(this,'stage','estoy empezando a pensar en esto')">Estoy empezando a pensar en esto</div><div class="pf-opt" onclick="selPF(this,'stage','tengo bases pero quiero ir más lejos')">Tengo bases, pero quiero ir más lejos</div><div class="pf-opt" onclick="selPF(this,'stage','llevo tiempo trabajando en esto')">Llevo tiempo trabajando en esto</div></div></div>
+          <div style="margin-bottom:1.5rem"><label style="font-size:.85rem;color:rgba(232,237,245,.7);display:block;margin-bottom:.5rem">¿Qué tipo de recomendaciones te sirven más?</label><div id="pf-rectype" style="display:flex;flex-wrap:wrap;gap:8px"><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','concretas y aplicables hoy')">Concretas, para hoy</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','estratégicas a largo plazo')">Estratégicas, a largo plazo</div><div class="pf-opt" style="font-size:.82rem;padding:8px 14px" onclick="selPF(this,'rectype','recursos para profundizar')">Recursos para profundizar</div></div></div>
+          <button id="generate-btn" onclick="generateReport()" disabled style="width:100%;background:rgba(245,166,35,.15);color:rgba(245,166,35,.4);border:1px solid rgba(245,166,35,.2);border-radius:10px;padding:14px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:not-allowed;transition:all .2s">Generar mi informe personalizado →</button>
+          <div id="generating-state" style="display:none;text-align:center;padding:24px 0"><p style="font-size:.9rem;color:rgba(232,237,245,.65)">✨ Analizando tu perfil y generando recomendaciones...</p><p style="font-size:.78rem;color:rgba(232,237,245,.35);margin-top:4px">Esto toma unos segundos</p></div>
+        </div>
+
+        <div class="dx-methodology">
+          <div class="dx-methodology__title">Nota metodológica</div>
+          <div class="dx-methodology__text">Este autodiagnóstico está basado en una rúbrica de progresión de 5 niveles (0-4) alineada con marcos internacionales de habilidades del siglo XXI, incluyendo el framework de la OCDE, el P21, y la taxonomía de habilidades del World Economic Forum. Cada dimensión se evalúa con una pregunta tipo rúbrica donde tú seleccionas el descriptor que mejor te representa. El puntaje se calcula como el promedio de tus niveles seleccionados, normalizado a 100%. Este instrumento es orientativo — no reemplaza una evaluación profesional.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script src="layout.js"></script>
+  <script src="recursos-dx.js"></script>
+</body>
+</html>

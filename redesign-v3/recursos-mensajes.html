@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mensajes · Recursos · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    /* Sub-nav */
+    .r-subnav{display:flex;gap:0;padding:0 32px;border-bottom:1px solid rgba(46,109,164,0.12);overflow-x:auto;scrollbar-width:none}
+    .r-subnav::-webkit-scrollbar{display:none}
+    .r-subnav a{display:flex;align-items:center;gap:6px;padding:12px 16px;font-size:12px;font-weight:600;color:rgba(232,237,245,0.45);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s}
+    .r-subnav a:hover{color:rgba(232,237,245,0.8)}
+    .r-subnav a.active{color:#F5A623;border-bottom-color:#F5A623}
+    .r-subnav a .r-sn-icon{font-size:14px}
+
+    /* Section */
+    .r-section{padding:36px 32px}
+    .r-section-header{margin-bottom:24px}
+    .r-section-title{font-size:22px;font-weight:800;color:rgba(232,237,245,0.95);line-height:1.2;margin-bottom:6px}
+    .r-section-sub{font-size:13px;color:rgba(232,237,245,0.45);line-height:1.6;max-width:560px}
+
+    /* Mensajes */
+    .r-mensajes-empty{display:flex;flex-direction:column;align-items:center;padding:40px 20px;text-align:center}
+    .r-notas-list{display:flex;flex-direction:column;gap:6px}
+    .r-nota-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:8px}
+    .r-nota-dot{width:6px;height:6px;border-radius:50%;background:#F5A623;flex-shrink:0}
+    .r-nota-text{font-size:12px;color:rgba(232,237,245,0.65);flex:1;line-height:1.4}
+    .r-nota-del{font-size:16px;color:rgba(232,237,245,0.25);background:none;border:none;cursor:pointer;flex-shrink:0;line-height:1;padding:0 4px;font-family:inherit}
+    .r-nota-del:hover{color:rgba(232,237,245,0.6)}
+    .r-mensajes-grid{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+    .r-mensaje-card{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.2);border-radius:10px;padding:16px 18px}
+    .r-mensaje-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(245,166,35,0.5);margin-bottom:8px}
+    .r-mensaje-text{font-size:13px;color:rgba(232,237,245,0.8);line-height:1.6;margin-bottom:10px}
+    .r-mensaje-copy{font-size:11px;font-weight:600;padding:5px 14px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.25);border-radius:16px;color:#F5A623;cursor:pointer;transition:all 0.15s;font-family:inherit}
+    .r-mensaje-copy:hover{background:rgba(245,166,35,0.2)}
+    .r-spinner{width:32px;height:32px;border:3px solid rgba(245,166,35,0.15);border-top-color:#F5A623;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media(max-width:768px){.r-subnav{padding:0 16px}}
+    @media(max-width:480px){.r-section{padding:28px 16px}}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+
+    <!-- Sub-nav -->
+    <div class="r-subnav">
+      <a href="recursos.html"><span class="r-sn-icon">←</span> Recursos</a>
+      <a href="recursos-autodiag.html"><span class="r-sn-icon">🧭</span> Autodiagnóstico</a>
+      <a href="recursos-dashboard.html"><span class="r-sn-icon">📊</span> Dashboard</a>
+      <a href="recursos-mensajes.html" class="active"><span class="r-sn-icon">✉️</span> Mensajes</a>
+    </div>
+
+    <!-- Content -->
+    <div class="r-section">
+      <div class="r-section-header">
+        <span class="v3-tag">Mensajes del cuaderno</span>
+        <h2 class="r-section-title">Convierte lo que te movió en una conversación</h2>
+        <p class="r-section-sub">Guarda lo que no puedes ignorar. Y juntos lo convertimos en una conversación con quienes te importan.</p>
+      </div>
+
+      <div id="mensajes-empty" class="r-mensajes-empty" style="display:none">
+        <div style="font-size:32px;margin-bottom:12px">📋</div>
+        <p style="font-size:14px;color:rgba(232,237,245,0.45);line-height:1.6;max-width:400px;text-align:center">Aún no has guardado notas en tu cuaderno.<br>Vuelve a <a href="umbral-ia.html" style="color:#F5A623">Umbral IA</a> y toca cualquier dato que te mueva.</p>
+      </div>
+
+      <div id="mensajes-content" style="display:none">
+        <div class="r-notas-list" id="notas-list"></div>
+        <button onclick="generarMensajes()" class="v3-btn" id="btn-generar-mensajes" style="margin-top:16px">✉ Generar mensajes para compartir →</button>
+        <div id="mensajes-generating" style="display:none;text-align:center;padding:20px 0">
+          <div class="r-spinner"></div>
+          <p style="font-size:13px;color:rgba(232,237,245,0.5);margin-top:10px">Generando mensajes personalizados...</p>
+        </div>
+        <div id="mensajes-resultado" style="display:none">
+          <p style="font-size:12px;color:rgba(232,237,245,0.35);margin:16px 0 10px">Tres ángulos para la misma conversación. Elige el que más resuena.</p>
+          <div class="r-mensajes-grid" id="mensajes-grid"></div>
+          <button onclick="resetMensajes()" class="v3-btn-ghost" style="margin-top:12px;font-size:12px">↺ Generar nuevos mensajes</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script src="layout.js"></script>
+  <script src="recursos-mensajes.js"></script>
+</body>
+</html>
