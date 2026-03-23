@@ -5,11 +5,13 @@
   var rootPrefix = inSubdir ? '../' : '';
 
   var items = [
-    { id: 'home',          label: 'Red de I+D',      href: rootPrefix + 'red-id.html' },
-    { id: 'cepah',         label: 'CEPAH',            href: subPrefix + 'cepah.html' },
-    { id: 'investigacion', label: 'Investigación',    href: subPrefix + 'investigacion.html' },
-    { id: 'publicaciones', label: 'Publicaciones',    href: subPrefix + 'publicaciones.html' },
-    { id: 'summits',       label: 'Summits',          href: subPrefix + 'summits.html' }
+    { id: 'home',           label: 'Red de I+D',       href: rootPrefix + 'red-id.html' },
+    { id: 'cepah',          label: 'CEPAH',             href: subPrefix + 'cepah.html' },
+    { id: 'empresas',       label: 'Empresas',          href: subPrefix + 'empresas.html' },
+    { id: 'universidades',  label: 'Universidades',     href: subPrefix + 'universidades.html' },
+    { id: 'gobiernos',      label: 'Gobiernos',         href: subPrefix + 'gobiernos.html' },
+    { id: 'docentes',       label: 'Docentes',          href: subPrefix + 'docentes.html' },
+    { id: 'colegios',       label: 'Colegios',          href: subPrefix + 'colegios.html' }
   ];
 
   var currentFile = path.split('/').pop().replace('.html', '') || 'red-id';
