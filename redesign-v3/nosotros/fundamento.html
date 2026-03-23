@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Fundamento · Nosotros · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .nos-section{padding:36px 28px}
+    .nos-section+.nos-section{border-top:1px solid rgba(46,109,164,0.1)}
+    .nos-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,166,35,0.45);display:block;margin-bottom:10px}
+    .nos-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:12px}
+    .nos-h1 .a{color:#F5A623}
+    .nos-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:540px;margin-bottom:20px}
+    .nos-h2{font-size:17px;font-weight:800;color:rgba(232,237,245,0.9);margin-bottom:8px}
+    .nos-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .nos-col{border-left:3px solid rgba(46,109,164,0.3);padding:16px 18px}
+    .nos-col h3{font-size:14px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:6px}
+    .nos-col p{font-size:12px;color:rgba(232,237,245,0.5);line-height:1.6}
+    .nos-col strong{color:rgba(232,237,245,0.8)}
+    .nos-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
+    .nos-card{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:10px;padding:18px}
+    .nos-card-t{font-size:13px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:5px}
+    .nos-card-d{font-size:11px;color:rgba(232,237,245,0.4);line-height:1.5}
+    .nos-cierre{padding:22px 24px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.18);border-radius:11px;margin-top:24px}
+    .nos-cierre p{font-size:15px;font-weight:700;color:rgba(232,237,245,0.9);line-height:1.6;margin-bottom:14px}
+    .nos-cierre .a{color:#F5A623}
+    .ally-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .ally{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:8px;padding:10px 14px;font-size:11px;color:rgba(232,237,245,0.5)}
+    .ally strong{color:rgba(232,237,245,0.8);display:block;font-size:12px;margin-bottom:2px}
+    @media(max-width:768px){.nos-cols{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="nos-section">
+      <span class="nos-tag">El Fundamento</span>
+      <h1 class="nos-h1">Somos un colegio que eligió<br><span class="a">estar del lado de las preguntas difíciles.</span></h1>
+      <p class="nos-lead">No enseñamos certezas — cultivamos la capacidad de moverse con criterio en un mundo que cambia más rápido que cualquier manual.</p>
+      <div class="nos-cols">
+        <div class="nos-col" style="border-left-color:rgba(46,109,164,0.4)">
+          <h3>El Colegio</h3>
+          <p>El <strong>Colegio Camilo Henríquez</strong> es un establecimiento educativo ubicado en Talca, Chile, que orienta su diseño metodológico al desarrollo de habilidades del siglo XXI. Su proyecto educativo tiene respaldo directo en 10 marcos internacionales. No agrega talleres a un modelo tradicional — <strong>está construido desde el futuro</strong>.</p>
+        </div>
+        <div class="nos-col" style="border-left-color:rgba(29,158,117,0.4)">
+          <h3>El Proceso de I+D Colaborativo</h3>
+          <p>El colegio impulsa un proceso continuo de investigación y desarrollo educativo a través del <strong>CEPAH</strong>, que sostiene la evolución del modelo con rigor académico. Un proceso abierto a profesores transformadores, líderes educativos, universidades, empresas y gobiernos — <strong>replicable y adaptable</strong> a cualquier escuela que comparta la urgencia.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nos-section">
+      <div class="nos-h2">Un proyecto en evolución continua</div>
+      <p class="nos-lead">Este proyecto no es un producto terminado. Es un proceso de evolución continua que se enriquece con cada diálogo, cada alianza y cada dato nuevo.</p>
+      <p class="nos-lead">Creemos que la mejor forma de preparar para un futuro incierto es construir con otros: familias que comprenden y exigen, docentes que co-construyen, empresas que retroalimentan, universidades que investigan, y gobiernos que deciden con evidencia.</p>
+    </div>
+    <div class="nos-section">
+      <div class="nos-h2">Lo que nos guía</div>
+      <div class="nos-cards">
+        <div class="nos-card"><div class="nos-card-t">Coinspiration, no replicación</div><div class="nos-card-d">Las prácticas replicadas tienden a no funcionar porque fueron diseñadas para un contexto específico. Creemos en acuerdos en torno a objetivos comunes donde cada escuela diseña su propia solución.</div></div>
+        <div class="nos-card"><div class="nos-card-t">Evidencia, no intuición</div><div class="nos-card-d">Cada decisión pedagógica tiene respaldo en investigación internacional verificable. Ningún dato es especulativo. Todas las fuentes son públicas y accesibles.</div></div>
+        <div class="nos-card"><div class="nos-card-t">Evolución, no perfección</div><div class="nos-card-d">No tenemos todas las respuestas. Tenemos las mejores preguntas, la humildad de saber que el futuro no puede conocerse con certeza, y la disciplina de imaginarlo con rigor.</div></div>
+      </div>
+    </div>
+    <div class="nos-section">
+      <div class="nos-h2">Nuestras alianzas activas</div>
+      <div class="ally-row">
+        <div class="ally"><strong>CEPAH</strong>Centro de Estudios para el Aprendizaje Humano · Investigación propia</div>
+        <div class="ally"><strong>Red de Escuelas</strong>Coinspiration pedagógica · en construcción</div>
+      </div>
+      <div class="nos-cierre">
+        <p>El futuro no está escrito. <span class="a">Nosotros estamos aquí para escribirlo</span> — con cada estudiante, cada familia, cada conversación.</p>
+        <a class="v3-btn" href="../colegio/admision.html">Agenda una visita →</a>
+        <a class="v3-btn-ghost" href="../red-id.html" style="margin-left:10px">Conocer la Red de I+D</a>
+      </div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+</body>
+</html>

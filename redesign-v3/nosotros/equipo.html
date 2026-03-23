@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipo · Nosotros · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .nos-section{padding:36px 28px}
+    .nos-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,166,35,0.45);display:block;margin-bottom:10px}
+    .nos-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:12px}
+    .nos-h1 .a{color:#F5A623}
+    .nos-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:540px;margin-bottom:20px}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+    .team-card{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:11px;padding:20px;text-align:center}
+    .tc-avatar{width:64px;height:64px;border-radius:50%;background:rgba(46,109,164,0.15);border:1px solid rgba(46,109,164,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:11px;font-weight:700;color:rgba(100,150,200,0.6)}
+    .tc-name{font-size:13px;font-weight:700;color:rgba(232,237,245,0.85);margin-bottom:3px}
+    .tc-role{font-size:11px;color:rgba(232,237,245,0.4);line-height:1.4}
+    .pending{margin-top:24px;padding:18px;background:rgba(245,166,35,0.05);border:1px dashed rgba(245,166,35,0.2);border-radius:10px}
+    .pending-t{font-size:12px;font-weight:700;color:rgba(245,166,35,0.7);margin-bottom:5px}
+    .pending-d{font-size:11px;color:rgba(232,237,245,0.4);line-height:1.5}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="nos-section">
+      <span class="nos-tag">Equipo</span>
+      <h1 class="nos-h1">Las personas detrás<br><span class="a">de este proyecto.</span></h1>
+      <p class="nos-lead">Un equipo que cree que la educación es la herramienta más poderosa para cambiar el rumbo — y que actúa en consecuencia.</p>
+      <div class="team-grid">
+        <div class="team-card"><div class="tc-avatar">AR</div><div class="tc-name">Alejandro Rudloff</div><div class="tc-role">Director del Proyecto · CEPAH</div></div>
+        <div class="team-card"><div class="tc-avatar">?</div><div class="tc-name">[Nombre]</div><div class="tc-role">Equipo Directivo</div></div>
+        <div class="team-card"><div class="tc-avatar">?</div><div class="tc-name">[Nombre]</div><div class="tc-role">Equipo Docente</div></div>
+        <div class="team-card"><div class="tc-avatar">?</div><div class="tc-name">[Nombre]</div><div class="tc-role">Trabajo Social</div></div>
+      </div>
+      <div class="pending">
+        <div class="pending-t">⚠ Sección en construcción</div>
+        <div class="pending-d">Esta sección requiere fotos reales, nombres completos y frases del equipo. Los placeholders se reemplazarán cuando el material esté disponible.</div>
+      </div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+</body>
+</html>

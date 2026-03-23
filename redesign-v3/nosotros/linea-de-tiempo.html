@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Línea de Tiempo · Nosotros · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .nos-section{padding:36px 28px}
+    .nos-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,166,35,0.45);display:block;margin-bottom:10px}
+    .nos-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:12px}
+    .nos-h1 .a{color:#F5A623}
+    .nos-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:540px;margin-bottom:20px}
+    .timeline{display:flex;flex-direction:column;gap:0;margin-top:20px;position:relative;padding-left:32px}
+    .timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:rgba(46,109,164,0.2)}
+    .tl-item{position:relative;padding:0 0 28px}
+    .tl-item:last-child{padding-bottom:0}
+    .tl-dot{position:absolute;left:-32px;top:4px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+    .tl-year{font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:4px}
+    .tl-title{font-size:14px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:4px}
+    .tl-desc{font-size:12px;color:rgba(232,237,245,0.45);line-height:1.55}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="nos-section">
+      <span class="nos-tag">Línea de Tiempo</span>
+      <h1 class="nos-h1">Los hitos<br><span class="a">de este proyecto.</span></h1>
+      <p class="nos-lead">Cada etapa construye sobre la anterior. Los hitos se actualizan a medida que el proyecto avanza.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(29,158,117,0.2);color:rgba(29,158,117,0.8)">1</div>
+          <div class="tl-year" style="color:rgba(29,158,117,0.7)">2020–2023</div>
+          <div class="tl-title">Consolidación del proyecto educativo</div>
+          <div class="tl-desc">Diseño del proyecto educativo centrado en competencias del siglo XXI. Primeras investigaciones internas. Construcción de la base metodológica con respaldo en marcos internacionales.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(29,158,117,0.2);color:rgba(29,158,117,0.8)">2</div>
+          <div class="tl-year" style="color:rgba(29,158,117,0.7)">2024</div>
+          <div class="tl-title">Investigación base</div>
+          <div class="tl-desc">Revisión de 10 marcos internacionales, 100+ datos verificados. Diseño de instrumentos de medición. Primeras publicaciones internas.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(46,109,164,0.2);color:rgba(46,109,164,0.8)">3</div>
+          <div class="tl-year" style="color:rgba(46,109,164,0.7)">2025–2026</div>
+          <div class="tl-title">Creación del CEPAH y rediseño del sitio</div>
+          <div class="tl-desc">Creación del Centro de Estudios para el Aprendizaje Humano. Rediseño del sitio para múltiples audiencias. Preparación del piloto. Búsqueda de alianzas académicas e industriales.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(83,74,183,0.2);color:rgba(83,74,183,0.8)">4</div>
+          <div class="tl-year" style="color:rgba(83,74,183,0.7)">Próximo</div>
+          <div class="tl-title">Implementación y primeros resultados</div>
+          <div class="tl-desc">Implementación del piloto. Primeros Summits del CEPAH. Publicación de resultados. Formalización de alianzas con universidades e industria. Expansión de la Red de I+D.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+</body>
+</html>
