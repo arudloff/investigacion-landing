@@ -4,917 +4,246 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Colegio Camilo Henríquez · Talca</title>
-  <meta name="description" content="300 millones de empleos expuestos a IA. 65% de los niños trabajarán en empleos que no existen. Un colegio en Talca decidió dejar de esperar.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="layout.css">
   <style>
-    /* ===== VARIABLES ===== */
-    :root {
-      /* Fondos */
-      --color-dark-deep:    #0A1628;
-      --color-dark-mid:     #0D1F3C;
-      --color-dark-section: #1A3A5C;
+    .h-hero{padding:44px 32px 32px;text-align:center}
+    .h-section{padding:32px 32px}
+    .h-section+.h-section{border-top:1px solid rgba(46,109,164,0.12)}
+    .h-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,166,35,0.45);display:block;margin-bottom:12px}
+    .h-h1{font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px}
+    .h-h1 .a{color:#F5A623}
+    .h-rotating{font-size:14px;color:rgba(232,237,245,0.55);line-height:1.75;max-width:620px;margin:0 auto 16px;transition:opacity 0.4s ease;min-height:80px}
+    .h-refresh{background:none;border:1px solid rgba(245,166,35,0.25);color:rgba(245,166,35,0.6);font-size:11px;font-weight:600;padding:6px 16px;border-radius:16px;cursor:pointer;transition:all .15s;font-family:inherit}
+    .h-refresh:hover{border-color:rgba(245,166,35,0.5);color:rgba(245,166,35,0.9)}
+    .h-h2{font-size:clamp(18px,3vw,26px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+    .h-sub{font-size:13px;color:rgba(232,237,245,0.45);line-height:1.65;max-width:580px;margin-bottom:20px}
+    .h-sub-c{font-size:13px;color:rgba(232,237,245,0.45);line-height:1.65;max-width:580px;margin:0 auto 20px;text-align:center}
 
-      /* Azules institucionales */
-      --color-primary-dark:  #1A3A5C;
-      --color-primary-mid:   #2E6DA4;
-      --color-primary-light: #D6E8F7;
+    /* Data panel */
+    .h-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+    .h-kpi{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.2);border-radius:10px;padding:16px;text-align:center}
+    .h-kpi-n{font-size:28px;font-weight:900;color:#F5A623;line-height:1}
+    .h-kpi-l{font-size:10px;color:rgba(232,237,245,0.4);margin-top:4px;line-height:1.3}
+    .h-kpi-s{font-size:9px;color:rgba(232,237,245,0.25);margin-top:3px}
 
-      /* Acentos */
-      --color-amber:         #F5A623;
-      --color-amber-dark:    #C86400;
-      --color-amber-light:   #FFF8DC;
+    /* Donut comparison */
+    .h-split{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;margin:20px 0;align-items:start}
+    .h-split-side{text-align:center}
+    .h-donut{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;position:relative}
+    .h-donut-red{background:conic-gradient(#E85D24 0% var(--pct,0%),rgba(232,60,40,0.12) var(--pct,0%) 100%)}
+    .h-donut-green{background:conic-gradient(#1D9E75 0% var(--pct,0%),rgba(29,158,117,0.12) var(--pct,0%) 100%)}
+    .h-donut-inner{width:100px;height:100px;border-radius:50%;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .h-donut-num{font-size:24px;font-weight:800;color:#F5A623}
+    .h-donut-label{font-size:10px;color:rgba(232,237,245,0.4);line-height:1.2;margin-top:2px}
+    .h-split-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-top:40px}
+    .h-split-arrow{font-size:24px;color:rgba(46,109,164,0.4)}
+    .h-split-text{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(46,109,164,0.5);writing-mode:vertical-lr;transform:rotate(180deg)}
+    .h-side-title{font-size:13px;font-weight:700;margin-bottom:4px}
+    .h-side-desc{font-size:11px;color:rgba(232,237,245,0.35);margin-bottom:12px;line-height:1.4}
 
-      /* Audiencias */
-      --color-accent-green: #1F6B3B;
-      --color-green:         #1F6B3B;
-      --color-green-light:   #D4EDDA;
-      --color-teal:          #0D5C63;
-      --color-teal-light:    #D4EDEF;
-      --color-purple:        #4A235A;
-      --color-purple-light:  #EDE4F3;
+    /* Expandable list */
+    .h-list{list-style:none;padding:0;margin:0;text-align:left}
+    .h-list li{padding:10px 12px;border-radius:8px;font-size:12px;color:rgba(232,237,245,0.55);cursor:pointer;border-left:3px solid rgba(232,60,40,0.3);margin-bottom:6px;background:rgba(255,255,255,0.02);line-height:1.45;transition:background .15s}
+    .h-list li:hover{background:rgba(255,255,255,0.04)}
+    .h-list li strong{font-weight:800;font-size:13px}
+    .h-list.red li strong{color:#E85D24}
+    .h-list.green li{border-left-color:rgba(29,158,117,0.3)}
+    .h-list.green li strong{color:#5DCAA5}
+    .h-list-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(232,237,245,0.35);line-height:1.5}
+    .h-list li.open .h-list-detail{display:block}
 
-      /* Neutros */
-      --color-text:          rgba(232,237,245,0.9);
-      --color-text-secondary: rgba(232,237,245,0.6);
-      --color-text-tertiary: rgba(232,237,245,0.35);
-      --color-bg-neutral:    rgba(13,31,60,0.5);
-      --color-white:         #FFFFFF;
+    /* Quiz */
+    .h-quiz{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.2);border-radius:10px;margin:20px 0;overflow:hidden}
+    .h-quiz-prompt{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s}
+    .h-quiz-prompt:hover{background:rgba(46,109,164,0.06)}
+    .h-quiz-ic{font-size:20px;flex-shrink:0}
+    .h-quiz-q{font-size:13px;font-weight:600;color:rgba(232,237,245,0.8);flex:1}
+    .h-quiz-cta{font-size:10px;font-weight:600;color:rgba(245,166,35,0.6);white-space:nowrap}
+    .h-quiz-answer{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 18px;font-size:12px;color:rgba(232,237,245,0.5);line-height:1.6}
+    .h-quiz.open .h-quiz-answer{max-height:200px;padding:0 18px 16px}
+    .h-quiz.open .h-quiz-cta{display:none}
+    .h-quiz.open .h-quiz-prompt{background:rgba(46,109,164,0.08)}
 
-      /* Textura hero */
-      --texture-dots:
-        radial-gradient(rgba(46,109,164,0.35) 1px, transparent 1px);
-      --texture-dots-size: 24px 24px;
+    /* Ticker */
+    .h-ticker{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0;font-size:12px;color:rgba(232,237,245,0.4)}
+    .h-ticker strong{color:rgba(232,237,245,0.7)}
+    .h-ticker-dot{width:4px;height:4px;border-radius:50%;background:rgba(46,109,164,0.3)}
 
-      /* Diseño */
-      --radius: 8px;
-      --radius-lg: 12px;
-      --radius-pill: 100px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-      --max-width: 960px;
-      --nav-height: 0px;
+    /* Quote */
+    .h-quote{border-left:3px solid rgba(245,166,35,0.3);padding:16px 20px;font-size:14px;color:rgba(232,237,245,0.6);line-height:1.75;font-style:italic;margin:16px 0}
 
-      /* Espaciado — reduced for v3 sidebar layout */
-      --space-xs: 0.25rem;
-      --space-sm: 0.5rem;
-      --space-md: 1rem;
-      --space-lg: 1.5rem;
-      --space-xl: 2rem;
-      --space-2xl: 3rem;
-      --space-3xl: 4rem;
-    }
+    /* Ejes */
+    .h-ejes{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:20px 0}
+    .h-eje{text-align:center;padding:16px 8px;background:rgba(255,255,255,0.02);border:1px solid rgba(46,109,164,0.12);border-radius:10px;cursor:default;position:relative;transition:border-color .15s}
+    .h-eje:hover{border-color:rgba(245,166,35,0.25)}
+    .h-eje-ic{font-size:24px;margin-bottom:6px;display:block}
+    .h-eje-name{font-size:11px;font-weight:700;color:rgba(232,237,245,0.7);line-height:1.3}
+    .h-eje-tip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,22,40,0.95);border:1px solid rgba(245,166,35,0.25);border-radius:8px;padding:10px 14px;font-size:11px;color:rgba(232,237,245,0.6);line-height:1.45;width:220px;z-index:10;text-align:left;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+    .h-eje:hover .h-eje-tip{display:block}
 
-    /* ===== RESET (scoped to #v3-content) ===== */
-    #v3-content *, #v3-content *::before, #v3-content *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    #v3-content { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--color-text); line-height: 1.65; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; min-width:0; }
-    #v3-content a { color: var(--color-primary-mid); text-decoration: none; }
-    #v3-content a:hover { text-decoration: underline; }
-    #v3-content img { max-width: 100%; height: auto; display: block; }
-    #v3-content ul, #v3-content ol { list-style: none; }
+    /* CTA row */
+    .h-cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
 
-    /* ===== TYPOGRAPHY ===== */
-    #v3-content h1 {
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--color-primary-dark);
-      text-wrap: balance;
-    }
-    #v3-content h2 {
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.015em;
-      color: var(--color-primary-dark);
-      text-wrap: balance;
-    }
-    #v3-content h3 {
-      font-size: clamp(1.15rem, 2vw, 1.5rem);
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      color: var(--color-primary-dark);
-    }
-    #v3-content h4 { font-size: 1rem; font-weight: 600; }
-    #v3-content p { margin-bottom: 1rem; max-width: 72ch; }
-    #v3-content strong { font-weight: 600; color: var(--color-text); }
-    .text-center { text-align: center; }
-    .text-center p { margin-left: auto; margin-right: auto; }
+    /* Question highlight */
+    .h-question{font-size:clamp(15px,2.5vw,20px);font-weight:700;color:#F5A623;text-align:center;margin:20px 0;line-height:1.3}
 
-    /* ===== LAYOUT ===== */
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-lg); }
-    .section { padding: var(--space-3xl) 0; }
-    .section--alt { background: var(--color-bg-neutral); }
-
-    /* ===== GRID ===== */
-    .grid { display: grid; gap: var(--space-lg); }
-    .grid-6 { grid-template-columns: repeat(6, 1fr); }
-
-    /* ===== HERO ===== */
-    .hero {
-      background-color: var(--color-dark-deep);
-      background-image: var(--texture-dots);
-      background-size: var(--texture-dots-size);
-      color: var(--color-white);
-      padding: 3rem 0 2.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    @media(max-width:768px){
+      .h-kpi-grid{grid-template-columns:repeat(2,1fr)}
+      .h-split{grid-template-columns:1fr;gap:24px}
+      .h-split-center{flex-direction:row;padding-top:0}
+      .h-split-text{writing-mode:horizontal-tb;transform:none}
+      .h-ejes{grid-template-columns:repeat(3,1fr)}
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(46,109,164,0.2) 0%, transparent 70%);
-      pointer-events: none;
+    @media(max-width:480px){
+      .h-hero{padding:28px 16px 24px}
+      .h-section{padding:24px 16px}
+      .h-kpi-grid{grid-template-columns:1fr 1fr}
+      .h-ejes{grid-template-columns:repeat(2,1fr)}
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -60px;
-      left: 30%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(200,100,0,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero h1 {
-      color: var(--color-white);
-      margin-bottom: 1.75rem;
-      max-width: 850px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 1;
-    }
-    .hero .container { position: relative; z-index: 1; }
-    .hero__subhead {
-      font-size: clamp(1.2rem, 2.8vw, 1.8rem);
-      font-weight: 500;
-      color: var(--color-white);
-      margin: var(--space-md) auto var(--space-lg);
-      max-width: 720px;
-      line-height: 1.5;
-    }
-    .hero__swap {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      vertical-align: middle;
-      line-height: 1;
-      margin: 0 .15em;
-    }
-    .hero__strike {
-      text-decoration: line-through;
-      text-decoration-thickness: 3px;
-      text-decoration-color: rgba(255,255,255,.8);
-      color: rgba(255,255,255,.4);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .hero__correct {
-      font-weight: 800;
-      color: var(--color-amber);
-      text-transform: uppercase;
-      letter-spacing: .02em;
-      font-size: .7em;
-      margin-top: -.1em;
-    }
-    .hero__quote {
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      font-style: italic;
-      opacity: 0.88;
-      max-width: 720px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.75;
-    }
-    .hero__label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 1.25rem;
-    }
-    .hero__cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
-
-    /* ===== BUTTONS ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.75rem;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.92rem;
-      font-family: inherit;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.15s ease;
-      text-decoration: none;
-    }
-    .btn:hover { text-decoration: none; transform: translateY(-1px); }
-    .btn--amber {
-      background-color: var(--color-amber);
-      color: var(--color-dark-deep);
-      font-weight: 700;
-      border-color: var(--color-amber);
-    }
-    .btn--amber:hover {
-      background-color: var(--color-amber-dark);
-      border-color: var(--color-amber-dark);
-    }
-    .btn--outline { background: transparent; color: var(--color-white); border-color: rgba(255,255,255,0.35); }
-    .btn--outline:hover { border-color: var(--color-white); background: rgba(255,255,255,0.08); }
-
-    /* ===== SECTION BACKGROUNDS ===== */
-    .section-dark-deep   { background-color: var(--color-dark-deep); background-image: var(--texture-dots); background-size: var(--texture-dots-size); }
-    .section-dark-mid    { background-color: var(--color-dark-mid); }
-    .section-light       { background-color: rgba(13,31,60,0.7); border-top:1px solid rgba(46,109,164,0.15); border-bottom:1px solid rgba(46,109,164,0.15); }
-    .section-white       { background-color: rgba(13,31,60,0.85); border-top:1px solid rgba(46,109,164,0.15); border-bottom:1px solid rgba(46,109,164,0.15); }
-
-    /* Texto sobre fondos oscuros */
-    .section-dark-deep h2, .section-dark-mid h2 { color: var(--color-white); }
-    .section-dark-deep p, .section-dark-mid p { color: rgba(255,255,255,0.7); }
-    .section-dark-deep strong, .section-dark-mid strong { color: var(--color-white); }
-
-    /* Texto sobre fondos claros */
-    .section-light h2, .section-white h2 { color: #fff; }
-    .section-light p, .section-white p { color: rgba(232,237,245,0.7); }
-    .section-light strong, .section-white strong { color: rgba(232,237,245,0.9); }
-    .section-light h3, .section-white h3 { color: rgba(232,237,245,0.9); }
-
-    /* ===== INFOGRAFIA — Panel de datos ===== */
-    .ig-panel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-      align-items: center;
-    }
-    .ig-panel__main { text-align: center; }
-    .ig-panel__num {
-      font-size: clamp(3.5rem, 8vw, 5.5rem);
-      font-weight: 900;
-      line-height: .85;
-      letter-spacing: -.04em;
-      color: var(--color-amber);
-      font-variant-numeric: tabular-nums;
-    }
-    .ig-panel__desc {
-      font-size: clamp(.9rem, 1.5vw, 1.1rem);
-      font-weight: 500;
-      color: rgba(255,255,255,.8);
-      margin-top: .3rem;
-    }
-    .ig-panel__src {
-      font-size: .75rem;
-      color: rgba(255,255,255,.3);
-      font-style: italic;
-      margin-top: .3rem;
-    }
-    .ig-panel__secondary {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-    }
-    .ig-panel__stat {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      gap: 0 var(--space-md);
-      align-items: baseline;
-      padding: var(--space-sm) var(--space-md);
-      border-left: 2px solid rgba(255,255,255,.12);
-      transition: border-color .3s;
-    }
-    .ig-panel__stat:hover { border-left-color: rgba(255,255,255,.4); }
-    .ig-panel__stat-num {
-      font-size: clamp(1.4rem, 2vw, 1.8rem);
-      font-weight: 800;
-      color: rgba(255,255,255,.9);
-      letter-spacing: -.02em;
-      font-variant-numeric: tabular-nums;
-      grid-row: 1 / 3;
-    }
-    .ig-panel__stat-label {
-      font-size: .8rem;
-      color: rgba(255,255,255,.55);
-      line-height: 1.3;
-    }
-    .ig-panel__stat-src {
-      font-size: .7rem;
-      color: rgba(255,255,255,.25);
-      font-style: italic;
-    }
-
-    /* ===== DONUT CHART ===== */
-    @property --pct {
-      syntax: '<number>';
-      inherits: false;
-      initial-value: 0;
-    }
-    .ig-donut {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      transition: --pct 1.8s cubic-bezier(.16,1,.3,1), transform .3s ease;
-      position: relative;
-    }
-    .ig-donut--red {
-      background: radial-gradient(circle, var(--color-white) 55%, transparent 56%),
-                  conic-gradient(#FF6B6B 0% calc(var(--pct) * 1%), #ffe0e0 calc(var(--pct) * 1%) 100%);
-      box-shadow: 0 0 0 4px #fff, 0 4px 20px rgba(255,107,107,.2);
-    }
-    .ig-donut--green {
-      background: radial-gradient(circle, var(--color-white) 55%, transparent 56%),
-                  conic-gradient(#51CF66 0% calc(var(--pct) * 1%), #d4f4d9 calc(var(--pct) * 1%) 100%);
-      box-shadow: 0 0 0 4px #fff, 0 4px 20px rgba(81,207,102,.2);
-    }
-    .ig-donut__inner { text-align: center; z-index: 1; }
-    .ig-donut__num {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      font-variant-numeric: tabular-nums;
-    }
-    .ig-donut--red .ig-donut__num { color: #C92A2A; }
-    .ig-donut--green .ig-donut__num { color: var(--color-accent-green); }
-    .ig-donut__label { font-size: .65rem; color: var(--color-text-tertiary); line-height: 1.2; display: block; margin-top: .1rem; }
-    .ig-donut--hover {
-      transform: scale(1.08);
-      transition: transform .3s cubic-bezier(.16,1,.3,1);
-    }
-
-    /* ===== SPLIT COMPARISON ===== */
-    .ig-split {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: var(--space-lg);
-      align-items: start;
-      margin-bottom: var(--space-xl);
-    }
-    .ig-split__side { text-align: center; }
-    .ig-split__side--left {}
-    .ig-split__side--right {}
-    .ig-split__center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-md);
-      padding-top: 60px;
-    }
-    .ig-split__arrow {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--color-primary-mid);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      font-weight: 700;
-      box-shadow: 0 4px 15px rgba(46,109,164,.3);
-    }
-
-    /* ===== INTERACTIVE LIST ===== */
-    .ig-list {
-      text-align: left;
-      margin-top: var(--space-sm);
-    }
-    .ig-list li {
-      padding: .65rem .8rem;
-      border-radius: var(--radius);
-      font-size: .82rem;
-      color: rgba(232,237,245,0.6);
-      cursor: pointer;
-      transition: background .2s;
-      border-left: 3px solid rgba(232,60,40,0.4);
-      margin-bottom: .4rem;
-      line-height: 1.4;
-      background: rgba(255,255,255,0.03);
-    }
-    .ig-list--green li { border-left-color: rgba(29,158,117,0.4); }
-    .ig-list li:hover { background: rgba(255,255,255,.04); }
-    .ig-list li strong { color: #E85D24; font-size: .95rem; }
-    .ig-list--green li strong { color: #5DCAA5; }
-    .ig-list__detail {
-      display: none;
-      margin-top: .4rem;
-      font-size: .78rem;
-      color: rgba(232,237,245,0.4);
-      line-height: 1.5;
-      padding-top: .4rem;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .ig-list__item--open .ig-list__detail { display: block; }
-    .ig-list li.anim { opacity: 0; transform: translateX(-10px); }
-    .ig-list li.anim.anim--visible { opacity: 1; transform: translateX(0); }
-
-    /* ===== QUIZ ===== */
-    .ig-quiz {
-      background: var(--color-white);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      border: 2px solid rgba(46,109,164,0.3);
-      margin-bottom: var(--space-lg);
-    }
-    .ig-quiz__prompt {
-      padding: var(--space-md) var(--space-lg);
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-      cursor: pointer;
-      transition: background .2s;
-      flex-wrap: wrap;
-    }
-    .ig-quiz__prompt:hover { background: rgba(46,109,164,0.1); }
-    .ig-quiz__icon { font-size: 1.5rem; flex-shrink: 0; }
-    .ig-quiz__prompt > span:nth-child(2) {
-      font-size: .95rem;
-      font-weight: 600;
-      color: #fff;
-      flex: 1;
-    }
-    .ig-quiz__cta {
-      font-size: .75rem;
-      color: var(--color-amber);
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .ig-quiz__answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .5s cubic-bezier(.16,1,.3,1), padding .3s;
-      padding: 0 var(--space-lg);
-      font-size: .9rem;
-      line-height: 1.65;
-      color: var(--color-text-secondary);
-    }
-    .ig-quiz--revealed .ig-quiz__answer {
-      max-height: 300px;
-      padding: 0 var(--space-lg) var(--space-lg);
-    }
-    .ig-quiz--revealed .ig-quiz__cta { display: none; }
-    .ig-quiz--revealed .ig-quiz__prompt { background: rgba(46,109,164,0.15); }
-
-    /* ===== TICKER ===== */
-    .ig-ticker {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-md);
-      flex-wrap: wrap;
-      padding: var(--space-md) var(--space-lg);
-      background: var(--color-white);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      margin-top: var(--space-lg);
-    }
-    .ig-ticker__item { font-size: .8rem; color: var(--color-text-secondary); }
-    .ig-ticker__item strong { color: var(--color-primary-dark); font-size: .95rem; }
-    .ig-ticker__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-tertiary); }
-
-    /* ===== QUESTION ===== */
-    .ig-question {
-      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-      font-weight: 700;
-      color: var(--color-amber);
-      line-height: 1.3;
-      text-wrap: balance;
-    }
-
-    /* ===== BAR ===== */
-    .ig-bar {}
-
-    /* ===== STAGGER ===== */
-    .ig-stagger { transition-property: opacity, transform; }
-
-    /* ===== EJE ICONS ===== */
-    .eje {
-      text-align: center;
-      padding: 1.5rem 0.5rem;
-      cursor: default;
-      position: relative;
-    }
-    .eje__icon { font-size: 2.2rem; margin-bottom: 0.6rem; }
-    .eje__name { font-size: 0.78rem; font-weight: 600; color: rgba(232,237,245,0.8); line-height: 1.3; }
-    .eje__tooltip {
-      display: none;
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(10,22,40,0.95);
-      border: 1px solid rgba(245,166,35,0.25);
-      color: var(--color-white);
-      padding: 0.85rem 1.1rem;
-      border-radius: var(--radius);
-      font-size: 0.78rem;
-      line-height: 1.45;
-      width: 230px;
-      box-shadow: var(--shadow-lg);
-      z-index: 10;
-    }
-    .eje:hover .eje__tooltip { display: block; }
-
-    /* ===== REFRESH BUTTON ===== */
-    .refresh-btn {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.5);
-      font-size: .78rem;
-      font-weight: 600;
-      padding: .55rem 1.25rem;
-      min-height: 44px;
-      border-radius: 100px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s;
-      letter-spacing: .02em;
-      display: inline-flex;
-      align-items: center;
-    }
-    .refresh-btn:active { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.85); }
-    @media (hover: hover) {
-      .refresh-btn:hover { border-color: rgba(255,255,255,0.45); color: rgba(255,255,255,0.8); }
-    }
-
-    /* ===== UTILITIES ===== */
-    .mb-1 { margin-bottom: 0.5rem; }
-    .mb-2 { margin-bottom: 1rem; }
-    .mb-3 { margin-bottom: 1.5rem; }
-    .mb-4 { margin-bottom: 2rem; }
-    .mt-2 { margin-top: 1rem; }
-    .mt-4 { margin-top: 2rem; }
-
-    /* ===== ANIMATIONS ===== */
-    .anim { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .anim--visible { opacity: 1; transform: translateY(0); }
-
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .grid-6 { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .grid-6 { grid-template-columns: repeat(2, 1fr); }
-      .hero { padding: 5rem 0 4rem; }
-      .section { padding: var(--space-2xl) 0; }
-      .btn { min-height: 44px; padding: 0.75rem 1.5rem; }
-      .container { padding: 0 var(--space-md); }
-      .ig-panel { grid-template-columns: 1fr; text-align: center; }
-      .ig-panel__secondary { margin-top: var(--space-md); }
-      .ig-panel__stat { border-left: none; border-top: 1px solid rgba(255,255,255,.08); padding: var(--space-sm) 0; }
-      .ig-split { grid-template-columns: 1fr !important; }
-      .ig-split__center { display: flex; flex-direction: row; padding-top: 0; justify-content: center; }
-      .ig-split__center p { writing-mode: horizontal-tb !important; transform: none !important; }
-      .ig-donut { width: 130px; height: 130px; }
-      .ig-ticker { flex-direction: column; gap: var(--space-sm); }
-      .ig-ticker__dot { display: none; }
-    }
-    @media (max-width: 480px) {
-      .grid-6 { grid-template-columns: 1fr; }
-      .hero__cta-group { flex-direction: column; align-items: center; }
-      .hero__cta-group .btn { width: 100%; justify-content: center; }
-      .hero { padding: 4rem 0 3rem; }
-      .container { padding: 0 1rem; }
-    }
-
-    /* ===== CTA CENTERING ===== */
-    p > .btn { display: inline-flex; }
   </style>
 </head>
 <body>
-
   <main id="v3-content">
 
-    <!-- ═══════════════════════════════════════════════
-         BLOQUE 1 — EL PROBLEMA / LA OPORTUNIDAD
-         ═══════════════════════════════════════════════ -->
-    <section class="hero">
-      <div class="container">
-        <h1 class="anim">El mundo cambió</h1>
-        <p class="anim hero__subhead"><span>Ahora Aprender a </span><span class="hero__swap"><span class="hero__strike">APRENDER</span><span class="hero__correct">SOLUCIONAR CON IA</span></span><span> es la Respuesta</span></p>
-        <p class="hero__quote anim" id="hero-rotating" style="transition:opacity 0.4s ease">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
-        <div class="anim" style="text-align:center;margin-top:.75rem">
-          <button onclick="nextHeroPhrase()" class="refresh-btn">Hay más de una razón para actuar. Descubre otra →</button>
-        </div>
-        <script>
-        var _heroPhrases = [
-          'IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.',
-          'El 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen. La pregunta no es si el mundo cambió — es si la educación que reciben está a la altura de ese cambio.',
-          '300 millones de empleos expuestos a IA generativa. 92 millones desplazados para 2030. Y la única respuesta que escala al ritmo del problema es la educación.',
-          'Las habilidades cambian un 66% más rápido en empleos expuestos a IA. Lo que un joven aprende hoy puede ser obsoleto antes de que termine la carrera. La capacidad de aprender a aprender es la única destreza que no caduca.',
-          'Los contenidos falsos generados por IA crecen 900% anual. En un mundo donde cualquiera puede fabricar una mentira convincente en 3 segundos, el pensamiento crítico dejó de ser deseable — es supervivencia.',
-          'Un estudiante en Talca puede trabajar con una startup en Berlín, publicar con una universidad en Tokio, o resolver un problema en Ghana. La geografía dejó de ser un límite. La educación que recibe, no.',
-          'Klarna, IBM, UPS, Chegg: las empresas más grandes del mundo descubrieron que la IA no puede reemplazar la empatía, el juicio ni la creatividad. Exactamente lo que una educación de vanguardia desarrolla.',
-          'Las startups de un solo empleado pasaron del 22% al 38% en menos de una década. Una persona con las destrezas correctas y las herramientas de IA tiene más impacto que un departamento entero sin ellas.',
-        ];
-        var _heroIdx = parseInt(sessionStorage.getItem('cch_hero_idx') || '-1');
-        function nextHeroPhrase() {
-          _heroIdx = (_heroIdx + 1) % _heroPhrases.length;
-          sessionStorage.setItem('cch_hero_idx', _heroIdx);
-          var el = document.getElementById('hero-rotating');
-          el.style.opacity = '0';
-          setTimeout(function(){ el.textContent = _heroPhrases[_heroIdx]; el.style.opacity = '1'; }, 400);
-        }
-        nextHeroPhrase();
-        </script>
+    <!-- HERO -->
+    <div class="h-hero">
+      <span class="h-tag">Colegio Camilo Henríquez · Talca, Chile</span>
+      <h1 class="h-h1">El mundo cambió.<br><span class="a">La educación es la respuesta.</span></h1>
+      <p class="h-rotating" id="hero-rotating">IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.</p>
+      <button onclick="nextPhrase()" class="h-refresh">Hay más de una razón para actuar. Descubre otra →</button>
+    </div>
+
+    <!-- DATOS CLAVE -->
+    <div class="h-section">
+      <div class="h-kpi-grid">
+        <div class="h-kpi"><div class="h-kpi-n">300M</div><div class="h-kpi-l">empleos expuestos a IA generativa</div><div class="h-kpi-s">Goldman Sachs, 2023</div></div>
+        <div class="h-kpi"><div class="h-kpi-n">92M</div><div class="h-kpi-l">empleos desplazados para 2030</div><div class="h-kpi-s">WEF, 2025</div></div>
+        <div class="h-kpi"><div class="h-kpi-n">65%</div><div class="h-kpi-l">niños trabajarán en empleos que no existen</div><div class="h-kpi-s">WEF, 2025</div></div>
+        <div class="h-kpi"><div class="h-kpi-n">900%</div><div class="h-kpi-l">crecimiento de contenido falso por IA cada año</div><div class="h-kpi-s">WEF/Sumsub, 2024</div></div>
       </div>
-    </section>
+      <p class="h-question">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
+    </div>
 
-    <!-- ═══════════════════════════════════════════════
-         INFOGRAFÍA v4 — Gradient mesh + glass + donut + scroll reveals
-         ═══════════════════════════════════════════════ -->
+    <!-- DOS FUTUROS POSIBLES -->
+    <div class="h-section" style="text-align:center">
+      <h2 class="h-h2">Dos futuros posibles. Una diferencia: la educación.</h2>
+      <p class="h-sub-c">El mismo mundo tecnológico genera dos escenarios opuestos. Lo que determina en cuál termina un joven es la calidad de la educación que recibe.</p>
 
-    <!-- PANEL DE DATOS -->
-    <section class="section section-dark-mid" style="color:#fff;padding:var(--space-2xl) 0 var(--space-xl)">
-      <div class="container" style="max-width:950px">
-
-        <!-- Dato principal + 3 secundarios en una fila -->
-        <div class="ig-panel anim" id="ig-panel">
-          <div class="ig-panel__main">
-            <p class="ig-panel__num" id="ig-hero" data-count="300" data-suffix="M">300M</p>
-            <p class="ig-panel__desc">empleos expuestos a IA generativa en el mundo</p>
-            <p class="ig-panel__src">Goldman Sachs, 2023</p>
-            <!-- Barra proporcional -->
-            <div style="margin-top:var(--space-md)">
-              <div style="height:6px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden">
-                <div class="ig-bar" style="height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,#FF6B6B,#FFD93D);transition:width 2s cubic-bezier(.16,1,.3,1)" data-width="9%"></div>
-              </div>
-              <p style="font-size:.6rem;color:rgba(255,255,255,.25);margin-top:.2rem">9% del empleo mundial — solo con IA generativa</p>
-            </div>
+      <div class="h-split">
+        <!-- SIN educación de vanguardia -->
+        <div class="h-split-side">
+          <div class="h-donut h-donut-red" style="--pct:55%">
+            <div class="h-donut-inner"><div class="h-donut-num">55%</div><div class="h-donut-label">empleos<br>en riesgo</div></div>
           </div>
-          <div class="ig-panel__secondary">
-            <div class="ig-panel__stat anim ig-stagger" style="--delay:0">
-              <span class="ig-panel__stat-num" data-count="92" data-suffix="M">92M</span>
-              <span class="ig-panel__stat-label">empleos desplazados para 2030</span>
-              <span class="ig-panel__stat-src">WEF, 2025</span>
-            </div>
-            <div class="ig-panel__stat anim ig-stagger" style="--delay:1">
-              <span class="ig-panel__stat-num" data-count="65" data-suffix="%">65%</span>
-              <span class="ig-panel__stat-label">niños trabajarán en empleos que no existen</span>
-              <span class="ig-panel__stat-src">WEF, 2025</span>
-            </div>
-            <div class="ig-panel__stat anim ig-stagger" style="--delay:2">
-              <span class="ig-panel__stat-num" data-count="900" data-suffix="%">900%</span>
-              <span class="ig-panel__stat-label">crecimiento de contenido falso por IA cada año</span>
-              <span class="ig-panel__stat-src">WEF/Sumsub, 2024</span>
-            </div>
-          </div>
+          <div class="h-side-title" style="color:#E85D24">Sin educación de vanguardia</div>
+          <div class="h-side-desc">Qué pasa cuando la escuela solo enseña a memorizar y seguir instrucciones</div>
+          <ul class="h-list red">
+            <li onclick="this.classList.toggle('open')"><strong>92M</strong> empleos desplazados — la IA ya los hace más rápido y más barato<div class="h-list-detail">Un joven formado solo en tareas rutinarias compite directamente contra la IA — y pierde. Los 170M empleos nuevos requieren destrezas que la escuela tradicional no desarrolla. (WEF, 2025)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>21%</strong> desempleo juvenil — egresan con destrezas que el mercado ya no necesita<div class="h-list-detail">Uno de cada cinco jóvenes en Chile no encuentra trabajo. No es falta de esfuerzo: es que la escuela los preparó para un mercado que ya no existe. (INE, 2024)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>900%</strong> más contenido falso — sin pensamiento crítico, no hay defensa<div class="h-list-detail">Videos, audios e imágenes falsos generados por IA crecen exponencialmente. Sin evaluar fuentes, un joven es vulnerable a estafas y manipulación. (WEF/Sumsub, 2024)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>47,9%</strong> mortalidad comercio en Chile — competir sin adaptabilidad es perder<div class="h-list-detail">Las pymes son el 99% de las empresas y generan el 63% del empleo, pero el 37% quiebra en los primeros 3 años. (Bloomberg Línea, 2024)</div></li>
+          </ul>
         </div>
 
-        <!-- Pregunta puente -->
-        <p class="anim" style="text-align:center;margin-top:var(--space-xl);font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.7);font-weight:500">¿Qué destrezas está desarrollando tu hijo hoy para enfrentar este mundo?</p>
-      </div>
-    </section>
-
-    <!-- DONUT COMPARISON -->
-    <section class="section section-light">
-      <div class="container">
-
-        <!-- Título de la comparación -->
-        <h2 class="text-center anim mb-2" style="font-size:clamp(1.3rem,2.5vw,1.8rem)">Dos futuros posibles. Una diferencia: la educación.</h2>
-        <p class="text-center anim mb-4" style="max-width:750px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary);font-size:clamp(1.05rem,1.8vw,1.25rem);line-height:1.7">El mismo mundo tecnológico genera dos escenarios opuestos. Lo que determina en cuál termina un joven es la calidad de la educación que recibe.</p>
-
-        <!-- Split visual: 2 donuts + data -->
-        <div class="ig-split anim">
-
-          <!-- LEFT: Sin educación de vanguardia -->
-          <div class="ig-split__side ig-split__side--left">
-            <div class="ig-donut ig-donut--red" style="--pct:0" data-pct="55">
-              <div class="ig-donut__inner">
-                <span class="ig-donut__num" data-count="55" data-suffix="%">55%</span>
-                <span class="ig-donut__label">empleos<br>en riesgo</span>
-              </div>
-            </div>
-            <h3 style="color:#C92A2A;margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Sin educación de vanguardia</h3>
-            <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela solo enseña a memorizar, calcular y seguir instrucciones</p>
-            <ul class="ig-list">
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>92M</strong> empleos desplazados — contabilidad, atención al cliente, logística, traducción: la IA ya los hace más rápido y más barato <span class="ig-list__detail">Un joven formado solo en tareas rutinarias compite directamente contra la IA — y pierde. Los 170M empleos nuevos que se crean requieren destrezas que la escuela tradicional no desarrolla. (WEF, 2025)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>21%</strong> desempleo juvenil — porque egresan con destrezas que el mercado ya no necesita <span class="ig-list__detail">Uno de cada cinco jóvenes en Chile no encuentra trabajo. No es falta de esfuerzo: es que la escuela los preparó para un mercado que ya no existe. En UK, 1,2 millones de graduados compitieron por solo 17.000 posiciones de entrada en 2024. (INE, 2024)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>900%</strong> más contenido falso — y sin pensamiento crítico, no hay defensa <span class="ig-list__detail">Videos, audios e imágenes falsos generados por IA crecen exponencialmente. Sin la capacidad de evaluar fuentes y detectar manipulación, un joven es vulnerable a estafas financieras, manipulación política y decisiones de vida basadas en mentiras. (WEF/Sumsub, 2024)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>47,9%</strong> mortalidad de comercio en Chile — porque competir sin adaptabilidad es perder <span class="ig-list__detail">El sector comercio tiene la mayor tasa de mortalidad empresarial en Chile. Las pymes son el 99% de las empresas y generan el 63% del empleo, pero el 37% quiebra en los primeros 3 años. Sin capacidad de adaptación, innovación y pensamiento estratégico, el futuro económico se cierra. (Bloomberg Línea, 2024)</span></li>
-            </ul>
-          </div>
-
-          <!-- CENTER: arrow/divider -->
-          <div class="ig-split__center">
-            <div class="ig-split__arrow">→</div>
-            <p style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--color-primary-mid);writing-mode:vertical-lr;transform:rotate(180deg);opacity:.7">Educación de vanguardia</p>
-          </div>
-
-          <!-- RIGHT: Con educación de vanguardia -->
-          <div class="ig-split__side ig-split__side--right">
-            <div class="ig-donut ig-donut--green" style="--pct:0" data-pct="56">
-              <div class="ig-donut__inner">
-                <span class="ig-donut__num" data-prefix="+" data-count="56" data-suffix="%">+56%</span>
-                <span class="ig-donut__label">más<br>empleabilidad</span>
-              </div>
-            </div>
-            <h3 style="color:var(--color-accent-green);margin:var(--space-md) 0 var(--space-xs);font-size:1.1rem">Con educación de vanguardia</h3>
-            <p style="font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:var(--space-sm)">Qué pasa cuando la escuela desarrolla pensamiento crítico, creatividad y colaboración</p>
-            <ul class="ig-list ig-list--green">
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>+28%</strong> prima salarial — porque las destrezas humanas son las más escasas y valiosas <span class="ig-list__detail">~USD 18.000/año adicionales en ofertas que requieren habilidades complementarias a IA. Y el 51% de estas ofertas están fuera de TI: salud, educación, finanzas, manufactura. El mercado paga más por lo que la IA no puede hacer. (Lightcast, 2025)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>90M</strong> posiciones remotas — porque el talento con destrezas del siglo XXI trabaja para el mundo <span class="ig-list__detail">Un joven que sabe colaborar, comunicar y resolver problemas complejos puede trabajar para cualquier empresa del mundo sin emigrar. Las oportunidades son globales para quien tiene las destrezas. (WEF, 2025)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>12.4x</strong> productividad — porque la IA amplifica a quien sabe crear, no a quien solo repite <span class="ig-list__detail">Midjourney genera $500M/año con ~40 empleados. Las startups de un solo empleado pasaron del 22% al 38%. Quien combina creatividad + IA multiplica su impacto. Quien solo sabe seguir instrucciones es reemplazado por ella. (PwC, 2025)</span></li>
-              <li onclick="this.classList.toggle('ig-list__item--open')"><strong>4ª</strong> creatividad entre las habilidades más demandadas al 2030 — porque es lo que la IA no replica <span class="ig-list__detail">Resiliencia, empatía, liderazgo y aprendizaje continuo completan el top 10 del WEF. Son exactamente las destrezas que se desarrollan con una educación diseñada para el siglo XXI — no con un modelo del siglo XX. (WEF, 2025)</span></li>
-            </ul>
-          </div>
-
+        <!-- CENTRO -->
+        <div class="h-split-center">
+          <div class="h-split-arrow">→</div>
+          <div class="h-split-text">Educación</div>
         </div>
 
-        <!-- Pregunta entre secciones -->
-        <div class="anim" style="text-align:center;margin:var(--space-xl) 0 var(--space-lg)">
-          <p class="ig-question" style="font-size:clamp(1rem,2vw,1.3rem)">¿En cuál de estos dos escenarios está tu hijo hoy?</p>
-        </div>
-
-        <!-- Mini quiz -->
-        <div class="ig-quiz anim">
-          <div class="ig-quiz__prompt" onclick="this.parentElement.classList.toggle('ig-quiz--revealed')">
-            <span class="ig-quiz__icon">💡</span>
-            <span>¿Sabías que una persona con IA ya hace el trabajo de 5?</span>
-            <span class="ig-quiz__cta">Toca para descubrir más →</span>
+        <!-- CON educación de vanguardia -->
+        <div class="h-split-side">
+          <div class="h-donut h-donut-green" style="--pct:56%">
+            <div class="h-donut-inner"><div class="h-donut-num">+56%</div><div class="h-donut-label">más<br>empleabilidad</div></div>
           </div>
-          <div class="ig-quiz__answer">
-            <p>Las startups de un solo empleado pasaron del <strong>22% al 38%</strong> en menos de una década. Midjourney genera <strong>$500M/año con ~40 empleados</strong>. El 48% de empresas que usan ChatGPT ahorraron más de $50.000.</p>
-            <p style="margin-top:.5rem;font-weight:600;color:var(--color-amber)">Las destrezas que la IA no puede replicar — empatía, creatividad, pensamiento crítico — son exactamente las que tu hijo necesita desarrollar en la etapa escolar.</p>
-          </div>
-        </div>
-
-        <!-- Economía digital ticker -->
-        <div class="ig-ticker anim">
-          <div class="ig-ticker__item"><strong>$14.2B</strong> e-commerce Chile</div>
-          <div class="ig-ticker__dot"></div>
-          <div class="ig-ticker__item"><strong>59%</strong> ventas desde celular</div>
-          <div class="ig-ticker__dot"></div>
-          <div class="ig-ticker__item"><strong>38%</strong> startups de 1 fundador</div>
-          <div class="ig-ticker__dot"></div>
-          <div class="ig-ticker__item"><strong>48%</strong> empresas con ChatGPT ahorraron +$50K</div>
-        </div>
-
-        <p class="text-center anim mt-4" style="font-size:.85rem;color:var(--color-text-secondary)">Toca cualquier dato para ver contexto · <a href="umbral-ia.html" style="font-weight:600">Ver toda la evidencia con fuentes verificables →</a></p>
-      </div>
-    </section>
-
-    <!-- Frase ética de cierre del bloque 1 -->
-    <section class="section section-dark-deep" style="text-align:center;padding:var(--space-xl) 0;color:#fff">
-      <div class="container" style="max-width:700px">
-        <p class="anim" style="font-size:1.1rem;line-height:1.8;font-style:italic">No es marketing. No es relaciones públicas. Es el acto ético de democratizar el conocimiento que permite a una familia tomar decisiones informadas sobre el futuro de sus hijos.</p>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════
-         BLOQUE 2 — QUIÉN DETECTA EL DESAFÍO Y SE HACE CARGO
-         ═══════════════════════════════════════════════ -->
-    <section class="section">
-      <div class="container" style="max-width:850px;text-align:center">
-        <h2 class="anim mb-3">El Colegio Camilo Henríquez detecta el desafío. Y se hace cargo.</h2>
-        <p class="anim" style="font-size:1.05rem;line-height:1.8;font-style:italic;max-width:750px;margin-left:auto;margin-right:auto">«Aspiramos a ser un colegio que enseña desde el futuro, para el futuro. Sabemos que el futuro no puede conocerse con certeza, solo imaginarse con rigor y responsabilidad. Por eso construimos este proyecto en diálogo permanente con las familias, los estudiantes, otras escuelas, la industria y la academia: porque el mapa del futuro solo puede dibujarse entre todos.»</p>
-
-        <!-- Compromiso de evolución continua -->
-        <div class="anim" style="max-width:750px;margin:var(--space-xl) auto 0;text-align:left;border-left:3px solid var(--color-accent-green);padding-left:var(--space-lg)">
-          <p style="line-height:1.8;color:var(--color-text-secondary)">Ante la coyuntura global y la disrupción tecnológica, el Colegio Camilo Henríquez ha asumido el compromiso de que la <strong>evolución continua de su modelo educativo</strong> sea su constante. Para lograrlo, se vincula con diversos actores —universidades, centros de investigación, empresas, gobiernos y otras escuelas— para enriquecer su perspectiva y modelamiento del proceso educativo desde distintas experiencias de la realidad.</p>
-          <p style="line-height:1.8;color:var(--color-text-secondary);margin-top:var(--space-md)">El objetivo: ofrecer una <strong>respuesta dinámica, asertiva y oportuna</strong> a los estudiantes, a través del proceso de I+D colaborativo y su <a href="red-id/cepah.html" style="font-weight:600">Centro de Estudios para el Aprendizaje Humano (CEPAH)</a>.</p>
-        </div>
-
-        <div class="hero__cta-group anim mt-4">
-          <a href="#modelo" class="btn btn--amber">Descubre cómo lo hacemos</a>
-          <a href="red-id/cepah.html" class="btn btn--outline">Conoce el CEPAH</a>
+          <div class="h-side-title" style="color:#5DCAA5">Con educación de vanguardia</div>
+          <div class="h-side-desc">Qué pasa cuando la escuela desarrolla pensamiento crítico, creatividad y colaboración</div>
+          <ul class="h-list green">
+            <li onclick="this.classList.toggle('open')"><strong>+28%</strong> prima salarial — las destrezas humanas son las más escasas y valiosas<div class="h-list-detail">~USD 18.000/año adicionales en ofertas con habilidades complementarias a IA. El 51% de estas ofertas están fuera de TI. (Lightcast, 2025)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>90M</strong> posiciones remotas — el talento con destrezas del siglo XXI trabaja para el mundo<div class="h-list-detail">Un joven que sabe colaborar y resolver problemas puede trabajar para cualquier empresa del mundo sin emigrar. (WEF, 2025)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>12.4x</strong> productividad — la IA amplifica a quien sabe crear, no a quien solo repite<div class="h-list-detail">Midjourney genera $500M/año con ~40 empleados. Las startups de un solo empleado pasaron del 22% al 38%. (PwC, 2025)</div></li>
+            <li onclick="this.classList.toggle('open')"><strong>4ª</strong> creatividad entre habilidades más demandadas al 2030<div class="h-list-detail">Resiliencia, empatía, liderazgo y aprendizaje continuo completan el top 10 del WEF. Son las destrezas que una educación de vanguardia desarrolla. (WEF, 2025)</div></li>
+          </ul>
         </div>
       </div>
-    </section>
 
-    <!-- ═══════════════════════════════════════════════
-         BLOQUE 3 — LO QUE HACEMOS AL RESPECTO (6 ejes)
-         ═══════════════════════════════════════════════ -->
-    <section class="section section-white" id="modelo">
-      <div class="container">
-        <h2 class="text-center anim mb-2">Nuestra respuesta: 6 ejes con respaldo de 10 marcos internacionales</h2>
-        <p class="text-center anim mb-4" style="max-width:700px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary)">No agregamos talleres a un modelo tradicional. El colegio está construido desde el futuro. Cada eje se revisa, se mide y se ajusta — la evolución metodológica es nuestra constante.</p>
-        <div class="grid grid-6">
-          <div class="eje anim">
-            <div class="eje__icon">&#x1F91D;</div>
-            <div class="eje__name">Aprendizaje<br>colaborativo</div>
-            <div class="eje__tooltip">Construcción de conocimiento compartido. 10/10 marcos lo respaldan. (OCDE, P21, CASEL)</div>
-          </div>
-          <div class="eje anim">
-            <div class="eje__icon">&#x1F3AF;</div>
-            <div class="eje__name">Autonomía en<br>el aprendizaje</div>
-            <div class="eje__tooltip">Agencia del estudiante; gestión propia del proceso formativo. (OCDE Learning Compass)</div>
-          </div>
-          <div class="eje anim">
-            <div class="eje__icon">&#x1F9E0;</div>
-            <div class="eje__name">Pensamiento<br>complejo</div>
-            <div class="eje__tooltip">Abordaje multidimensional; tolerancia a la ambigüedad. 10/10 marcos. (OCDE, P21, Harvard PZ)</div>
-          </div>
-          <div class="eje anim">
-            <div class="eje__icon">&#x1F4A1;</div>
-            <div class="eje__name">Creatividad</div>
-            <div class="eje__tooltip">4ª habilidad más demandada al 2030 (WEF). Soluciones originales; pensamiento divergente.</div>
-          </div>
-          <div class="eje anim">
-            <div class="eje__icon">&#x2764;</div>
-            <div class="eje__name">Habilidades<br>socioemocionales</div>
-            <div class="eje__tooltip">+11 puntos en rendimiento (CASEL, 270.000 estudiantes). Autoconciencia, empatía, regulación.</div>
-          </div>
-          <div class="eje anim">
-            <div class="eje__icon">&#x1F4BC;</div>
-            <div class="eje__name">Empleabilidad y<br>emprendimiento</div>
-            <div class="eje__tooltip">+56% empleabilidad (PwC). Adaptabilidad, liderazgo, aprendizaje continuo.</div>
-          </div>
+      <p class="h-question">¿En cuál de estos dos escenarios está tu hijo hoy?</p>
+
+      <!-- Mini quiz -->
+      <div class="h-quiz" id="h-quiz">
+        <div class="h-quiz-prompt" onclick="document.getElementById('h-quiz').classList.toggle('open')">
+          <span class="h-quiz-ic">💡</span>
+          <span class="h-quiz-q">¿Sabías que una persona con IA ya hace el trabajo de 5?</span>
+          <span class="h-quiz-cta">Toca para descubrir más →</span>
         </div>
-        <p class="text-center mt-4 anim"><a href="colegio/modelo-educativo.html" class="btn btn--amber">Ver el modelo completo &rarr;</a></p>
+        <div class="h-quiz-answer">
+          <p>Las startups de un solo empleado pasaron del <strong>22% al 38%</strong> en menos de una década. Midjourney genera <strong>$500M/año con ~40 empleados</strong>. El 48% de empresas que usan ChatGPT ahorraron más de $50.000.</p>
+          <p style="margin-top:8px;font-weight:600;color:#F5A623">Las destrezas que la IA no puede replicar — empatía, creatividad, pensamiento crítico — son exactamente las que tu hijo necesita desarrollar.</p>
+        </div>
       </div>
-    </section>
+
+      <!-- Ticker -->
+      <div class="h-ticker">
+        <span><strong>$14.2B</strong> e-commerce Chile</span><span class="h-ticker-dot"></span>
+        <span><strong>59%</strong> ventas desde celular</span><span class="h-ticker-dot"></span>
+        <span><strong>38%</strong> startups de 1 fundador</span><span class="h-ticker-dot"></span>
+        <span><strong>48%</strong> empresas con ChatGPT ahorraron +$50K</span>
+      </div>
+
+      <p style="font-size:12px;color:rgba(232,237,245,0.35)">Toca cualquier dato para ver contexto · <a href="umbral-ia.html" style="color:rgba(245,166,35,0.6);font-weight:600">Ver toda la evidencia →</a></p>
+    </div>
+
+    <!-- FRASE ÉTICA -->
+    <div class="h-section" style="text-align:center;padding:24px 32px">
+      <p style="font-size:14px;color:rgba(232,237,245,0.5);line-height:1.8;font-style:italic;max-width:600px;margin:0 auto">No es marketing. No es relaciones públicas. Es el acto ético de democratizar el conocimiento que permite a una familia tomar decisiones informadas sobre el futuro de sus hijos.</p>
+    </div>
+
+    <!-- EL COLEGIO SE HACE CARGO -->
+    <div class="h-section" style="text-align:center">
+      <h2 class="h-h2">El Colegio Camilo Henríquez detecta el desafío. Y se hace cargo.</h2>
+      <p style="font-size:14px;color:rgba(232,237,245,0.55);line-height:1.8;font-style:italic;max-width:620px;margin:0 auto 20px">«Aspiramos a ser un colegio que enseña desde el futuro, para el futuro. Sabemos que el futuro no puede conocerse con certeza, solo imaginarse con rigor y responsabilidad. Por eso construimos este proyecto en diálogo permanente con las familias, los estudiantes, otras escuelas, la industria y la academia.»</p>
+      <div class="h-quote" style="max-width:620px;margin:0 auto 20px;text-align:left">
+        <p style="margin:0;font-style:normal;color:rgba(232,237,245,0.55)">Ante la coyuntura global, el Colegio ha asumido el compromiso de que la <strong style="color:rgba(232,237,245,0.85)">evolución continua de su modelo educativo</strong> sea su constante. Se vincula con universidades, centros de investigación, empresas, gobiernos y otras escuelas para ofrecer una respuesta dinámica a través del <a href="red-id/cepah.html" style="color:#F5A623;font-weight:600">CEPAH</a>.</p>
+      </div>
+      <div class="h-cta-row">
+        <a class="v3-btn" href="colegio/modelo-educativo.html">Descubre cómo lo hacemos →</a>
+        <a class="v3-btn-ghost" href="red-id/cepah.html">Conoce el CEPAH</a>
+      </div>
+    </div>
+
+    <!-- 6 EJES -->
+    <div class="h-section" style="text-align:center">
+      <h2 class="h-h2">6 ejes con respaldo de 10 marcos internacionales</h2>
+      <p class="h-sub-c">No agregamos talleres a un modelo tradicional. El colegio está construido desde el presente. Cada eje se revisa, se mide y se ajusta.</p>
+      <div class="h-ejes">
+        <div class="h-eje"><span class="h-eje-ic">🤝</span><div class="h-eje-name">Aprendizaje<br>colaborativo</div><div class="h-eje-tip">Construcción de conocimiento compartido. 10/10 marcos lo respaldan. (OCDE, P21, CASEL)</div></div>
+        <div class="h-eje"><span class="h-eje-ic">🎯</span><div class="h-eje-name">Autonomía en<br>el aprendizaje</div><div class="h-eje-tip">Agencia del estudiante; gestión propia del proceso formativo. (OCDE Learning Compass)</div></div>
+        <div class="h-eje"><span class="h-eje-ic">🧠</span><div class="h-eje-name">Pensamiento<br>complejo</div><div class="h-eje-tip">Abordaje multidimensional; tolerancia a la ambigüedad. 10/10 marcos. (OCDE, P21, Harvard PZ)</div></div>
+        <div class="h-eje"><span class="h-eje-ic">💡</span><div class="h-eje-name">Creatividad</div><div class="h-eje-tip">4ª habilidad más demandada al 2030 (WEF). Soluciones originales; pensamiento divergente.</div></div>
+        <div class="h-eje"><span class="h-eje-ic">❤️</span><div class="h-eje-name">Habilidades<br>socioemocionales</div><div class="h-eje-tip">+11 puntos en rendimiento (CASEL, 270.000 estudiantes). Autoconciencia, empatía, regulación.</div></div>
+        <div class="h-eje"><span class="h-eje-ic">💼</span><div class="h-eje-name">Empleabilidad y<br>emprendimiento</div><div class="h-eje-tip">+56% empleabilidad (PwC). Adaptabilidad, liderazgo, aprendizaje continuo.</div></div>
+      </div>
+      <div class="h-cta-row" style="margin-top:24px">
+        <a class="v3-btn" href="colegio/modelo-educativo.html">Ver el modelo completo →</a>
+      </div>
+    </div>
 
   </main>
-
   <script src="layout.js"></script>
   <script>
-  // --- COUNTERS ---
-  const counted = new Set();
-  function animCount(el) {
-    if (counted.has(el)) return; counted.add(el);
-    const t = +el.dataset.count, s = el.dataset.suffix||'', p = el.dataset.prefix||'', d = 1800, st = performance.now();
-    const ease = x => x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-    (function f(n){const pr=Math.min((n-st)/d,1);el.textContent=p+Math.round(t*ease(pr))+s;if(pr<1)requestAnimationFrame(f)})(st);
-  }
-
-  // Panel stats
-  const panel = document.getElementById('ig-panel');
-  if (panel) {
-    new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
-      e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
-      e.target.querySelectorAll('.ig-bar').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.width},600)});
-    })},{threshold:.2, root: document.getElementById('v3-content')}).observe(panel);
-  }
-
-  // Stagger animations
-  document.querySelectorAll('.ig-stagger').forEach(el => {
-    const d = parseInt(el.style.getPropertyValue('--delay') || 0);
-    el.style.transitionDelay = (d * 0.2) + 's';
-  });
-
-  // Donut hover tooltip
-  document.querySelectorAll('.ig-donut').forEach(d => {
-    d.addEventListener('mouseenter', () => d.classList.add('ig-donut--hover'));
-    d.addEventListener('mouseleave', () => d.classList.remove('ig-donut--hover'));
-  });
-
-  // List items stagger
-  document.querySelectorAll('.ig-list li').forEach((li, i) => {
-    li.style.transitionDelay = (i * 0.1) + 's';
-    li.classList.add('anim');
-  });
-
-  // Donuts + lists
-  const splitEl = document.querySelector('.ig-split');
-  if (splitEl) {
-    new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)return;
-      e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el));
-      e.target.querySelectorAll('.ig-donut[data-pct]').forEach(d=>{
-        setTimeout(()=>{d.style.setProperty('--pct',d.dataset.pct)},400);
-      });
-      e.target.querySelectorAll('.ig-bar,.ig-item__fill').forEach(b=>{if(b.dataset.width)setTimeout(()=>{b.style.width=b.dataset.width},300)});
-    })},{threshold:.15, root: document.getElementById('v3-content')}).observe(splitEl);
-  }
-
-  // --- SCROLL ANIMATIONS (.anim → .anim--visible) ---
-  // In v3 the scrollable container is #v3-content
-  (function(){
-    var scrollRoot = document.getElementById('v3-content');
-    // If #v3-content itself scrolls (overflow set by layout.css), use it as root.
-    // Otherwise fall back to null (viewport).
-    var useRoot = scrollRoot && (getComputedStyle(scrollRoot).overflowY === 'auto' || getComputedStyle(scrollRoot).overflowY === 'scroll');
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          e.target.classList.add('anim--visible');
-        }
-      });
-    }, { threshold: 0.1, root: useRoot ? scrollRoot : null });
-    document.querySelectorAll('#v3-content .anim').forEach(function(el){ obs.observe(el); });
-  })();
+  var _phrases=[
+    'IA generativa, automatización, economía digital, teletrabajo global, desinformación masiva. Todo cambió en menos de una década. Y por cada año que como sociedad nos dejamos estar, sale una nueva generación de jóvenes a los que les hemos fallado.',
+    'El 65% de los niños que entran hoy a la escuela trabajarán en empleos que aún no existen. La pregunta no es si el mundo cambió — es si la educación que reciben está a la altura de ese cambio.',
+    '300 millones de empleos expuestos a IA generativa. 92 millones desplazados para 2030. Y la única respuesta que escala al ritmo del problema es la educación.',
+    'Las habilidades cambian un 66% más rápido en empleos expuestos a IA. La capacidad de aprender a aprender es la única destreza que no caduca.',
+    'Los contenidos falsos generados por IA crecen 900% anual. El pensamiento crítico dejó de ser deseable — es supervivencia.',
+    'Un estudiante en Talca puede trabajar con una startup en Berlín, publicar con una universidad en Tokio. La geografía dejó de ser un límite. La educación que recibe, no.',
+    'Klarna, IBM, UPS, Chegg: descubrieron que la IA no puede reemplazar la empatía, el juicio ni la creatividad. Exactamente lo que una educación de vanguardia desarrolla.',
+    'Las startups de un solo empleado pasaron del 22% al 38%. Una persona con las destrezas correctas y las herramientas de IA tiene más impacto que un departamento entero sin ellas.'
+  ];
+  var _idx=parseInt(sessionStorage.getItem('cch_hero_idx')||'-1');
+  function nextPhrase(){_idx=(_idx+1)%_phrases.length;sessionStorage.setItem('cch_hero_idx',_idx);var el=document.getElementById('hero-rotating');el.style.opacity='0';setTimeout(function(){el.textContent=_phrases[_idx];el.style.opacity='1'},400)}
+  nextPhrase();
   </script>
-
 </body>
 </html>
