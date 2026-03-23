@@ -1,15 +1,21 @@
 (function() {
+  // Detect if we're inside /colegio/ subdir or at root level
+  var path = window.location.pathname;
+  var inSubdir = path.indexOf('/colegio/') !== -1;
+  var subPrefix = inSubdir ? '' : 'colegio/';
+  var rootPrefix = inSubdir ? '../' : '';
+
   var items = [
-    { id: 'home',        label: 'Colegio',                        href: '../colegio.html' },
-    { id: 'modelo',      label: 'Modelo Educativo',               href: 'modelo-educativo.html' },
-    { id: 'proyectos',   label: 'Estudiantes en Acción',          href: 'estudiantes-en-accion.html' },
-    { id: 'familias',    label: 'Familias',                       href: 'familias.html' },
-    { id: 'estudiantes', label: 'Estudiantes',                    href: 'estudiantes.html' },
-    { id: 'testimonios', label: 'Testimonios',                    href: 'testimonios.html' },
-    { id: 'admision',    label: 'Admisión',                       href: 'admision.html' }
+    { id: 'home',        label: 'Colegio',              href: rootPrefix + 'colegio.html' },
+    { id: 'modelo',      label: 'Modelo Educativo',     href: subPrefix + 'modelo-educativo.html' },
+    { id: 'proyectos',   label: 'Estudiantes en Acción', href: subPrefix + 'estudiantes-en-accion.html' },
+    { id: 'familias',    label: 'Familias',             href: subPrefix + 'familias.html' },
+    { id: 'estudiantes', label: 'Estudiantes',          href: subPrefix + 'estudiantes.html' },
+    { id: 'testimonios', label: 'Testimonios',          href: subPrefix + 'testimonios.html' },
+    { id: 'admision',    label: 'Admisión',             href: subPrefix + 'admision.html' }
   ];
 
-  var currentFile = window.location.pathname.split('/').pop().replace('.html', '') || 'colegio';
+  var currentFile = path.split('/').pop().replace('.html', '') || 'colegio';
 
   var nav = document.createElement('div');
   nav.className = 'r-subnav';
