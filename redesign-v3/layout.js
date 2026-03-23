@@ -60,7 +60,7 @@
       '</a>';
   }).join('');
 
-  var nosotrosActive = (currentFile === 'nosotros' || pathStr.indexOf('/nosotros/') !== -1) ? 'v3-si--active' : '';
+  var nosotrosActive = currentFile === 'nosotros' ? 'v3-si--active' : '';
 
   sidebar.innerHTML =
     '<div class="v3-sb-label">Explorar</div>' +
