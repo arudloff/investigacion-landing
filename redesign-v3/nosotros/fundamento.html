@@ -12,47 +12,96 @@
     .nos-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:12px}
     .nos-h1 .a{color:#F5A623}
     .nos-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:540px;margin-bottom:20px}
+    .nos-quote{font-size:14px;color:rgba(232,237,245,0.4);font-style:italic;margin-top:6px;margin-bottom:0}
     .nos-h2{font-size:17px;font-weight:800;color:rgba(232,237,245,0.9);margin-bottom:8px}
-    .nos-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-    .nos-col{border-left:3px solid rgba(46,109,164,0.3);padding:16px 18px}
-    .nos-col h3{font-size:14px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:6px}
-    .nos-col p{font-size:12px;color:rgba(232,237,245,0.5);line-height:1.6}
+
+    /* Two-column split — enhanced */
+    .nos-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+    .nos-col{border-left:4px solid rgba(46,109,164,0.3);padding:20px 22px;background:rgba(255,255,255,0.02);border-radius:0 10px 10px 0;transition:background .25s}
+    .nos-col:hover{background:rgba(255,255,255,0.045)}
+    .nos-col h3{font-size:15px;font-weight:700;color:rgba(232,237,245,0.95);margin-bottom:8px}
+    .nos-col p{font-size:12px;color:rgba(232,237,245,0.5);line-height:1.65;margin:0}
+    .nos-col p+p{margin-top:8px}
     .nos-col strong{color:rgba(232,237,245,0.8)}
+
+    /* Value cards */
     .nos-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
     .nos-card{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:10px;padding:18px}
     .nos-card-t{font-size:13px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:5px}
     .nos-card-d{font-size:11px;color:rgba(232,237,245,0.4);line-height:1.5}
-    .nos-cierre{padding:22px 24px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.18);border-radius:11px;margin-top:24px}
+
+    /* Timeline cards */
+    .tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .tl-card{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.12);border-radius:10px;padding:18px 16px;position:relative;overflow:hidden}
+    .tl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0}
+    .tl-card.tl-green::before{background:#1d9e75}
+    .tl-card.tl-blue::before{background:#2e6da4}
+    .tl-card.tl-purple::before{background:#8b5cf6}
+    .tl-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;padding:3px 9px;border-radius:5px;margin-bottom:10px}
+    .tl-green .tl-tag{background:rgba(29,158,117,0.15);color:#1d9e75}
+    .tl-blue .tl-tag{background:rgba(46,109,164,0.15);color:#5b9bd5}
+    .tl-purple .tl-tag{background:rgba(139,92,246,0.15);color:#a78bfa}
+    .tl-text{font-size:11px;color:rgba(232,237,245,0.45);line-height:1.55}
+    .tl-note{font-size:10px;color:rgba(232,237,245,0.3);text-align:center;margin-top:10px}
+
+    /* Evolución section background */
+    .nos-section--evo{background:rgba(255,255,255,0.015);border-radius:12px;margin:0 12px;padding:30px 28px}
+    .nos-section--evo .nos-lead{max-width:620px}
+
+    /* Cierre / CTA */
+    .nos-cierre{padding:24px 26px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.18);border-radius:11px;margin-top:24px}
     .nos-cierre p{font-size:15px;font-weight:700;color:rgba(232,237,245,0.9);line-height:1.6;margin-bottom:14px}
     .nos-cierre .a{color:#F5A623}
+
+    /* Alianzas */
     .ally-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
     .ally{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:8px;padding:10px 14px;font-size:11px;color:rgba(232,237,245,0.5)}
     .ally strong{color:rgba(232,237,245,0.8);display:block;font-size:12px;margin-bottom:2px}
-    @media(max-width:768px){.nos-cols{grid-template-columns:1fr}}
+
+    @media(max-width:768px){
+      .nos-cols{grid-template-columns:1fr}
+      .tl-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){
+      .tl-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
   <main id="v3-content">
+    <!-- HERO -->
     <div class="nos-section">
       <span class="nos-tag">El Fundamento</span>
-      <h1 class="nos-h1">Somos un colegio que eligió<br><span class="a">estar del lado de las preguntas difíciles.</span></h1>
+      <h1 class="nos-h1">Un colegio que enseña desde el futuro,<br><span class="a">para el futuro</span></h1>
       <p class="nos-lead">No enseñamos certezas — cultivamos la capacidad de moverse con criterio en un mundo que cambia más rápido que cualquier manual.</p>
+      <p class="nos-quote">Porque el mapa del futuro solo puede dibujarse entre todos.</p>
+    </div>
+
+    <!-- COLEGIO vs I+D — Two-column split -->
+    <div class="nos-section">
       <div class="nos-cols">
-        <div class="nos-col" style="border-left-color:rgba(46,109,164,0.4)">
+        <div class="nos-col" style="border-left-color:#2e6da4">
           <h3>El Colegio</h3>
-          <p>El <strong>Colegio Camilo Henríquez</strong> es un establecimiento educativo ubicado en Talca, Chile, que orienta su diseño metodológico al desarrollo de habilidades del siglo XXI. Su proyecto educativo tiene respaldo directo en 10 marcos internacionales. No agrega talleres a un modelo tradicional — <strong>está construido desde el futuro</strong>.</p>
+          <p>El <strong>Colegio Camilo Henríquez</strong> es un establecimiento educativo ubicado en Talca, Chile, que orienta su diseño metodológico al desarrollo de habilidades del siglo XXI.</p>
+          <p>Su proyecto educativo tiene respaldo directo en 10 marcos internacionales: OCDE, WEF, UNESCO, Harvard Project Zero, CASEL, P21, Ken Robinson, MINEDUC Chile y más. No agrega talleres a un modelo tradicional — <strong>está construido desde el futuro</strong>.</p>
         </div>
-        <div class="nos-col" style="border-left-color:rgba(29,158,117,0.4)">
+        <div class="nos-col" style="border-left-color:#1d9e75">
           <h3>El Proceso de I+D Colaborativo</h3>
-          <p>El colegio impulsa un proceso continuo de investigación y desarrollo educativo a través del <strong>CEPAH</strong>, que sostiene la evolución del modelo con rigor académico. Un proceso abierto a profesores transformadores, líderes educativos, universidades, empresas y gobiernos — <strong>replicable y adaptable</strong> a cualquier escuela que comparta la urgencia.</p>
+          <p>El colegio impulsa un proceso continuo de investigación y desarrollo educativo a través del <strong>CEPAH</strong> (Centro de Estudios para el Aprendizaje Humano), que sostiene la evolución del modelo con rigor académico y proyección real.</p>
+          <p>Un proceso de I+D colaborativo abierto a profesores transformadores, líderes educativos, universidades, centros de investigación, empresas y gobiernos. Es un proyecto <strong>replicable y adaptable</strong> a cualquier escuela que comparta la urgencia.</p>
         </div>
       </div>
     </div>
-    <div class="nos-section">
+
+    <!-- EVOLUCIÓN CONTINUA -->
+    <div class="nos-section nos-section--evo">
       <div class="nos-h2">Un proyecto en evolución continua</div>
-      <p class="nos-lead">Este proyecto no es un producto terminado. Es un proceso de evolución continua que se enriquece con cada diálogo, cada alianza y cada dato nuevo.</p>
+      <p class="nos-lead">Este proyecto no es un producto terminado. Es un <strong style="color:rgba(232,237,245,0.75)">proceso de evolución continua</strong> que se enriquece con cada diálogo, cada alianza y cada dato nuevo.</p>
       <p class="nos-lead">Creemos que la mejor forma de preparar para un futuro incierto es construir con otros: familias que comprenden y exigen, docentes que co-construyen, empresas que retroalimentan, universidades que investigan, y gobiernos que deciden con evidencia.</p>
+      <p class="nos-lead" style="margin-bottom:0"><strong style="color:rgba(232,237,245,0.75)">Por eso creamos e incentivamos espacios de diálogo, alianzas estratégicas e instancias de I+D educacional colaborativo</strong> con centros educativos, centros de investigación, universidades, empresas y gobiernos.</p>
     </div>
+
+    <!-- VALORES -->
     <div class="nos-section">
       <div class="nos-h2">Lo que nos guía</div>
       <div class="nos-cards">
@@ -61,6 +110,32 @@
         <div class="nos-card"><div class="nos-card-t">Evolución, no perfección</div><div class="nos-card-d">No tenemos todas las respuestas. Tenemos las mejores preguntas, la humildad de saber que el futuro no puede conocerse con certeza, y la disciplina de imaginarlo con rigor.</div></div>
       </div>
     </div>
+
+    <!-- LÍNEA DE TIEMPO -->
+    <div class="nos-section">
+      <div class="nos-h2">Línea de tiempo del proyecto</div>
+      <p class="tl-note">Los hitos se actualizarán a medida que el proyecto avance.</p>
+      <div class="tl-grid">
+        <div class="tl-card tl-green">
+          <span class="tl-tag">2020–2023</span>
+          <div class="tl-text">Consolidación del proyecto educativo centrado en competencias del siglo XXI. Primeras investigaciones internas.</div>
+        </div>
+        <div class="tl-card tl-green">
+          <span class="tl-tag">2024</span>
+          <div class="tl-text">Investigación base: revisión de 10 marcos internacionales, 100+ datos verificados. Diseño de instrumentos de medición.</div>
+        </div>
+        <div class="tl-card tl-blue">
+          <span class="tl-tag">2025–2026</span>
+          <div class="tl-text">Creación del CEPAH. Rediseño del sitio (múltiples audiencias). Preparación del piloto. Búsqueda de alianzas académicas.</div>
+        </div>
+        <div class="tl-card tl-purple">
+          <span class="tl-tag">Próximo</span>
+          <div class="tl-text">Implementación del piloto. Primeros Summits del CEPAH. Publicación de resultados. Nuevas alianzas.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALIANZAS + CTA -->
     <div class="nos-section">
       <div class="nos-h2">Nuestras alianzas activas</div>
       <div class="ally-row">
@@ -68,7 +143,7 @@
         <div class="ally"><strong>Red de Escuelas</strong>Coinspiration pedagógica · en construcción</div>
       </div>
       <div class="nos-cierre">
-        <p>El futuro no está escrito. <span class="a">Nosotros estamos aquí para escribirlo</span> — con cada estudiante, cada familia, cada conversación.</p>
+        <p>¿Quieres ser parte de esta historia? <span class="a">El futuro no está escrito — nosotros estamos aquí para escribirlo</span> con cada estudiante, cada familia, cada conversación.</p>
         <a class="v3-btn" href="../colegio/admision.html">Agenda una visita →</a>
         <a class="v3-btn-ghost" href="../red-id.html" style="margin-left:10px">Conocer la Red de I+D</a>
       </div>
