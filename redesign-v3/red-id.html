@@ -3,17 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>red-id · Colegio Camilo Henríquez</title>
+  <title>Red de I+D · Colegio Camilo Henríquez</title>
   <link rel="stylesheet" href="layout.css">
+  <style>
+    .rid-s{padding:36px 28px;max-width:850px;margin:0 auto}
+    .rid-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,92,99,0.5);display:block;margin-bottom:10px}
+    .rid-h1{font-size:clamp(24px,4vw,38px);font-weight:800;color:white;line-height:1.12;margin-bottom:14px}
+    .rid-h1 .a{color:#F5A623}
+    .rid-lead{font-size:14px;color:rgba(232,237,245,0.55);line-height:1.75;max-width:580px;margin-bottom:24px}
+    .rid-quote{border-left:3px solid rgba(13,92,99,0.4);padding:18px 22px;background:rgba(13,92,99,0.06);border-radius:0 10px 10px 0;margin-bottom:28px;font-size:14px;color:rgba(232,237,245,0.6);line-height:1.75;font-style:italic}
+    .ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:20px}
+    .ac{background:rgba(255,255,255,0.03);border:1px solid rgba(13,92,99,0.2);border-radius:10px;padding:18px;cursor:pointer;text-decoration:none;display:block;transition:all .18s}
+    .ac:hover{border-color:rgba(29,158,117,0.4);transform:translateY(-2px)}
+    .ac-ic{font-size:22px;margin-bottom:8px;display:block}
+    .ac-t{font-size:13px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:3px}
+    .ac-d{font-size:11px;color:rgba(232,237,245,0.35);line-height:1.4}
+  </style>
 </head>
 <body>
   <main id="v3-content">
-    <div class="v3-section">
-      <span class="v3-tag">red-id</span>
-      <h1 class="v3-h1">Contenido próximamente</h1>
-      <p class="v3-lead">Esta sección está en desarrollo.</p>
+    <div class="rid-s">
+      <span class="rid-tag">Red de I+D · Innovación colaborativa</span>
+      <h1 class="rid-h1">La evolución continua de nuestro modelo educativo<br><span class="a">es y debe ser nuestra constante.</span></h1>
+      <p class="rid-lead">Ningún colegio puede resolver solo los desafíos del siglo XXI. La respuesta emerge de la intersección entre educación, investigación, industria y política pública — cada actor aporta una pieza que los demás no tienen.</p>
+      <div class="rid-quote">Ante la coyuntura global y la disrupción tecnológica, el Colegio Camilo Henríquez ha asumido el compromiso de que la evolución continua de su modelo educativo sea su constante. Para lograrlo, se vincula con diversos actores — universidades, centros de investigación, empresas, gobiernos y otras escuelas — para enriquecer su perspectiva y modelamiento del proceso educativo desde distintas experiencias de la realidad. El objetivo: ofrecer una respuesta dinámica, asertiva y oportuna a los estudiantes, a través del proceso de I+D colaborativo y el CEPAH.</div>
+      <p style="font-size:13px;color:rgba(232,237,245,0.45);margin-bottom:8px">Las organizaciones de frontera comparten un principio: la evolución no se detiene. No hay un modelo final — hay un proceso permanente de investigar, contrastar, ajustar y compartir.</p>
+      <div class="ac-grid">
+        <a class="ac" href="red-id/cepah.html"><span class="ac-ic">🔬</span><div class="ac-t">CEPAH</div><div class="ac-d">Centro de Estudios para el Aprendizaje Humano</div></a>
+        <a class="ac" href="red-id/empresas.html"><span class="ac-ic">🏢</span><div class="ac-t">Empresas e Industria</div><div class="ac-d">Las competencias que la IA no replica</div></a>
+        <a class="ac" href="red-id/universidades.html"><span class="ac-ic">🎓</span><div class="ac-t">Universidades</div><div class="ac-d">La escuela como aliado de investigación</div></a>
+        <a class="ac" href="red-id/gobiernos.html"><span class="ac-ic">🏛️</span><div class="ac-t">Gobiernos</div><div class="ac-d">La evidencia que la política pública necesita</div></a>
+        <a class="ac" href="red-id/docentes.html"><span class="ac-ic">📚</span><div class="ac-t">Docentes Transformadores</div><div class="ac-d">El salto evolutivo más grande de la educación</div></a>
+        <a class="ac" href="red-id/colegios.html"><span class="ac-ic">🏫</span><div class="ac-t">Colegios Visionarios</div><div class="ac-d">Ninguna escuela debería enfrentar esto sola</div></a>
+      </div>
     </div>
   </main>
   <script src="layout.js"></script>
+  <script src="red-id/subnav.js"></script>
 </body>
 </html>
