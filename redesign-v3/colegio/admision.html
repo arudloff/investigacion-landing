@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admisión · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .c-section{padding:28px 26px}
+    .c-tag{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,166,35,0.45);margin-bottom:8px;display:block}
+    .c-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:10px}
+    .c-h1 .amber{color:#F5A623}
+    .c-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:520px;margin-bottom:20px}
+    .c-warn{font-size:10px;color:rgba(245,166,35,0.55);background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.15);border-radius:6px;padding:4px 10px;display:inline-block;margin-top:10px}
+    .steps{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+    .step{display:flex;gap:14px;align-items:flex-start;padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:11px;transition:border-color .15s}
+    .step:hover{border-color:rgba(245,166,35,0.2)}
+    .step-n{width:32px;height:32px;border-radius:50%;background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#F5A623;flex-shrink:0;margin-top:1px}
+    .step-t{font-size:13px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:4px}
+    .step-d{font-size:12px;color:rgba(232,237,245,0.45);line-height:1.55}
+    .visita-cta{margin-top:20px;padding:22px 20px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .vc-t{font-size:16px;font-weight:800;color:#F5A623;margin-bottom:5px}
+    .vc-d{font-size:12px;color:rgba(232,237,245,0.45);line-height:1.5;max-width:400px}
+    .vc-right{display:flex;flex-direction:column;align-items:center;gap:5px}
+    .vc-btn{padding:12px 24px;background:#F5A623;color:#0A1628;font-size:13px;font-weight:700;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;transition:all .15s;text-decoration:none;display:inline-block}
+    .vc-btn:hover{background:#BA7517;transform:translateY(-1px)}
+    .vc-meta{font-size:10px;color:rgba(232,237,245,0.3)}
+    .requisitos{margin-top:20px;padding:16px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(46,109,164,0.12);border-radius:10px}
+    .req-t{font-size:12px;font-weight:700;color:rgba(232,237,245,0.7);margin-bottom:8px}
+    .req-item{display:flex;gap:8px;font-size:11px;color:rgba(232,237,245,0.45);padding:4px 0;border-bottom:1px solid rgba(46,109,164,0.08);line-height:1.4}
+    .req-item:last-child{border-bottom:none}
+    .req-ic{flex-shrink:0;color:rgba(245,166,35,0.5)}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="c-section">
+      <span class="c-tag">Admisión</span>
+      <h1 class="c-h1">El proceso es simple.<br><span class="amber">Empieza con una visita.</span></h1>
+      <p class="c-lead">No hay prueba de selección académica. Buscamos familias que compartan la convicción de que la educación puede ser diferente — y que quieran ser parte activa de ese proceso.</p>
+      <div class="steps">
+        <div class="step"><div class="step-n">1</div><div><div class="step-t">Agenda una visita</div><div class="step-d">Conoce el colegio en persona. Sin compromiso. Con todas tus preguntas. El modelo educativo no se describe en detalle — se vive.</div></div></div>
+        <div class="step"><div class="step-n">2</div><div><div class="step-t">Conversación con el equipo directivo</div><div class="step-d">Entendemos el contexto de tu familia y respondemos lo que el sitio no puede responder. Es una conversación, no una entrevista de selección.</div></div></div>
+        <div class="step"><div class="step-n">3</div><div><div class="step-t">Jornada de observación para el estudiante</div><div class="step-d">Tu hijo vive un día normal en el colegio antes de decidir. Participa en clases reales y conoce a sus potenciales compañeros y docentes.</div></div></div>
+        <div class="step"><div class="step-n">4</div><div><div class="step-t">Matrícula</div><div class="step-d">Si ambas partes deciden seguir adelante, completamos el proceso administrativo. Fechas y disponibilidad de vacantes se informan durante la visita.</div></div></div>
+      </div>
+      <div class="requisitos">
+        <div class="req-t">Documentación requerida</div>
+        <div class="req-item"><span class="req-ic">→</span>Certificado de nacimiento del estudiante</div>
+        <div class="req-item"><span class="req-ic">→</span>Certificado de notas del año anterior</div>
+        <div class="req-item"><span class="req-ic">→</span>Informe del establecimiento de procedencia</div>
+        <div class="req-item"><span class="req-ic">→</span>Cédula de identidad del apoderado</div>
+      </div>
+      <span class="c-warn">⚠ Actualizar con fechas reales del proceso · número de vacantes disponibles</span>
+      <div class="visita-cta">
+        <div><div class="vc-t">Agenda una visita — y vívelo en persona.</div><div class="vc-d">Todo lo que leíste en este sitio cobra sentido cuando entras al colegio. La visita es el primer paso de cualquier proceso.</div></div>
+        <div class="vc-right"><a class="vc-btn" href="#">Agendar visita →</a><div class="vc-meta">Respuesta en menos de 24 hrs</div></div>
+      </div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+</body>
+</html>

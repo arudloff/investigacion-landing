@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Familias · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .c-section{padding:28px 26px}
+    .c-tag{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,166,35,0.45);margin-bottom:8px;display:block}
+    .c-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:10px}
+    .c-h1 .amber{color:#F5A623}
+    .c-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:520px;margin-bottom:16px}
+    .c-cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .fam-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+    .ftab{padding:7px 16px;border-radius:20px;border:1px solid rgba(24,95,165,0.2);font-size:12px;font-weight:600;color:rgba(133,183,235,0.4);cursor:pointer;transition:all .15s;font-family:inherit}
+    .ftab.on{background:rgba(24,95,165,0.1);border-color:rgba(24,95,165,0.4);color:#85B7EB}
+    .fam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+    .fam-card{background:rgba(24,95,165,0.05);border:1px solid rgba(24,95,165,0.18);border-radius:11px;padding:16px}
+    .fam-q{font-size:10px;font-weight:700;color:rgba(133,183,235,0.55);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+    .fam-a{font-size:12px;color:rgba(232,237,245,0.7);line-height:1.6}
+    .fam-a strong{color:rgba(232,237,245,0.95)}
+    .fam-badge{display:inline-block;font-size:9px;font-weight:600;padding:2px 8px;border-radius:7px;background:rgba(24,95,165,0.15);color:rgba(133,183,235,0.7);margin-top:7px}
+    .fam-cta-box{margin-top:16px;padding:14px 16px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.18);border-radius:10px;font-size:12px;color:rgba(245,166,35,0.65);line-height:1.5}
+    .fam-cta-box a{color:#F5A623;font-weight:700;text-decoration:none}
+    .programa-box{margin-top:20px;padding:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(46,109,164,0.15);border-radius:11px}
+    .pb-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(245,166,35,0.45);margin-bottom:6px}
+    .pb-title{font-size:14px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:6px}
+    .pb-desc{font-size:12px;color:rgba(232,237,245,0.45);line-height:1.6}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="c-section">
+      <span class="c-tag">Familias</span>
+      <h1 class="c-h1">¿Qué pasa con tu hijo<br><span class="amber">mientras está aquí?</span></h1>
+      <p class="c-lead">Las preguntas que toda familia hace — respondidas con honestidad.</p>
+      <div class="fam-tabs">
+        <div class="ftab on" id="tab-actual" onclick="switchTab('actual')">Soy apoderado de este colegio</div>
+        <div class="ftab" id="tab-prospecto" onclick="switchTab('prospecto')">Estoy considerando este colegio</div>
+      </div>
+      <div id="panel-actual">
+        <div class="fam-grid">
+          <div class="fam-card"><div class="fam-q">¿Cómo sé que mi hijo está aprendiendo?</div><div class="fam-a">No por nota — por lo que hace con lo que sabe. Tu hijo llega a casa con <strong>preguntas, no solo con respuestas.</strong></div><span class="fam-badge">Evaluación formativa · OCDE</span></div>
+          <div class="fam-card"><div class="fam-q">¿Cómo participo en el proceso educativo?</div><div class="fam-a">Las familias no son espectadores — son parte del modelo. Hay <strong>espacios formales de co-construcción</strong> donde tu perspectiva cambia lo que pasa en el aula.</div><span class="fam-badge">Programa Familias para el Siglo XXI</span></div>
+          <div class="fam-card"><div class="fam-q">¿Cómo sé que el modelo funciona?</div><div class="fam-a">El CEPAH mide con el ICAF — instrumento propio con respaldo de la U. Autónoma. <strong>Los resultados son públicos.</strong></div><span class="fam-badge">Informe Técnico v9.0 · disponible</span></div>
+          <div class="fam-card"><div class="fam-q">¿Qué hago si tengo una preocupación?</div><div class="fam-a">Hay canales directos con el equipo docente y el equipo de orientación. El diálogo no es un extra — <strong>es parte del modelo de acompañamiento.</strong></div><span class="fam-badge">Orientación · Comunicación directa</span></div>
+        </div>
+      </div>
+      <div id="panel-prospecto" style="display:none">
+        <div class="fam-grid">
+          <div class="fam-card"><div class="fam-q">¿Para qué tipo de estudiante es este colegio?</div><div class="fam-a">Para jóvenes que tienen curiosidad, aunque todavía no la hayan desarrollado del todo. El modelo <strong>activa el pensamiento</strong> — no selecciona a quienes ya lo tienen.</div><span class="fam-badge">Admisión sin prueba académica</span></div>
+          <div class="fam-card"><div class="fam-q">¿Y si mi hijo viene de un colegio muy distinto?</div><div class="fam-a">La transición tiene acompañamiento. Los primeros meses están diseñados para que el estudiante descubra que tiene <strong>más capacidades de las que le habían permitido usar.</strong></div><span class="fam-badge">Protocolo de integración</span></div>
+          <div class="fam-card"><div class="fam-q">¿Qué rol tiene la familia en este modelo?</div><div class="fam-a">Activo. No se trata solo de ir a reuniones de apoderados. El modelo incluye <strong>espacios de formación y co-construcción</strong> para las familias que quieran profundizar.</div><span class="fam-badge">Programa Familias para el Siglo XXI</span></div>
+          <div class="fam-card"><div class="fam-q">¿Cómo empezar el proceso?</div><div class="fam-a">Con una visita. El modelo educativo no se describe en detalle — <strong>se vive.</strong></div><span class="fam-badge">Sin compromiso · Respuesta en 24 hrs</span></div>
+        </div>
+      </div>
+      <div class="programa-box">
+        <div class="pb-tag">Programa exclusivo</div>
+        <div class="pb-title">Familias para el Siglo XXI</div>
+        <div class="pb-desc">Un programa de formación y participación para las familias del colegio. No es una charla anual — es un proceso continuo de diálogo, reflexión y co-construcción del modelo educativo.</div>
+      </div>
+      <div class="fam-cta-box">¿Hay algo más que quieras preguntarnos? Las mejores conversaciones pasan en persona. → <a href="admision.html">Agenda una visita</a></div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+  <script>
+    function switchTab(tab) {
+      document.getElementById('panel-actual').style.display = tab === 'actual' ? 'block' : 'none';
+      document.getElementById('panel-prospecto').style.display = tab === 'prospecto' ? 'block' : 'none';
+      document.getElementById('tab-actual').classList.toggle('on', tab === 'actual');
+      document.getElementById('tab-prospecto').classList.toggle('on', tab === 'prospecto');
+    }
+  </script>
+</body>
+</html>

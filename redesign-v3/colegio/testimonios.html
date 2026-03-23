@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonios · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .c-section{padding:28px 26px}
+    .c-tag{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,166,35,0.45);margin-bottom:8px;display:block}
+    .c-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:10px}
+    .c-h1 .amber{color:#F5A623}
+    .c-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:520px;margin-bottom:20px}
+    .c-cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .c-warn{font-size:10px;color:rgba(245,166,35,0.55);background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.15);border-radius:6px;padding:4px 10px;display:inline-block;margin-top:10px}
+    .filter-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+    .filter{padding:5px 12px;border-radius:14px;border:1px solid rgba(46,109,164,0.15);font-size:10px;font-weight:600;color:rgba(232,237,245,0.4);cursor:pointer;transition:all .15s;font-family:inherit}
+    .filter.on{background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.3);color:#F5A623}
+    .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+    .test{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.15);border-radius:11px;padding:18px}
+    .test-q{font-size:13px;color:rgba(232,237,245,0.7);line-height:1.6;font-style:italic;margin-bottom:14px}
+    .test-q::before{content:'"';font-size:24px;color:rgba(245,166,35,0.3);line-height:0;vertical-align:-8px;margin-right:3px}
+    .test-person{display:flex;align-items:center;gap:10px}
+    .test-av{width:36px;height:36px;border-radius:50%;background:rgba(46,109,164,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:rgba(100,150,200,0.7);flex-shrink:0}
+    .test-name{font-size:12px;font-weight:600;color:rgba(232,237,245,0.75)}
+    .test-role{font-size:10px;color:rgba(232,237,245,0.35);margin-top:1px}
+    .test-tag{display:inline-block;font-size:8px;font-weight:700;padding:2px 7px;border-radius:6px;margin-top:4px}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="c-section">
+      <span class="c-tag">Testimonios</span>
+      <h1 class="c-h1">No lo decimos nosotros.<br><span class="amber">Lo dicen ellos.</span></h1>
+      <p class="c-lead">Familias, docentes, estudiantes e investigadores — cada uno desde su propia experiencia con el modelo.</p>
+      <div class="filter-row">
+        <div class="filter on" onclick="filterTest('todos',this)">Todos</div>
+        <div class="filter" onclick="filterTest('familia',this)">Familias</div>
+        <div class="filter" onclick="filterTest('docente',this)">Docentes</div>
+        <div class="filter" onclick="filterTest('estudiante',this)">Estudiantes</div>
+        <div class="filter" onclick="filterTest('investigador',this)">Investigadores</div>
+      </div>
+      <div class="test-grid" id="test-grid">
+        <div class="test" data-tipo="familia"><div class="test-q">Lo que más me sorprendió fue ver cómo mi hija llegó a casa con preguntas — no con respuestas. Eso no lo había visto en ningún colegio anterior.</div><div class="test-person"><div class="test-av">MP</div><div><div class="test-name">María P.</div><div class="test-role">Apoderada · 3er año básico</div><span class="test-tag" style="background:rgba(24,95,165,0.12);color:rgba(133,183,235,0.7)">Familia</span></div></div></div>
+        <div class="test" data-tipo="docente"><div class="test-q">Como docente, fue la primera vez que trabajé en un colegio donde la metodología es una conversación continua — no un manual que se cumple.</div><div class="test-person"><div class="test-av">JR</div><div><div class="test-name">Javier R.</div><div class="test-role">Docente · Lenguaje y Comunicación</div><span class="test-tag" style="background:rgba(31,107,59,0.12);color:rgba(97,195,130,0.7)">Docente</span></div></div></div>
+        <div class="test" data-tipo="estudiante"><div class="test-q">Aquí nadie me dijo cómo tenía que resolver el problema. Me preguntaron qué se me ocurría. Y resultó mejor de lo que pensaba.</div><div class="test-person"><div class="test-av">MS</div><div><div class="test-name">Martín S.</div><div class="test-role">Estudiante · 2° medio</div><span class="test-tag" style="background:rgba(83,74,183,0.12);color:rgba(175,169,236,0.7)">Estudiante</span></div></div></div>
+        <div class="test" data-tipo="investigador"><div class="test-q">Los datos del ICAF nos mostraron algo que no esperábamos: los estudiantes mejoran más en regulación emocional que en cualquier otra dimensión.</div><div class="test-person"><div class="test-av">AU</div><div><div class="test-name">Dra. Ana U.</div><div class="test-role">Investigadora · U. Autónoma</div><span class="test-tag" style="background:rgba(13,92,99,0.12);color:rgba(29,158,117,0.7)">Investigador</span></div></div></div>
+        <div class="test" data-tipo="familia"><div class="test-q">Mi hijo salió del colegio sabiendo trabajar con personas que piensan diferente a él. En la empresa eso vale más que cualquier nota.</div><div class="test-person"><div class="test-av">CR</div><div><div class="test-name">Carlos R.</div><div class="test-role">Apoderado · exalumno egresado 2023</div><span class="test-tag" style="background:rgba(24,95,165,0.12);color:rgba(133,183,235,0.7)">Familia</span></div></div></div>
+        <div class="test" data-tipo="docente"><div class="test-q">El modelo te obliga a confiar en el estudiante. Al principio da vértigo. Después ves los resultados y no quieres volver a enseñar de otra forma.</div><div class="test-person"><div class="test-av">SC</div><div><div class="test-name">Sandra C.</div><div class="test-role">Docente · Matemáticas</div><span class="test-tag" style="background:rgba(31,107,59,0.12);color:rgba(97,195,130,0.7)">Docente</span></div></div></div>
+      </div>
+      <span class="c-warn">⚠ Reemplazar por testimonios reales con nombres, fotos y autorización firmada</span>
+      <div class="c-cta-row"><a class="v3-btn" href="admision.html">Agenda una visita →</a></div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+  <script>
+    function filterTest(tipo, el) {
+      document.querySelectorAll('.filter').forEach(function(f) { f.classList.remove('on'); });
+      el.classList.add('on');
+      document.querySelectorAll('.test').forEach(function(t) {
+        t.style.display = (tipo === 'todos' || t.dataset.tipo === tipo) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

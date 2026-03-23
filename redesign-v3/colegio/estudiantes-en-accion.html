@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudiantes en Acción · Colegio Camilo Henríquez</title>
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .c-section{padding:28px 26px}
+    .c-tag{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,166,35,0.45);margin-bottom:8px;display:block}
+    .c-h1{font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:10px}
+    .c-h1 .amber{color:#F5A623}
+    .c-lead{font-size:13px;color:rgba(232,237,245,0.5);line-height:1.65;max-width:520px;margin-bottom:20px}
+    .c-cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .c-warn{font-size:10px;color:rgba(245,166,35,0.55);background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.15);border-radius:6px;padding:4px 10px;display:inline-block;margin-top:10px}
+    .proy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:4px}
+    .proy{background:rgba(255,255,255,0.03);border:1px solid rgba(46,109,164,0.18);border-radius:11px;overflow:hidden;transition:border-color .15s}
+    .proy:hover{border-color:rgba(245,166,35,0.28)}
+    .proy-img{background:rgba(46,109,164,0.1);height:140px;display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(232,237,245,0.2);text-align:center;line-height:1.5}
+    .proy-body{padding:14px}
+    .proy-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(245,166,35,0.5);margin-bottom:5px}
+    .proy-t{font-size:13px;font-weight:700;color:rgba(232,237,245,0.9);margin-bottom:5px;line-height:1.3}
+    .proy-d{font-size:11px;color:rgba(232,237,245,0.45);line-height:1.45;margin-bottom:8px}
+    .proy-meta{display:flex;gap:10px;flex-wrap:wrap}
+    .proy-m{font-size:9px;font-weight:600;color:rgba(232,237,245,0.3)}
+    .pending-note{margin-top:20px;padding:16px 18px;background:rgba(245,166,35,0.05);border:1px dashed rgba(245,166,35,0.2);border-radius:10px}
+    .pn-title{font-size:12px;font-weight:700;color:rgba(245,166,35,0.7);margin-bottom:5px}
+    .pn-text{font-size:11px;color:rgba(232,237,245,0.4);line-height:1.55}
+    .pn-list{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+    .pn-item{font-size:10px;color:rgba(232,237,245,0.35);display:flex;gap:6px}
+  </style>
+</head>
+<body>
+  <main id="v3-content">
+    <div class="c-section">
+      <span class="c-tag">Nuestros Estudiantes en Acción</span>
+      <h1 class="c-h1">Esto no se describe.<br><span class="amber">Se vive.</span></h1>
+      <p class="c-lead">Fotos del proceso, no del resultado. Porque el aprendizaje ocurre en el camino — en el momento en que el estudiante no sabe aún si va a funcionar.</p>
+      <div class="proy-grid">
+        <div class="proy">
+          <div class="proy-img">📷<br>Foto real del proceso<br>pendiente de producción</div>
+          <div class="proy-body">
+            <div class="proy-tag">Pensamiento crítico · 7° básico</div>
+            <div class="proy-t">Verificadores de hechos: investigamos una noticia falsa</div>
+            <div class="proy-d">Equipos de 4 estudiantes investigan una noticia viral. Rastrean fuentes, entrevistan a expertos y publican su veredicto en el mural del colegio.</div>
+            <div class="proy-meta"><span class="proy-m">3 semanas</span><span class="proy-m">24 estudiantes</span><span class="proy-m">6 fuentes verificadas</span></div>
+          </div>
+        </div>
+        <div class="proy">
+          <div class="proy-img">📷<br>Foto real del proceso<br>pendiente de producción</div>
+          <div class="proy-body">
+            <div class="proy-tag">Colaboración · 5° básico</div>
+            <div class="proy-t">Diseñamos una solución para el patio de recreo</div>
+            <div class="proy-d">Los estudiantes identifican un problema real del espacio escolar, diseñan una solución, la prototipan y la presentan al equipo directivo.</div>
+            <div class="proy-meta"><span class="proy-m">4 semanas</span><span class="proy-m">18 estudiantes</span><span class="proy-m">Prototipo real</span></div>
+          </div>
+        </div>
+        <div class="proy">
+          <div class="proy-img">📷<br>Foto real del proceso<br>pendiente de producción</div>
+          <div class="proy-body">
+            <div class="proy-tag">Emprendimiento · 1° medio</div>
+            <div class="proy-t">Empresa real, mercado real, aprendizaje real</div>
+            <div class="proy-d">Cada equipo identifica un problema de su comunidad, diseña una propuesta de valor, la valida con clientes reales y presenta sus resultados.</div>
+            <div class="proy-meta"><span class="proy-m">8 semanas</span><span class="proy-m">30 estudiantes</span><span class="proy-m">$140.000 recaudados</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pending-note">
+        <div class="pn-title">⚠ Esta sección requiere contenido en terreno</div>
+        <div class="pn-text">Los proyectos están descritos con datos reales. Las fotografías del proceso deben ser capturadas en el colegio antes de publicar esta sección.</div>
+        <div class="pn-list">
+          <div class="pn-item"><span>→</span>Fotos del proceso de cada proyecto (no del resultado)</div>
+          <div class="pn-item"><span>→</span>2–3 proyectos adicionales de distintos niveles y ejes</div>
+          <div class="pn-item"><span>→</span>Autorización de familias para publicar imágenes de estudiantes</div>
+        </div>
+      </div>
+      <div class="c-cta-row">
+        <a class="v3-btn" href="admision.html">Agenda una visita →</a>
+        <a class="v3-btn-ghost" href="familias.html">Ver sección Familias</a>
+      </div>
+    </div>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="subnav.js"></script>
+</body>
+</html>

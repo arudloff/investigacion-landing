@@ -46,7 +46,8 @@
   sidebar.id = 'v3-sidebar';
 
   var itemsHTML = LAYERS.map(function(l) {
-    var active = currentFile === l.id || currentFile === l.href.replace('.html', '') || (currentFile.indexOf(l.id) === 0);
+    var pathStr = window.location.pathname;
+    var active = currentFile === l.id || currentFile === l.href.replace('.html', '') || (currentFile.indexOf(l.id) === 0) || (pathStr.indexOf('/' + l.id + '/') !== -1);
     return '<a class="v3-si ' + (active ? 'v3-si--active' : '') + '" href="' + l.href + '" data-id="' + l.id + '" data-short="' + l.short + '">' +
       '<span class="v3-si-icon" style="background:' + l.color + '">' + l.icon + '</span>' +
       '<span><span class="v3-si-title">' + l.label + '</span><span class="v3-si-sub">' + l.sub + '</span></span>' +
